@@ -120,6 +120,30 @@ JewelTheme.isDark
 Use those instead of literals when you draw something custom next to Jewel components. That
 is what keeps your own drawing in step when the theme changes.
 
+## Islands themes
+
+[Islands](https://plugins.jetbrains.com/docs/intellij/supporting-islands-theme.html) is a
+variant of the New UI with its own themes. Jewel reads its colour palette, but the palette
+is indexed differently, and that difference is easy to miss.
+
+Classic palettes number their colours `1, 2, 3`. Islands palettes number them
+`10, 20, 30`. So the Islands equivalent of `blueOrNull(1)` is `blueOrNull(10)`, and
+`redOrNull(3)` becomes `redOrNull(30)`. Use the scheme that belongs to the palette you
+are reading, which `ThemeColorPalette.isIslands` tells you.
+
+```kotlin
+val palette = JewelTheme.colorPalette
+val blue = if (palette.isIslands) palette.blueOrNull(10) else palette.blueOrNull(1)
+```
+
+Two more differences matter. An Islands palette is the same in light and dark, where a
+classic palette is not, and semantic tokens are layered on top of it. Jewel does not
+support those tokens yet, though you can read them from the Swing look and feel.
+
+The official Islands themes currently also carry the classic palette entries, so classic
+indices happen to work against them today. Do not rely on it. Third-party themes need
+not do the same, and neither need future official ones.
+
 ## See also
 
 - [The Swing bridge](swing-bridge.md) — the plugin side

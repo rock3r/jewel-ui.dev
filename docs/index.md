@@ -1,9 +1,23 @@
 # Jewel
 
-Jewel implements the IntelliJ Platform's New UI in Compose Multiplatform for desktop. It
-gives you the same components the IDE uses, built to the Int UI specs, so a Compose UI
-can sit inside an IntelliJ plugin without looking out of place, or run as a standalone
-desktop app that borrows the IDE's design.
+Jewel brings the IntelliJ IDEs' look to Compose Multiplatform for desktop. It gives you
+the same components the IDE uses, so a Compose UI can sit inside an IntelliJ plugin
+without looking out of place, or run as a standalone desktop app that borrows the IDE's
+design.
+
+Three names appear throughout these docs, and they are not interchangeable:
+
+- **[Int UI](https://www.figma.com/community/file/1227732692272811382/int-ui-kit)** is the
+  design system. It is the colours, metrics and component specs, published as a Figma kit.
+- **[New UI](https://www.jetbrains.com/help/idea/new-ui.html)** is the IntelliJ Platform's
+  implementation of Int UI. It is the interface you see in a recent IntelliJ IDE.
+- **[Islands](https://plugins.jetbrains.com/docs/intellij/supporting-islands-theme.html)**
+  is a theme variant with its own palette format. Jewel reads it; see
+  [Islands themes](guides/theming.md#islands-themes).
+
+Standalone, Jewel implements Int UI directly. In a plugin it does not: the Swing bridge
+reads whatever theme the running IDE has, so your UI follows the user's choice rather than
+a fixed copy of the specs.
 
 Jewel requires the JetBrains Runtime. Other JDKs are not supported.
 
