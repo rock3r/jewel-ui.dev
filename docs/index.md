@@ -1,9 +1,9 @@
 # Jewel
 
-Jewel implements the IntelliJ Platform's New UI in Compose for Desktop. It gives you the
-same components the IDE uses, built to the Int UI specs, so a Compose UI can sit
-inside an IntelliJ plugin without looking out of place, or run as a standalone desktop
-app that borrows the IDE's design.
+Jewel implements the IntelliJ Platform's New UI in Compose Multiplatform for desktop. It
+gives you the same components the IDE uses, built to the Int UI specs, so a Compose UI
+can sit inside an IntelliJ plugin without looking out of place, or run as a standalone
+desktop app that borrows the IDE's design.
 
 Jewel requires the JetBrains Runtime. Other JDKs are not supported.
 

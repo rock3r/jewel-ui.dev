@@ -94,8 +94,8 @@ yourself and have to call it explicitly. See [Swing interop](../guides/swing-int
 
 ## A note on support
 
-Writing third-party IntelliJ plugins in Compose for Desktop is not officially supported by
-the IntelliJ Platform. It works, and it is what several shipping products do, but if
+Writing third-party IntelliJ plugins in Compose Multiplatform is not officially supported
+by the IntelliJ Platform. It works, and it is what several shipping products do, but if
 something breaks at the platform level you are largely on your own.
 
 Jewel itself is below 1.0 and its APIs still move. What that means in practice — which
