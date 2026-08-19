@@ -67,7 +67,7 @@ You do not restyle anything to make this happen, and you do not maintain a mappi
 IDE colours to your own. [The Swing bridge](../guides/swing-bridge.md) explains what is
 read and what the limits are.
 
-`SwingBridgeTheme` is marked experimental. In practice it is the only way to theme a
+`SwingBridgeTheme` is annotated experimental. In practice it is the only way to theme a
 plugin and every Jewel-based plugin uses it, but the annotation is accurate: its signature
 can change. See [what stable and experimental mean](../versioning.md#what-is-stable-and-what-is-not).
 

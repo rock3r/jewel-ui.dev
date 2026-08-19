@@ -16,7 +16,7 @@ IntUiTheme(isDark = true) {
 ```
 
 `IssueList` does not change. This is not a coincidence of the current release: the
-component library (`org.jetbrains.jewel.ui.component`) and the foundation layer sit below
+component library (`org.jetbrains.jewel.ui.component`) and the foundation module sit below
 both themes, and neither depends on the IntelliJ Platform. The platform dependency is
 confined to the bridge module.
 

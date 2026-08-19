@@ -17,7 +17,7 @@ Icon(key = AllIconsKeys.General.Add, contentDescription = "Add")
 `AllIconsKeys` is generated from the platform's `AllIcons`, so anything the IDE ships is
 available by the name you already know. In a plugin it needs no setup — the icons are on
 the classpath. Standalone, add the icons artifact; see
-[Standalone setup](../start/standalone.md#platform-icons).
+[Platform icons in a standalone app](../start/standalone.md#platform-icons).
 
 Because icon paths shift between platform versions, use a Jewel version that matches the
 platform you target. Icons move between majors, and occasionally between minors.

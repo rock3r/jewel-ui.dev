@@ -37,7 +37,8 @@ available.
     ```
 
     If you hit this, your Gradle toolchain is almost certainly resolving a different JDK of
-    the right version. Pin the vendor — see [Standalone setup](../start/standalone.md#before-you-start).
+    the right version. Pin the vendor. See
+    [pinning the toolchain vendor](../start/standalone.md#before-you-start).
 
 ## The title bar
 
@@ -113,9 +114,9 @@ defaulting to null, in which case they follow the theme's light or dark setting.
 
 ## Which dependency
 
-Add `jewel-decorated-window`, as
-[Standalone setup](../start/standalone.md#dependencies) shows. Both the window primitives and
-the Int UI styling live in it.
+Add `jewel-decorated-window`, as the
+[standalone dependencies](../start/standalone.md#dependencies) section shows. Both the
+window primitives and the Int UI styling live in it.
 
 You may come across `jewel-int-ui-decorated-window`, and older material describing the two as
 an unstyled/styled split. That is no longer how it works: the Int UI styling sits in the same
