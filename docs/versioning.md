@@ -22,7 +22,7 @@ because the artifact has to match the platform you target. It is largely noise w
 are writing a standalone app, where you just want a recent one.
 
 The current mapping between Jewel versions and platform builds is on the
-[compatibility page](compatibility.md), generated from the Jewel repository.
+[compatibility page](compatibility/), generated from the Jewel repository.
 
 In a plugin you never write either number. The modules come from the platform, so the
 platform's version decides which Jewel you get.

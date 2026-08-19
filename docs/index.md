@@ -60,7 +60,7 @@ Task-first pages for the things people actually do:
 - [Components](../components/) — every component, with screenshots from the real thing
 - [Versions and compatibility](versioning.md) — how versions are numbered, and which
   Jewel goes with which IntelliJ Platform
-- [Releases](releases.md)
+- [Releases](releases/)
 - [API reference](../api/)
 
 ## Getting help
