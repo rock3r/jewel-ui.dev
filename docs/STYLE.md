@@ -26,9 +26,11 @@ voice, same standard of evidence.
    about visibility modifiers or how the implementation achieves the contract. If you
    are about to write "the implementation does X", ask whether X is load-bearing for
    the reader or whether you are narrating source. If it is narration, cut it.
-6. **Anything derived from the Jewel repo is generated, never hand-copied.** Version
-   tables, release notes, the skills list and the API reference come from the source at
-   build time. If you find yourself typing a version number into a guide, stop.
+6. **Anything derived from the Jewel repo is generated, never hand-copied.** Release notes,
+   the skills list and the API reference come from the source at build time. If you find
+   yourself typing a version number into a guide, stop. A hand-maintained version table is
+   what `VERSIONS.md` was, and it drifted six releases behind before anyone noticed. Do not
+   recreate it here.
 
 ## Writing for the reader
 

@@ -21,8 +21,10 @@ standalone use. If two artifacts share a Jewel version, they expose the same API
 because the artifact has to match the platform you target. It is largely noise when you
 are writing a standalone app, where you just want a recent one.
 
-The current mapping between Jewel versions and platform builds is on the
-[compatibility page](compatibility/), generated from the Jewel repository.
+Each entry in the [release notes](releases/) records the minimum supported platform version and
+the Compose Multiplatform version that release was built against. For what is actually
+published, [Maven Central](https://central.sonatype.com/namespace/org.jetbrains.jewel) is the
+authoritative list.
 
 In a plugin you never write either number. The modules come from the platform, so the
 platform's version decides which Jewel you get.
