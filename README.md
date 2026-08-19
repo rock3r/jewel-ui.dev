@@ -14,11 +14,9 @@ build-site.mjs     renders src/Main.dc.html into public/
 wrangler.jsonc     Worker + static asset config
 ```
 
-`src/Main.dc.html` is the single source of truth for the page. It carries the
-whole design in one file and exposes a `part` prop so the design canvas can show
-it in slices; the build stitches all four back into one continuous page, keeps
+`src/Main.dc.html` is the single source of truth for the page. The build keeps
 both theme variants in the DOM so the light/dark toggle is instant, and wires up
-the two real interactions.
+the two real interactions (the theme toggle and the setup popover).
 
 ## Build
 

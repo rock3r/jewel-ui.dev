@@ -264,7 +264,6 @@
 
 <div class="page" data-theme="{{theme}}">
 
-  <sc-if value="{{pa}}" hint-placeholder-val="{{ true }}">
   <!-- ══════════ NAV ══════════ -->
   <div style="position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line)">
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 0 40px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
@@ -496,9 +495,6 @@
     </div>
   </div>
 
-  </sc-if>
-
-  <sc-if value="{{pb}}" hint-placeholder-val="{{ false }}">
   <!-- ══════════ THE LOOK ══════════ -->
   <div id="look" class="sec" style="border-bottom: 1px solid var(--line); background: var(--panel)">
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 100px 40px">
@@ -566,9 +562,6 @@
     </div>
   </div>
 
-  </sc-if>
-
-  <sc-if value="{{pc}}" hint-placeholder-val="{{ false }}">
   <!-- ══════════ THE SMART THINGS ══════════ -->
   <div id="smart" class="sec" style="border-bottom: 1px solid var(--line)">
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 100px 40px">
@@ -670,9 +663,6 @@
     </div>
   </div>
 
-  </sc-if>
-
-  <sc-if value="{{pd}}" hint-placeholder-val="{{ false }}">
   <!-- ══════════ WHAT'S NEXT ══════════ -->
   <div id="next" class="sec" style="border-bottom: 1px solid var(--line)">
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 100px 40px">
@@ -798,15 +788,12 @@
     </div>
   </div>
 
-  </sc-if>
-
 </div>
 </x-dc>
 
 <script data-dc-script data-props='{
   "dark": {"editor": "boolean", "default": true, "section": "Theme"},
-  "part": {"editor": "enum", "options": ["a", "b", "c", "d"], "default": "a", "section": "Slice"},
-  "$preview": {"width": 1440, "height": 11900}
+  "$preview": {"width": 1440, "height": 10400}
 }'>
 class Component extends DCLogic {
   constructor(props) {
@@ -819,7 +806,6 @@ class Component extends DCLogic {
     const s = this.state || {};
     const theme = (s.themeFor === propDark && s.theme) ? s.theme : (propDark ? 'dark' : 'light');
     const isDark = theme === 'dark';
-    const part = this.props.part ?? 'a';
 
 
     const why = [
@@ -1015,10 +1001,6 @@ class Component extends DCLogic {
     );
 
     return {
-      pa: part === 'a',
-      pb: part === 'b',
-      pc: part === 'c',
-      pd: part === 'd',
       theme,
       isDark,
       isLight: !isDark,

@@ -1,6 +1,6 @@
 // Builds the production jewel-ui.dev page from the design source (Main.dc.html).
-// The design is the single source of truth; this renders all four slices into one
-// page, keeps both theme variants in the DOM, and wires the two real interactions.
+// Keeps both theme variants in the DOM so the toggle is instant, and wires up the
+// two real interactions (theme toggle, setup popover).
 import { readFileSync, writeFileSync, mkdirSync, copyFileSync, readdirSync } from 'node:fs';
 import { join } from 'node:path';
 
@@ -87,20 +87,17 @@ function substitute(html, scope) {
     });
 }
 
-// Render every slice and stitch them back into one continuous page.
-const slices = ['a', 'b', 'c', 'd'].map((part) => {
-  const defaults = {};
-  for (const [k, v] of Object.entries(props)) if (!k.startsWith('$')) defaults[k] = v.default;
-  defaults.part = part;
-  defaults.dark = true;
-  const vals = new Component(defaults).renderVals();
-  const html = render(body, vals);
-  const open = html.indexOf('>', html.indexOf('<div class="page"')) + 1;
-  const close = html.lastIndexOf('</div>');
-  return html.slice(open, close);
-});
+const defaults = {};
+for (const [k, v] of Object.entries(props)) if (!k.startsWith('$')) defaults[k] = v.default;
+defaults.dark = true;
+const vals = new Component(defaults).renderVals();
+const rendered = render(body, vals);
+const pageInner = rendered.slice(
+  rendered.indexOf('>', rendered.indexOf('<div class="page"')) + 1,
+  rendered.lastIndexOf('</div>')
+);
 
-const unresolved = slices.join('').match(/\{\{[^}]*\}\}|<sc-(for|if)/g);
+const unresolved = pageInner.match(/\{\{[^}]*\}\}|<sc-(for|if)/g);
 if (unresolved) {
   console.error('UNRESOLVED:', [...new Set(unresolved)].join(', '));
   process.exitCode = 1;
@@ -177,7 +174,7 @@ ${helmet.trim()}
 </head>
 <body>
 <div class="page" data-theme="dark">
-${slices.join('\n')}
+${pageInner}
 </div>
 <script>${JS}</script>
 </body>
@@ -202,4 +199,4 @@ writeFileSync(join(OUT, 'favicon.svg'), `<svg xmlns="http://www.w3.org/2000/svg"
 </svg>
 `);
 
-console.log(`built ${join(OUT, 'index.html')} — ${(page.length / 1024).toFixed(0)} KB of HTML, ${slices.length} slices stitched`);
+console.log(`built ${join(OUT, 'index.html')} — ${(page.length / 1024).toFixed(0)} KB of HTML, built from ${SRC}`);
