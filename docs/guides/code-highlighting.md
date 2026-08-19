@@ -6,7 +6,7 @@ default is already wired up.
 
 ## In a standalone app
 
-You do not have to do anything. `ProvideMarkdownStyling` supplies a highlighter by default,
+No setup is needed. `ProvideMarkdownStyling` supplies a highlighter by default,
 using light or dark syntax colours to match the theme. Render Markdown with a fenced code
 block and it is highlighted.
 

@@ -20,13 +20,13 @@ component library (`org.jetbrains.jewel.ui.component`) and the foundation layer 
 both themes, and neither depends on the IntelliJ Platform. The platform dependency is
 confined to the bridge module.
 
-That portability is worth designing for, because two useful things fall out of it.
+That portability is worth designing for, because two useful things follow from it.
 
 ## Keep the platform at the edge
 
 The constraint is simple: **no IntelliJ Platform types in your composables.**
 
-A composable that takes a `Project`, reaches for a `Service`, or resolves a `VirtualFile`
+A composable that takes a `Project`, requests a `Service`, or resolves a `VirtualFile`
 can only ever run inside the IDE. One that takes plain data and callbacks runs anywhere.
 
 ```kotlin
@@ -52,7 +52,7 @@ interface IssueSource {
 }
 ```
 
-In the plugin, the implementation reaches into the platform. In a test or a standalone
+In the plugin, the implementation calls into the platform. In a test or a standalone
 harness, it returns whatever you want. The composable neither knows nor cares.
 
 None of this is specific to Jewel — it is ordinary separation of concerns — but Jewel is
@@ -64,7 +64,7 @@ Once your composables have no platform types, they can be tested against the sta
 theme in a plain JVM test. No sandbox IDE, no platform fixture, no waiting for an IDE to
 start.
 
-That is faster, and it is also more honest: the test exercises your UI rather than the
+That is faster, and it is also more accurate: the test exercises your UI rather than the
 harness around it. Platform-hosted UI tests are slow and prone to flaking on things that
 have nothing to do with the code under test, and a test that fails for unrelated reasons
 gets ignored.
@@ -75,9 +75,8 @@ render it under `IntUiTheme`, and assert on what it shows.
 ## And reusable
 
 The same screen can ship inside an IDE plugin and inside a standalone desktop app, from one
-source tree, with no forked UI code to keep in step. If you have ever wanted a companion
-desktop app for a plugin, or a plugin for a desktop app, this is the part that makes it
-merely work rather than a rewrite.
+source tree, with no forked UI code to keep in step. A companion desktop app for a
+plugin, or a plugin for a desktop app, becomes ordinary work rather than a rewrite.
 
 ## The caveat
 

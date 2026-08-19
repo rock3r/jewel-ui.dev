@@ -21,8 +21,8 @@ fun Heading() {
 }
 ```
 
-It carries the heading scale (`h0TextStyle` through `h4TextStyle`), the label style and its
-size, the `regular`, `medium` and `small` variants, and `editorTextStyle` and
+It defines the heading scale (`h0TextStyle` through `h4TextStyle`), the label style and
+its size, the `regular`, `medium` and `small` variants, and `editorTextStyle` and
 `consoleTextStyle`.
 
 ## Deriving a style
@@ -61,9 +61,9 @@ expects and uses them as defaults: `FontFamily.Inter` for UI text and JetBrains 
 editor text, both in `org.jetbrains.jewel.intui.standalone`. Unless you override the theme's
 text styles, you get them without doing anything.
 
-For anything else, the APIs you need are **Compose Multiplatform's, not Jewel's** — a
-distinction the README blurs and worth being clear about, because it tells you where to
-look when something misbehaves:
+For anything else, the APIs you need are **Compose Multiplatform's, not Jewel's**. The
+README blurs this distinction. It matters because it tells you where to look when
+something misbehaves:
 
 ```kotlin
 import androidx.compose.ui.text.font.FontFamily

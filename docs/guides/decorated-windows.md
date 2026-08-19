@@ -120,7 +120,7 @@ the Int UI styling live in it.
 You may come across `jewel-int-ui-decorated-window`, and older material describing the two as
 an unstyled/styled split. That is no longer how it works: the Int UI styling sits in the same
 module as the primitives, and `int-ui-decorated-window` is an older artifact kept for
-compatibility that carries no code of its own. New code should depend on
+compatibility that contains no code of its own. New code should depend on
 `jewel-decorated-window` directly.
 
 ## See also

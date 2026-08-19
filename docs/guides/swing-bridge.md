@@ -4,8 +4,9 @@ Inside the IDE, Jewel does not approximate the current theme. It reads it.
 
 `SwingBridgeTheme` pulls colours, typography, metrics and icon palettes out of the running
 IntelliJ Platform's Swing look and feel, and supplies them to Compose as a Jewel theme. The
-user switches to the dark theme, installs a theme from the Marketplace, or bumps the IDE
-font size, and your Compose UI follows — with no mapping table on your side to maintain.
+user switches to the dark theme, installs a theme from the Marketplace, or increases the
+IDE font size, and your Compose UI follows, with no mapping table on your side to
+maintain.
 
 ```kotlin
 import androidx.compose.runtime.Composable
@@ -25,7 +26,7 @@ signature can change, not that it is unfinished.
 
 ## What it actually reads
 
-Worth knowing, because it tells you what will and will not follow the theme.
+This matters, because it tells you what will and will not follow the theme.
 
 **Colours** come from the platform's named colour keys, via `JBColor`. If a theme defines
 a key through the standard theming mechanism, the bridge picks it up.
@@ -52,7 +53,7 @@ nothing to read: the appearance lives in painting code, not in values. Those the
 not supported and cannot be.
 
 This is rarely a problem in practice — themes on the Marketplace overwhelmingly use the
-standard mechanism — but it is the honest boundary.
+standard mechanism — but it is the real boundary.
 
 ## Swing compatibility mode
 
@@ -70,7 +71,7 @@ different standalone and in the IDE — see the caveat in
 `SwingBridgeTheme` and `IntUiTheme` are interchangeable at the call site. Both establish a
 Jewel theme; everything inside the content lambda is the same API. The difference is where
 the values come from: the bridge reads them from the running IDE, while `IntUiTheme`
-carries the Int UI specs as data.
+holds the Int UI specs as data.
 
 That means a plugin's UI code is not bridge-specific. If you keep IntelliJ Platform types
 out of your composables, the same screen renders standalone — which is the basis for

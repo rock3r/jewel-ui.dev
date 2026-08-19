@@ -1,7 +1,7 @@
 # Icons
 
 Ask Jewel for an icon by key and it does what the IDE does: picks the New UI path, patches
-the SVG's key colours for the current theme, selects the dark variant, and reaches for the
+the SVG's key colours for the current theme, selects the dark variant, and uses the
 `@2x` bitmap when the display warrants it. You call one composable; the pipeline behind it
 is the same one the platform uses.
 
@@ -50,7 +50,7 @@ generates its own the same way.
 the image, decorate it, or do nothing at all — `PainterHint.None` exists precisely so you
 can pass a hint unconditionally and let it opt out.
 
-The ones you will reach for live in `org.jetbrains.jewel.ui.painter.hints` and are
+The most useful ones live in `org.jetbrains.jewel.ui.painter.hints` and are
 functions, not types you construct:
 
 - `Size(size)` or `Size(width, height)` — select a specific icon size

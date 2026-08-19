@@ -37,7 +37,7 @@ IntelliJ Platform releases.
 ## Wrap your UI
 
 Plugins use `SwingBridgeTheme`, not the standalone theme. It reads the IDE's current Swing
-look and feel and hands it to Compose, so your panel matches whatever theme the user has
+look and feel and passes it to Compose, so your panel matches whatever theme the user has
 chosen — including third-party themes you have never seen.
 
 ```kotlin
@@ -68,7 +68,7 @@ IDE colours to your own. [The Swing bridge](../guides/swing-bridge.md) explains 
 read and what the limits are.
 
 `SwingBridgeTheme` is marked experimental. In practice it is the only way to theme a
-plugin and every Jewel-based plugin uses it, but the annotation is honest: its signature
+plugin and every Jewel-based plugin uses it, but the annotation is accurate: its signature
 can change. See [what stable and experimental mean](../versioning.md#what-is-stable-and-what-is-not).
 
 ## Adding it to a tool window
@@ -88,7 +88,7 @@ class MyToolWindowFactory : ToolWindowFactory {
 }
 ```
 
-`addComposeTab` calls `enableNewSwingCompositing()` for you. For any other surface — a
+`addComposeTab` calls `enableNewSwingCompositing()` for you. For anywhere else — a
 dialog, a settings page, an editor notification — you are creating the `ComposePanel`
 yourself and have to call it explicitly. See [Swing interop](../guides/swing-interop.md).
 

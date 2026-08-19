@@ -4,8 +4,8 @@ Short version: Jewel does not support running under ProGuard, R8 or similar tool
 there is no plan to.
 
 That is not a soft warning. Bug reports for issues caused by minification or obfuscation
-are not accepted, because the failure modes are opaque and the configuration surface is
-unbounded.
+are not accepted, because the failure modes are opaque and the range of possible
+configurations is unbounded.
 
 ## If you do it anyway
 

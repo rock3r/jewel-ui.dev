@@ -65,8 +65,8 @@ expensive under it than they would otherwise be. That is a Compose Multiplatform
 requiring changes in the Java runtime, not something Jewel can work around.
 
 In practice this rarely bites, because IDE UI is not usually animating continuously. If you
-have an always-running spinner in a panel that is always visible, it is worth knowing where
-the cost comes from.
+have an always-running spinner in a panel that is always visible, this is where the cost
+comes from.
 
 ## See also
 

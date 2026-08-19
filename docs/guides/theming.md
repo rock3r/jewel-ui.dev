@@ -40,7 +40,7 @@ bridge sets it for you in a plugin.
 
 ## Building a theme definition
 
-A theme definition carries the palette, the metrics and the base text styles. Build one from
+A theme definition holds the palette, the metrics and the base text styles. Build one from
 the Int UI defaults and change what you need:
 
 ```kotlin
@@ -108,7 +108,7 @@ stops following the user's light/dark choice, which is the thing Jewel is for.
 
 ## Reading theme values
 
-Anything the theme carries is available through `JewelTheme`:
+Anything in the theme is available through `JewelTheme`:
 
 ```kotlin
 JewelTheme.globalColors

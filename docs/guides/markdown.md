@@ -59,7 +59,7 @@ renderer, and the code highlighter.
 With the extensions above, you get tables, strikethrough, autolinks, front matter, images,
 and GitHub's alert blocks. The alert kinds are the five that GitHub defines — **Note**,
 **Tip**, **Important**, **Warning** and **Caution** — rendered with the icon and accent
-colour each one carries in the current theme.
+colour each one has in the current theme.
 
 ## Live previews re-parse only what changed
 

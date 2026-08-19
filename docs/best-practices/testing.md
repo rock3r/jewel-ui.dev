@@ -55,7 +55,7 @@ a node is hard to find in a test, that is usually a real finding rather than a t
 
 ## Testing the parts that need the IDE
 
-Some things genuinely need the platform: the bridge itself, anything reading a real
+Some things do need the platform: the bridge itself, anything reading a real
 `DataContext`, anything driven by platform actions. Test those where they live, with the
 platform's own test infrastructure, and keep that set as small as you can.
 

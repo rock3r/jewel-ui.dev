@@ -18,8 +18,8 @@ compatibility of the Jewel APIs, both across supported IntelliJ Platform version
 standalone use. If two artifacts share a Jewel version, they expose the same API.
 
 **The suffix identifies the platform build.** It matters when you are writing a plugin,
-because the artifact has to match the platform you target. It is largely noise when you
-are writing a standalone app, where you just want a recent one.
+because the artifact has to match the platform you target. It is less important when
+you are writing a standalone app, where you only need a recent one.
 
 Each entry in the [release notes](releases/) records the minimum supported platform version and
 the Compose Multiplatform version that release was built against. For what is actually
@@ -36,7 +36,7 @@ platform version enters EAP, a `releases/xxx` branch is cut, where `xxx` is the 
 major it tracks. Main then moves on to the next platform, and fixes are cherry-picked back
 into the release branches that need them.
 
-Two consequences are worth knowing:
+Two consequences follow:
 
 - **Only the latest build of each platform major is supported.** If the newest 253 build
   is 2025.3.3, that is the one Jewel is guaranteed to work on. Earlier 253 builds may work
@@ -57,8 +57,8 @@ explicit, and CI enforces it rather than relying on care.
 keeps working across releases.
 
 **Experimental APIs.** Kept binary-compatible wherever possible, but with no hard promise.
-They are annotated, so you can always tell which side of the line you are on. Do not build
-something load-bearing on one without expecting to revisit it.
+They are annotated, so you can tell which side of the line you are on. Do not build
+something critical on one without expecting to revisit it.
 
 **Deprecated APIs.** Typically removed after about two major IntelliJ Platform bumps. That
 gives you roughly two platform releases of warning, and the release notes carry a migration
@@ -73,7 +73,7 @@ change fails the build. A break has to be a decision.
 
 ## Why the release notes can be ahead of what you can use
 
-This one catches people out, so it is worth stating plainly.
+This is commonly misunderstood, so here is what happens.
 
 The release notes live on main and describe what has landed there. A standalone release is
 published to Maven Central at the same time the IntelliJ Platform build containing it is

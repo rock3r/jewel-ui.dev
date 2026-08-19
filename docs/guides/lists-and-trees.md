@@ -35,8 +35,8 @@ configuring one that does both, is the point of the split.
 Use `LazyTree` from `org.jetbrains.jewel.ui.component`. It takes its colours and metrics
 from the ambient theme, which is almost always what you want.
 
-`BasicLazyTree`, in the foundation module, is the unstyled version underneath. Reach for it
-only if you are building your own styled tree and want to supply every colour and padding
+`BasicLazyTree`, in the foundation module, is the unstyled version underneath. Use it only
+if you are building your own styled tree and want to supply every colour and padding
 yourself.
 
 The same split runs through Jewel generally: `foundation` holds behaviour without strong
@@ -61,13 +61,13 @@ but the signature can change.
 
 ### Where selection goes when the filter moves
 
-This is the part that is fiddly to get right, and Jewel does it for you.
+This is the part that is difficult to get right, and Jewel does it for you.
 
 When the filter changes and the selected item no longer matches, selection does not simply
 vanish or jump to the top. If there is still a selection anchor, the closest visible match
 to it is selected. Otherwise the rule is a forward scan: the topmost visible match, or
-failing that the first match below the viewport, wrapping round to the first match from the
-top of the list.
+failing that the first match below the viewport, wrapping around to the first match
+from the top of the list.
 
 The effect is that filtering feels like it keeps your place, which is exactly what the IDE
 does and what people expect without being able to say why.
