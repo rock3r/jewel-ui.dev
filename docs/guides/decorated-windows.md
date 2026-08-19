@@ -113,15 +113,15 @@ defaulting to null, in which case they follow the theme's light or dark setting.
 
 ## Which dependency
 
-Add `jewel-int-ui-decorated-window`, as
-[Standalone setup](../start/standalone.md#dependencies) shows. That pulls in
-`jewel-decorated-window`, which is where both the window primitives and the Int UI styling
-actually live.
+Add `jewel-decorated-window`, as
+[Standalone setup](../start/standalone.md#dependencies) shows. Both the window primitives and
+the Int UI styling live in it.
 
-Some older material describes these two artifacts as an unstyled/styled split. That is no
-longer accurate: the Int UI styling sits in the same module as the primitives, and the
-`int-ui-decorated-window` artifact is a thin aggregator. Depend on it and you get
-everything either way.
+You may come across `jewel-int-ui-decorated-window`, and older material describing the two as
+an unstyled/styled split. That is no longer how it works: the Int UI styling sits in the same
+module as the primitives, and `int-ui-decorated-window` is an older artifact kept for
+compatibility that carries no code of its own. New code should depend on
+`jewel-decorated-window` directly.
 
 ## See also
 

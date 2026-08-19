@@ -76,7 +76,7 @@ dependencies {
     implementation("org.jetbrains.jewel:jewel-int-ui-standalone:[jewel-version]-[ijp-build]")
 
     // Optional, for custom window decoration
-    implementation("org.jetbrains.jewel:jewel-int-ui-decorated-window:[jewel-version]-[ijp-build]")
+    implementation("org.jetbrains.jewel:jewel-decorated-window:[jewel-version]-[ijp-build]")
 
     // Jewel replaces Material; do not let it in
     implementation(compose.desktop.currentOs) {
