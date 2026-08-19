@@ -8,8 +8,8 @@ the setup is different, and simpler.
 
 ## Before you start
 
-Jewel requires the **JetBrains Runtime**. Not as a recommendation: font loading and window
-decoration depend on patches that only the JBR has, and running on another JDK is
+Jewel requires the **JetBrains Runtime**. Not as a recommendation: font loading and
+window decoration depend on patches that only the JBR has, and running on another JDK is
 unsupported. Point your toolchain at it explicitly.
 
 ```kotlin
@@ -21,9 +21,9 @@ kotlin {
 }
 ```
 
-Setting only `languageVersion` is a common mistake. Gradle will happily resolve any JDK of
-that version, and the first thing to fail is `DecoratedWindow`, which throws outright when
-it does not find the JBR.
+Setting only `languageVersion` is a common mistake. Gradle will resolve any JDK of that
+version, and the first thing to fail is `DecoratedWindow`, which throws outright when it
+does not find the JBR.
 
 ## Repositories
 
@@ -44,7 +44,7 @@ pluginManagement {
 ## Plugins
 
 You need three: Kotlin, Compose Multiplatform, and the Compose compiler plugin. The last
-one is separate from the Compose Gradle plugin and is easy to miss.
+one is separate from the Compose Gradle plugin and is often omitted.
 
 ```kotlin
 // build.gradle.kts
@@ -57,17 +57,18 @@ plugins {
 
 All three are required, and the version each takes is the part people get wrong. Since
 Kotlin 2.0 the Compose compiler ships in the Kotlin repository rather than with Compose
-Multiplatform, so it is applied as its own plugin — and it is versioned with **Kotlin**, not
-with Compose. Two of the three lines above take the same version; the middle one does not.
+Multiplatform, so it is applied as its own plugin — and it is versioned with **Kotlin**,
+not with Compose. Two of the three lines above take the same version. The middle one
+does not.
 
-Those versions also have to line up with what Jewel is built against. Each release records
-the Compose Multiplatform version it targets, and the minimum Kotlin version follows from the
-minimum supported IntelliJ Platform.
+Those versions also have to line up with what Jewel is built against. Each release
+records the Compose Multiplatform version it targets, and the minimum Kotlin version
+follows from the minimum supported IntelliJ Platform.
 
 !!! warning "Convention plugins"
-    If you configure your project with convention plugins, apply these once — for example
-    in the root build script with `apply false`, then apply them in the modules that need
-    them. Initialising them more than once causes resolution failures.
+    If you configure your project with convention plugins, apply these once — for
+    example in the root build script with `apply false`, then apply them in the modules
+    that need them. Initialising them more than once causes resolution failures.
 
 ## Dependencies
 
@@ -112,14 +113,15 @@ fun main() = application {
 ```
 
 That is the whole setup. `IntUiTheme` has richer overloads for supplying your own theme
-definition and component styling — see [Theming](../guides/theming.md) — and
-[Decorated windows](../guides/decorated-windows.md) covers replacing the system title bar
-with the IDE's.
+definition and component styling — see [Theming](../guides/theming.md) — and [Decorated
+windows](../guides/decorated-windows.md) covers replacing the system title bar with the
+IDE's.
 
 ## Platform icons
 
 Jewel can load the IntelliJ Platform's own icons through `AllIconsKeys`, but outside the
-IDE they are not on the classpath. Add the icons artifact and the repository it lives in:
+IDE they are not on the classpath. Add the icons artifact and the repository it lives
+in:
 
 ```kotlin
 repositories {

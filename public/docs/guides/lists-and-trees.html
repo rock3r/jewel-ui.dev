@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lists, trees and speed search — Jewel docs</title>
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root { color-scheme: dark light; }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+
+.page {
+  --bg: #1E1F22; --panel: #2B2D30; --line: #393B40; --line-strong: #4E5157;
+  --btn-border: #6F737A; --fg: #DFE1E5; --fg-2: #B4B8BF; --fg-3: #9DA0A8;
+  --accent: #3574F0; --accent-hover: #366ACE; --link: #6B9BFA; --on-accent: #FFFFFF;
+  --code-bg: #2B2D30; --sel: rgba(53, 116, 240, 0.16);
+  --kw: #CF8E6D; --str: #6AAB73; --fn: #56A8F5; --com: #9DA0A8; --num: #2AACB8;
+}
+.page[data-theme="light"] {
+  --bg: #FFFFFF; --panel: #F7F8FA; --line: #EBECF0; --line-strong: #C9CCD6;
+  --btn-border: #818594; --fg: #27282E; --fg-2: #494B57; --fg-3: #6C707E;
+  --accent: #3574F0; --accent-hover: #3369D6; --link: #315FBD; --on-accent: #FFFFFF;
+  --code-bg: #F7F8FA; --sel: rgba(53, 116, 240, 0.10);
+  --kw: #0033B3; --str: #067D17; --fn: #00627A; --com: #6C707E; --num: #1750EB;
+}
+
+.page {
+  font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin;
+  min-height: 100vh; font-size: 15px; line-height: 1.6;
+}
+
+/* header */
+.top {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 14px;
+  height: 52px; padding: 0 20px;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--fg); }
+.brand svg { display: block; width: 20px; height: 20px; }
+.brand b { font-family: Archivo, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 15.5px; letter-spacing: -0.01em; }
+.brand span { color: var(--fg-3); font-size: 13.5px; }
+.top-sp { flex: 1; }
+.top a.tl { color: var(--fg-2); text-decoration: none; font-size: 13.5px; }
+.top a.tl:hover { color: var(--fg); }
+.tbtn {
+  font: inherit; font-size: 13px; cursor: pointer;
+  background: transparent; color: var(--fg-2);
+  border: 1px solid var(--line-strong); border-radius: 6px; padding: 4px 10px;
+}
+.tbtn:hover { color: var(--fg); border-color: var(--btn-border); }
+
+/* shell */
+.shell { display: grid; grid-template-columns: 264px minmax(0, 1fr) 200px; gap: 0; align-items: start; }
+@media (max-width: 1100px) { .shell { grid-template-columns: 240px minmax(0, 1fr); } .onthis { display: none; } }
+@media (max-width: 760px) { .shell { grid-template-columns: minmax(0, 1fr); } .side { display: none; } }
+
+/* left nav */
+.side {
+  position: sticky; top: 52px; align-self: start;
+  height: calc(100vh - 52px); overflow-y: auto;
+  border-right: 1px solid var(--line); padding: 20px 8px 40px 20px;
+}
+.side h4 {
+  margin: 20px 0 6px; padding: 0 10px;
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--fg-3);
+}
+.side h4:first-child { margin-top: 0; }
+.side a {
+  display: block; padding: 5px 10px; margin: 1px 0;
+  border-radius: 4px; text-decoration: none;
+  color: var(--fg-2); font-size: 13.5px; line-height: 1.35;
+}
+.side a:hover { background: var(--panel); color: var(--fg); }
+.side a[aria-current="page"] { background: var(--sel); color: var(--fg); font-weight: 500; }
+
+/* content */
+.main { padding: 34px 40px 90px; min-width: 0; }
+.doc { max-width: 68ch; }
+.doc h1 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em;
+  margin: 0 0 18px;
+}
+.doc h2 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em;
+  margin: 34px 0 10px; padding-top: 14px; border-top: 1px solid var(--line);
+}
+.doc h3 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 16px; font-weight: 600; margin: 24px 0 8px;
+}
+.doc h2 a.anchor, .doc h3 a.anchor { color: inherit; text-decoration: none; }
+.doc h2 a.anchor:hover::after, .doc h3 a.anchor:hover::after {
+  content: " #"; color: var(--fg-3); font-weight: 400;
+}
+.doc p { margin: 0 0 14px; }
+.doc ul { margin: 0 0 14px; padding-left: 20px; }
+.doc li { margin: 5px 0; }
+.doc a { color: var(--link); text-decoration: none; }
+.doc a:hover { text-decoration: underline; }
+.doc code {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.86em; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+}
+.doc .code {
+  background: var(--code-bg); border: 1px solid var(--line);
+  border-radius: 8px; margin: 0 0 16px; overflow-x: auto;
+}
+.doc .code pre { margin: 0; padding: 13px 16px; }
+.doc .code code {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12.9px; line-height: 1.62; background: none; border: 0; padding: 0;
+  white-space: pre;
+}
+.c-kw { color: var(--kw); } .c-str { color: var(--str); }
+.c-fn { color: var(--fn); } .c-com { color: var(--com); } .c-num { color: var(--num); }
+
+.adm {
+  border: 1px solid var(--line-strong); border-left-width: 3px;
+  border-radius: 6px; padding: 12px 15px; margin: 0 0 16px; background: var(--panel);
+}
+.adm-title { font-weight: 600; margin: 0 0 6px !important; font-size: 14px; }
+.adm-warning { border-left-color: #E0A200; }
+.adm-note { border-left-color: var(--accent); }
+.adm > :last-child { margin-bottom: 0 !important; }
+
+/* on this page */
+.onthis { position: sticky; top: 52px; align-self: start; padding: 34px 20px 40px 0; max-height: calc(100vh - 52px); overflow-y: auto; }
+.onthis h4 { margin: 0 0 8px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-3); }
+.onthis a { display: block; padding: 3px 0; color: var(--fg-3); text-decoration: none; font-size: 12.5px; line-height: 1.35; }
+.onthis a:hover { color: var(--fg); }
+.onthis a.lv3 { padding-left: 12px; }
+
+.footer { margin-top: 46px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--fg-3); font-size: 12.5px; }
+.footer a { color: var(--link); text-decoration: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page" data-theme="dark">
+  <header class="top">
+    <a class="brand" href="../index.html"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" fill="#000"/><path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFF"/><path d="M256 76L436 256H256V76Z" fill="#CCC"/><path d="M76 256L256 436V256H76Z" fill="#CCC"/><path d="M256 436L436 256H256V436Z" fill="#808080"/></svg><b>Jewel</b><span>docs</span></a>
+    <div class="top-sp"></div>
+    <a class="tl" href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
+    <a class="tl" href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+    <button class="tbtn" id="theme-btn" type="button">Light</button>
+  </header>
+  <div class="shell">
+    <nav class="side" aria-label="Documentation">
+<a href="../index.html">Jewel</a>
+<h4>Get started</h4>
+<a href="../start/plugin.html">In an IntelliJ plugin</a>
+<a href="../start/standalone.html">Standalone app</a>
+<h4>Guides</h4>
+<a href="../guides/theming.html">Theming</a>
+<a href="../guides/swing-bridge.html">The Swing bridge</a>
+<a href="../guides/icons.html">Icons</a>
+<a href="../guides/typography.html">Typography and fonts</a>
+<a href="../guides/lists-and-trees.html" aria-current="page">Lists, trees and speed search</a>
+<a href="../guides/markdown.html">Rendering Markdown</a>
+<a href="../guides/decorated-windows.html">Decorated windows</a>
+<a href="../guides/swing-interop.html">Swing interop</a>
+<a href="../guides/code-highlighting.html">Code highlighting</a>
+<h4>Best practices</h4>
+<a href="../best-practices/portable-ui.html">Portable UI</a>
+<a href="../best-practices/testing.html">Testing your UI</a>
+<a href="../best-practices/proguard.html">ProGuard and minification</a>
+<h4>Reference</h4>
+<a href="../versioning.html">Versions and compatibility</a>
+    </nav>
+    <main class="main">
+      <article class="doc">
+<h1>Lists, trees and speed search</h1>
+<p>The IDE's lists behave in ways people have internalised without noticing: what the arrow keys do, how a range selects, where selection lands after a filter hides the selected row. Jewel's list and tree components implement those behaviours, which is most of why they are worth using over a plain <code>LazyColumn</code>.</p>
+<h2 id="selectable-lists"><a class="anchor" href="#selectable-lists">Selectable lists</a></h2>
+<p>Two entry points, one per selection model:</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.foundation.lazy.SingleSelectionLazyColumn
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.lazy.MultiSelectionLazyColumn
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.lazy.rememberSingleSelectionLazyListState
+
+<span class="c-kw">@Composable</span>
+<span class="c-kw">fun</span> <span class="c-fn">Files</span>(paths: List&lt;String&gt;) {
+    <span class="c-fn">SingleSelectionLazyColumn</span>(state = <span class="c-fn">rememberSingleSelectionLazyListState</span>()) {
+        <span class="c-com">// items go here</span>
+    }
+}</code></pre></div>
+<p><code>SingleSelectionLazyColumn</code> and <code>MultiSelectionLazyColumn</code> live in <code>org.jetbrains.jewel.foundation.lazy</code>, and each has a matching state factory: <code>rememberSingleSelectionLazyListState()</code> and <code>rememberMultiSelectionLazyListState()</code>.</p>
+<p>If you find <code>SelectableLazyColumn</code> in older code or examples, it is deprecated in favour of these two. Choosing the component that matches your selection model, rather than configuring one that does both, is the point of the split.</p>
+<h2 id="trees"><a class="anchor" href="#trees">Trees</a></h2>
+<p>Use <code>LazyTree</code> from <code>org.jetbrains.jewel.ui.component</code>. It takes its colours and metrics from the ambient theme.</p>
+<p><code>BasicLazyTree</code>, in the foundation module, is the unstyled version underneath. Use it only if you are building your own styled tree and want to supply every colour and padding yourself.</p>
+<p>The same split runs through Jewel generally: <code>foundation</code> holds behaviour without strong styling, <code>ui</code> holds the themed components built on top.</p>
+<h2 id="speed-search"><a class="anchor" href="#speed-search">Speed search</a></h2>
+<p><code>SpeedSearchArea</code> gives a list or tree the IDE's type-to-find behaviour: start typing, a small search field appears, and matches are highlighted in place.</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.ui.component.SpeedSearchArea
+
+SpeedSearchArea {
+    <span class="c-com">// a list or tree here becomes type-to-find</span>
+}</code></pre></div>
+<p><code>dismissOnLoseFocus</code> controls whether the search field hides when it loses focus, and defaults to <code>true</code>. <code>SpeedSearchArea</code> is annotated experimental. The signature can change.</p>
+<h3 id="where-selection-goes-when-the-filter-moves"><a class="anchor" href="#where-selection-goes-when-the-filter-moves">Where selection goes when the filter moves</a></h3>
+<p>This is the part that is difficult to get right, and Jewel does it for you.</p>
+<p>When the filter changes and the selected item no longer matches, selection does not simply vanish or jump to the top. If there is still a selection anchor, the closest visible match to it is selected. Otherwise the rule is a forward scan: the topmost visible match, or failing that the first match below the viewport, wrapping around to the first match from the top of the list.</p>
+<p>The effect is that filtering keeps your place, as it does in the IDE.</p>
+<h2 id="scrollbars"><a class="anchor" href="#scrollbars">Scrollbars</a></h2>
+<p>Scrollable containers and scrollbars take an optional <code>ScrollbarAdapter</code>, which lets you control thumb sizing and positioning when the scrollable content is not what the scrollbar is nominally attached to.</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
+
+VerticallyScrollableContainer {
+    <span class="c-com">// content</span>
+}</code></pre></div>
+<p>The overloads without an <code>adapter</code> parameter are deprecated. The current ones default it to <code>null</code>, which behaves as before.</p>
+<p>Scrollbar appearance is not a Jewel choice. <code>ScrollbarVisibility</code> has two shapes, <code>AlwaysVisible</code> and <code>WhenScrolling</code>, and on macOS Jewel reads the user's <strong>System Settings → Appearance → Show scroll bars</strong> preference and follows it — including the layout consequence, since an always-visible scrollbar sits beside the content while a when-scrolling one is overlaid on top of it. Track thickness, expand animation and linger duration are all part of the style rather than hardcoded.</p>
+<h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
+<ul>
+<li><a href="theming.html">Theming</a> — styling the components above</li>
+<li><a href="../../components/">Components</a> — every component, with screenshots</li>
+</ul>
+      <p class="footer">Jewel is a joint project by Google and JetBrains. Docs source on
+        <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+      </article>
+    </main>
+    <aside class="onthis"><h4>On this page</h4>
+<a class="lv2" href="#selectable-lists">Selectable lists</a>
+<a class="lv2" href="#trees">Trees</a>
+<a class="lv2" href="#speed-search">Speed search</a>
+<a class="lv3" href="#where-selection-goes-when-the-filter-moves">Where selection goes when the filter moves</a>
+<a class="lv2" href="#scrollbars">Scrollbars</a>
+<a class="lv2" href="#see-also">See also</a></aside>
+  </div>
+</div>
+<script>
+(function () {
+  var page = document.querySelector('.page');
+  function setTheme(t) {
+    page.setAttribute('data-theme', t);
+    var b = document.getElementById('theme-btn');
+    if (b) b.textContent = t === 'dark' ? 'Light' : 'Dark';
+    try { localStorage.setItem('jewel-theme', t); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('jewel-theme'); } catch (e) {}
+  if (!saved) saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  setTheme(saved);
+  var btn = document.getElementById('theme-btn');
+  if (btn) btn.addEventListener('click', function () {
+    setTheme(page.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>

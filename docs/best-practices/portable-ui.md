@@ -16,9 +16,9 @@ IntUiTheme(isDark = true) {
 ```
 
 `IssueList` does not change. This is not a coincidence of the current release: the
-component library (`org.jetbrains.jewel.ui.component`) and the foundation module sit below
-both themes, and neither depends on the IntelliJ Platform. The platform dependency is
-confined to the bridge module.
+component library (`org.jetbrains.jewel.ui.component`) and the foundation module sit
+below both themes, and neither depends on the IntelliJ Platform. The platform dependency
+is confined to the bridge module.
 
 That portability is worth designing for, because two useful things follow from it.
 
@@ -64,31 +64,31 @@ Once your composables have no platform types, they can be tested against the sta
 theme in a plain JVM test. No sandbox IDE, no platform fixture, no waiting for an IDE to
 start.
 
-That is faster, and it is also more accurate: the test exercises your UI rather than the
-harness around it. Platform-hosted UI tests are slow and prone to flaking on things that
-have nothing to do with the code under test, and a test that fails for unrelated reasons
-gets ignored.
+That is faster and more accurate: the test exercises your UI rather than the harness
+around it. Platform-hosted UI tests are slow and prone to flaking on things that have
+nothing to do with the code under test. A test that fails for unrelated reasons gets
+ignored.
 
 The practical shape is: drive the composable with fake data through your own interface,
 render it under `IntUiTheme`, and assert on what it shows.
 
 ## And reusable
 
-The same screen can ship inside an IDE plugin and inside a standalone desktop app, from one
-source tree, with no forked UI code to keep in step. A companion desktop app for a
+The same screen can ship inside an IDE plugin and inside a standalone desktop app, from
+one source tree, with no forked UI code to keep in step. A companion desktop app for a
 plugin, or a plugin for a desktop app, becomes ordinary work rather than a rewrite.
 
-## The caveat
+## The same API, not pixel-identical output
 
 Portable means *the same API*, not *pixel-identical output*.
 
-The bridge deliberately behaves differently in places. It enables Swing compatibility mode
-so Compose text aligns with Swing text, and it swaps in platform-backed providers for
-typography, icon painting, clipboard handling and density scaling. Your code compiles and
-runs identically either way; what it renders can differ slightly, because the values behind
-the theme differ by design.
+The bridge deliberately behaves differently in places. It enables Swing compatibility
+mode so Compose text aligns with Swing text, and it swaps in platform-backed providers
+for typography, icon painting, clipboard handling and density scaling. Your code
+compiles and runs identically either way. What it renders can differ slightly, because
+the values behind the theme differ by design.
 
-So: use standalone to test behaviour, structure and state. Do not use it as a pixel
+Use standalone to test behaviour, structure and state. Do not use it as a pixel
 reference for what the plugin will look like inside the IDE.
 
 ## See also

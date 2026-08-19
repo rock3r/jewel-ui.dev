@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Icons — Jewel docs</title>
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root { color-scheme: dark light; }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+
+.page {
+  --bg: #1E1F22; --panel: #2B2D30; --line: #393B40; --line-strong: #4E5157;
+  --btn-border: #6F737A; --fg: #DFE1E5; --fg-2: #B4B8BF; --fg-3: #9DA0A8;
+  --accent: #3574F0; --accent-hover: #366ACE; --link: #6B9BFA; --on-accent: #FFFFFF;
+  --code-bg: #2B2D30; --sel: rgba(53, 116, 240, 0.16);
+  --kw: #CF8E6D; --str: #6AAB73; --fn: #56A8F5; --com: #9DA0A8; --num: #2AACB8;
+}
+.page[data-theme="light"] {
+  --bg: #FFFFFF; --panel: #F7F8FA; --line: #EBECF0; --line-strong: #C9CCD6;
+  --btn-border: #818594; --fg: #27282E; --fg-2: #494B57; --fg-3: #6C707E;
+  --accent: #3574F0; --accent-hover: #3369D6; --link: #315FBD; --on-accent: #FFFFFF;
+  --code-bg: #F7F8FA; --sel: rgba(53, 116, 240, 0.10);
+  --kw: #0033B3; --str: #067D17; --fn: #00627A; --com: #6C707E; --num: #1750EB;
+}
+
+.page {
+  font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin;
+  min-height: 100vh; font-size: 15px; line-height: 1.6;
+}
+
+/* header */
+.top {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 14px;
+  height: 52px; padding: 0 20px;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--fg); }
+.brand svg { display: block; width: 20px; height: 20px; }
+.brand b { font-family: Archivo, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 15.5px; letter-spacing: -0.01em; }
+.brand span { color: var(--fg-3); font-size: 13.5px; }
+.top-sp { flex: 1; }
+.top a.tl { color: var(--fg-2); text-decoration: none; font-size: 13.5px; }
+.top a.tl:hover { color: var(--fg); }
+.tbtn {
+  font: inherit; font-size: 13px; cursor: pointer;
+  background: transparent; color: var(--fg-2);
+  border: 1px solid var(--line-strong); border-radius: 6px; padding: 4px 10px;
+}
+.tbtn:hover { color: var(--fg); border-color: var(--btn-border); }
+
+/* shell */
+.shell { display: grid; grid-template-columns: 264px minmax(0, 1fr) 200px; gap: 0; align-items: start; }
+@media (max-width: 1100px) { .shell { grid-template-columns: 240px minmax(0, 1fr); } .onthis { display: none; } }
+@media (max-width: 760px) { .shell { grid-template-columns: minmax(0, 1fr); } .side { display: none; } }
+
+/* left nav */
+.side {
+  position: sticky; top: 52px; align-self: start;
+  height: calc(100vh - 52px); overflow-y: auto;
+  border-right: 1px solid var(--line); padding: 20px 8px 40px 20px;
+}
+.side h4 {
+  margin: 20px 0 6px; padding: 0 10px;
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--fg-3);
+}
+.side h4:first-child { margin-top: 0; }
+.side a {
+  display: block; padding: 5px 10px; margin: 1px 0;
+  border-radius: 4px; text-decoration: none;
+  color: var(--fg-2); font-size: 13.5px; line-height: 1.35;
+}
+.side a:hover { background: var(--panel); color: var(--fg); }
+.side a[aria-current="page"] { background: var(--sel); color: var(--fg); font-weight: 500; }
+
+/* content */
+.main { padding: 34px 40px 90px; min-width: 0; }
+.doc { max-width: 68ch; }
+.doc h1 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em;
+  margin: 0 0 18px;
+}
+.doc h2 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em;
+  margin: 34px 0 10px; padding-top: 14px; border-top: 1px solid var(--line);
+}
+.doc h3 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 16px; font-weight: 600; margin: 24px 0 8px;
+}
+.doc h2 a.anchor, .doc h3 a.anchor { color: inherit; text-decoration: none; }
+.doc h2 a.anchor:hover::after, .doc h3 a.anchor:hover::after {
+  content: " #"; color: var(--fg-3); font-weight: 400;
+}
+.doc p { margin: 0 0 14px; }
+.doc ul { margin: 0 0 14px; padding-left: 20px; }
+.doc li { margin: 5px 0; }
+.doc a { color: var(--link); text-decoration: none; }
+.doc a:hover { text-decoration: underline; }
+.doc code {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.86em; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+}
+.doc .code {
+  background: var(--code-bg); border: 1px solid var(--line);
+  border-radius: 8px; margin: 0 0 16px; overflow-x: auto;
+}
+.doc .code pre { margin: 0; padding: 13px 16px; }
+.doc .code code {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12.9px; line-height: 1.62; background: none; border: 0; padding: 0;
+  white-space: pre;
+}
+.c-kw { color: var(--kw); } .c-str { color: var(--str); }
+.c-fn { color: var(--fn); } .c-com { color: var(--com); } .c-num { color: var(--num); }
+
+.adm {
+  border: 1px solid var(--line-strong); border-left-width: 3px;
+  border-radius: 6px; padding: 12px 15px; margin: 0 0 16px; background: var(--panel);
+}
+.adm-title { font-weight: 600; margin: 0 0 6px !important; font-size: 14px; }
+.adm-warning { border-left-color: #E0A200; }
+.adm-note { border-left-color: var(--accent); }
+.adm > :last-child { margin-bottom: 0 !important; }
+
+/* on this page */
+.onthis { position: sticky; top: 52px; align-self: start; padding: 34px 20px 40px 0; max-height: calc(100vh - 52px); overflow-y: auto; }
+.onthis h4 { margin: 0 0 8px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-3); }
+.onthis a { display: block; padding: 3px 0; color: var(--fg-3); text-decoration: none; font-size: 12.5px; line-height: 1.35; }
+.onthis a:hover { color: var(--fg); }
+.onthis a.lv3 { padding-left: 12px; }
+
+.footer { margin-top: 46px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--fg-3); font-size: 12.5px; }
+.footer a { color: var(--link); text-decoration: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page" data-theme="dark">
+  <header class="top">
+    <a class="brand" href="../index.html"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" fill="#000"/><path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFF"/><path d="M256 76L436 256H256V76Z" fill="#CCC"/><path d="M76 256L256 436V256H76Z" fill="#CCC"/><path d="M256 436L436 256H256V436Z" fill="#808080"/></svg><b>Jewel</b><span>docs</span></a>
+    <div class="top-sp"></div>
+    <a class="tl" href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
+    <a class="tl" href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+    <button class="tbtn" id="theme-btn" type="button">Light</button>
+  </header>
+  <div class="shell">
+    <nav class="side" aria-label="Documentation">
+<a href="../index.html">Jewel</a>
+<h4>Get started</h4>
+<a href="../start/plugin.html">In an IntelliJ plugin</a>
+<a href="../start/standalone.html">Standalone app</a>
+<h4>Guides</h4>
+<a href="../guides/theming.html">Theming</a>
+<a href="../guides/swing-bridge.html">The Swing bridge</a>
+<a href="../guides/icons.html" aria-current="page">Icons</a>
+<a href="../guides/typography.html">Typography and fonts</a>
+<a href="../guides/lists-and-trees.html">Lists, trees and speed search</a>
+<a href="../guides/markdown.html">Rendering Markdown</a>
+<a href="../guides/decorated-windows.html">Decorated windows</a>
+<a href="../guides/swing-interop.html">Swing interop</a>
+<a href="../guides/code-highlighting.html">Code highlighting</a>
+<h4>Best practices</h4>
+<a href="../best-practices/portable-ui.html">Portable UI</a>
+<a href="../best-practices/testing.html">Testing your UI</a>
+<a href="../best-practices/proguard.html">ProGuard and minification</a>
+<h4>Reference</h4>
+<a href="../versioning.html">Versions and compatibility</a>
+    </nav>
+    <main class="main">
+      <article class="doc">
+<h1>Icons</h1>
+<p>Ask Jewel for an icon by key and it does what the IDE does: picks the New UI path, patches the SVG's key colours for the current theme, selects the dark variant, and uses the <code>@2x</code> bitmap when the display warrants it. You call one composable. The pipeline is the same one the platform uses.</p>
+<h2 id="loading-an-icon"><a class="anchor" href="#loading-an-icon">Loading an icon</a></h2>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.ui.component.Icon
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.icons.AllIconsKeys
+
+<span class="c-fn">Icon</span>(key = AllIconsKeys.General.Add, contentDescription = <span class="c-str">&quot;Add&quot;</span>)</code></pre></div>
+<p><code>AllIconsKeys</code> is generated from the platform's <code>AllIcons</code>, so anything the IDE ships is available by the name you already know. In a plugin, it needs no setup. The icons are on the classpath. Standalone, add the icons artifact. See <a href="../start/standalone.html#platform-icons">Platform icons in a standalone app</a>.</p>
+<p>Because icon paths shift between platform versions, use a Jewel version that matches the platform you target. Icons move between majors, and occasionally between minors.</p>
+<h2 id="your-own-icons"><a class="anchor" href="#your-own-icons">Your own icons</a></h2>
+<p>An icon key is anything implementing <code>IconKey</code>, from <code>org.jetbrains.jewel.ui.icon</code>. Two implementations cover almost everything:</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.ui.icon.IntelliJIconKey
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.icon.PathIconKey
+
+<span class="c-kw">object</span> MyIcons {
+    <span class="c-com">// Same icon regardless of UI mode</span>
+    <span class="c-kw">val</span> refresh = <span class="c-fn">PathIconKey</span>(<span class="c-str">&quot;icons/refresh.svg&quot;</span>, MyIcons::<span class="c-kw">class</span>.java)
+
+    <span class="c-com">// Different icons for old and new UI</span>
+    <span class="c-kw">val</span> run = <span class="c-fn">IntelliJIconKey</span>(<span class="c-str">&quot;icons/run.svg&quot;</span>, <span class="c-str">&quot;icons/expui/run.svg&quot;</span>, MyIcons::<span class="c-kw">class</span>.java)
+}</code></pre></div>
+<p><code>IntelliJIconKey</code> takes both paths <em>and</em> the class used to resolve the resource. If you have more than a few dozen icons, generate the holder rather than writing it out. Jewel generates its own the same way.</p>
+<h2 id="painter-hints"><a class="anchor" href="#painter-hints">Painter hints</a></h2>
+<p>A <code>PainterHint</code> influences the loading pipeline. A hint can change the path, patch the image, decorate it, or do nothing at all. <code>PainterHint.None</code> exists precisely so you can pass a hint unconditionally and let it opt out.</p>
+<p>The most useful ones live in <code>org.jetbrains.jewel.ui.painter.hints</code> and are functions, not types you construct:</p>
+<ul>
+<li><code>Size(size)</code> or <code>Size(width, height)</code> — select a specific icon size</li>
+<li><code>Selected(state)</code> or <code>Selected(selected)</code> — the selected variant</li>
+<li><code>Stateful(state)</code> — hover, pressed, disabled and friends, from a component state</li>
+<li><code>Badge(color)</code> — a dot badge over the icon</li>
+<li><code>Stroke(color)</code>, <code>Dark(isDark)</code>, <code>HiDpi()</code> — the lower-level pieces the defaults use</li>
+</ul>
+<p>Both themes install a default set of hints, so runtime patching happens without you asking for it.</p>
+<h3 id="stateful-icons"><a class="anchor" href="#stateful-icons">Stateful icons</a></h3>
+<p>When the icon depends on component state, pass the hints and let Jewel resolve the path. Note the named <code>hints</code> argument: it is a <code>vararg</code>, and the positional slot after <code>contentDescription</code> is <code>modifier</code>, so hints must be named.</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
+<span class="c-kw">import</span> androidx.compose.ui.state.ToggleableState
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.state.SelectableComponentState
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.state.ToggleableComponentState
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.Icon
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.icon.IconKey
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.painter.PainterHint
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.painter.PainterProviderScope
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.painter.PainterSuffixHint
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.painter.hints.Selected
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.painter.hints.Stateful
+
+<span class="c-kw">private</span> <span class="c-kw">object</span> IndeterminateHint : <span class="c-fn">PainterSuffixHint</span>() {
+    <span class="c-kw">override</span> <span class="c-kw">fun</span> PainterProviderScope.<span class="c-fn">suffix</span>(): String = <span class="c-str">&quot;Indeterminate&quot;</span>
+}
+
+<span class="c-kw">interface</span> MyState : SelectableComponentState, ToggleableComponentState
+
+<span class="c-kw">@Composable</span>
+<span class="c-kw">fun</span> <span class="c-fn">StatefulIcon</span>(myKey: IconKey, myState: MyState) {
+    <span class="c-kw">val</span> indeterminateHint =
+        <span class="c-fn">if</span> (myState.toggleableState == ToggleableState.Indeterminate) IndeterminateHint <span class="c-kw">else</span> PainterHint.None
+
+    <span class="c-fn">Icon</span>(
+        key = myKey,
+        contentDescription = <span class="c-str">&quot;My icon&quot;</span>,
+        hints = <span class="c-fn">arrayOf</span>(indeterminateHint, <span class="c-fn">Selected</span>(myState), <span class="c-fn">Stateful</span>(myState)),
+    )
+}</code></pre></div>
+<p>Given a base path of <code>components/myIcon.svg</code>, that resolves to the right file for the state — <code>myIconIndeterminate.svg</code>, <code>myIconSelected.svg</code> and so on — without you naming any of them.</p>
+<h3 id="writing-your-own-hint"><a class="anchor" href="#writing-your-own-hint">Writing your own hint</a></h3>
+<p><code>PainterHint</code> is sealed, so you extend one of its sub-hierarchies rather than implementing it directly. <code>PainterSuffixHint</code> and <code>PainterPrefixHint</code> handle path manipulation, which covers most cases. There are also hooks for patching SVG and XML content, and for wrapping the resulting painter.</p>
+<p>The one thing to watch: <code>suffix()</code> is declared on <code>PainterProviderScope</code>, so your override needs the receiver, as in the sample above. Writing <code>override fun suffix()</code> without it does not compile.</p>
+<h2 id="what-the-defaults-do-for-you"><a class="anchor" href="#what-the-defaults-do-for-you">What the defaults do for you</a></h2>
+<p>Four behaviours run automatically, and knowing they exist saves you reimplementing them:</p>
+<ul>
+<li><strong>New UI path swapping.</strong> With the New UI active, <code>IntelliJIconKey</code> resolves its new-UI path. Both themes also support overriding paths outright.</li>
+<li><strong>Palette replacement.</strong> SVG key colours are swapped for the current theme's palette, the same mechanism the IDE uses to recolour its icons.</li>
+<li><strong>Dark variants.</strong> A <code>_dark</code> suffix is appended when the theme is dark.</li>
+<li>**<code>@2x</code> bitmaps.** For bitmap icons, the <code>@2x</code> variant is chosen when the density warrants it. SVGs need no equivalent.</li>
+</ul>
+<h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
+<ul>
+<li><a href="swing-bridge.html">The Swing bridge</a> — where icon palettes come from in a plugin</li>
+<li><a href="theming.html">Theming</a></li>
+</ul>
+      <p class="footer">Jewel is a joint project by Google and JetBrains. Docs source on
+        <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+      </article>
+    </main>
+    <aside class="onthis"><h4>On this page</h4>
+<a class="lv2" href="#loading-an-icon">Loading an icon</a>
+<a class="lv2" href="#your-own-icons">Your own icons</a>
+<a class="lv2" href="#painter-hints">Painter hints</a>
+<a class="lv3" href="#stateful-icons">Stateful icons</a>
+<a class="lv3" href="#writing-your-own-hint">Writing your own hint</a>
+<a class="lv2" href="#what-the-defaults-do-for-you">What the defaults do for you</a>
+<a class="lv2" href="#see-also">See also</a></aside>
+  </div>
+</div>
+<script>
+(function () {
+  var page = document.querySelector('.page');
+  function setTheme(t) {
+    page.setAttribute('data-theme', t);
+    var b = document.getElementById('theme-btn');
+    if (b) b.textContent = t === 'dark' ? 'Light' : 'Dark';
+    try { localStorage.setItem('jewel-theme', t); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('jewel-theme'); } catch (e) {}
+  if (!saved) saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  setTheme(saved);
+  var btn = document.getElementById('theme-btn');
+  if (btn) btn.addEventListener('click', function () {
+    setTheme(page.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>

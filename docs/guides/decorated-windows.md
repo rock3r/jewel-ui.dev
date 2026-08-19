@@ -1,15 +1,15 @@
 # Decorated windows
 
 The JetBrains Runtime lets a window replace the system title bar with its own content.
-That is how the IDE gets the title bar it has, and Jewel exposes the same capability, so a
-standalone app can look like one.
+That is how the IDE gets the title bar it has, and Jewel exposes the same capability, so
+a standalone app can look like one.
 
 This is standalone territory. In a plugin the IDE owns the window.
 
 ## The window
 
-`DecoratedWindow` replaces Compose's `Window`. It takes the same arguments you already know
-— `state`, `title`, `icon`, `resizable`, the key event handlers — plus a
+`DecoratedWindow` replaces Compose's `Window`. It takes the same arguments you already
+know — `state`, `title`, `icon`, `resizable`, the key event handlers — plus a
 `DecoratedWindowStyle`.
 
 ```kotlin
@@ -30,21 +30,22 @@ Its content lambda runs in `DecoratedWindowScope`, which is what makes the title
 available.
 
 !!! warning "This needs the JetBrains Runtime"
-    `DecoratedWindow` checks for the JBR on first composition and throws if it is missing:
+    `DecoratedWindow` checks for the JBR on first composition and throws if it is
+    missing:
 
     ```text
     DecoratedWindow can only be used on JetBrainsRuntime(JBR) platform
     ```
 
-    If you hit this, your Gradle toolchain is almost certainly resolving a different JDK of
-    the right version. Pin the vendor. See
-    [pinning the toolchain vendor](../start/standalone.md#before-you-start).
+    If you hit this, your Gradle toolchain is almost certainly resolving a different JDK
+    of the right version. Pin the vendor. See [pinning the toolchain
+    vendor](../start/standalone.md#before-you-start).
 
 ## The title bar
 
 `TitleBar` is an extension on `DecoratedWindowScope`, so it can only appear inside a
-decorated window. Its content lambda receives the current `DecoratedWindowState`, which is
-how you react to the window being focused, maximised or fullscreen.
+decorated window. Its content lambda receives the current `DecoratedWindowState`. Use
+that state to react to the window being focused, maximised or fullscreen.
 
 ```kotlin
 import org.jetbrains.jewel.window.DecoratedWindow
@@ -63,8 +64,8 @@ DecoratedWindow(onCloseRequest = ::exitApplication) {
 `gradientStartColor` tints the bar from the left, which is what the IDE uses for the
 per-project colour stripe.
 
-`Modifier.newFullscreenControls()` is macOS-only and positions the traffic lights for the
-newer fullscreen control layout.
+`Modifier.newFullscreenControls()` is macOS-only and positions the traffic lights for
+the newer fullscreen control layout.
 
 ## Making parts of the bar clickable
 
@@ -82,9 +83,9 @@ TitleBar {
 }
 ```
 
-The key is just an identifier for the registered region. Forget the modifier and the
-control will look right and do nothing, which is a confusing bug to chase — so add it to
-every interactive element you put in the bar.
+The key is an identifier for the registered region. If you omit the modifier, the
+control will look right but do nothing. Add it to every interactive element you put in
+the bar.
 
 ## Styling
 
@@ -106,23 +107,23 @@ IntUiTheme(
 ```
 
 `TitleBarStyle.light()`, `dark()` and `lightWithLightHeader()` are extensions on the
-companion, in `org.jetbrains.jewel.intui.window.styling`. Each takes colours, metrics and
-icons, so you override a piece without rebuilding the rest.
+companion, in `org.jetbrains.jewel.intui.window.styling`. Each takes colours, metrics
+and icons, so you override a piece without rebuilding the rest.
 
 `decoratedWindow()` takes `windowStyle` and `titleBarStyle`, both nullable and both
 defaulting to null, in which case they follow the theme's light or dark setting.
 
 ## Which dependency
 
-Add `jewel-decorated-window`, as the
-[standalone dependencies](../start/standalone.md#dependencies) section shows. Both the
-window primitives and the Int UI styling live in it.
+Add `jewel-decorated-window`, as the [standalone
+dependencies](../start/standalone.md#dependencies) section shows. Both the window
+primitives and the Int UI styling live in it.
 
-You may come across `jewel-int-ui-decorated-window`, and older material describing the two as
-an unstyled/styled split. That is no longer how it works: the Int UI styling sits in the same
-module as the primitives, and `int-ui-decorated-window` is an older artifact kept for
-compatibility that contains no code of its own. New code should depend on
-`jewel-decorated-window` directly.
+You may come across `jewel-int-ui-decorated-window`, and older material describing the
+two as a split into unstyled and styled modules. That is no longer how it works: the Int
+UI styling sits in the same module as the primitives, and `int-ui-decorated-window` is
+an older artifact kept for compatibility that contains no code of its own. New code
+should depend on `jewel-decorated-window` directly.
 
 ## See also
 

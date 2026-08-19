@@ -106,7 +106,7 @@ This section matters most, because most readers are not native English speakers.
   to point at a whole clause. Repeat the noun when in doubt.
 - Do not drop verbs from parallel clauses.
 - Keep "the", "a" and "that" where they make a sentence parse one way.
-- Use periods, not semicolons. Replace an em dash with a new sentence.
+- Use periods, not semicolons. On em dashes, see [Settled questions](#settled-questions).
 - No slashes. Write "a, b, or both", not "a/b".
 - **No idioms, colloquialisms, Latin abbreviations or metaphors.** This is the single
   biggest trap. Not "reaches for", "catches people out", "fiddly", "out of the box",
@@ -149,9 +149,10 @@ answer is the same.
   The only American spellings are Kotlin parameter names such as `color`, which mirror the
   real API and must not change.
 - **"annotated experimental"**, never "marked experimental". It names the mechanism.
-- **Em dashes split by kind.** The `[Link] — one-line description` convention in "See also"
-  and index lists is intentional. Only split dashes that separate a sentence's subject from
-  its verb.
+- **Em dashes split by kind.** Three kinds, three answers. The `[Link] — one-line
+  description` convention in "See also" and index lists is intentional; leave it. A
+  parenthetical pair that reads cleanly may stay. Split a dash that joins two independent
+  clauses, and always split one that separates a sentence's subject from its verb.
 - **Keep `deliberately`** where it marks design intent rather than accident. Keep "test
   harness", a term of art. Keep the `It proves` / `It does not prove` pair in
   `best-practices/testing.md`, a deliberate parallel.

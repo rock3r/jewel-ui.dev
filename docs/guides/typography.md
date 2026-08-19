@@ -37,8 +37,8 @@ val quietConsole = JewelTheme.typography.rememberConsoleTextStyle(fontStyle = Fo
 ```
 
 Each takes `fontSize`, `fontWeight` and `fontStyle`, all optional, and returns a
-`TextStyle`. Deriving keeps everything else — family, features, the user's own settings —
-intact, which is the point.
+`TextStyle`. Deriving keeps everything else — family, features, the user's own settings
+— intact, which is the point.
 
 !!! note "If you are upgrading"
     `TextStyle.copyWithSize()` and the old `org.jetbrains.jewel.ui.component.Typography`
@@ -48,20 +48,19 @@ intact, which is the point.
 ## The editor font is not a guess
 
 In a plugin, `editorTextStyle` and `consoleTextStyle` come from the IDE's editor colour
-scheme. If the user set their editor to a particular font at a particular size, a code view
-in your plugin uses it, and follows them when they change it.
+scheme. If the user set their editor to a particular font at a particular size, a code
+view in your plugin uses it, and follows them when they change it.
 
-This is the single most common place a Compose panel gives itself away. A hardcoded
-monospace family is visibly not the editor.
+A hardcoded monospace family is visibly not the editor font.
 
 ## Fonts in a standalone app
 
 Outside the IDE there is no editor colour scheme, so Jewel ships the families Int UI
 expects and uses them as defaults: `FontFamily.Inter` for UI text and JetBrains Mono for
-editor text, both in `org.jetbrains.jewel.intui.standalone`. Unless you override the theme's
+editor text, in `org.jetbrains.jewel.intui.standalone`. Unless you override the theme's
 text styles, you get them without doing anything.
 
-For anything else, the APIs you need are **Compose Multiplatform's, not Jewel's**. The
+For anything else, use **Compose Multiplatform's typography APIs, not Jewel's**. The
 README blurs this distinction. It matters because it tells you where to look when
 something misbehaves:
 
@@ -80,17 +79,18 @@ val fromAwt = myAwtFont.asComposeFontFamily()
 ```
 
 `FontFamily(String)` and `EmbeddedFontFamily(String)` are in
-`androidx.compose.ui.text.font`; `asComposeFontFamily()` is in
-`androidx.compose.ui.text.platform`. `EmbeddedFontFamily` returns null when the family is
-absent, so always supply a fallback.
+`androidx.compose.ui.text.font`. `asComposeFontFamily()` is in
+`androidx.compose.ui.text.platform`. `EmbeddedFontFamily` returns null when the family
+is absent, so always supply a fallback.
 
 ## Supplying your own text styles
 
 The standalone theme builds its definition from a default and an editor text style, so
-overriding typography wholesale means supplying those when you construct the theme rather
-than restyling components one at a time. See [Theming](theming.md).
+overriding typography wholesale means supplying those when you construct the theme
+rather than restyling components one at a time. See [Theming](theming.md).
 
 ## See also
 
 - [Theming](theming.md) — where text styles come from
-- [The Swing bridge](swing-bridge.md) — how a plugin picks up `JBFont` and the editor scheme
+- [The Swing bridge](swing-bridge.md) — how a plugin picks up `JBFont` and the editor
+  scheme

@@ -161,12 +161,12 @@ const page = `<!doctype html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Jewel — Compose for Desktop that already looks like the IDE</title>
-<meta name="description" content="Jewel implements the IntelliJ Platform's New UI in Compose for Desktop: 40+ components built to the real Int UI specs, plus a Swing bridge that makes your plugin follow the user's theme.">
+<title>Jewel — Compose Multiplatform that already looks like the IDE</title>
+<meta name="description" content="Jewel implements the IntelliJ Platform's New UI in Compose Multiplatform for desktop: 40+ components built to the real Int UI specs, plus a Swing bridge that makes your plugin follow the user's theme.">
 <meta name="color-scheme" content="dark light">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta property="og:title" content="Jewel — Compose for Desktop that already looks like the IDE">
-<meta property="og:description" content="The IntelliJ Platform's New UI, in Compose for Desktop. 40+ components built to the real Int UI specs, plus a Swing bridge that follows the user's theme.">
+<meta property="og:title" content="Jewel — Compose Multiplatform that already looks like the IDE">
+<meta property="og:description" content="The IntelliJ Platform's New UI, in Compose Multiplatform for desktop. 40+ components built to the real Int UI specs, plus a Swing bridge that follows the user's theme.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://jewel-ui.dev/">
 ${helmet.trim()}

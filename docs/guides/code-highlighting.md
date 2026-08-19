@@ -1,13 +1,13 @@
 # Code highlighting
 
-Fenced code blocks in rendered Markdown are syntax highlighted. Where the colours and the
-grammar come from differs between a plugin and a standalone app, and in both cases the
-default is already wired up.
+Fenced code blocks in rendered Markdown are syntax highlighted. Where the colours and
+the grammar come from differs between a plugin and a standalone app, and in both cases
+the default is already wired up.
 
 ## In a standalone app
 
-No setup is needed. `ProvideMarkdownStyling` supplies a highlighter by default,
-using light or dark syntax colours to match the theme. Render Markdown with a fenced code
+No setup is needed. `ProvideMarkdownStyling` supplies a highlighter by default, using
+light or dark syntax colours to match the theme. Render Markdown with a fenced code
 block and it is highlighted.
 
 ## Adding a language
@@ -38,17 +38,17 @@ semantic rather than lexical highlighting — implement `CodeHighlighter` from
 fun highlight(code: String, language: String = ""): Flow<AnnotatedString>
 ```
 
-It returns a `Flow`, not a single value, which is the useful part: highlighting can arrive
-progressively, and can be re-emitted when something changes underneath it — a colour scheme
-switch, or a slower analysis completing after a fast first pass. Emit as often as you have
-something better to show.
+It returns a `Flow`, not a single value. The `Flow` is the useful part: highlighting can
+arrive progressively, and can be re-emitted when something changes underneath it — a
+colour scheme switch, or a slower analysis completing after a fast first pass. Emit as
+often as you have something better to show.
 
 Pass your implementation as the `codeHighlighter` argument to `ProvideMarkdownStyling`.
 
 ## In a plugin
 
-The bridge highlights code with the IDE's own editor colour scheme, so a code block in your
-plugin matches the editor beside it — including when the user changes scheme.
+The bridge highlights code with the IDE's own editor colour scheme, so a code block in
+your plugin matches the editor beside it — including when the user changes scheme.
 
 Use a `ProvideMarkdownStyling` overload that takes a `Project`:
 
@@ -60,14 +60,15 @@ ProvideMarkdownStyling(project) {
 }
 ```
 
-The project is what lets it reach the highlighting machinery. **The overloads that do not
-take a `Project` fall back to no highlighting at all** — not to a simple built-in
-highlighter. If code blocks in your plugin render unstyled, this is almost always why.
+The project is what lets it reach the highlighting machinery. **The overloads that do
+not take a `Project` fall back to no highlighting at all** — not to a simple built-in
+highlighter. If code blocks in your plugin render unstyled, the missing `Project` is
+almost always why.
 
 ## Stability
 
 The code highlighting APIs are annotated experimental, in both the standalone and bridge
-modules. The defaults are stable enough to rely on; it is the shape of the customisation
+modules. The defaults are stable enough to rely on. It is the shape of the customisation
 API that may still move.
 
 ## See also

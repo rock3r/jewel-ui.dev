@@ -7,17 +7,19 @@ design.
 
 Three names appear throughout these docs, and they are not interchangeable:
 
-- **[Int UI](https://www.figma.com/community/file/1227732692272811382/int-ui-kit)** is the
-  design system. It is the colours, metrics and component specs, published as a Figma kit.
-- **[New UI](https://www.jetbrains.com/help/idea/new-ui.html)** is the IntelliJ Platform's
-  implementation of Int UI. It is the interface you see in a recent IntelliJ IDE.
+- **[Int UI](https://www.figma.com/community/file/1227732692272811382/int-ui-kit)** is
+  the design system. It is the colours, metrics and component specs, published as a
+  Figma kit.
+- **[New UI](https://www.jetbrains.com/help/idea/new-ui.html)** is the IntelliJ
+  Platform's implementation of Int UI. It is the interface you see in a recent IntelliJ
+  IDE.
 - **[Islands](https://plugins.jetbrains.com/docs/intellij/supporting-islands-theme.html)**
-  is a theme variant with its own palette format. Jewel reads it; see
-  [Islands themes](guides/theming.md#islands-themes).
+  is a theme variant with its own palette format. Jewel reads it. See [Islands
+  themes](guides/theming.md#islands-themes).
 
 Standalone, Jewel implements Int UI directly. In a plugin it does not: the Swing bridge
-reads whatever theme the running IDE has, so your UI follows the user's choice rather than
-a fixed copy of the specs.
+reads whatever theme the running IDE has, so your UI follows the user's choice rather
+than a fixed copy of the specs.
 
 Jewel requires the JetBrains Runtime. Other JDKs are not supported.
 
@@ -26,11 +28,11 @@ Jewel requires the JetBrains Runtime. Other JDKs are not supported.
 There are two ways to use Jewel, and the setup differs enough that they get their own
 pages:
 
-- **[In an IntelliJ plugin](start/plugin.md).** Jewel ships inside the IntelliJ Platform,
-  so there is no external dependency to add. Your UI reads the IDE's current theme and
-  changes with it.
-- **[In a standalone app](start/standalone.md).** One dependency and a theme wrapper. You
-  get the Int UI look, and full control over how far you take it.
+- **[In an IntelliJ plugin](start/plugin.md).** Jewel ships inside the IntelliJ
+  Platform, so there is no external dependency to add. Your UI reads the IDE's current
+  theme and changes with it.
+- **[In a standalone app](start/standalone.md).** One dependency and a theme wrapper.
+  You get the Int UI look, and full control over how far you take it.
 
 ## Past the theme, it is one codebase
 
@@ -49,11 +51,11 @@ IntUiTheme(isDark = true) {
 }
 ```
 
-`YourScreen` does not change between the two. That is worth designing around: if you keep
-IntelliJ Platform types out of your composables and pass what they need in behind your own
-interfaces, the same UI code runs in a plugin and in a standalone app — and can be tested
-against the standalone theme without starting the platform. See
-[Portable UI](best-practices/portable-ui.md).
+`YourScreen` does not change between the two. That is worth designing around: if you
+keep IntelliJ Platform types out of your composables and pass what they need in behind
+your own interfaces, the same UI code runs in a plugin and in a standalone app. You can
+test it against the standalone theme without starting the platform. See [Portable
+UI](best-practices/portable-ui.md).
 
 ## Guides
 
@@ -71,7 +73,7 @@ Task-first pages for the things people actually do:
 
 ## Reference
 
-- [Components](../components/) — every component, with screenshots from the real thing
+- [Components](../components/) — every component, with real screenshots
 - [Versions and compatibility](versioning.md) — how versions are numbered, and which
   Jewel goes with which IntelliJ Platform
 - [Releases](releases/)
@@ -79,8 +81,8 @@ Task-first pages for the things people actually do:
 
 ## Getting help
 
-Jewel is developed in the open, in the
-[IntelliJ Community repository](https://github.com/JetBrains/intellij-community/tree/master/platform/jewel).
-Bugs and feature requests go to [YouTrack, project JEWEL](https://youtrack.jetbrains.com/issues/JEWEL).
-Questions are welcome in
-[#jewel on the Kotlin Slack](https://app.slack.com/client/T09229ZC6/C05T8U2C31T).
+Jewel is developed in the open, in the [IntelliJ Community
+repository](https://github.com/JetBrains/intellij-community/tree/master/platform/jewel).
+Bugs and feature requests go to [YouTrack, project
+JEWEL](https://youtrack.jetbrains.com/issues/JEWEL). Questions are welcome in [#jewel on
+the Kotlin Slack](https://app.slack.com/client/T09229ZC6/C05T8U2C31T).

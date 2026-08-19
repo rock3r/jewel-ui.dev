@@ -19,13 +19,18 @@ Read the guide that matches what you are about to change. Both are binding.
 | `src/Main.dc.html` | Landing page source, a Design Component |
 | `build-site.mjs` | Renders `Main.dc.html` to static HTML |
 | `docs/` | User documentation, Markdown |
+| `build-docs.mjs` | Renders `docs/` to `public/docs/`, no dependencies |
 | `public/` | Build output, deployed to Cloudflare Workers |
 | `check-links.mjs` | Verifies internal doc links and anchors |
 | `wrangler.jsonc` | Cloudflare Workers config |
 
 ## Before you commit
 
+- Rebuild what you changed: `node build-site.mjs src/Main.dc.html public` for the landing
+  page, `node build-docs.mjs docs public/docs` for the documentation. `public/` is committed.
 - Run `node check-links.mjs`. It must report no broken links.
+- Adding a documentation page means adding it to `NAV` in `build-docs.mjs`. The build fails
+  if a page is on disk but not in the nav, or in the nav but not on disk.
 - Keep Markdown lines under 90 characters. The landing page HTML wraps looser.
 - Verify every API claim against the Jewel source. Type signatures, default values and
   parameter names drift; Jewel is pre-1.0.
