@@ -1,7 +1,7 @@
 # Standalone app
 
-Jewel in a Compose for Desktop app that has nothing to do with the IntelliJ Platform. You
-get the Int UI look, and you own every part of it.
+Jewel runs in a Compose for Desktop app that has nothing to do with the IntelliJ
+Platform. You get the Int UI look, and you own every part of it.
 
 If you are writing an IntelliJ plugin, read [In an IntelliJ plugin](plugin.md) instead —
 the setup is different, and simpler.
@@ -134,7 +134,8 @@ dependencies {
 ```
 
 Copying the icons you need into your own resources, at the same paths, works too. The
-artifact is simply easier, and small. [Icons](../guides/icons.md) covers loading your own.
+artifact is easier to use and smaller. [Icons](../guides/icons.md) covers loading your
+own.
 
 ## Next
 

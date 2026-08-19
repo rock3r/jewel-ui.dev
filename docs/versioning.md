@@ -6,7 +6,7 @@ answer different questions.
 
 ## Reading a version
 
-```
+```text
 0.39.1-262.9437.29
 └─┬──┘ └────┬────┘
   │         └─ the IntelliJ Platform build it was compiled against

@@ -20,9 +20,9 @@ missing resource or a crash a long way from the cause.
 
 ## What to do instead
 
-If your motivation is distribution size, the packaging Compose for Desktop already does —
-producing a runtime image containing only the modules you use — gets most of the benefit
-without the fragility.
+If your motivation is distribution size, Compose for Desktop's own packaging already gets
+most of the benefit without the fragility. It produces a runtime image containing only
+the modules you use.
 
 If your motivation is obfuscation, weigh it against the support position above. You are
 choosing to be on your own for any UI-layer bug.

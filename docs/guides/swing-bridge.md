@@ -4,8 +4,8 @@ Inside the IDE, Jewel does not approximate the current theme. It reads it.
 
 `SwingBridgeTheme` pulls colours, typography, metrics and icon palettes out of the running
 IntelliJ Platform's Swing look and feel, and supplies them to Compose as a Jewel theme. The
-user switches to dark, installs a theme from the Marketplace, or bumps the IDE font size,
-and your Compose UI follows — with no mapping table on your side to maintain.
+user switches to the dark theme, installs a theme from the Marketplace, or bumps the IDE
+font size, and your Compose UI follows — with no mapping table on your side to maintain.
 
 ```kotlin
 import androidx.compose.runtime.Composable

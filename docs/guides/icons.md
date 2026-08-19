@@ -107,9 +107,9 @@ of them.
 ### Writing your own hint
 
 `PainterHint` is sealed, so you extend one of its sub-hierarchies rather than implementing
-it directly. `PainterSuffixHint` and `PainterPrefixHint` cover path manipulation, which is
-most cases; there are also hooks for patching SVG and XML content, and for wrapping the
-resulting painter.
+it directly. `PainterSuffixHint` and `PainterPrefixHint` handle path manipulation, which
+covers most cases. There are also hooks for patching SVG and XML content, and for
+wrapping the resulting painter.
 
 The one thing to watch: `suffix()` is declared on `PainterProviderScope`, so your override
 needs the receiver, as in the sample above. Writing `override fun suffix()` without it does

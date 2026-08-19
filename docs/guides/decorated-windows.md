@@ -32,7 +32,7 @@ available.
 !!! warning "This needs the JetBrains Runtime"
     `DecoratedWindow` checks for the JBR on first composition and throws if it is missing:
 
-    ```
+    ```text
     DecoratedWindow can only be used on JetBrainsRuntime(JBR) platform
     ```
 
