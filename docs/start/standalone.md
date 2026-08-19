@@ -49,15 +49,20 @@ one is separate from the Compose Gradle plugin and is easy to miss.
 ```kotlin
 // build.gradle.kts
 plugins {
-    kotlin("jvm") version "..."
-    id("org.jetbrains.compose") version "..."
-    id("org.jetbrains.kotlin.plugin.compose") version "..."
+    kotlin("jvm") version "..."                             // Kotlin version
+    id("org.jetbrains.compose") version "..."               // Compose Multiplatform version
+    id("org.jetbrains.kotlin.plugin.compose") version "..." // Kotlin version, not Compose
 }
 ```
 
-The Kotlin and Compose versions must line up with the ones Jewel is built against. Each
-Jewel release notes the Compose Multiplatform version it targets; the minimum Kotlin
-version follows from the minimum supported IntelliJ Platform.
+All three are required, and the version each takes is the part people get wrong. Since
+Kotlin 2.0 the Compose compiler ships in the Kotlin repository rather than with Compose
+Multiplatform, so it is applied as its own plugin — and it is versioned with **Kotlin**, not
+with Compose. Two of the three lines above take the same version; the middle one does not.
+
+Those versions also have to line up with what Jewel is built against. Each release records
+the Compose Multiplatform version it targets, and the minimum Kotlin version follows from the
+minimum supported IntelliJ Platform.
 
 !!! warning "Convention plugins"
     If you configure your project with convention plugins, apply these once — for example
