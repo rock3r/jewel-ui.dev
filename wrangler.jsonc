@@ -1,0 +1,8 @@
+{
+  "name": "jewel-ui-dev",
+  "compatibility_date": "2026-08-19",
+  "assets": {
+    "directory": "./public"
+  },
+  "observability": { "enabled": true }
+}
