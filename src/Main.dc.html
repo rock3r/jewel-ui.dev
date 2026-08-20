@@ -125,6 +125,8 @@
     .page .btn-ghost:hover { border-color: var(--fg-3); color: var(--fg); text-decoration: none; }
     .page .btn-ghost:active { background: var(--panel); }
 
+    .page .verchip { color: var(--fg-3); font-size: 11px; border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; }
+    .page .verchip:hover { color: var(--fg); border-color: var(--line-strong); text-decoration: none; }
     .page .navlink { color: var(--fg-2); font-size: 14.5px; font-weight: 500; }
     .page .navlink:hover { color: var(--fg); text-decoration: none; }
 
@@ -267,17 +269,19 @@
   <!-- ══════════ NAV ══════════ -->
   <div style="position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line)">
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 0 40px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
-      <a href="#top" style="display: flex; align-items: center; gap: 12px; color: var(--fg)">
-        <svg width="26" height="26" viewBox="0 0 512 512" aria-hidden="true">
-          <rect width="512" height="512" fill="#000000"></rect>
-          <path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFFFFF"></path>
-          <path d="M256 76L436 256H256V76Z" fill="#CCCCCC"></path>
-          <path d="M76 256L256 436V256H76Z" fill="#CCCCCC"></path>
-          <path d="M256 436L436 256H256V436Z" fill="#808080"></path>
-        </svg>
-        <span class="display" style="font-size: 19px; font-weight: 700; letter-spacing: -0.01em">Jewel</span>
-        <span class="mono" style="font-size: 11px; color: var(--fg-3); border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px">{{version}}</span>
-      </a>
+      <div style="display: flex; align-items: center; gap: 12px">
+        <a href="#top" style="display: flex; align-items: center; gap: 12px; color: var(--fg)">
+          <svg width="26" height="26" viewBox="0 0 512 512" aria-hidden="true">
+            <rect width="512" height="512" fill="#000000"></rect>
+            <path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFFFFF"></path>
+            <path d="M256 76L436 256H256V76Z" fill="#CCCCCC"></path>
+            <path d="M76 256L256 436V256H76Z" fill="#CCCCCC"></path>
+            <path d="M256 436L436 256H256V436Z" fill="#808080"></path>
+          </svg>
+          <span class="display" style="font-size: 19px; font-weight: 700; letter-spacing: -0.01em">Jewel</span>
+        </a>
+        <a class="mono verchip" href="https://central.sonatype.com/artifact/org.jetbrains.jewel/jewel-int-ui-standalone" target="_blank" rel="noreferrer" title="Latest on Maven Central: {{artifact}}">{{version}}</a>
+      </div>
 
       <div class="nav-links" style="display: flex; align-items: center; gap: 22px">
         <a class="navlink" href="#start">Get started</a>

@@ -241,7 +241,8 @@ body { margin: 0; }
 .brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--fg); }
 .brand svg { display: block; width: 20px; height: 20px; }
 .brand b { font-family: Archivo, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 15.5px; letter-spacing: -0.01em; }
-.brand span { color: var(--fg-3); font-size: 13.5px; }
+.brand-docs { color: var(--fg-3); font-size: 13.5px; text-decoration: none; margin-left: -5px; }
+.brand-docs:hover { color: var(--fg); }
 .top-sp { flex: 1; }
 .top a.tl { color: var(--fg-2); text-decoration: none; font-size: 13.5px; }
 .top a.tl:hover { color: var(--fg); }
@@ -444,7 +445,8 @@ function build(rel) {
 <body>
 <div class="page" data-theme="dark">
   <header class="top">
-    <a class="brand" href="${up}index.html">${LOGO}<b>Jewel</b><span>docs</span></a>
+    <a class="brand" href="/" title="Jewel home">${LOGO}<b>Jewel</b></a>
+    <a class="brand-docs" href="${up}index.html">docs</a>
     <div class="top-sp"></div>
     <a class="tl" href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
     <a class="tl" href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
@@ -456,8 +458,9 @@ ${nav}
     </nav>
     <main class="main">
       <article class="doc">
-${body}      <p class="footer">Jewel is a joint project by Google and JetBrains. Docs source on
-        <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">GitHub</a>.</p>
+${body}      <p class="footer">Jewel is a joint project by Google and JetBrains.
+        <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Jewel source</a> ·
+        <a href="https://github.com/rock3r/jewel-ui.dev/tree/master/docs" target="_blank" rel="noopener noreferrer">Docs source</a></p>
       </article>
     </main>
     <aside class="onthis">${onThis}</aside>
