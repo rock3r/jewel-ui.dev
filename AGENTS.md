@@ -38,9 +38,30 @@ Read the guide that matches what you are about to change. Both are binding.
   the API reference are generated. A hand-maintained version table is what `VERSIONS.md`
   was, and it drifted six releases behind before anyone noticed.
 
-## Reviewing docs
+## Docs review loop
 
-Reviews run one page at a time:
+Human review happens in a standing pull request,
+[#1](https://github.com/rock3r/jewel-ui.dev/pull/1), titled "DO NOT MERGE". Its base branch,
+`docs-review-base`, is parked at the commit before the docs landed, so every page shows as an
+addition and every line can be commented on. It is a review surface, not a proposed change.
+Merging it would write into the throwaway base branch and could not touch `master`.
+
+To act on a round of review:
+
+```bash
+gh api repos/rock3r/jewel-ui.dev/pulls/1/comments --jq '.[] | "\(.path):\(.line) \(.user.login): \(.body)"'
+```
+
+Apply the comments to the Markdown in `docs/`, rebuild, redeploy, then resolve the threads that
+are done. To reset the diff after the docs have moved on, fast-forward `docs-review-base` to the
+commit the previous round reviewed and push it; open threads survive.
+
+`public/**` is marked `linguist-generated` in `.gitattributes` so the built site collapses in
+that diff rather than burying the pages.
+
+## Automated review
+
+Automated reviews run one page at a time:
 
 ```bash
 pioneer review --source . --model openrouter/z-ai/glm-5.2 \
