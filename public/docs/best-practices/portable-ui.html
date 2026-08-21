@@ -198,7 +198,7 @@ SwingBridgeTheme {
     <span class="c-fn">IssueList</span>(state, onAction)
 }</code></pre></div>
 <p><code>IssueList</code> does not change. This is not a coincidence of the current release: the component library (<code>org.jetbrains.jewel.ui.component</code>) and the foundation module sit below both themes, and neither depends on the IntelliJ Platform. The platform dependency is confined to the bridge module.</p>
-<p>That portability is worth designing for, because two useful things follow from it.</p>
+<p>Design for that portability. Two useful things follow.</p>
 <h2 id="keep-the-platform-at-the-edge"><a class="anchor" href="#keep-the-platform-at-the-edge">Keep the platform at the edge</a></h2>
 <p>The constraint is simple: <strong>no IntelliJ Platform types in your composables.</strong></p>
 <p>A composable that takes a <code>Project</code>, requests a <code>Service</code>, or resolves a <code>VirtualFile</code> can only ever run inside the IDE. One that takes plain data and callbacks runs anywhere.</p>

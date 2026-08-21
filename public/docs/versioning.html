@@ -208,8 +208,8 @@ body { margin: 0; }
 <h2 id="what-is-stable-and-what-is-not"><a class="anchor" href="#what-is-stable-and-what-is-not">What is stable, and what is not</a></h2>
 <p>Jewel is below 1.0. That does not mean everything moves without warning — the policy is explicit, and CI enforces it rather than relying on care.</p>
 <p><strong>Stable APIs.</strong> Binary compatibility is guaranteed. Code compiled against a stable API keeps working across releases.</p>
-<p><strong>Experimental APIs.</strong> Kept binary-compatible wherever possible, but with no hard promise. They are annotated, so you can tell which side of the line you are on. Do not build something critical on one without expecting to revisit it.</p>
-<p><strong>Deprecated APIs.</strong> Typically removed after about two major IntelliJ Platform bumps. That gives you roughly two platform releases of warning, and the release notes carry a migration guide whenever something goes.</p>
+<p><strong>Experimental APIs.</strong> Kept binary-compatible wherever possible, but with no hard promise. Each one is annotated, so you can tell it apart from a stable API. Do not build something critical on one without expecting to revisit it.</p>
+<p><strong>Deprecated APIs.</strong> Typically removed after about two major IntelliJ Platform bumps. That gives you roughly two platform releases of warning, and the release notes include a migration guide whenever something goes.</p>
 <p><strong>Source compatibility.</strong> Best effort, and mainly guaranteed for named-parameter usage. Call sites written the idiomatic way are the ones most protected. Positional calls into functions that gain parameters are the ones most likely to break.</p>
 <p>Both the stable and experimental API surfaces are tracked per release, and an unintended change fails the build. A break has to be a decision.</p>
 <h2 id="why-the-release-notes-can-be-ahead-of-what-you-can-use"><a class="anchor" href="#why-the-release-notes-can-be-ahead-of-what-you-can-use">Why the release notes can be ahead of what you can use</a></h2>

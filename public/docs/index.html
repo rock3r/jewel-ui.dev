@@ -213,9 +213,9 @@ SwingBridgeTheme {
 <span class="c-fn">IntUiTheme</span>(isDark = <span class="c-kw">true</span>) {
     <span class="c-fn">YourScreen</span>(state, onAction)
 }</code></pre></div>
-<p><code>YourScreen</code> does not change between the two. That is worth designing around: if you keep IntelliJ Platform types out of your composables and pass what they need in behind your own interfaces, the same UI code runs in a plugin and in a standalone app. You can test it against the standalone theme without starting the platform. See <a href="best-practices/portable-ui.html">Portable UI</a>.</p>
+<p><code>YourScreen</code> does not change between the two. Design around that: keep IntelliJ Platform types out of your composables and pass what they need in behind your own interfaces, and the same UI code runs in a plugin and in a standalone app. You can test it against the standalone theme without starting the platform. See <a href="best-practices/portable-ui.html">Portable UI</a>.</p>
 <h2 id="guides"><a class="anchor" href="#guides">Guides</a></h2>
-<p>Task-first pages for the things people actually do:</p>
+<p>Task-first pages:</p>
 <ul>
 <li><a href="guides/theming.html">Theming</a> — the Int UI theme, and how to change it</li>
 <li><a href="guides/swing-bridge.html">The Swing bridge</a> — how a plugin follows the IDE's theme</li>
