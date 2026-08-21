@@ -1,0 +1,22 @@
+# Markdown formatting for docs/, checked by `rumdl check docs` before commit.
+# See STYLE.md for the prose rules this file cannot express.
+
+[global]
+disable = [
+  # The `!!! warning` admonitions indent their fenced code blocks by four
+  # spaces, which MD046 reads as the wrong code-block style. It is the
+  # admonition syntax build-docs.mjs parses, not a mistake.
+  "MD046",
+  # MD057 resolves relative links against the repository. Links to
+  # releases/, components/ and api/ point at sections generated at deploy
+  # time; check-links.mjs is the authority on those.
+  "MD057",
+]
+
+[MD013]
+# STYLE.md: keep Markdown lines under 90 characters.
+line-length = 90
+# Code samples wrap to their own rhythm, and wide content scrolls in its
+# own container on the site. Do not reflow or flag them.
+code-blocks = false
+reflow = true

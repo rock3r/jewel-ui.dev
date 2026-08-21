@@ -1,0 +1,304 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Theming — Jewel docs</title>
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root { color-scheme: dark light; }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+
+.page {
+  --bg: #1E1F22; --panel: #2B2D30; --line: #393B40; --line-strong: #4E5157;
+  --btn-border: #6F737A; --fg: #DFE1E5; --fg-2: #B4B8BF; --fg-3: #9DA0A8;
+  --accent: #3574F0; --accent-hover: #366ACE; --link: #6B9BFA; --on-accent: #FFFFFF;
+  --code-bg: #2B2D30; --sel: rgba(53, 116, 240, 0.16);
+  --kw: #CF8E6D; --str: #6AAB73; --fn: #56A8F5; --com: #9DA0A8; --num: #2AACB8;
+}
+.page[data-theme="light"] {
+  --bg: #FFFFFF; --panel: #F7F8FA; --line: #EBECF0; --line-strong: #C9CCD6;
+  --btn-border: #818594; --fg: #27282E; --fg-2: #494B57; --fg-3: #6C707E;
+  --accent: #3574F0; --accent-hover: #3369D6; --link: #315FBD; --on-accent: #FFFFFF;
+  --code-bg: #F7F8FA; --sel: rgba(53, 116, 240, 0.10);
+  --kw: #0033B3; --str: #067D17; --fn: #00627A; --com: #6C707E; --num: #1750EB;
+}
+
+.page {
+  font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin;
+  min-height: 100vh; font-size: 15px; line-height: 1.6;
+}
+
+/* header */
+.top {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 14px;
+  height: 52px; padding: 0 20px;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--fg); }
+.brand svg { display: block; width: 20px; height: 20px; }
+.brand b { font-family: Archivo, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 15.5px; letter-spacing: -0.01em; }
+.brand-docs { color: var(--fg-3); font-size: 13.5px; text-decoration: none; margin-left: -5px; }
+.brand-docs:hover { color: var(--fg); }
+.top-sp { flex: 1; }
+.top a.tl { color: var(--fg-2); text-decoration: none; font-size: 13.5px; }
+.top a.tl:hover { color: var(--fg); }
+.tbtn {
+  font: inherit; font-size: 13px; cursor: pointer;
+  background: transparent; color: var(--fg-2);
+  border: 1px solid var(--line-strong); border-radius: 6px; padding: 4px 10px;
+}
+.tbtn:hover { color: var(--fg); border-color: var(--btn-border); }
+
+/* shell */
+.shell { display: grid; grid-template-columns: 264px minmax(0, 1fr) 200px; gap: 0; align-items: start; }
+@media (max-width: 1100px) { .shell { grid-template-columns: 240px minmax(0, 1fr); } .onthis { display: none; } }
+@media (max-width: 760px) { .shell { grid-template-columns: minmax(0, 1fr); } .side { display: none; } }
+
+/* left nav */
+.side {
+  position: sticky; top: 52px; align-self: start;
+  height: calc(100vh - 52px); overflow-y: auto;
+  border-right: 1px solid var(--line); padding: 20px 8px 40px 20px;
+}
+.side h4 {
+  margin: 20px 0 6px; padding: 0 10px;
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--fg-3);
+}
+.side h4:first-child { margin-top: 0; }
+.side a {
+  display: block; padding: 5px 10px; margin: 1px 0;
+  border-radius: 4px; text-decoration: none;
+  color: var(--fg-2); font-size: 13.5px; line-height: 1.35;
+}
+.side a:hover { background: var(--panel); color: var(--fg); }
+.side a[aria-current="page"] { background: var(--sel); color: var(--fg); font-weight: 500; }
+
+/* content */
+.main { padding: 34px 40px 90px; min-width: 0; }
+.doc { max-width: 68ch; }
+.doc h1 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em;
+  margin: 0 0 18px;
+}
+.doc h2 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em;
+  margin: 34px 0 10px; padding-top: 14px; border-top: 1px solid var(--line);
+}
+.doc h3 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 16px; font-weight: 600; margin: 24px 0 8px;
+}
+.doc h2 a.anchor, .doc h3 a.anchor { color: inherit; text-decoration: none; }
+.doc h2 a.anchor:hover::after, .doc h3 a.anchor:hover::after {
+  content: " #"; color: var(--fg-3); font-weight: 400;
+}
+.doc p { margin: 0 0 14px; }
+.doc ul { margin: 0 0 14px; padding-left: 20px; }
+.doc li { margin: 5px 0; }
+.doc a { color: var(--link); text-decoration: none; }
+.doc a:hover { text-decoration: underline; }
+.doc code {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.86em; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+}
+.doc .code {
+  background: var(--code-bg); border: 1px solid var(--line);
+  border-radius: 8px; margin: 0 0 16px; overflow-x: auto;
+}
+.doc .code pre { margin: 0; padding: 13px 16px; }
+.doc .code code {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12.9px; line-height: 1.62; background: none; border: 0; padding: 0;
+  white-space: pre;
+}
+.c-kw { color: var(--kw); } .c-str { color: var(--str); }
+.c-fn { color: var(--fn); } .c-com { color: var(--com); } .c-num { color: var(--num); }
+
+.adm {
+  border: 1px solid var(--line-strong); border-left-width: 3px;
+  border-radius: 6px; padding: 12px 15px; margin: 0 0 16px; background: var(--panel);
+}
+.adm-title { font-weight: 600; margin: 0 0 6px !important; font-size: 14px; }
+.adm-warning { border-left-color: #E0A200; }
+.adm-note { border-left-color: var(--accent); }
+.adm > :last-child { margin-bottom: 0 !important; }
+
+/* on this page */
+.onthis { position: sticky; top: 52px; align-self: start; padding: 34px 20px 40px 0; max-height: calc(100vh - 52px); overflow-y: auto; }
+.onthis h4 { margin: 0 0 8px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-3); }
+.onthis a { display: block; padding: 3px 0; color: var(--fg-3); text-decoration: none; font-size: 12.5px; line-height: 1.35; }
+.onthis a:hover { color: var(--fg); }
+.onthis a.lv3 { padding-left: 12px; }
+
+.footer { margin-top: 46px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--fg-3); font-size: 12.5px; }
+.footer a { color: var(--link); text-decoration: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page" data-theme="dark">
+  <header class="top">
+    <a class="brand" href="/" title="Jewel home"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" fill="#000"/><path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFF"/><path d="M256 76L436 256H256V76Z" fill="#CCC"/><path d="M76 256L256 436V256H76Z" fill="#CCC"/><path d="M256 436L436 256H256V436Z" fill="#808080"/></svg><b>Jewel</b></a>
+    <a class="brand-docs" href="../index.html">docs</a>
+    <div class="top-sp"></div>
+    <a class="tl" href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
+    <a class="tl" href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+    <button class="tbtn" id="theme-btn" type="button">Light</button>
+  </header>
+  <div class="shell">
+    <nav class="side" aria-label="Documentation">
+<a href="../index.html">Jewel</a>
+<h4>Get started</h4>
+<a href="../start/plugin.html">In an IntelliJ plugin</a>
+<a href="../start/standalone.html">Standalone app</a>
+<h4>Guides</h4>
+<a href="../guides/theming.html" aria-current="page">Theming</a>
+<a href="../guides/swing-bridge.html">The Swing bridge</a>
+<a href="../guides/icons.html">Icons</a>
+<a href="../guides/typography.html">Typography and fonts</a>
+<a href="../guides/lists-and-trees.html">Lists, trees and speed search</a>
+<a href="../guides/markdown.html">Rendering Markdown</a>
+<a href="../guides/decorated-windows.html">Decorated windows</a>
+<a href="../guides/swing-interop.html">Swing interop</a>
+<a href="../guides/code-highlighting.html">Code highlighting</a>
+<h4>Best practices</h4>
+<a href="../best-practices/portable-ui.html">Portable UI</a>
+<a href="../best-practices/testing.html">Testing your UI</a>
+<a href="../best-practices/proguard.html">ProGuard and minification</a>
+<h4>Reference</h4>
+<a href="../versioning.html">Versions and compatibility</a>
+    </nav>
+    <main class="main">
+      <article class="doc">
+<h1>Theming</h1>
+<p>Every Jewel component reads its colours, metrics and text styles from an ambient theme. Which theme you establish decides where those values come from, and it is the one line that differs between a plugin and a standalone app.</p>
+<p>In a plugin you use <code>SwingBridgeTheme</code>, which reads the running IDE — see <a href="swing-bridge.html">The Swing bridge</a>. This page is about the standalone theme and about customising either.</p>
+<h2 id="the-standalone-theme"><a class="anchor" href="#the-standalone-theme">The standalone theme</a></h2>
+<p><code>IntUiTheme</code> has two public overloads. The short one is for when the defaults are fine:</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
+
+<span class="c-fn">IntUiTheme</span>(isDark = <span class="c-kw">true</span>) {
+    <span class="c-com">// your UI</span>
+}</code></pre></div>
+<p><code>isDark</code> defaults to <code>false</code>, so pass it unless you want the light theme.</p>
+<p>The long one takes a theme definition and component styling, and is what you use as soon as you want to change anything:</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-fn">IntUiTheme</span>(
+    theme = themeDefinition,
+    styling = ComponentStyling.<span class="c-fn">default</span>(),
+) {
+    <span class="c-com">// your UI</span>
+}</code></pre></div>
+<p>Both also accept <code>swingCompatMode</code>, which adjusts text rendering so Compose text lines up with Swing text in the same window. You want it when embedding Compose in a Swing app. The bridge sets it for you in a plugin.</p>
+<h2 id="building-a-theme-definition"><a class="anchor" href="#building-a-theme-definition">Building a theme definition</a></h2>
+<p>A theme definition holds the palette, the metrics and the base text styles. Build one from the Int UI defaults and change what you need:</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.theme.JewelTheme
+<span class="c-kw">import</span> org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
+<span class="c-kw">import</span> org.jetbrains.jewel.intui.standalone.theme.createDefaultTextStyle
+<span class="c-kw">import</span> org.jetbrains.jewel.intui.standalone.theme.createEditorTextStyle
+<span class="c-kw">import</span> org.jetbrains.jewel.intui.standalone.theme.darkThemeDefinition
+<span class="c-kw">import</span> org.jetbrains.jewel.intui.standalone.theme.lightThemeDefinition
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.ComponentStyling
+<span class="c-kw">import</span> org.jetbrains.jewel.intui.standalone.theme.default
+
+<span class="c-kw">@Composable</span>
+<span class="c-kw">fun</span> <span class="c-fn">MyTheme</span>(isDark: Boolean, content: <span class="c-kw">@Composable</span> () -&gt; Unit) {
+    <span class="c-kw">val</span> textStyle = JewelTheme.<span class="c-fn">createDefaultTextStyle</span>()
+    <span class="c-kw">val</span> editorStyle = JewelTheme.<span class="c-fn">createEditorTextStyle</span>()
+
+    <span class="c-kw">val</span> themeDefinition =
+        <span class="c-fn">if</span> (isDark) {
+            JewelTheme.<span class="c-fn">darkThemeDefinition</span>(defaultTextStyle = textStyle, editorTextStyle = editorStyle)
+        } <span class="c-kw">else</span> {
+            JewelTheme.<span class="c-fn">lightThemeDefinition</span>(defaultTextStyle = textStyle, editorTextStyle = editorStyle)
+        }
+
+    <span class="c-fn">IntUiTheme</span>(theme = themeDefinition, styling = ComponentStyling.<span class="c-fn">default</span>()) {
+        <span class="c-fn">content</span>()
+    }
+}</code></pre></div>
+<p><code>createDefaultTextStyle()</code> and <code>createEditorTextStyle()</code> are extensions on <code>JewelTheme</code> that hold the Int UI defaults — Inter for UI text, JetBrains Mono for editor text. Pass arguments to change size, family or weight rather than constructing a <code>TextStyle</code> from nothing, so you inherit everything you did not mean to change.</p>
+<h2 id="component-styling"><a class="anchor" href="#component-styling">Component styling</a></h2>
+<p><code>ComponentStyling.default()</code> supplies the Int UI styling for every component. It composes, so you layer changes on top rather than replacing the whole set. Window decoration styling arrives the same way:</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.intui.window.decoratedWindow
+<span class="c-kw">import</span> org.jetbrains.jewel.intui.window.styling.dark
+<span class="c-kw">import</span> org.jetbrains.jewel.window.styling.TitleBarStyle
+
+ComponentStyling.<span class="c-fn">default</span>()
+    .<span class="c-fn">decoratedWindow</span>(titleBarStyle = TitleBarStyle.<span class="c-fn">dark</span>())</code></pre></div>
+<p><code>decoratedWindow</code> lives in the decorated-window module, not the core styling package — see <a href="decorated-windows.html">Decorated windows</a>.</p>
+<h2 id="how-far-you-can-take-it"><a class="anchor" href="#how-far-you-can-take-it">How far you can take it</a></h2>
+<p>Nothing about Jewel requires you to look like the IDE. Colours, metrics, icons and text styles are all values you supply. Int UI is a set of defaults, not a constraint. Starting from <code>ComponentStyling.default()</code> and overriding the pieces you care about is the usual path, and it keeps you current when the Int UI defaults change.</p>
+<p>What you should not do is fight the theme from the outside — wrapping components in modifiers that repaint them, or hardcoding colours next to themed components. The result stops following the user's light or dark choice. Following that choice is what Jewel is for.</p>
+<h2 id="reading-theme-values"><a class="anchor" href="#reading-theme-values">Reading theme values</a></h2>
+<p>Anything in the theme is available through <code>JewelTheme</code>:</p>
+<div class="code"><pre><code class="lang-kotlin">JewelTheme.globalColors
+JewelTheme.globalMetrics
+JewelTheme.defaultTextStyle
+JewelTheme.isDark</code></pre></div>
+<p>Use those instead of literals when you draw something custom next to Jewel components. That is what keeps your own drawing in step when the theme changes.</p>
+<h2 id="islands-themes"><a class="anchor" href="#islands-themes">Islands themes</a></h2>
+<p><a href="https://plugins.jetbrains.com/docs/intellij/supporting-islands-theme.html" target="_blank" rel="noopener noreferrer">Islands</a> is a variant of the New UI with its own themes. Jewel reads its colour palette, but the palette is indexed differently, and that difference is often missed.</p>
+<p>Classic palettes number their colours <code>1, 2, 3</code>. Islands palettes number them <code>10, 20, 30</code>. So the Islands equivalent of <code>blueOrNull(1)</code> is <code>blueOrNull(10)</code>, and <code>redOrNull(3)</code> becomes <code>redOrNull(30)</code>. Use the scheme that belongs to the palette you are reading, which <code>ThemeColorPalette.isIslands</code> tells you.</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">val</span> palette = JewelTheme.colorPalette
+<span class="c-kw">val</span> blue = <span class="c-fn">if</span> (palette.isIslands) palette.<span class="c-fn">blueOrNull</span>(<span class="c-num">10</span>) <span class="c-kw">else</span> palette.<span class="c-fn">blueOrNull</span>(<span class="c-num">1</span>)</code></pre></div>
+<p>Two more differences matter. An Islands palette is the same in light and dark, where a classic palette is not, and semantic tokens are layered on top of it. Jewel does not support those tokens yet, though you can read them from the Swing look and feel.</p>
+<p>The official Islands themes currently also include the classic palette entries, so classic indices happen to work against them today. Do not rely on it. Third-party themes need not do the same, and neither need future official ones.</p>
+<h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
+<ul>
+<li><a href="swing-bridge.html">The Swing bridge</a> — the plugin side</li>
+<li><a href="typography.html">Typography and fonts</a> — text styles in detail</li>
+<li><a href="decorated-windows.html">Decorated windows</a> — styling the title bar</li>
+</ul>
+      <p class="footer">Jewel is a joint project by Google and JetBrains.
+        <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Jewel source</a> ·
+        <a href="https://github.com/rock3r/jewel-ui.dev/tree/master/docs" target="_blank" rel="noopener noreferrer">Docs source</a></p>
+      </article>
+    </main>
+    <aside class="onthis"><h4>On this page</h4>
+<a class="lv2" href="#the-standalone-theme">The standalone theme</a>
+<a class="lv2" href="#building-a-theme-definition">Building a theme definition</a>
+<a class="lv2" href="#component-styling">Component styling</a>
+<a class="lv2" href="#how-far-you-can-take-it">How far you can take it</a>
+<a class="lv2" href="#reading-theme-values">Reading theme values</a>
+<a class="lv2" href="#islands-themes">Islands themes</a>
+<a class="lv2" href="#see-also">See also</a></aside>
+  </div>
+</div>
+<script>
+(function () {
+  var page = document.querySelector('.page');
+  function setTheme(t) {
+    page.setAttribute('data-theme', t);
+    var b = document.getElementById('theme-btn');
+    if (b) b.textContent = t === 'dark' ? 'Light' : 'Dark';
+    try { localStorage.setItem('jewel-theme', t); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('jewel-theme'); } catch (e) {}
+  if (!saved) saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  setTheme(saved);
+  var btn = document.getElementById('theme-btn');
+  if (btn) btn.addEventListener('click', function () {
+    setTheme(page.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>

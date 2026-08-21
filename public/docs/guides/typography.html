@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Typography and fonts — Jewel docs</title>
+<meta name="color-scheme" content="dark light">
+<meta name="robots" content="noindex">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root { color-scheme: dark light; }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+
+.page {
+  --bg: #1E1F22; --panel: #2B2D30; --line: #393B40; --line-strong: #4E5157;
+  --btn-border: #6F737A; --fg: #DFE1E5; --fg-2: #B4B8BF; --fg-3: #9DA0A8;
+  --accent: #3574F0; --accent-hover: #366ACE; --link: #6B9BFA; --on-accent: #FFFFFF;
+  --code-bg: #2B2D30; --sel: rgba(53, 116, 240, 0.16);
+  --kw: #CF8E6D; --str: #6AAB73; --fn: #56A8F5; --com: #9DA0A8; --num: #2AACB8;
+}
+.page[data-theme="light"] {
+  --bg: #FFFFFF; --panel: #F7F8FA; --line: #EBECF0; --line-strong: #C9CCD6;
+  --btn-border: #818594; --fg: #27282E; --fg-2: #494B57; --fg-3: #6C707E;
+  --accent: #3574F0; --accent-hover: #3369D6; --link: #315FBD; --on-accent: #FFFFFF;
+  --code-bg: #F7F8FA; --sel: rgba(53, 116, 240, 0.10);
+  --kw: #0033B3; --str: #067D17; --fn: #00627A; --com: #6C707E; --num: #1750EB;
+}
+
+.page {
+  font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin;
+  min-height: 100vh; font-size: 15px; line-height: 1.6;
+}
+
+/* header */
+.top {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 14px;
+  height: 52px; padding: 0 20px;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--fg); }
+.brand svg { display: block; width: 20px; height: 20px; }
+.brand b { font-family: Archivo, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 15.5px; letter-spacing: -0.01em; }
+.brand-docs { color: var(--fg-3); font-size: 13.5px; text-decoration: none; margin-left: -5px; }
+.brand-docs:hover { color: var(--fg); }
+.top-sp { flex: 1; }
+.top a.tl { color: var(--fg-2); text-decoration: none; font-size: 13.5px; }
+.top a.tl:hover { color: var(--fg); }
+.tbtn {
+  font: inherit; font-size: 13px; cursor: pointer;
+  background: transparent; color: var(--fg-2);
+  border: 1px solid var(--line-strong); border-radius: 6px; padding: 4px 10px;
+}
+.tbtn:hover { color: var(--fg); border-color: var(--btn-border); }
+
+/* shell */
+.shell { display: grid; grid-template-columns: 264px minmax(0, 1fr) 200px; gap: 0; align-items: start; }
+@media (max-width: 1100px) { .shell { grid-template-columns: 240px minmax(0, 1fr); } .onthis { display: none; } }
+@media (max-width: 760px) { .shell { grid-template-columns: minmax(0, 1fr); } .side { display: none; } }
+
+/* left nav */
+.side {
+  position: sticky; top: 52px; align-self: start;
+  height: calc(100vh - 52px); overflow-y: auto;
+  border-right: 1px solid var(--line); padding: 20px 8px 40px 20px;
+}
+.side h4 {
+  margin: 20px 0 6px; padding: 0 10px;
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--fg-3);
+}
+.side h4:first-child { margin-top: 0; }
+.side a {
+  display: block; padding: 5px 10px; margin: 1px 0;
+  border-radius: 4px; text-decoration: none;
+  color: var(--fg-2); font-size: 13.5px; line-height: 1.35;
+}
+.side a:hover { background: var(--panel); color: var(--fg); }
+.side a[aria-current="page"] { background: var(--sel); color: var(--fg); font-weight: 500; }
+
+/* content */
+.main { padding: 34px 40px 90px; min-width: 0; }
+.doc { max-width: 68ch; }
+.doc h1 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em;
+  margin: 0 0 18px;
+}
+.doc h2 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em;
+  margin: 34px 0 10px; padding-top: 14px; border-top: 1px solid var(--line);
+}
+.doc h3 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 16px; font-weight: 600; margin: 24px 0 8px;
+}
+.doc h2 a.anchor, .doc h3 a.anchor { color: inherit; text-decoration: none; }
+.doc h2 a.anchor:hover::after, .doc h3 a.anchor:hover::after {
+  content: " #"; color: var(--fg-3); font-weight: 400;
+}
+.doc p { margin: 0 0 14px; }
+.doc ul { margin: 0 0 14px; padding-left: 20px; }
+.doc li { margin: 5px 0; }
+.doc a { color: var(--link); text-decoration: none; }
+.doc a:hover { text-decoration: underline; }
+.doc code {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.86em; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+}
+.doc .code {
+  background: var(--code-bg); border: 1px solid var(--line);
+  border-radius: 8px; margin: 0 0 16px; overflow-x: auto;
+}
+.doc .code pre { margin: 0; padding: 13px 16px; }
+.doc .code code {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12.9px; line-height: 1.62; background: none; border: 0; padding: 0;
+  white-space: pre;
+}
+.c-kw { color: var(--kw); } .c-str { color: var(--str); }
+.c-fn { color: var(--fn); } .c-com { color: var(--com); } .c-num { color: var(--num); }
+
+.adm {
+  border: 1px solid var(--line-strong); border-left-width: 3px;
+  border-radius: 6px; padding: 12px 15px; margin: 0 0 16px; background: var(--panel);
+}
+.adm-title { font-weight: 600; margin: 0 0 6px !important; font-size: 14px; }
+.adm-warning { border-left-color: #E0A200; }
+.adm-note { border-left-color: var(--accent); }
+.adm > :last-child { margin-bottom: 0 !important; }
+
+/* on this page */
+.onthis { position: sticky; top: 52px; align-self: start; padding: 34px 20px 40px 0; max-height: calc(100vh - 52px); overflow-y: auto; }
+.onthis h4 { margin: 0 0 8px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-3); }
+.onthis a { display: block; padding: 3px 0; color: var(--fg-3); text-decoration: none; font-size: 12.5px; line-height: 1.35; }
+.onthis a:hover { color: var(--fg); }
+.onthis a.lv3 { padding-left: 12px; }
+
+.footer { margin-top: 46px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--fg-3); font-size: 12.5px; }
+.footer a { color: var(--link); text-decoration: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page" data-theme="dark">
+  <header class="top">
+    <a class="brand" href="/" title="Jewel home"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" fill="#000"/><path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFF"/><path d="M256 76L436 256H256V76Z" fill="#CCC"/><path d="M76 256L256 436V256H76Z" fill="#CCC"/><path d="M256 436L436 256H256V436Z" fill="#808080"/></svg><b>Jewel</b></a>
+    <a class="brand-docs" href="../index.html">docs</a>
+    <div class="top-sp"></div>
+    <a class="tl" href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
+    <a class="tl" href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+    <button class="tbtn" id="theme-btn" type="button">Light</button>
+  </header>
+  <div class="shell">
+    <nav class="side" aria-label="Documentation">
+<a href="../index.html">Jewel</a>
+<h4>Get started</h4>
+<a href="../start/plugin.html">In an IntelliJ plugin</a>
+<a href="../start/standalone.html">Standalone app</a>
+<h4>Guides</h4>
+<a href="../guides/theming.html">Theming</a>
+<a href="../guides/swing-bridge.html">The Swing bridge</a>
+<a href="../guides/icons.html">Icons</a>
+<a href="../guides/typography.html" aria-current="page">Typography and fonts</a>
+<a href="../guides/lists-and-trees.html">Lists, trees and speed search</a>
+<a href="../guides/markdown.html">Rendering Markdown</a>
+<a href="../guides/decorated-windows.html">Decorated windows</a>
+<a href="../guides/swing-interop.html">Swing interop</a>
+<a href="../guides/code-highlighting.html">Code highlighting</a>
+<h4>Best practices</h4>
+<a href="../best-practices/portable-ui.html">Portable UI</a>
+<a href="../best-practices/testing.html">Testing your UI</a>
+<a href="../best-practices/proguard.html">ProGuard and minification</a>
+<h4>Reference</h4>
+<a href="../versioning.html">Versions and compatibility</a>
+    </nav>
+    <main class="main">
+      <article class="doc">
+<h1>Typography and fonts</h1>
+<p>Jewel exposes the three text styles the IDE distinguishes — the UI font, the editor font and the console font — and lets you derive variants of each. That distinction matters: a code view that uses the UI font looks wrong, and a code view that guesses at a monospace font ignores what the user actually chose.</p>
+<h2 id="the-typography-api"><a class="anchor" href="#the-typography-api">The typography API</a></h2>
+<p><code>JewelTheme.typography</code> is the entry point.</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.theme.JewelTheme
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.Text
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.typography
+
+<span class="c-kw">@Composable</span>
+<span class="c-kw">fun</span> <span class="c-fn">Heading</span>() {
+    <span class="c-fn">Text</span>(<span class="c-str">&quot;Section&quot;</span>, style = JewelTheme.typography.h2TextStyle)
+}</code></pre></div>
+<p>It defines the heading scale (<code>h0TextStyle</code> through <code>h4TextStyle</code>), the label style and its size, the <code>regular</code>, <code>medium</code> and <code>small</code> variants, and <code>editorTextStyle</code> and <code>consoleTextStyle</code>.</p>
+<h2 id="deriving-a-style"><a class="anchor" href="#deriving-a-style">Deriving a style</a></h2>
+<p>To change size, weight or slant, derive rather than copy. Three functions, one per base style, with the same signature:</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">val</span> bigger = JewelTheme.typography.<span class="c-fn">rememberDefaultTextStyle</span>(fontSize = <span class="c-num">15.sp</span>)
+<span class="c-kw">val</span> boldCode = JewelTheme.typography.<span class="c-fn">rememberEditorTextStyle</span>(fontWeight = FontWeight.Bold)
+<span class="c-kw">val</span> quietConsole = JewelTheme.typography.<span class="c-fn">rememberConsoleTextStyle</span>(fontStyle = FontStyle.Italic)</code></pre></div>
+<p>Each takes <code>fontSize</code>, <code>fontWeight</code> and <code>fontStyle</code>, all optional, and returns a <code>TextStyle</code>. Deriving keeps everything else intact: the family, the font features, and the user's own settings.</p>
+<div class="adm adm-note"><p class="adm-title">If you are upgrading</p>
+<p><code>TextStyle.copyWithSize()</code> and the old <code>org.jetbrains.jewel.ui.component.Typography</code> object were removed in 0.40. The three <code>remember*TextStyle</code> functions above replace both. Apply any unrelated <code>TextStyle</code> properties separately afterwards.</p>
+</div>
+<h2 id="the-editor-font-is-not-a-guess"><a class="anchor" href="#the-editor-font-is-not-a-guess">The editor font is not a guess</a></h2>
+<p>In a plugin, <code>editorTextStyle</code> and <code>consoleTextStyle</code> come from the IDE's editor colour scheme. If the user set their editor to a particular font at a particular size, a code view in your plugin uses it, and follows them when they change it.</p>
+<p>A hardcoded monospace family is visibly not the editor font.</p>
+<h2 id="fonts-in-a-standalone-app"><a class="anchor" href="#fonts-in-a-standalone-app">Fonts in a standalone app</a></h2>
+<p>Outside the IDE there is no editor colour scheme, so Jewel ships the families Int UI expects and uses them as defaults: <code>FontFamily.Inter</code> for UI text and JetBrains Mono for editor text, in <code>org.jetbrains.jewel.intui.standalone</code>. Unless you override the theme's text styles, you get them without doing anything.</p>
+<p>For anything else, use <strong>Compose Multiplatform's typography APIs, not Jewel's</strong>. The README blurs this distinction. It matters because it tells you where to look when something misbehaves:</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.ui.text.font.FontFamily
+<span class="c-kw">import</span> androidx.compose.ui.text.platform.asComposeFontFamily
+
+<span class="c-com">// A font installed on the system</span>
+<span class="c-kw">val</span> system = <span class="c-fn">FontFamily</span>(<span class="c-str">&quot;My Family&quot;</span>)
+
+<span class="c-com">// A font embedded in the JetBrains Runtime; null when it is not there</span>
+<span class="c-kw">val</span> embedded = <span class="c-fn">EmbeddedFontFamily</span>(<span class="c-str">&quot;Embedded family&quot;</span>) ?: <span class="c-fn">FontFamily</span>(<span class="c-str">&quot;Fallback family&quot;</span>)
+
+<span class="c-com">// Any java.awt.Font, including a JBFont inside the IDE</span>
+<span class="c-kw">val</span> fromAwt = myAwtFont.<span class="c-fn">asComposeFontFamily</span>()</code></pre></div>
+<p><code>FontFamily(String)</code> and <code>EmbeddedFontFamily(String)</code> are in <code>androidx.compose.ui.text.font</code>. <code>asComposeFontFamily()</code> is in <code>androidx.compose.ui.text.platform</code>. <code>EmbeddedFontFamily</code> returns null when the family is absent, so always supply a fallback.</p>
+<h2 id="supplying-your-own-text-styles"><a class="anchor" href="#supplying-your-own-text-styles">Supplying your own text styles</a></h2>
+<p>The standalone theme builds its definition from a default and an editor text style, so overriding typography wholesale means supplying those when you construct the theme rather than restyling components one at a time. See <a href="theming.html">Theming</a>.</p>
+<h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
+<ul>
+<li><a href="theming.html">Theming</a> — where text styles come from</li>
+<li><a href="swing-bridge.html">The Swing bridge</a> — how a plugin picks up <code>JBFont</code> and the editor scheme</li>
+</ul>
+      <p class="footer">Jewel is a joint project by Google and JetBrains.
+        <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Jewel source</a> ·
+        <a href="https://github.com/rock3r/jewel-ui.dev/tree/master/docs" target="_blank" rel="noopener noreferrer">Docs source</a></p>
+      </article>
+    </main>
+    <aside class="onthis"><h4>On this page</h4>
+<a class="lv2" href="#the-typography-api">The typography API</a>
+<a class="lv2" href="#deriving-a-style">Deriving a style</a>
+<a class="lv2" href="#the-editor-font-is-not-a-guess">The editor font is not a guess</a>
+<a class="lv2" href="#fonts-in-a-standalone-app">Fonts in a standalone app</a>
+<a class="lv2" href="#supplying-your-own-text-styles">Supplying your own text styles</a>
+<a class="lv2" href="#see-also">See also</a></aside>
+  </div>
+</div>
+<script>
+(function () {
+  var page = document.querySelector('.page');
+  function setTheme(t) {
+    page.setAttribute('data-theme', t);
+    var b = document.getElementById('theme-btn');
+    if (b) b.textContent = t === 'dark' ? 'Light' : 'Dark';
+    try { localStorage.setItem('jewel-theme', t); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('jewel-theme'); } catch (e) {}
+  if (!saved) saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  setTheme(saved);
+  var btn = document.getElementById('theme-btn');
+  if (btn) btn.addEventListener('click', function () {
+    setTheme(page.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>

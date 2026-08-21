@@ -125,6 +125,8 @@
     .page .btn-ghost:hover { border-color: var(--fg-3); color: var(--fg); text-decoration: none; }
     .page .btn-ghost:active { background: var(--panel); }
 
+    .page .verchip { color: var(--fg-3); font-size: 11px; border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px; }
+    .page .verchip:hover { color: var(--fg); border-color: var(--line-strong); text-decoration: none; }
     .page .navlink { color: var(--fg-2); font-size: 14.5px; font-weight: 500; }
     .page .navlink:hover { color: var(--fg); text-decoration: none; }
 
@@ -267,17 +269,19 @@
   <!-- ══════════ NAV ══════════ -->
   <div style="position: sticky; top: 0; z-index: 20; background: var(--bg); border-bottom: 1px solid var(--line)">
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 0 40px; height: 68px; display: flex; align-items: center; justify-content: space-between; gap: 24px">
-      <a href="#top" style="display: flex; align-items: center; gap: 12px; color: var(--fg)">
-        <svg width="26" height="26" viewBox="0 0 512 512" aria-hidden="true">
-          <rect width="512" height="512" fill="#000000"></rect>
-          <path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFFFFF"></path>
-          <path d="M256 76L436 256H256V76Z" fill="#CCCCCC"></path>
-          <path d="M76 256L256 436V256H76Z" fill="#CCCCCC"></path>
-          <path d="M256 436L436 256H256V436Z" fill="#808080"></path>
-        </svg>
-        <span class="display" style="font-size: 19px; font-weight: 700; letter-spacing: -0.01em">Jewel</span>
-        <span class="mono" style="font-size: 11px; color: var(--fg-3); border: 1px solid var(--line); border-radius: 4px; padding: 2px 7px">{{version}}</span>
-      </a>
+      <div style="display: flex; align-items: center; gap: 12px">
+        <a href="#top" style="display: flex; align-items: center; gap: 12px; color: var(--fg)">
+          <svg width="26" height="26" viewBox="0 0 512 512" aria-hidden="true">
+            <rect width="512" height="512" fill="#000000"></rect>
+            <path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFFFFF"></path>
+            <path d="M256 76L436 256H256V76Z" fill="#CCCCCC"></path>
+            <path d="M76 256L256 436V256H76Z" fill="#CCCCCC"></path>
+            <path d="M256 436L436 256H256V436Z" fill="#808080"></path>
+          </svg>
+          <span class="display" style="font-size: 19px; font-weight: 700; letter-spacing: -0.01em">Jewel</span>
+        </a>
+        <a class="mono verchip" href="https://central.sonatype.com/artifact/org.jetbrains.jewel/jewel-int-ui-standalone" target="_blank" rel="noreferrer" title="Latest on Maven Central: {{artifact}}">{{version}}</a>
+      </div>
 
       <div class="nav-links" style="display: flex; align-items: center; gap: 22px">
         <a class="navlink" href="#start">Get started</a>
@@ -314,9 +318,9 @@
       <div class="hero-grid" style="display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 56px; align-items: center; padding: 104px 0 96px">
 
         <div style="display: flex; flex-direction: column; gap: 28px">
-          <h1 class="display h1" style="margin: 0; font-size: 64px; line-height: 1.03; font-weight: 700; letter-spacing: -0.032em; text-wrap: balance"><span class="keep">Compose for Desktop</span> that already looks like <span class="keep">the IDE.</span></h1>
+          <h1 class="display h1" style="margin: 0; font-size: 64px; line-height: 1.03; font-weight: 700; letter-spacing: -0.032em; text-wrap: balance"><span class="keep">Compose Multiplatform</span> that already looks like <span class="keep">the IDE.</span></h1>
 
-          <p style="margin: 0; font-size: 19px; line-height: 1.6; color: var(--fg-2); max-width: 56ch; text-wrap: pretty">Jewel implements the IntelliJ Platform's New UI in Compose for Desktop: 40+ components built to the real Int UI specs, plus a Swing bridge that makes your plugin follow whatever theme the user picked, including third-party ones you have never seen.</p>
+          <p style="margin: 0; font-size: 19px; line-height: 1.6; color: var(--fg-2); max-width: 56ch; text-wrap: pretty">Jewel implements the IntelliJ Platform's New UI in Compose Multiplatform for desktop: 40+ components built to the real Int UI specs, plus a Swing bridge that makes your plugin follow whatever theme the user picked, including third-party ones you have never seen.</p>
 
           <div class="hero-cta" style="display: flex; gap: 14px; align-items: center; padding-top: 2px">
             <a class="btn btn-lg btn-primary" href="#start">
@@ -372,7 +376,7 @@
               <div style="display: flex; flex-direction: column; gap: 12px">
                 <div class="bullet">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-                  <span>Jewel ships inside the IntelliJ Platform from 251.2 onwards. No repository, no external dependency — just declare the bundled modules.</span>
+                  <span>Jewel ships inside the IntelliJ Platform from 251.2 onwards. No repository, no external dependency. Declare the bundled modules.</span>
                 </div>
                 <div class="bullet">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
@@ -380,7 +384,7 @@
                 </div>
                 <div class="bullet">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-                  <span><code>ToolWindow.addComposeTab()</code> sets up the Compose panel and the Swing interop pipeline for you.</span>
+                  <span><code>ToolWindow.addComposeTab()</code> sets up the Compose panel for you.</span>
                 </div>
               </div>
 
@@ -411,7 +415,7 @@
               <div style="display: flex; flex-direction: column; gap: 12px">
                 <div class="bullet">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-                  <span>One dependency and an <code>IntUiTheme</code> wrapper. It matches the official Int UI specs out of the box, in light and dark.</span>
+                  <span>One dependency and an <code>IntUiTheme</code> wrapper. It matches the official Int UI specs by default, in light and dark.</span>
                 </div>
                 <div class="bullet">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
@@ -482,7 +486,7 @@
               </div>
               <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 20px">
                 <h4 class="display" style="margin: 0; font-size: 17px; font-weight: 600">Which makes it unit-testable</h4>
-                <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">Those composables can then be tested against the standalone theme: far faster than standing up the platform, much less flaky, and it tests your UI rather than the harness around it.</p>
+                <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">Those composables can then be tested against the standalone theme: far faster than starting the platform, much less flaky, and it tests your UI rather than the harness around it.</p>
               </div>
               <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 20px">
                 <h4 class="display" style="margin: 0; font-size: 17px; font-weight: 600">And reusable</h4>
@@ -500,7 +504,7 @@
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 100px 40px">
       <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 42px">
         <h2 class="display h2">40+ components, built to the spec.</h2>
-        <p class="lede" style="max-width: 64ch">Not a generic widget set with an IntelliJ skin. Buttons, fields, combo boxes, trees, tabs, banners, tooltips, sliders, split panes — the parts an IDE-grade UI actually needs.</p>
+        <p class="lede" style="max-width: 64ch">Not a generic widget set with an IntelliJ skin. Buttons, fields, combo boxes, trees, tabs, banners, tooltips, sliders, split panes — the parts an IDE-grade UI needs.</p>
       </div>
 
       <div class="shot-wrap">
@@ -521,8 +525,8 @@
   <div id="why" class="sec" style="border-bottom: 1px solid var(--line)">
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 100px 40px">
       <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 46px">
-        <h2 class="display h2">Why Compose, and not just Swing?</h2>
-        <p class="lede" style="max-width: 64ch">Jewel makes Compose look right inside the IDE. This is the part that argues for Compose in the first place.</p>
+        <h2 class="display h2">Why Compose, and not Swing?</h2>
+        <p class="lede" style="max-width: 64ch">Jewel gives you the IDE's look and the features to fit right in. The toolkit underneath is Compose, not a UI framework from 1998.</p>
       </div>
 
       <div class="why-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px">
@@ -567,7 +571,7 @@
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 100px 40px">
       <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 46px">
         <h2 class="display h2">Drawing the buttons was the easy part.</h2>
-        <p class="lede" style="max-width: 66ch">Components are the visible tenth. Under them sits the work that actually takes the time: getting behaviour right, making every value themeable, and checking the result against the real thing, state by state. Plenty of people have assumed this would be quick. It is not.</p>
+        <p class="lede" style="max-width: 66ch">Components are the visible part. Most of the work sits underneath: getting behaviour right, making every value themeable, and checking the result against the real thing, state by state. Plenty of people have assumed this would be quick. It is not.</p>
       </div>
 
       <div class="facet" style="margin-bottom: 24px">
@@ -597,7 +601,7 @@
       <div class="card speed-card" style="padding: 32px; display: grid; grid-template-columns: minmax(0, 1fr) 430px; gap: 32px; align-items: center; margin-bottom: 42px">
         <div style="display: flex; flex-direction: column; gap: 14px">
           <h3 class="display" style="margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.014em">Lists and trees with IDE reflexes</h3>
-          <p style="margin: 0; font-size: 15px; line-height: 1.62; color: var(--fg-2)"><code>SingleSelectionLazyColumn</code>, <code>MultiSelectionLazyColumn</code> and <code>LazyTree</code> handle keyboard selection, ranges and focus the way the IDE does. <code>SpeedSearchArea</code> adds type-to-find with match highlighting — and keeps a sane selection when the filter hides the selected row.</p>
+          <p style="margin: 0; font-size: 15px; line-height: 1.62; color: var(--fg-2)"><code>SingleSelectionLazyColumn</code>, <code>MultiSelectionLazyColumn</code> and <code>LazyTree</code> handle keyboard selection, ranges and focus the way the IDE does. <code>SpeedSearchArea</code> adds type-to-find with match highlighting — and keeps a sensible selection when the filter hides the selected row.</p>
         </div>
         <sc-if value="{{isDark}}" hint-placeholder-val="{{ true }}">
           <img class="shot-plain" src="shot-speedsearch-dark.webp" alt="Speed search in the standalone sample, dark theme: typing 'spr' highlights the matching characters in Spring Boot, Spring Framework, Spring Data and Spring Security.">
@@ -610,10 +614,7 @@
       <div>
         <sc-for list="{{features}}" as="f" hint-placeholder-count="4">
           <div class="row">
-            <div style="display: flex; flex-direction: column; gap: 7px">
-              <h3>{{f.title}}</h3>
-              <span class="mono" style="font-size: 11.5px; line-height: 1.6; color: var(--fg-3)">{{f.api}}</span>
-            </div>
+            <h3>{{f.title}}</h3>
             <p>{{f.body}}</p>
           </div>
         </sc-for>
@@ -668,7 +669,7 @@
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 100px 40px">
       <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 46px">
         <h2 class="display h2">Where it goes next.</h2>
-        <p class="lede" style="max-width: 64ch">Jewel is not finished. The next stretch goes deeper into the platform, and then brings all of it back out to standalone. This is direction rather than a delivery schedule.</p>
+        <p class="lede" style="max-width: 64ch">Jewel is not finished. The next phase goes deeper into the platform, and then brings all of it back out to standalone.</p>
       </div>
 
       <div class="why-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; margin-bottom: 34px">
@@ -703,7 +704,7 @@
       <div class="split" style="display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: 56px">
 
         <div style="display: flex; flex-direction: column; gap: 16px">
-          <h2 class="display h2">Pre-1.0, but not careless.</h2>
+          <h2 class="display h2">Pre-1.0 doesn't mean unstable.</h2>
           <p class="lede">Jewel is below 1.0 and things do still move. What that means in practice is written down, and checked by CI on every change rather than by good intentions.</p>
           <div class="mono" style="font-size: 12.5px; line-height: 1.9; color: var(--fg-3); border-left: 1px solid var(--line-strong); padding-left: 16px; margin-top: 8px">
             <div>Standalone versions read</div>
@@ -716,15 +717,12 @@
         <div style="display: flex; flex-direction: column">
           <sc-for list="{{stability}}" as="s" hint-placeholder-count="4">
             <div class="row">
-              <div style="display: flex; flex-direction: column; gap: 6px">
-                <h3>{{s.title}}</h3>
-                <span class="label" style="color: {{s.tone}}">{{s.badge}}</span>
-              </div>
+              <h3>{{s.title}}</h3>
               <p>{{s.body}}</p>
             </div>
           </sc-for>
 
-          <p style="margin: 0; padding: 26px 0 0; font-size: 15px; line-height: 1.6; color: var(--fg-2)">When something does have to go, the <a href="https://github.com/JetBrains/intellij-community/blob/master/platform/jewel/RELEASE%20NOTES.md" target="_blank" rel="noreferrer">release notes</a> carry a migration guide for it.</p>
+          <p style="margin: 0; padding: 26px 0 0; font-size: 15px; line-height: 1.6; color: var(--fg-2)">When something does have to go, the <a href="https://github.com/JetBrains/intellij-community/blob/master/platform/jewel/RELEASE%20NOTES.md" target="_blank" rel="noreferrer">release notes</a> include a migration guide for it.</p>
         </div>
 
       </div>
@@ -744,14 +742,13 @@
           <div class="door" style="display: flex; flex-direction: column; gap: 10px; padding: 30px; border-left: 1px solid var(--line)">
             <a class="display" href="{{d.href}}" target="_blank" rel="noreferrer" style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em">{{d.title}}</a>
             <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">{{d.body}}</p>
-            <span class="mono" style="font-size: 12px; color: var(--fg-3); margin-top: auto; padding-top: 10px">{{d.where}}</span>
           </div>
         </sc-for>
       </div>
 
       <div class="card" style="margin-top: 20px; border-radius: 8px; padding: 26px 30px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0" aria-hidden="true"><rect x="2" y="4.5" width="20" height="15" rx="3"></rect><path d="M10 9l5 3-5 3V9Z"></path></svg>
-        <span style="font-size: 16px; line-height: 1.55; color: var(--fg-2); flex: 1 1 340px">New to all this? Sebastiano and Chris walk through why Compose is a serious choice for desktop UI, and what Jewel adds on top.</span>
+        <span style="font-size: 16px; line-height: 1.55; color: var(--fg-2); flex: 1 1 340px">Sebastiano and Chris walk through why Compose is a serious choice for desktop UI, and what Jewel adds on top.</span>
         <a class="btn btn-sm btn-ghost" href="https://www.youtube.com/watch?v=2H1jMn_SGcA" target="_blank" rel="noreferrer">Watch the talk</a>
       </div>
     </div>
@@ -811,7 +808,7 @@ class Component extends DCLogic {
     const why = [
       {
         title: 'Declarative and reactive, not enterprise OOP',
-        body: 'The screen is a function of state rather than a tree of mutable objects wired together with listeners, so there is no second copy of your state to drift out of sync. It is also what people want to write: engineers who know Swing are hard to find, and harder to keep on it once they have used something modern.',
+        body: 'The screen is a function of state rather than a tree of mutable objects wired together with listeners, so there is no second copy of your state to drift out of sync. It is also what people want to write: engineers who know Swing are hard to find, and harder to keep once they have used something modern.',
       },
       {
         title: 'Actively maintained, and going somewhere',
@@ -835,7 +832,7 @@ class Component extends DCLogic {
       },
       {
         title: 'You do not have to rewrite anything',
-        body: 'A Compose panel drops into an existing Swing hierarchy, so adoption happens one tool window, one dialog, one panel at a time. Jewel wires up the panel and the newer Swing compositing pipeline for you, and the rest of your plugin carries on being Swing.',
+        body: 'A Compose panel drops into an existing Swing hierarchy, so adoption happens one tool window, one dialog, one panel at a time. Jewel wires up the panel for you, and the rest of your plugin carries on being Swing.',
       },
       {
         title: 'A dev loop that does not start with a restart',
@@ -857,7 +854,7 @@ class Component extends DCLogic {
       },
       {
         title: 'Actions system integration',
-        body: 'Platform actions invoked and presented from Compose, so a Compose toolbar or menu becomes a real citizen of the action system instead of a parallel implementation that has to be kept in step by hand.',
+        body: 'Platform actions invoked and presented from Compose, so a Compose toolbar or menu works with the action system instead of running a parallel implementation kept in step by hand.',
       },
       {
         title: 'Keyboard shortcuts',
@@ -865,76 +862,60 @@ class Component extends DCLogic {
       },
       {
         title: 'Performance work',
-        body: 'Continued work on the paths that matter in a live IDE: the cost of composition, what happens during painting, and the modifiers that run on every single frame.',
+        body: 'We work with the Compose Multiplatform and JetBrains Runtime teams to continuously improve performance in Compose for Desktop and the Skiko pipeline. That work benefits every Compose desktop app, not just Jewel. Frame limiting and vsync support in Skiko, for example, stop animations from rendering frames that never get drawn.',
       },
     ];
 
     const features = [
       {
         title: 'Icons that behave like the platform\u2019s',
-        api: 'AllIconsKeys \u00b7 IconKey \u00b7 PainterHint',
-        body: 'Ask for an icon key and Jewel does what the IDE does: swaps in the New UI path, patches SVG key colours for the current theme, picks the dark or @2x variant, and appends state suffixes for selected, hovered or indeterminate. All of it through painter hints you can extend with your own.',
+        body: 'Ask for an icon key and Jewel does what the IDE does: swaps in the New UI path, patches SVG key colours for the current theme, picks the dark or @2x variant, and appends state suffixes for selected, hovered or indeterminate. Every step is a painter hint, and you can add your own.',
       },
       {
-        title: 'Wired into the platform, not just painted like it',
-        api: 'Modifier.provideData \u00b7 DataProviderContext \u00b7 AllIconsKeys',
+        title: 'Wired into the platform, not styled to look like it',
         body: 'The bridge goes well past colours and components. A composable can publish values into the IntelliJ data context, so platform actions, the paste provider and anything else that reads DataContext work inside your Compose UI exactly as they do in Swing. Icons come from the platform\u2019s own set rather than a copy of it.',
       },
       {
         title: 'Disabled states drawn the way the IDE draws them',
-        api: 'Modifier.disabledAppearance() \u00b7 LocalGrayFilterValues',
-        body: 'Greying a component out is not an alpha change. Jewel runs an SKSL fragment shader over a separate graphics layer to apply the platform\u2019s brightness, contrast and alpha curve, so a disabled Compose control matches the disabled Swing control beside it instead of merely looking faded.',
+        body: 'Greying a component out is not an alpha change. Jewel runs an SKSL fragment shader over a separate graphics layer to apply the platform\u2019s brightness, contrast and alpha curve, so a disabled Compose control matches the disabled Swing control beside it instead of looking faded.',
       },
       {
         title: 'Scrollbars that obey the operating system',
-        api: 'ScrollbarVisibility \u00b7 ScrollbarAdapter',
         body: 'On macOS the scrollbar follows the user\u2019s Show scroll bars setting, including whether it sits beside the content or floats over it, and whether a connected mouse changes the answer. Track thickness, expand animation and linger duration are all part of the style rather than hardcoded.',
       },
       {
         title: 'Popups, menus and tooltips with IDE timing',
-        api: 'PopupContainer \u00b7 TooltipStyle \u00b7 MenuController',
         body: 'Tooltips carry the platform\u2019s regular and full disappear delays and its auto-hide behaviour. Menus render keyboard shortcut hints next to their items, and popups can opt into a custom renderer for shadows and borders the host window cannot draw.',
       },
       {
-        title: 'Typography that knows about editors',
-        api: 'JewelTheme.typography',
+        title: 'Typography that fits right in, everywhere',
         body: 'The default, editor and console text styles are all exposed, and new ones can be derived at a requested size, weight or style. Your code view uses the user\u2019s actual editor font, not your best guess at it.',
       },
       {
-        title: 'Windows without a title bar',
-        api: 'DecoratedWindow \u00b7 TitleBarStyle \u00b7 Modifier.clientRegion',
-        body: 'You get the IDE\u2019s own chrome: the same custom title bar, project stripe and window controls, with the client region marking which parts still drag the window. Want something wilder? Depend on decorated-window alone and skip the styling entirely.',
+        title: 'The IDE\u2019s window chrome, in your app',
+        body: 'A standalone app gets the IDE\u2019s own title bar, project stripe and window controls, so it looks like IntelliJ before you style anything. Mark client regions to keep controls in the bar clickable, or drop the styling and draw all the chrome yourself.',
       },
       {
-        title: 'Accessibility, not an afterthought',
-        api: 'semantics \u00b7 SelectableLazyColumn \u00b7 LazyTree',
-        body: 'Lists and trees report their selection state to screen readers and take content descriptions from their children, while decorative chrome like dividers and scrollbars stays out of the accessibility tree entirely.',
+        title: 'Accessibility built into the components',
+        body: 'Lists and trees report their selection state to screen readers and take content descriptions from their children, while decorative chrome like dividers and scrollbars stays out of the accessibility tree entirely. Where a Swing component exposes something to assistive technology, its Jewel counterpart does too.',
       },
     ];
 
     const stability = [
       {
         title: 'Stable APIs',
-        badge: 'Binary compatibility guaranteed',
-        tone: 'var(--link)',
-        body: 'If it is in the stable surface, code compiled against it keeps working across releases.',
+        body: 'Code compiled against a stable API keeps working across releases.',
       },
       {
         title: 'Experimental APIs',
-        badge: 'Best effort',
-        tone: 'var(--fg-3)',
-        body: 'We keep them binary-compatible wherever we can, but they carry no hard promise. They are annotated, so you always know which side of the line you are standing on.',
+        body: 'We keep them binary-compatible wherever we can, but they come with no hard promise. They are annotated, so you always know which kind you are depending on.',
       },
       {
         title: 'Deprecated APIs',
-        badge: 'Removed after ~2 platform majors',
-        tone: 'var(--fg-3)',
-        body: 'Anything deprecated usually survives about two major IntelliJ Platform bumps before it is removed, which is enough runway to migrate without a fire drill.',
+        body: 'Anything deprecated usually survives about two major IntelliJ Platform bumps before it is removed, which is enough warning to plan the migration.',
       },
       {
         title: 'Source compatibility',
-        badge: 'Best effort',
-        tone: 'var(--fg-3)',
         body: 'Best effort overall, and mainly guaranteed for named-parameter usage. Call sites written the idiomatic way are the ones we protect hardest.',
       },
     ];
@@ -944,20 +925,17 @@ class Component extends DCLogic {
       {
         title: 'Read the source',
         body: 'platform/jewel in the IntelliJ Community repository, with contribution and PR guides in docs/.',
-        where: 'github.com/JetBrains/intellij-community',
         href: 'https://github.com/JetBrains/intellij-community/tree/master/platform/jewel',
       },
       {
         title: 'File an issue',
         body: 'Bugs and feature requests go to YouTrack. Release notes link every fix back to its ticket.',
-        where: 'youtrack.jetbrains.com — project JEWEL',
         href: 'https://youtrack.jetbrains.com/issues/JEWEL',
       },
       {
         title: 'Ask a question',
-        body: 'The #jewel channel on the Kotlin Slack is where the team and the people using it hang out.',
-        where: 'Kotlin Slack — #jewel',
-        href: 'https://app.slack.com/client/T09229ZC6/C05T8U2C31T',
+        body: 'The <a href="https://app.slack.com/client/T09229ZC6/C05T8U2C31T">#jewel</a> channel on the <a href="https://kotlinlang.org/community/">Kotlin Slack</a> is where the team and the people using it talk.',
+        href: 'https://kotlinlang.org/community/',
       },
     ];
 
@@ -983,6 +961,7 @@ class Component extends DCLogic {
         links: [
           { label: 'YouTrack — JEWEL', href: 'https://youtrack.jetbrains.com/issues/JEWEL' },
           { label: '#jewel on Kotlin Slack', href: 'https://app.slack.com/client/T09229ZC6/C05T8U2C31T' },
+          { label: 'Join the Kotlin Slack', href: 'https://kotlinlang.org/community/' },
           { label: 'Contribution guide', href: 'https://github.com/JetBrains/intellij-community/blob/master/platform/jewel/docs/jewel-contribution-guide.md' },
         ],
       },
