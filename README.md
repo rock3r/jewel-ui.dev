@@ -14,6 +14,7 @@ docs/              the user documentation, Markdown
 build-site.mjs     renders src/Main.dc.html into public/
 build-docs.mjs     renders docs/ into public/docs/
 check-links.mjs    verifies internal doc links and anchors
+.rumdl.toml        Markdown formatting config for docs/
 wrangler.jsonc     Worker + static asset config
 ```
 
@@ -28,6 +29,7 @@ the two real interactions (the theme toggle and the setup popover).
 ## Build
 
 ```bash
+rumdl fmt docs                                 # must report nothing to fix
 node build-site.mjs src/Main.dc.html public   # landing page
 node build-docs.mjs docs public/docs          # documentation
 node check-links.mjs                          # must report no broken links
