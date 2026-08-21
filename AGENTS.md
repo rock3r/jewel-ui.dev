@@ -22,6 +22,8 @@ Read the guide that matches what you are about to change. Both are binding.
 | `build-docs.mjs` | Renders `docs/` to `public/docs/`, no dependencies |
 | `public/` | Build output, deployed to Cloudflare Workers |
 | `check-links.mjs` | Verifies internal doc links and anchors |
+| `update-version.mjs` | Reads the published Jewel version from Maven Central into the page |
+| `.github/workflows/` | The daily job that runs it and commits the result |
 | `.rumdl.toml` | Markdown formatting config for `docs/` |
 | `wrangler.jsonc` | Cloudflare Workers config |
 
@@ -38,6 +40,9 @@ Read the guide that matches what you are about to change. Both are binding.
   page HTML wraps looser.
 - Verify every API claim against the Jewel source. Type signatures, default values and
   parameter names drift; Jewel is pre-1.0.
+- The Jewel version on the landing page is generated. `update-version.mjs` reads it from
+  Maven Central, and a daily workflow commits the bump. Do not hand-edit the `version` and
+  `artifact` fields in `src/Main.dc.html`; run `node update-version.mjs` instead.
 - Do not hand-copy anything derived from the Jewel repo. Version numbers, release notes and
   the API reference are generated. A hand-maintained version table is what `VERSIONS.md`
   was, and it drifted six releases behind before anyone noticed.

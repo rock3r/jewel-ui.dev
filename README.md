@@ -14,6 +14,7 @@ docs/              the user documentation, Markdown
 build-site.mjs     renders src/Main.dc.html into public/
 build-docs.mjs     renders docs/ into public/docs/
 check-links.mjs    verifies internal doc links and anchors
+update-version.mjs updates the Jewel version from Maven Central
 .rumdl.toml        Markdown formatting config for docs/
 wrangler.jsonc     Worker + static asset config
 ```
@@ -34,6 +35,18 @@ node build-site.mjs src/Main.dc.html public   # landing page
 node build-docs.mjs docs public/docs          # documentation
 node check-links.mjs                          # must report no broken links
 ```
+
+The Jewel version shown on the page is not typed in by hand. `update-version.mjs` reads
+the published coordinate from Maven Central and writes both fields into
+`src/Main.dc.html`:
+
+```bash
+node update-version.mjs --dry-run   # report what would change
+node update-version.mjs             # write it, then rebuild the landing page
+```
+
+`.github/workflows/update-jewel-version.yml` runs this daily and commits the bump to
+`master`. It deploys nothing; publishing is still the manual step below.
 
 `build-docs.mjs` has no dependencies. The Markdown these pages use is small and
 fixed (h1-h3, flat bullets, fenced code, admonitions, inline formatting), so a

@@ -1,0 +1,89 @@
+# Keeps the version on the landing page in step with what is published on Maven Central.
+# Anything derived from the Jewel repo is generated, never hand-copied (see STYLE.md);
+# this is the generator for the header chip and the Gradle snippet.
+#
+# It commits straight to master, and deploys nothing. Publishing the site is still a
+# manual `npx wrangler@latest deploy`, so a person stays between this commit and the
+# live site.
+name: Update Jewel version
+
+on:
+  schedule:
+    # Daily, off the hour: scheduled runs are queued at busy times and start late.
+    # GitHub disables cron in a public repository after 60 days without repository
+    # activity, and emails the owner first. Run workflow below switches it back on.
+    - cron: '23 5 * * *'
+  workflow_dispatch:
+
+# The default for this repository is read-only. Committing the bump needs write.
+permissions:
+  contents: write
+
+# Two runs pushing to master would race. Let a run in progress finish.
+concurrency:
+  group: update-jewel-version
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+
+      - id: jewel
+        name: Read the published version from Maven Central
+        run: node update-version.mjs src/Main.dc.html
+
+      - name: Rebuild the landing page
+        if: steps.jewel.outputs.changed == 'true'
+        run: |
+          node build-site.mjs src/Main.dc.html public
+          node check-links.mjs
+
+      # A version bump touches two files and nothing else. Anything more means the build
+      # changed under us, and that is a person's call, not a robot's.
+      - name: Check the diff is only the version
+        if: steps.jewel.outputs.changed == 'true'
+        env:
+          ARTIFACT: ${{ steps.jewel.outputs.artifact }}
+        run: |
+          git diff --name-only | LC_ALL=C sort > "$RUNNER_TEMP/changed"
+          printf 'public/index.html\nsrc/Main.dc.html\n' > "$RUNNER_TEMP/expected"
+          if ! diff -u "$RUNNER_TEMP/expected" "$RUNNER_TEMP/changed"; then
+            echo "::error::unexpected files in the diff, refusing to commit"
+            exit 1
+          fi
+          if ! grep -q "$ARTIFACT" public/index.html; then
+            echo "::error::public/index.html does not carry $ARTIFACT after the rebuild"
+            exit 1
+          fi
+          git --no-pager diff --stat
+
+      - name: Commit
+        if: steps.jewel.outputs.changed == 'true'
+        env:
+          VERSION: ${{ steps.jewel.outputs.version }}
+          ARTIFACT: ${{ steps.jewel.outputs.artifact }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add src/Main.dc.html public/index.html
+          git commit -m "Update the Jewel version to $VERSION" \
+                     -m "Published on Maven Central as $ARTIFACT."
+          git push
+
+      - name: Report
+        env:
+          CHANGED: ${{ steps.jewel.outputs.changed }}
+          ARTIFACT: ${{ steps.jewel.outputs.artifact }}
+        run: |
+          if [ "$CHANGED" = 'true' ]; then
+            echo "Landing page updated to $ARTIFACT." >> "$GITHUB_STEP_SUMMARY"
+            echo "Deploy with \`npx wrangler@latest deploy\` to publish it." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Already on $ARTIFACT. Nothing to do." >> "$GITHUB_STEP_SUMMARY"
+          fi
