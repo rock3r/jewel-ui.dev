@@ -85,4 +85,4 @@ Jewel is developed in the open, in the [IntelliJ Community
 repository](https://github.com/JetBrains/intellij-community/tree/master/platform/jewel).
 Bugs and feature requests go to [YouTrack, project
 JEWEL](https://youtrack.jetbrains.com/issues/JEWEL). Questions are welcome in [#jewel on
-the Kotlin Slack](https://app.slack.com/client/T09229ZC6/C05T8U2C31T).
+the Kotlin Slack](https://kotlinlang.org/community/).
