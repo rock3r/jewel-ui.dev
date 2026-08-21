@@ -717,10 +717,7 @@
         <div style="display: flex; flex-direction: column">
           <sc-for list="{{stability}}" as="s" hint-placeholder-count="4">
             <div class="row">
-              <div style="display: flex; flex-direction: column; gap: 6px">
-                <h3>{{s.title}}</h3>
-                <span class="label" style="color: {{s.tone}}">{{s.badge}}</span>
-              </div>
+              <h3>{{s.title}}</h3>
               <p>{{s.body}}</p>
             </div>
           </sc-for>
@@ -907,26 +904,18 @@ class Component extends DCLogic {
     const stability = [
       {
         title: 'Stable APIs',
-        badge: 'Binary compatibility guaranteed',
-        tone: 'var(--link)',
         body: 'Code compiled against a stable API keeps working across releases.',
       },
       {
         title: 'Experimental APIs',
-        badge: 'Best effort',
-        tone: 'var(--fg-3)',
         body: 'We keep them binary-compatible wherever we can, but they come with no hard promise. They are annotated, so you always know which kind you are depending on.',
       },
       {
         title: 'Deprecated APIs',
-        badge: 'Removed after ~2 platform majors',
-        tone: 'var(--fg-3)',
         body: 'Anything deprecated usually survives about two major IntelliJ Platform bumps before it is removed, which is enough warning to plan the migration.',
       },
       {
         title: 'Source compatibility',
-        badge: 'Best effort',
-        tone: 'var(--fg-3)',
         body: 'Best effort overall, and mainly guaranteed for named-parameter usage. Call sites written the idiomatic way are the ones we protect hardest.',
       },
     ];

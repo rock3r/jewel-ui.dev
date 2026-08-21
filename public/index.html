@@ -847,34 +847,22 @@
         <div style="display: flex; flex-direction: column">
           
             <div class="row">
-              <div style="display: flex; flex-direction: column; gap: 6px">
-                <h3>Stable APIs</h3>
-                <span class="label" style="color: var(--link)">Binary compatibility guaranteed</span>
-              </div>
+              <h3>Stable APIs</h3>
               <p>Code compiled against a stable API keeps working across releases.</p>
             </div>
           
             <div class="row">
-              <div style="display: flex; flex-direction: column; gap: 6px">
-                <h3>Experimental APIs</h3>
-                <span class="label" style="color: var(--fg-3)">Best effort</span>
-              </div>
+              <h3>Experimental APIs</h3>
               <p>We keep them binary-compatible wherever we can, but they come with no hard promise. They are annotated, so you always know which kind you are depending on.</p>
             </div>
           
             <div class="row">
-              <div style="display: flex; flex-direction: column; gap: 6px">
-                <h3>Deprecated APIs</h3>
-                <span class="label" style="color: var(--fg-3)">Removed after ~2 platform majors</span>
-              </div>
+              <h3>Deprecated APIs</h3>
               <p>Anything deprecated usually survives about two major IntelliJ Platform bumps before it is removed, which is enough warning to plan the migration.</p>
             </div>
           
             <div class="row">
-              <div style="display: flex; flex-direction: column; gap: 6px">
-                <h3>Source compatibility</h3>
-                <span class="label" style="color: var(--fg-3)">Best effort</span>
-              </div>
+              <h3>Source compatibility</h3>
               <p>Best effort overall, and mainly guaranteed for named-parameter usage. Call sites written the idiomatic way are the ones we protect hardest.</p>
             </div>
           
