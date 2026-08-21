@@ -905,9 +905,9 @@ class Component extends DCLogic {
         body: 'The default, editor and console text styles are all exposed, and new ones can be derived at a requested size, weight or style. Your code view uses the user\u2019s actual editor font, not your best guess at it.',
       },
       {
-        title: 'Windows without a title bar',
+        title: 'The IDE\u2019s window chrome, in your app',
         api: 'DecoratedWindow \u00b7 TitleBarStyle \u00b7 Modifier.clientRegion',
-        body: 'You get the IDE\u2019s own chrome: the same custom title bar, project stripe and window controls, with the client region marking which parts still drag the window. To go further, depend on decorated-window alone and skip the styling.',
+        body: 'A standalone app gets the IDE\u2019s own title bar, project stripe and window controls, so it looks like IntelliJ before you style anything. Mark client regions to keep controls in the bar clickable, or drop the styling and draw all the chrome yourself.',
       },
       {
         title: 'Accessibility built into the components',
