@@ -614,10 +614,7 @@
       <div>
         <sc-for list="{{features}}" as="f" hint-placeholder-count="4">
           <div class="row">
-            <div style="display: flex; flex-direction: column; gap: 7px">
-              <h3>{{f.title}}</h3>
-              <span class="mono" style="font-size: 11.5px; line-height: 1.6; color: var(--fg-3)">{{f.api}}</span>
-            </div>
+            <h3>{{f.title}}</h3>
             <p>{{f.body}}</p>
           </div>
         </sc-for>
@@ -748,7 +745,6 @@
           <div class="door" style="display: flex; flex-direction: column; gap: 10px; padding: 30px; border-left: 1px solid var(--line)">
             <a class="display" href="{{d.href}}" target="_blank" rel="noreferrer" style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em">{{d.title}}</a>
             <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">{{d.body}}</p>
-            <span class="mono" style="font-size: 12px; color: var(--fg-3); margin-top: auto; padding-top: 10px">{{d.where}}</span>
           </div>
         </sc-for>
       </div>
@@ -876,42 +872,34 @@ class Component extends DCLogic {
     const features = [
       {
         title: 'Icons that behave like the platform\u2019s',
-        api: 'AllIconsKeys \u00b7 IconKey \u00b7 PainterHint',
         body: 'Ask for an icon key and Jewel does what the IDE does: swaps in the New UI path, patches SVG key colours for the current theme, picks the dark or @2x variant, and appends state suffixes for selected, hovered or indeterminate. Every step is a painter hint, and you can add your own.',
       },
       {
         title: 'Wired into the platform, not styled to look like it',
-        api: 'Modifier.provideData \u00b7 DataProviderContext \u00b7 AllIconsKeys',
         body: 'The bridge goes well past colours and components. A composable can publish values into the IntelliJ data context, so platform actions, the paste provider and anything else that reads DataContext work inside your Compose UI exactly as they do in Swing. Icons come from the platform\u2019s own set rather than a copy of it.',
       },
       {
         title: 'Disabled states drawn the way the IDE draws them',
-        api: 'Modifier.disabledAppearance() \u00b7 LocalGrayFilterValues',
         body: 'Greying a component out is not an alpha change. Jewel runs an SKSL fragment shader over a separate graphics layer to apply the platform\u2019s brightness, contrast and alpha curve, so a disabled Compose control matches the disabled Swing control beside it instead of looking faded.',
       },
       {
         title: 'Scrollbars that obey the operating system',
-        api: 'ScrollbarVisibility \u00b7 ScrollbarAdapter',
         body: 'On macOS the scrollbar follows the user\u2019s Show scroll bars setting, including whether it sits beside the content or floats over it, and whether a connected mouse changes the answer. Track thickness, expand animation and linger duration are all part of the style rather than hardcoded.',
       },
       {
         title: 'Popups, menus and tooltips with IDE timing',
-        api: 'PopupContainer \u00b7 TooltipStyle \u00b7 MenuController',
         body: 'Tooltips carry the platform\u2019s regular and full disappear delays and its auto-hide behaviour. Menus render keyboard shortcut hints next to their items, and popups can opt into a custom renderer for shadows and borders the host window cannot draw.',
       },
       {
         title: 'Typography that fits right in, everywhere',
-        api: 'JewelTheme.typography',
         body: 'The default, editor and console text styles are all exposed, and new ones can be derived at a requested size, weight or style. Your code view uses the user\u2019s actual editor font, not your best guess at it.',
       },
       {
         title: 'The IDE\u2019s window chrome, in your app',
-        api: 'DecoratedWindow \u00b7 TitleBarStyle \u00b7 Modifier.clientRegion',
         body: 'A standalone app gets the IDE\u2019s own title bar, project stripe and window controls, so it looks like IntelliJ before you style anything. Mark client regions to keep controls in the bar clickable, or drop the styling and draw all the chrome yourself.',
       },
       {
         title: 'Accessibility built into the components',
-        api: 'semantics \u00b7 SingleSelectionLazyColumn \u00b7 LazyTree',
         body: 'Lists and trees report their selection state to screen readers and take content descriptions from their children, while decorative chrome like dividers and scrollbars stays out of the accessibility tree entirely. Where a Swing component exposes something to assistive technology, its Jewel counterpart does too.',
       },
     ];
@@ -948,19 +936,16 @@ class Component extends DCLogic {
       {
         title: 'Read the source',
         body: 'platform/jewel in the IntelliJ Community repository, with contribution and PR guides in docs/.',
-        where: 'github.com/JetBrains/intellij-community',
         href: 'https://github.com/JetBrains/intellij-community/tree/master/platform/jewel',
       },
       {
         title: 'File an issue',
         body: 'Bugs and feature requests go to YouTrack. Release notes link every fix back to its ticket.',
-        where: 'youtrack.jetbrains.com — project JEWEL',
         href: 'https://youtrack.jetbrains.com/issues/JEWEL',
       },
       {
         title: 'Ask a question',
-        body: 'The #jewel channel on the Kotlin Slack is where the team and the people using it talk.',
-        where: 'Kotlin Slack — #jewel',
+        body: 'The <a href="https://app.slack.com/client/T09229ZC6/C05T8U2C31T">#jewel</a> channel on the <a href="https://kotlinlang.org/community/">Kotlin Slack</a> is where the team and the people using it talk.',
         href: 'https://kotlinlang.org/community/',
       },
     ];
@@ -986,7 +971,8 @@ class Component extends DCLogic {
         title: 'Talk to us',
         links: [
           { label: 'YouTrack — JEWEL', href: 'https://youtrack.jetbrains.com/issues/JEWEL' },
-          { label: '#jewel on Kotlin Slack', href: 'https://kotlinlang.org/community/' },
+          { label: '#jewel on Kotlin Slack', href: 'https://app.slack.com/client/T09229ZC6/C05T8U2C31T' },
+          { label: 'Join the Kotlin Slack', href: 'https://kotlinlang.org/community/' },
           { label: 'Contribution guide', href: 'https://github.com/JetBrains/intellij-community/blob/master/platform/jewel/docs/jewel-contribution-guide.md' },
         ],
       },

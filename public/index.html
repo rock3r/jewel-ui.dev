@@ -694,66 +694,42 @@
       <div>
         
           <div class="row">
-            <div style="display: flex; flex-direction: column; gap: 7px">
-              <h3>Icons that behave like the platform’s</h3>
-              <span class="mono" style="font-size: 11.5px; line-height: 1.6; color: var(--fg-3)">AllIconsKeys · IconKey · PainterHint</span>
-            </div>
+            <h3>Icons that behave like the platform’s</h3>
             <p>Ask for an icon key and Jewel does what the IDE does: swaps in the New UI path, patches SVG key colours for the current theme, picks the dark or @2x variant, and appends state suffixes for selected, hovered or indeterminate. Every step is a painter hint, and you can add your own.</p>
           </div>
         
           <div class="row">
-            <div style="display: flex; flex-direction: column; gap: 7px">
-              <h3>Wired into the platform, not styled to look like it</h3>
-              <span class="mono" style="font-size: 11.5px; line-height: 1.6; color: var(--fg-3)">Modifier.provideData · DataProviderContext · AllIconsKeys</span>
-            </div>
+            <h3>Wired into the platform, not styled to look like it</h3>
             <p>The bridge goes well past colours and components. A composable can publish values into the IntelliJ data context, so platform actions, the paste provider and anything else that reads DataContext work inside your Compose UI exactly as they do in Swing. Icons come from the platform’s own set rather than a copy of it.</p>
           </div>
         
           <div class="row">
-            <div style="display: flex; flex-direction: column; gap: 7px">
-              <h3>Disabled states drawn the way the IDE draws them</h3>
-              <span class="mono" style="font-size: 11.5px; line-height: 1.6; color: var(--fg-3)">Modifier.disabledAppearance() · LocalGrayFilterValues</span>
-            </div>
+            <h3>Disabled states drawn the way the IDE draws them</h3>
             <p>Greying a component out is not an alpha change. Jewel runs an SKSL fragment shader over a separate graphics layer to apply the platform’s brightness, contrast and alpha curve, so a disabled Compose control matches the disabled Swing control beside it instead of looking faded.</p>
           </div>
         
           <div class="row">
-            <div style="display: flex; flex-direction: column; gap: 7px">
-              <h3>Scrollbars that obey the operating system</h3>
-              <span class="mono" style="font-size: 11.5px; line-height: 1.6; color: var(--fg-3)">ScrollbarVisibility · ScrollbarAdapter</span>
-            </div>
+            <h3>Scrollbars that obey the operating system</h3>
             <p>On macOS the scrollbar follows the user’s Show scroll bars setting, including whether it sits beside the content or floats over it, and whether a connected mouse changes the answer. Track thickness, expand animation and linger duration are all part of the style rather than hardcoded.</p>
           </div>
         
           <div class="row">
-            <div style="display: flex; flex-direction: column; gap: 7px">
-              <h3>Popups, menus and tooltips with IDE timing</h3>
-              <span class="mono" style="font-size: 11.5px; line-height: 1.6; color: var(--fg-3)">PopupContainer · TooltipStyle · MenuController</span>
-            </div>
+            <h3>Popups, menus and tooltips with IDE timing</h3>
             <p>Tooltips carry the platform’s regular and full disappear delays and its auto-hide behaviour. Menus render keyboard shortcut hints next to their items, and popups can opt into a custom renderer for shadows and borders the host window cannot draw.</p>
           </div>
         
           <div class="row">
-            <div style="display: flex; flex-direction: column; gap: 7px">
-              <h3>Typography that fits right in, everywhere</h3>
-              <span class="mono" style="font-size: 11.5px; line-height: 1.6; color: var(--fg-3)">JewelTheme.typography</span>
-            </div>
+            <h3>Typography that fits right in, everywhere</h3>
             <p>The default, editor and console text styles are all exposed, and new ones can be derived at a requested size, weight or style. Your code view uses the user’s actual editor font, not your best guess at it.</p>
           </div>
         
           <div class="row">
-            <div style="display: flex; flex-direction: column; gap: 7px">
-              <h3>The IDE’s window chrome, in your app</h3>
-              <span class="mono" style="font-size: 11.5px; line-height: 1.6; color: var(--fg-3)">DecoratedWindow · TitleBarStyle · Modifier.clientRegion</span>
-            </div>
+            <h3>The IDE’s window chrome, in your app</h3>
             <p>A standalone app gets the IDE’s own title bar, project stripe and window controls, so it looks like IntelliJ before you style anything. Mark client regions to keep controls in the bar clickable, or drop the styling and draw all the chrome yourself.</p>
           </div>
         
           <div class="row">
-            <div style="display: flex; flex-direction: column; gap: 7px">
-              <h3>Accessibility built into the components</h3>
-              <span class="mono" style="font-size: 11.5px; line-height: 1.6; color: var(--fg-3)">semantics · SingleSelectionLazyColumn · LazyTree</span>
-            </div>
+            <h3>Accessibility built into the components</h3>
             <p>Lists and trees report their selection state to screen readers and take content descriptions from their children, while decorative chrome like dividers and scrollbars stays out of the accessibility tree entirely. Where a Swing component exposes something to assistive technology, its Jewel counterpart does too.</p>
           </div>
         
@@ -923,19 +899,16 @@
           <div class="door" style="display: flex; flex-direction: column; gap: 10px; padding: 30px; border-left: 1px solid var(--line)">
             <a class="display" href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noreferrer" style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Read the source</a>
             <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">platform/jewel in the IntelliJ Community repository, with contribution and PR guides in docs/.</p>
-            <span class="mono" style="font-size: 12px; color: var(--fg-3); margin-top: auto; padding-top: 10px">github.com/JetBrains/intellij-community</span>
           </div>
         
           <div class="door" style="display: flex; flex-direction: column; gap: 10px; padding: 30px; border-left: 1px solid var(--line)">
             <a class="display" href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noreferrer" style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em">File an issue</a>
             <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">Bugs and feature requests go to YouTrack. Release notes link every fix back to its ticket.</p>
-            <span class="mono" style="font-size: 12px; color: var(--fg-3); margin-top: auto; padding-top: 10px">youtrack.jetbrains.com — project JEWEL</span>
           </div>
         
           <div class="door" style="display: flex; flex-direction: column; gap: 10px; padding: 30px; border-left: 1px solid var(--line)">
             <a class="display" href="https://kotlinlang.org/community/" target="_blank" rel="noreferrer" style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Ask a question</a>
-            <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">The #jewel channel on the Kotlin Slack is where the team and the people using it talk.</p>
-            <span class="mono" style="font-size: 12px; color: var(--fg-3); margin-top: auto; padding-top: 10px">Kotlin Slack — #jewel</span>
+            <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">The <a href="https://app.slack.com/client/T09229ZC6/C05T8U2C31T">#jewel</a> channel on the <a href="https://kotlinlang.org/community/">Kotlin Slack</a> is where the team and the people using it talk.</p>
           </div>
         
       </div>
@@ -995,7 +968,9 @@
           
             <a href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noreferrer" style="font-size: 14px; color: var(--fg-2)">YouTrack — JEWEL</a>
           
-            <a href="https://kotlinlang.org/community/" target="_blank" rel="noreferrer" style="font-size: 14px; color: var(--fg-2)">#jewel on Kotlin Slack</a>
+            <a href="https://app.slack.com/client/T09229ZC6/C05T8U2C31T" target="_blank" rel="noreferrer" style="font-size: 14px; color: var(--fg-2)">#jewel on Kotlin Slack</a>
+          
+            <a href="https://kotlinlang.org/community/" target="_blank" rel="noreferrer" style="font-size: 14px; color: var(--fg-2)">Join the Kotlin Slack</a>
           
             <a href="https://github.com/JetBrains/intellij-community/blob/master/platform/jewel/docs/jewel-contribution-guide.md" target="_blank" rel="noreferrer" style="font-size: 14px; color: var(--fg-2)">Contribution guide</a>
           
