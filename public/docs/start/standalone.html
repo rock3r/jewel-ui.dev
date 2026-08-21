@@ -236,7 +236,8 @@ plugins {
 <p>Version strings look like <code>0.39.1-262.9437.29</code>: the Jewel version, then the IntelliJ Platform build it was compiled against. <a href="../versioning.html">Versions and compatibility</a> explains how to pick one, and which combinations exist.</p>
 <h2 id="wrap-your-ui"><a class="anchor" href="#wrap-your-ui">Wrap your UI</a></h2>
 <p>Everything Jewel draws has to sit inside a theme.</p>
-<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.ui.window.application
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.layout.Column
+<span class="c-kw">import</span> androidx.compose.ui.window.application
 <span class="c-kw">import</span> org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
 <span class="c-kw">import</span> org.jetbrains.jewel.ui.component.DefaultButton
 <span class="c-kw">import</span> org.jetbrains.jewel.ui.component.Text

@@ -95,6 +95,7 @@ explains how to pick one, and which combinations exist.
 Everything Jewel draws has to sit inside a theme.
 
 ```kotlin
+import androidx.compose.foundation.layout.Column
 import androidx.compose.ui.window.application
 import org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
 import org.jetbrains.jewel.ui.component.DefaultButton

@@ -85,26 +85,26 @@ function highlightKotlin(code) {
 // ---------------------------------------------------------------------- inline
 
 function inline(md, hrefFix) {
-  // Split on code spans first so nothing inside them is further formatted.
-  const parts = md.split(/(`[^`]+`)/);
-  return parts
-    .map((part) => {
-      if (part.startsWith('`') && part.endsWith('`') && part.length > 1) {
-        return `<code>${esc(part.slice(1, -1))}</code>`;
-      }
-      let s = esc(part);
-      s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, href) => {
-        const fixed = hrefFix(href);
-        const external = /^https?:/.test(fixed);
-        const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
-        return `<a href="${fixed}"${attrs}>${text}</a>`;
-      });
-      s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
-      s = s.replace(/(^|[\s(])\*([^*\s][^*]*)\*/g, '$1<em>$2</em>');
-      s = s.replace(/&lt;(https?:\/\/[^&]+)&gt;/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
-      return s;
-    })
-    .join('');
+  // Lift code spans out first, leaving sentinels behind, so emphasis and links can
+  // span a code boundary. Formatting each split part on its own broke `**`@2x`
+  // bitmaps.**`: neither fragment held a matching pair of asterisks, so the bold
+  // never fired and the asterisks rendered literally. Sentinels use private-use
+  // code points, which esc() leaves alone and no Markdown construct can match.
+  const spans = [];
+  let s = md.replace(/`([^`]+)`/g, (_, code) => `\uE000${spans.push(code) - 1}\uE001`);
+
+  s = esc(s);
+  s = s.replace(/\[([^\]]+)\]\(([^)]+)\)/g, (_, text, href) => {
+    const fixed = hrefFix(href);
+    const external = /^https?:/.test(fixed);
+    const attrs = external ? ' target="_blank" rel="noopener noreferrer"' : '';
+    return `<a href="${fixed}"${attrs}>${text}</a>`;
+  });
+  s = s.replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>');
+  s = s.replace(/(^|[\s(])\*([^*\s][^*]*)\*/g, '$1<em>$2</em>');
+  s = s.replace(/&lt;(https?:\/\/[^&]+)&gt;/g, '<a href="$1" target="_blank" rel="noopener noreferrer">$1</a>');
+
+  return s.replace(/\uE000(\d+)\uE001/g, (_, i) => `<code>${esc(spans[Number(i)])}</code>`);
 }
 
 // ----------------------------------------------------------------------- block

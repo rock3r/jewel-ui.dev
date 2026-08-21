@@ -214,7 +214,7 @@ body { margin: 0; }
 <span class="c-fn">ProvideMarkdownStyling</span>(project) {
     <span class="c-com">// code blocks highlighted with the IDE's colour scheme</span>
 }</code></pre></div>
-<p>The project is what lets it reach the highlighting machinery. **The overloads that do not take a <code>Project</code> fall back to no highlighting at all** — not to a simple built-in highlighter. If code blocks in your plugin render unstyled, the missing <code>Project</code> is almost always why.</p>
+<p>The project is what lets it reach the highlighting machinery. <strong>The overloads that do not take a <code>Project</code> fall back to no highlighting at all</strong> — not to a simple built-in highlighter. If code blocks in your plugin render unstyled, the missing <code>Project</code> is almost always why.</p>
 <h2 id="stability"><a class="anchor" href="#stability">Stability</a></h2>
 <p>The code highlighting APIs are annotated experimental, in both the standalone and bridge modules. The defaults are stable enough to rely on. It is the shape of the customisation API that may still move.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
