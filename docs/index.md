@@ -51,15 +51,15 @@ IntUiTheme(isDark = true) {
 }
 ```
 
-`YourScreen` does not change between the two. That is worth designing around: if you
-keep IntelliJ Platform types out of your composables and pass what they need in behind
-your own interfaces, the same UI code runs in a plugin and in a standalone app. You can
+`YourScreen` does not change between the two. Design around that: keep IntelliJ
+Platform types out of your composables and pass what they need in behind your own
+interfaces, and the same UI code runs in a plugin and in a standalone app. You can
 test it against the standalone theme without starting the platform. See [Portable
 UI](best-practices/portable-ui.md).
 
 ## Guides
 
-Task-first pages for the things people actually do:
+Task-first pages:
 
 - [Theming](guides/theming.md) — the Int UI theme, and how to change it
 - [The Swing bridge](guides/swing-bridge.md) — how a plugin follows the IDE's theme
@@ -85,4 +85,4 @@ Jewel is developed in the open, in the [IntelliJ Community
 repository](https://github.com/JetBrains/intellij-community/tree/master/platform/jewel).
 Bugs and feature requests go to [YouTrack, project
 JEWEL](https://youtrack.jetbrains.com/issues/JEWEL). Questions are welcome in [#jewel on
-the Kotlin Slack](https://app.slack.com/client/T09229ZC6/C05T8U2C31T).
+the Kotlin Slack](https://kotlinlang.org/community/).

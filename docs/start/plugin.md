@@ -106,7 +106,7 @@ is in [Versions and compatibility](../versioning.md).
 
 ## Next
 
-- [The Swing bridge](../guides/swing-bridge.md) — how theme mirroring actually works
+- [The Swing bridge](../guides/swing-bridge.md) — how theme mirroring works
 - [Icons](../guides/icons.md) — using the platform's icons, which need no setup here
 - [Portable UI](../best-practices/portable-ui.md) — keeping platform types out of your
   composables, so they stay testable

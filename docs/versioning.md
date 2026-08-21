@@ -58,11 +58,11 @@ explicit, and CI enforces it rather than relying on care.
 keeps working across releases.
 
 **Experimental APIs.** Kept binary-compatible wherever possible, but with no hard
-promise. They are annotated, so you can tell which side of the line you are on. Do not
+promise. Each one is annotated, so you can tell it apart from a stable API. Do not
 build something critical on one without expecting to revisit it.
 
 **Deprecated APIs.** Typically removed after about two major IntelliJ Platform bumps.
-That gives you roughly two platform releases of warning, and the release notes carry a
+That gives you roughly two platform releases of warning, and the release notes include a
 migration guide whenever something goes.
 
 **Source compatibility.** Best effort, and mainly guaranteed for named-parameter usage.

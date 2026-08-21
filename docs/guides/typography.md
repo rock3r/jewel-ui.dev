@@ -37,8 +37,8 @@ val quietConsole = JewelTheme.typography.rememberConsoleTextStyle(fontStyle = Fo
 ```
 
 Each takes `fontSize`, `fontWeight` and `fontStyle`, all optional, and returns a
-`TextStyle`. Deriving keeps everything else — family, features, the user's own settings
-— intact, which is the point.
+`TextStyle`. Deriving keeps everything else intact: the family, the font features, and
+the user's own settings.
 
 !!! note "If you are upgrading"
     `TextStyle.copyWithSize()` and the old `org.jetbrains.jewel.ui.component.Typography`

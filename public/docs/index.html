@@ -213,9 +213,9 @@ SwingBridgeTheme {
 <span class="c-fn">IntUiTheme</span>(isDark = <span class="c-kw">true</span>) {
     <span class="c-fn">YourScreen</span>(state, onAction)
 }</code></pre></div>
-<p><code>YourScreen</code> does not change between the two. That is worth designing around: if you keep IntelliJ Platform types out of your composables and pass what they need in behind your own interfaces, the same UI code runs in a plugin and in a standalone app. You can test it against the standalone theme without starting the platform. See <a href="best-practices/portable-ui.html">Portable UI</a>.</p>
+<p><code>YourScreen</code> does not change between the two. Design around that: keep IntelliJ Platform types out of your composables and pass what they need in behind your own interfaces, and the same UI code runs in a plugin and in a standalone app. You can test it against the standalone theme without starting the platform. See <a href="best-practices/portable-ui.html">Portable UI</a>.</p>
 <h2 id="guides"><a class="anchor" href="#guides">Guides</a></h2>
-<p>Task-first pages for the things people actually do:</p>
+<p>Task-first pages:</p>
 <ul>
 <li><a href="guides/theming.html">Theming</a> — the Int UI theme, and how to change it</li>
 <li><a href="guides/swing-bridge.html">The Swing bridge</a> — how a plugin follows the IDE's theme</li>
@@ -235,7 +235,7 @@ SwingBridgeTheme {
 <li><a href="../api/">API reference</a></li>
 </ul>
 <h2 id="getting-help"><a class="anchor" href="#getting-help">Getting help</a></h2>
-<p>Jewel is developed in the open, in the <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">IntelliJ Community repository</a>. Bugs and feature requests go to <a href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">YouTrack, project JEWEL</a>. Questions are welcome in <a href="https://app.slack.com/client/T09229ZC6/C05T8U2C31T" target="_blank" rel="noopener noreferrer">#jewel on the Kotlin Slack</a>.</p>
+<p>Jewel is developed in the open, in the <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">IntelliJ Community repository</a>. Bugs and feature requests go to <a href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">YouTrack, project JEWEL</a>. Questions are welcome in <a href="https://kotlinlang.org/community/" target="_blank" rel="noopener noreferrer">#jewel on the Kotlin Slack</a>.</p>
       <p class="footer">Jewel is a joint project by Google and JetBrains.
         <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Jewel source</a> ·
         <a href="https://github.com/rock3r/jewel-ui.dev/tree/master/docs" target="_blank" rel="noopener noreferrer">Docs source</a></p>

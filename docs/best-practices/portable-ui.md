@@ -20,7 +20,7 @@ component library (`org.jetbrains.jewel.ui.component`) and the foundation module
 below both themes, and neither depends on the IntelliJ Platform. The platform dependency
 is confined to the bridge module.
 
-That portability is worth designing for, because two useful things follow from it.
+Design for that portability. Two useful things follow.
 
 ## Keep the platform at the edge
 

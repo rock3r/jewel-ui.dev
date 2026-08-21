@@ -1,8 +1,7 @@
 # Testing your UI
 
 Compose UI is testable in a way Swing UI mostly was not, and Jewel's structure means a
-plugin's UI can be tested without starting the platform. That combination is worth
-setting up deliberately, because it changes what a test run costs.
+plugin's UI can be tested without starting the platform.
 
 ## Test against the standalone theme
 

@@ -205,7 +205,7 @@ body { margin: 0; }
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">val</span> bigger = JewelTheme.typography.<span class="c-fn">rememberDefaultTextStyle</span>(fontSize = <span class="c-num">15.sp</span>)
 <span class="c-kw">val</span> boldCode = JewelTheme.typography.<span class="c-fn">rememberEditorTextStyle</span>(fontWeight = FontWeight.Bold)
 <span class="c-kw">val</span> quietConsole = JewelTheme.typography.<span class="c-fn">rememberConsoleTextStyle</span>(fontStyle = FontStyle.Italic)</code></pre></div>
-<p>Each takes <code>fontSize</code>, <code>fontWeight</code> and <code>fontStyle</code>, all optional, and returns a <code>TextStyle</code>. Deriving keeps everything else — family, features, the user's own settings — intact, which is the point.</p>
+<p>Each takes <code>fontSize</code>, <code>fontWeight</code> and <code>fontStyle</code>, all optional, and returns a <code>TextStyle</code>. Deriving keeps everything else intact: the family, the font features, and the user's own settings.</p>
 <div class="adm adm-note"><p class="adm-title">If you are upgrading</p>
 <p><code>TextStyle.copyWithSize()</code> and the old <code>org.jetbrains.jewel.ui.component.Typography</code> object were removed in 0.40. The three <code>remember*TextStyle</code> functions above replace both. Apply any unrelated <code>TextStyle</code> properties separately afterwards.</p>
 </div>

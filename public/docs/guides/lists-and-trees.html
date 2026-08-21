@@ -187,7 +187,7 @@ body { margin: 0; }
     <main class="main">
       <article class="doc">
 <h1>Lists, trees and speed search</h1>
-<p>The IDE's lists behave in ways people have internalised without noticing: what the arrow keys do, how a range selects, where selection lands after a filter hides the selected row. Jewel's list and tree components implement those behaviours, which is most of why they are worth using over a plain <code>LazyColumn</code>.</p>
+<p>The IDE's lists behave in ways people have internalised without noticing: what the arrow keys do, how a range selects, where selection lands after a filter hides the selected row. Jewel's list and tree components implement those behaviours, which is the main reason to use them instead of a plain <code>LazyColumn</code>.</p>
 <h2 id="selectable-lists"><a class="anchor" href="#selectable-lists">Selectable lists</a></h2>
 <p>Two entry points, one per selection model:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.foundation.lazy.SingleSelectionLazyColumn
@@ -216,7 +216,7 @@ SpeedSearchArea {
 <p><code>dismissOnLoseFocus</code> controls whether the search field hides when it loses focus, and defaults to <code>true</code>. <code>SpeedSearchArea</code> is annotated experimental. The signature can change.</p>
 <h3 id="where-selection-goes-when-the-filter-moves"><a class="anchor" href="#where-selection-goes-when-the-filter-moves">Where selection goes when the filter moves</a></h3>
 <p>This is the part that is difficult to get right, and Jewel does it for you.</p>
-<p>When the filter changes and the selected item no longer matches, selection does not simply vanish or jump to the top. If there is still a selection anchor, the closest visible match to it is selected. Otherwise the rule is a forward scan: the topmost visible match, or failing that the first match below the viewport, wrapping around to the first match from the top of the list.</p>
+<p>When the filter changes and the selected item no longer matches, selection does not vanish or jump to the top. If there is still a selection anchor, the closest visible match to it is selected. Otherwise the rule is a forward scan: the topmost visible match, or failing that the first match below the viewport, wrapping around to the first match from the top of the list.</p>
 <p>The effect is that filtering keeps your place, as it does in the IDE.</p>
 <h2 id="scrollbars"><a class="anchor" href="#scrollbars">Scrollbars</a></h2>
 <p>Scrollable containers and scrollbars take an optional <code>ScrollbarAdapter</code>, which lets you control thumb sizing and positioning when the scrollable content is not what the scrollbar is nominally attached to.</p>

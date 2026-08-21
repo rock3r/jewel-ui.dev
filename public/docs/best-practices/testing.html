@@ -187,7 +187,7 @@ body { margin: 0; }
     <main class="main">
       <article class="doc">
 <h1>Testing your UI</h1>
-<p>Compose UI is testable in a way Swing UI mostly was not, and Jewel's structure means a plugin's UI can be tested without starting the platform. That combination is worth setting up deliberately, because it changes what a test run costs.</p>
+<p>Compose UI is testable in a way Swing UI mostly was not, and Jewel's structure means a plugin's UI can be tested without starting the platform.</p>
 <h2 id="test-against-the-standalone-theme"><a class="anchor" href="#test-against-the-standalone-theme">Test against the standalone theme</a></h2>
 <p>The components below the theme are the same in both worlds (<a href="portable-ui.html">Portable UI</a>). So a composable that takes plain data and callbacks can be rendered under <code>IntUiTheme</code> in an ordinary JVM test, with no IDE involved:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">@Test</span>

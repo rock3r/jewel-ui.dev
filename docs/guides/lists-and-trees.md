@@ -2,8 +2,8 @@
 
 The IDE's lists behave in ways people have internalised without noticing: what the arrow
 keys do, how a range selects, where selection lands after a filter hides the selected
-row. Jewel's list and tree components implement those behaviours, which is most of why
-they are worth using over a plain `LazyColumn`.
+row. Jewel's list and tree components implement those behaviours, which is the main
+reason to use them instead of a plain `LazyColumn`.
 
 ## Selectable lists
 
@@ -64,7 +64,7 @@ change.
 This is the part that is difficult to get right, and Jewel does it for you.
 
 When the filter changes and the selected item no longer matches, selection does not
-simply vanish or jump to the top. If there is still a selection anchor, the closest
+vanish or jump to the top. If there is still a selection anchor, the closest
 visible match to it is selected. Otherwise the rule is a forward scan: the topmost
 visible match, or failing that the first match below the viewport, wrapping around to
 the first match from the top of the list.
