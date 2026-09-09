@@ -41,8 +41,13 @@ Read the guide that matches what you are about to change. Both are binding.
 - Verify every API claim against the Jewel source. Type signatures, default values and
   parameter names drift; Jewel is pre-1.0.
 - The Jewel version on the landing page is generated. `update-version.mjs` reads it from
-  Maven Central, and a daily workflow commits the bump. Do not hand-edit the `version` and
-  `artifact` fields in `src/Main.dc.html`; run `node update-version.mjs` instead.
+  Maven Central, and a daily workflow commits the bump and deploys it. Do not hand-edit the
+  `version` and `artifact` fields in `src/Main.dc.html`; run `node update-version.mjs` instead.
+- That deploy is unattended, so it is gated on `verify-version-bump.mjs`, which substitutes
+  the new version back to the old and requires the result to match the committed file byte
+  for byte. **If you change `src/Main.dc.html`, commit the rebuilt `public/index.html` in the
+  same commit.** Leaving it stale fails the proof and blocks the next bump, which is the
+  point: a full rebuild would otherwise carry your unreviewed change into an automatic deploy.
 - Do not hand-copy anything derived from the Jewel repo. Version numbers, release notes and
   the API reference are generated. A hand-maintained version table is what `VERSIONS.md`
   was, and it drifted six releases behind before anyone noticed.

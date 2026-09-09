@@ -7,6 +7,8 @@
 //   node update-version.mjs --dry-run              report what would change, write nothing
 //   node update-version.mjs path/to/Main.dc.html   read a different source file
 //
+// In CI the result is proven version-only by verify-version-bump.mjs before it deploys.
+//
 // The search.maven.org solr API returns an empty response for this artifact, so the
 // repository metadata is the source. Ordering matters: the file lists versions in publish
 // order, and a fix cherry-picked onto a release branch publishes an older Jewel version
@@ -64,6 +66,8 @@ if (listed.length !== releases.length) {
 const source = readFileSync(SRC, 'utf8');
 let updated = source;
 let changed = false;
+// The verifier needs what the file said before, to prove the diff is only the version.
+const previous = {};
 
 for (const [field, value] of [['version', version], ['artifact', artifact]]) {
   const pattern = new RegExp(`(^[ \\t]*${field}: ')([^']*)(',[ \\t]*$)`, 'gm');
@@ -72,6 +76,7 @@ for (const [field, value] of [['version', version], ['artifact', artifact]]) {
     throw new Error(`expected one \`${field}: '…'\` line in ${SRC}, found ${found.length}`);
   }
   const current = found[0][2];
+  previous[field] = current;
   if (current === value) {
     console.log(`  ${field}: ${current} (unchanged)`);
     continue;
@@ -95,6 +100,7 @@ if (!changed) {
 if (process.env.GITHUB_OUTPUT) {
   appendFileSync(
     process.env.GITHUB_OUTPUT,
-    `changed=${changed}\nversion=${version}\nartifact=${artifact}\n`
+    `changed=${changed}\nversion=${version}\nartifact=${artifact}\n` +
+      `oldVersion=${previous.version}\noldArtifact=${previous.artifact}\n`
   );
 }

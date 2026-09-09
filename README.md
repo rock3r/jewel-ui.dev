@@ -45,8 +45,14 @@ node update-version.mjs --dry-run   # report what would change
 node update-version.mjs             # write it, then rebuild the landing page
 ```
 
-`.github/workflows/update-jewel-version.yml` runs this daily and commits the bump to
-`master`. It deploys nothing; publishing is still the manual step below.
+`.github/workflows/update-jewel-version.yml` runs this daily, commits the bump to `master`
+and deploys it. Because that deploy is unattended, it is gated on `verify-version-bump.mjs`:
+the new version is substituted back to the old, and the result must equal the committed file
+byte for byte. Anything else in the diff stops the deploy.
+
+That gate means a change to `src/Main.dc.html` must be committed together with the rebuilt
+`public/index.html`. Otherwise the next bump's rebuild would sweep the change into a deploy
+nobody reviewed, and the proof fails instead.
 
 `build-docs.mjs` has no dependencies. The Markdown these pages use is small and
 fixed (h1-h3, flat bullets, fenced code, admonitions, inline formatting), so a

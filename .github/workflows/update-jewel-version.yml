@@ -2,9 +2,10 @@
 # Anything derived from the Jewel repo is generated, never hand-copied (see STYLE.md);
 # this is the generator for the header chip and the Gradle snippet.
 #
-# It commits straight to master, and deploys nothing. Publishing the site is still a
-# manual `npx wrangler@latest deploy`, so a person stays between this commit and the
-# live site.
+# It commits straight to master and deploys, but only after proving the change is the
+# version and nothing else. verify-version-bump.mjs substitutes the new version back to
+# the old one and requires the result to be byte-identical to the committed file. If any
+# other byte moved, the deploy does not happen and a person looks at it.
 name: Update Jewel version
 
 on:
@@ -27,6 +28,11 @@ concurrency:
 jobs:
   update:
     runs-on: ubuntu-latest
+    # Job-level so the deploy step can check it in `if`; a step's own env cannot be read
+    # by that step's condition. Absent secret means commit-only, which is the old behaviour.
+    env:
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+      CF_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
       - uses: actions/checkout@v7
 
@@ -44,12 +50,13 @@ jobs:
           node build-site.mjs src/Main.dc.html public
           node check-links.mjs
 
-      # A version bump touches two files and nothing else. Anything more means the build
-      # changed under us, and that is a person's call, not a robot's.
-      - name: Check the diff is only the version
+      # Two gates. The file list catches anything outside the two expected files. The
+      # round trip then proves that inside them, only the version moved: substitute the new
+      # version back to the old and the bytes must match what is committed. The file list
+      # alone is not enough, because the rebuild regenerates public/index.html from source,
+      # so a source edit committed without a rebuild would ride along in the same two files.
+      - name: Prove the diff is only the version
         if: steps.jewel.outputs.changed == 'true'
-        env:
-          ARTIFACT: ${{ steps.jewel.outputs.artifact }}
         run: |
           git diff --name-only | LC_ALL=C sort > "$RUNNER_TEMP/changed"
           printf 'public/index.html\nsrc/Main.dc.html\n' > "$RUNNER_TEMP/expected"
@@ -57,10 +64,9 @@ jobs:
             echo "::error::unexpected files in the diff, refusing to commit"
             exit 1
           fi
-          if ! grep -q "$ARTIFACT" public/index.html; then
-            echo "::error::public/index.html does not carry $ARTIFACT after the rebuild"
-            exit 1
-          fi
+          node verify-version-bump.mjs \
+            '${{ steps.jewel.outputs.oldVersion }}' '${{ steps.jewel.outputs.oldArtifact }}' \
+            '${{ steps.jewel.outputs.version }}'    '${{ steps.jewel.outputs.artifact }}'
           git --no-pager diff --stat
 
       - name: Commit
@@ -76,14 +82,27 @@ jobs:
                      -m "Published on Maven Central as $ARTIFACT."
           git push
 
+      # Only reached when the proof passed, so what ships differs from the reviewed site
+      # by the version string alone. Without the secret this is skipped and the bump waits
+      # for someone to deploy by hand, as it did before.
+      - name: Deploy
+        if: steps.jewel.outputs.changed == 'true' && env.CF_API_TOKEN != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx --yes wrangler@latest deploy
+
       - name: Report
         env:
           CHANGED: ${{ steps.jewel.outputs.changed }}
           ARTIFACT: ${{ steps.jewel.outputs.artifact }}
         run: |
-          if [ "$CHANGED" = 'true' ]; then
-            echo "Landing page updated to $ARTIFACT." >> "$GITHUB_STEP_SUMMARY"
-            echo "Deploy with \`npx wrangler@latest deploy\` to publish it." >> "$GITHUB_STEP_SUMMARY"
+          if [ "$CHANGED" = 'true' ] && [ -n "$CF_API_TOKEN" ]; then
+            echo "Landing page updated to $ARTIFACT and deployed." >> "$GITHUB_STEP_SUMMARY"
+          elif [ "$CHANGED" = 'true' ]; then
+            echo "Landing page updated to $ARTIFACT, committed but not deployed." >> "$GITHUB_STEP_SUMMARY"
+            echo "Set the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets to deploy automatically," >> "$GITHUB_STEP_SUMMARY"
+            echo "or publish it with \`npx wrangler@latest deploy\`." >> "$GITHUB_STEP_SUMMARY"
           else
             echo "Already on $ARTIFACT. Nothing to do." >> "$GITHUB_STEP_SUMMARY"
           fi
