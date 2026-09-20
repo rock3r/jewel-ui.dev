@@ -40,8 +40,18 @@ for (const page of [...pages].sort()) {
     }
 
     const to = normalize(join(dirname(page), path));
-    if (pages.has(to)) resolved += 1;
-    else missing.push([page, target, to]);
+    if (pages.has(to)) {
+      resolved += 1;
+      continue;
+    }
+    // Screenshots and other committed assets under docs/ count as resolved.
+    try {
+      if (statSync(join(ROOT, to)).isFile()) {
+        resolved += 1;
+        continue;
+      }
+    } catch {}
+    missing.push([page, target, to]);
   }
 }
 

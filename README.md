@@ -13,6 +13,7 @@ src/Main.dc.html   the design source, authored as a Design Component
 docs/              the user documentation, Markdown
 build-site.mjs     renders src/Main.dc.html into public/
 build-docs.mjs     renders docs/ into public/docs/
+sync-tooling-docs.mjs  copies jewel-tooling/user-guide into docs/tooling/
 check-links.mjs    verifies internal doc links and anchors
 update-version.mjs updates the Jewel version from Maven Central
 .rumdl.toml        Markdown formatting config for docs/
@@ -60,7 +61,10 @@ bespoke renderer is smaller and more predictable than a parser. Its `NAV`
 constant is the table of contents; the build fails if a page on disk is missing
 from it, or vice versa.
 
-The docs are not linked from the landing page yet, and carry `noindex`.
+Docs are linked from the landing page and are indexed. The Jewel Tooling
+user guide lives under `docs/tooling/`; refresh it with
+`node sync-tooling-docs.mjs` when the sibling `jewel-tooling` repo is present
+(the script records the synced commit in `docs/tooling/.sync-meta.json`).
 
 ## Deploy
 

@@ -19,6 +19,7 @@ Read the guide that matches what you are about to change. Both are binding.
 | `src/Main.dc.html` | Landing page source, a Design Component |
 | `build-site.mjs` | Renders `Main.dc.html` to static HTML |
 | `docs/` | User documentation, Markdown |
+| `docs/tooling/` | Jewel Tooling user guide (copied from `jewel-tooling/user-guide`; refresh with `node sync-tooling-docs.mjs`). `rumdl` still owns wrap |
 | `build-docs.mjs` | Renders `docs/` to `public/docs/`, no dependencies |
 | `public/` | Build output, deployed to Cloudflare Workers |
 | `check-links.mjs` | Verifies internal doc links and anchors |

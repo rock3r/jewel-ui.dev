@@ -288,6 +288,7 @@
         <a class="navlink" href="#smart">Features</a>
         <a class="navlink" href="#markdown">Markdown</a>
         <a class="navlink" href="#stability">Stability</a>
+        <a class="navlink" href="/docs/">Docs</a>
         <a class="navlink" href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noreferrer">GitHub</a>
         <a class="navlink" href="https://github.com/JetBrains/intellij-community/blob/master/platform/jewel/RELEASE%20NOTES.md" target="_blank" rel="noreferrer">Release notes</a>
         <a class="navlink" href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noreferrer">Issues</a>
@@ -337,6 +338,14 @@
             </a>
             <a class="arrow-link" href="https://github.com/JetBrains/intellij-community/blob/master/platform/jewel/RELEASE%20NOTES.md" target="_blank" rel="noreferrer" style="margin-left: 4px">
               Release notes
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
+            </a>
+            <a class="arrow-link" href="/docs/">
+              Docs
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
+            </a>
+            <a class="arrow-link" href="https://plugins.jetbrains.com/plugin/34392-jewel-tooling" target="_blank" rel="noreferrer">
+              Jewel Tooling
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
             </a>
           </div>
@@ -661,6 +670,47 @@
       </div>
 
       <p class="caption">Live editor on the left, Jewel-rendered Markdown on the right. Every GitHub alert type, themed by the host.</p>
+    </div>
+  </div>
+
+
+  <!-- ══════════ JEWEL TOOLING ══════════ -->
+  <div id="tooling" class="sec" style="border-bottom: 1px solid var(--line)">
+    <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 100px 40px">
+      <div class="split" style="display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 48px; align-items: center">
+        <div style="display: flex; flex-direction: column; gap: 18px">
+          <h2 class="display h2">Stability hints and live inspection, in the IDE.</h2>
+          <p class="lede">Jewel Tooling is an IntelliJ IDEA plugin for Compose UI authors. It paints a stability estimate beside each <code>@Composable</code> parameter, and it can record live recompositions from a run you already have. No dependency to add, no server to start.</p>
+          <div style="display: flex; flex-direction: column; gap: 12px; padding-top: 2px">
+            <div class="bullet">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+              <span><strong style="color: var(--fg); font-weight: 600">Editor hints.</strong> Stable, unstable or unknown after each parameter type — hover for the reason, open the gutter for the whole function.</span>
+            </div>
+            <div class="bullet">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+              <span><strong style="color: var(--fg); font-weight: 600">Live inspection.</strong> Launch a temporary copy of your run configuration and watch recomposition counts fill in as you use the UI.</span>
+            </div>
+            <div class="bullet">
+              <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
+              <span><strong style="color: var(--fg); font-weight: 600">Agent-ready.</strong> The same static analysis is available over MCP and as a skill for coding agents.</span>
+            </div>
+          </div>
+          <div style="display: flex; gap: 18px; align-items: center; flex-wrap: wrap; padding-top: 6px">
+            <a class="arrow-link" href="https://plugins.jetbrains.com/plugin/34392-jewel-tooling" target="_blank" rel="noreferrer">
+              Get the plugin
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
+            </a>
+            <a class="arrow-link" href="/docs/tooling/">
+              Read the guide
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
+            </a>
+          </div>
+          <p style="margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--fg-3)">Pending JetBrains Marketplace approval — soft launch. Install from a GitHub Release meanwhile.</p>
+        </div>
+        <div class="shot-wrap">
+          <img class="shot" src="tooling-editor.webp" alt="Jewel Tooling editor hints in a Jewel Standalone project: stable and unstable parameter estimates shown beside @Composable parameters.">
+        </div>
+      </div>
     </div>
   </div>
 

@@ -4,8 +4,8 @@
 // bespoke renderer is smaller and more predictable than pulling in a parser.
 //
 // Design tokens are kept in sync with DESIGN.md and the landing page by hand.
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync } from 'node:fs';
-import { join, dirname, relative } from 'node:path';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, cpSync } from 'node:fs';
+import { join, dirname, relative, extname } from 'node:path';
 
 const SRC = process.argv[2] ?? 'docs';
 const OUT = process.argv[3] ?? 'public/docs';
@@ -34,7 +34,26 @@ const NAV = [
     pages: ['best-practices/portable-ui.md', 'best-practices/testing.md', 'best-practices/proguard.md'],
   },
   { title: 'Reference', pages: ['versioning.md'] },
+  {
+    title: 'Jewel Tooling',
+    pages: [
+      'tooling/index.md',
+      'tooling/install.md',
+      'tooling/editor.md',
+      'tooling/live-inspection.md',
+      'tooling/recordings.md',
+      'tooling/customisation.md',
+      'tooling/agents/index.md',
+      'tooling/agents/mcp.md',
+      'tooling/agents/skill.md',
+      'tooling/agents/workflows.md',
+    ],
+  },
 ];
+
+const TOOLING_GITHUB = 'https://github.com/rock3r/jewel-tooling';
+const TOOLING_MARKETPLACE = 'https://plugins.jetbrains.com/plugin/34392-jewel-tooling';
+const isTooling = (rel) => rel === 'tooling/index.md' || rel.startsWith('tooling/');
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -109,11 +128,24 @@ function inline(md, hrefFix) {
 
 // ----------------------------------------------------------------------- block
 
+function isTableSep(line) {
+  const t = line.trim();
+  return t.startsWith('|') && /^\|?[\s|:-]+$/.test(t) && t.includes('-');
+}
+
+function splitRow(line) {
+  let s = line.trim();
+  if (s.startsWith('|')) s = s.slice(1);
+  if (s.endsWith('|')) s = s.slice(0, -1);
+  return s.split('|').map((c) => c.trim());
+}
+
 function renderBlocks(lines, hrefFix, headings) {
   let html = '';
   let i = 0;
 
   const paragraphText = (buf) => buf.join(' ').replace(/\s+/g, ' ').trim();
+  const blockStart = /^(#{1,6}\s|```|!!!\s|[-*]\s|\d+\.\s|\|)/;
 
   while (i < lines.length) {
     const line = lines[i];
@@ -123,7 +155,6 @@ function renderBlocks(lines, hrefFix, headings) {
       continue;
     }
 
-    // Heading
     const h = line.match(/^(#{1,6})\s+(.*)$/);
     if (h) {
       const level = h[1].length;
@@ -139,21 +170,19 @@ function renderBlocks(lines, hrefFix, headings) {
       continue;
     }
 
-    // Fenced code
     const fence = line.match(/^```(\w*)\s*$/);
     if (fence) {
       const lang = fence[1] || 'text';
       const buf = [];
       i++;
       while (i < lines.length && !/^```\s*$/.test(lines[i])) buf.push(lines[i++]);
-      i++; // closing fence
+      i++;
       const code = buf.join('\n');
       const rendered = lang === 'kotlin' ? highlightKotlin(code) : esc(code);
       html += `<div class="code"><pre><code class="lang-${lang}">${rendered}</code></pre></div>\n`;
       continue;
     }
 
-    // Admonition: !!! type "Title", body indented by four spaces
     const adm = line.match(/^!!!\s+(\w+)(?:\s+"([^"]*)")?\s*$/);
     if (adm) {
       const kind = adm[1];
@@ -171,7 +200,35 @@ function renderBlocks(lines, hrefFix, headings) {
       continue;
     }
 
-    // Bullet list. Continuation lines are indented; items are flat.
+    const img = line.match(/^!\[([^\]]*)\]\(([^)]+)\)\s*$/);
+    if (img) {
+      const alt = img[1];
+      const src = hrefFix(img[2]);
+      html += `<figure class="shot"><img src="${esc(src)}" alt="${esc(alt)}" loading="lazy"></figure>\n`;
+      i++;
+      continue;
+    }
+
+    if (line.trim().startsWith('|') && i + 1 < lines.length && isTableSep(lines[i + 1])) {
+      const header = splitRow(line);
+      i += 2;
+      const rows = [];
+      while (i < lines.length && lines[i].trim().startsWith('|')) {
+        rows.push(splitRow(lines[i]));
+        i++;
+      }
+      html += '<div class="table-wrap"><table>\n<thead><tr>';
+      for (const cell of header) html += `<th>${inline(cell, hrefFix)}</th>`;
+      html += '</tr></thead>\n<tbody>\n';
+      for (const row of rows) {
+        html += '<tr>';
+        for (let c = 0; c < header.length; c++) html += `<td>${inline(row[c] ?? '', hrefFix)}</td>`;
+        html += '</tr>\n';
+      }
+      html += '</tbody></table></div>\n';
+      continue;
+    }
+
     if (/^[-*]\s+/.test(line)) {
       const items = [];
       while (i < lines.length && (/^[-*]\s+/.test(lines[i]) || (/^\s+\S/.test(lines[i]) && items.length))) {
@@ -185,12 +242,25 @@ function renderBlocks(lines, hrefFix, headings) {
       continue;
     }
 
-    // Paragraph
+    if (/^\d+\.\s+/.test(line)) {
+      const items = [];
+      while (i < lines.length && (/^\d+\.\s+/.test(lines[i]) || (/^\s+\S/.test(lines[i]) && items.length))) {
+        if (/^\d+\.\s+/.test(lines[i])) items.push([lines[i].replace(/^\d+\.\s+/, '')]);
+        else items[items.length - 1].push(lines[i].trim());
+        i++;
+      }
+      html += '<ol>\n';
+      for (const item of items) html += `<li>${inline(paragraphText(item), hrefFix)}</li>\n`;
+      html += '</ol>\n';
+      continue;
+    }
+
     const buf = [];
     while (
       i < lines.length &&
       lines[i].trim() &&
-      !/^(#{1,6}\s|```|!!!\s|[-*]\s)/.test(lines[i])
+      !blockStart.test(lines[i]) &&
+      !/^!\[[^\]]*\]\([^)]+\)\s*$/.test(lines[i])
     ) {
       buf.push(lines[i]);
       i++;
@@ -200,8 +270,6 @@ function renderBlocks(lines, hrefFix, headings) {
 
   return html;
 }
-
-// ------------------------------------------------------------------ page shell
 
 const CSS = `
 :root { color-scheme: dark light; }
@@ -338,6 +406,17 @@ body { margin: 0; }
 .onthis a:hover { color: var(--fg); }
 .onthis a.lv3 { padding-left: 12px; }
 
+figure.shot { margin: 0 0 16px; padding: 0; max-width: 100%; }
+figure.shot img {
+  display: block; max-width: 100%; height: auto;
+  border: 1px solid var(--line); border-radius: 8px;
+}
+.table-wrap { margin: 0 0 16px; max-width: 100%; overflow-x: auto; }
+.doc table { border-collapse: collapse; width: max-content; min-width: 100%; font-size: 14px; line-height: 1.45; }
+.doc th, .doc td { border: 1px solid var(--line); padding: 8px 12px; vertical-align: top; text-align: left; }
+.doc th { background: var(--panel); font-weight: 600; }
+.doc ol { margin: 0 0 14px; padding-left: 20px; }
+
 .footer { margin-top: 46px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--fg-3); font-size: 12.5px; }
 .footer a { color: var(--link); text-decoration: none; }
 :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
@@ -371,9 +450,21 @@ const LOGO = `<svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" he
 function walk(dir) {
   const out = [];
   for (const entry of readdirSync(dir)) {
+    if (entry.startsWith('.')) continue;
     const p = join(dir, entry);
     if (statSync(p).isDirectory()) out.push(...walk(p));
     else if (entry.endsWith('.md')) out.push(p);
+  }
+  return out;
+}
+
+function walkAll(dir) {
+  const out = [];
+  for (const entry of readdirSync(dir)) {
+    if (entry.startsWith('.')) continue;
+    const p = join(dir, entry);
+    if (statSync(p).isDirectory()) out.push(...walkAll(p));
+    else out.push(p);
   }
   return out;
 }
@@ -403,8 +494,8 @@ function build(rel) {
   const md = readFileSync(join(SRC, rel), 'utf8');
   const depth = rel.split('/').length - 1;
   const up = depth ? '../'.repeat(depth) : './';
+  const tooling = isTooling(rel);
 
-  // Links: .md becomes .html; anything already absolute or external is left alone.
   const hrefFix = (href) => {
     if (/^(https?:|mailto:|#)/.test(href)) return href;
     return href.replace(/\.md(?=$|#)/, '.html');
@@ -428,14 +519,30 @@ function build(rel) {
       headings.map((h) => `<a class="lv${h.level}" href="#${h.id}">${esc(h.text)}</a>`).join('\n')
     : '';
 
+  const pageTitle = tooling
+    ? `${esc(titles[rel])} — Jewel Tooling`
+    : `${esc(titles[rel])} — Jewel docs`;
+
+  const sourceHref = tooling ? TOOLING_GITHUB : 'https://github.com/JetBrains/intellij-community/tree/master/platform/jewel';
+  const issuesHref = tooling ? `${TOOLING_GITHUB}/issues` : 'https://youtrack.jetbrains.com/issues/JEWEL';
+  const sourceLabel = tooling ? 'Plugin source' : 'Source';
+
+  const footer = tooling
+    ? `Jewel Tooling is maintained by the Jewel lead, not by JetBrains.
+        <a href="${TOOLING_GITHUB}" target="_blank" rel="noopener noreferrer">Plugin source</a> ·
+        <a href="${TOOLING_MARKETPLACE}" target="_blank" rel="noopener noreferrer">JetBrains Marketplace</a> ·
+        <a href="${TOOLING_GITHUB}/issues" target="_blank" rel="noopener noreferrer">Issues</a>`
+    : `Jewel is a joint project by Google and JetBrains.
+        <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Jewel source</a> ·
+        <a href="https://github.com/rock3r/jewel-ui.dev/tree/master/docs" target="_blank" rel="noopener noreferrer">Docs source</a>`;
+
   return `<!doctype html>
-<html lang="en">
+<html lang="en-GB">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>${esc(titles[rel])} — Jewel docs</title>
+<title>${pageTitle}</title>
 <meta name="color-scheme" content="dark light">
-<meta name="robots" content="noindex">
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -448,8 +555,8 @@ function build(rel) {
     <a class="brand" href="/" title="Jewel home">${LOGO}<b>Jewel</b></a>
     <a class="brand-docs" href="${up}index.html">docs</a>
     <div class="top-sp"></div>
-    <a class="tl" href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
-    <a class="tl" href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+    <a class="tl" href="${sourceHref}" target="_blank" rel="noopener noreferrer">${sourceLabel}</a>
+    <a class="tl" href="${issuesHref}" target="_blank" rel="noopener noreferrer">Issues</a>
     <button class="tbtn" id="theme-btn" type="button">Light</button>
   </header>
   <div class="shell">
@@ -458,9 +565,7 @@ ${nav}
     </nav>
     <main class="main">
       <article class="doc">
-${body}      <p class="footer">Jewel is a joint project by Google and JetBrains.
-        <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Jewel source</a> ·
-        <a href="https://github.com/rock3r/jewel-ui.dev/tree/master/docs" target="_blank" rel="noopener noreferrer">Docs source</a></p>
+${body}      <p class="footer">${footer}</p>
       </article>
     </main>
     <aside class="onthis">${onThis}</aside>
@@ -472,6 +577,19 @@ ${body}      <p class="footer">Jewel is a joint project by Google and JetBrains.
 `;
 }
 
+mkdirSync(OUT, { recursive: true });
+
+const ASSET_EXT = new Set(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg']);
+let assets = 0;
+for (const full of walkAll(SRC)) {
+  if (!ASSET_EXT.has(extname(full).toLowerCase())) continue;
+  const rel = relative(SRC, full);
+  const dest = join(OUT, rel);
+  mkdirSync(dirname(dest), { recursive: true });
+  cpSync(full, dest);
+  assets++;
+}
+
 let count = 0;
 for (const rel of inNav) {
   const out = join(OUT, htmlPath(rel));
@@ -479,4 +597,4 @@ for (const rel of inNav) {
   writeFileSync(out, build(rel));
   count++;
 }
-console.log(`built ${count} doc pages into ${OUT}`);
+console.log(`built ${count} doc pages and copied ${assets} assets into ${OUT}`);

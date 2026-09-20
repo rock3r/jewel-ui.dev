@@ -34,6 +34,12 @@ pages:
 - **[In a standalone app](start/standalone.md).** One dependency and a theme wrapper.
   You get the Int UI look, and full control over how far you take it.
 
+## Jewel Tooling
+
+[Jewel Tooling](tooling/index.md) is an IntelliJ IDEA plugin for Compose UI authors.
+It shows a stability estimate beside each `@Composable` parameter, and it can
+record live composition activity from a local development run.
+
 ## Past the theme, it is one codebase
 
 The two tracks differ in exactly one place: which theme composable wraps your UI.

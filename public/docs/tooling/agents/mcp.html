@@ -1,0 +1,391 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Use Compose analysis from a coding agent — Jewel Tooling</title>
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root { color-scheme: dark light; }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+
+.page {
+  --bg: #1E1F22; --panel: #2B2D30; --line: #393B40; --line-strong: #4E5157;
+  --btn-border: #6F737A; --fg: #DFE1E5; --fg-2: #B4B8BF; --fg-3: #9DA0A8;
+  --accent: #3574F0; --accent-hover: #366ACE; --link: #6B9BFA; --on-accent: #FFFFFF;
+  --code-bg: #2B2D30; --sel: rgba(53, 116, 240, 0.16);
+  --kw: #CF8E6D; --str: #6AAB73; --fn: #56A8F5; --com: #9DA0A8; --num: #2AACB8;
+}
+.page[data-theme="light"] {
+  --bg: #FFFFFF; --panel: #F7F8FA; --line: #EBECF0; --line-strong: #C9CCD6;
+  --btn-border: #818594; --fg: #27282E; --fg-2: #494B57; --fg-3: #6C707E;
+  --accent: #3574F0; --accent-hover: #3369D6; --link: #315FBD; --on-accent: #FFFFFF;
+  --code-bg: #F7F8FA; --sel: rgba(53, 116, 240, 0.10);
+  --kw: #0033B3; --str: #067D17; --fn: #00627A; --com: #6C707E; --num: #1750EB;
+}
+
+.page {
+  font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin;
+  min-height: 100vh; font-size: 15px; line-height: 1.6;
+}
+
+/* header */
+.top {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 14px;
+  height: 52px; padding: 0 20px;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--fg); }
+.brand svg { display: block; width: 20px; height: 20px; }
+.brand b { font-family: Archivo, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 15.5px; letter-spacing: -0.01em; }
+.brand-docs { color: var(--fg-3); font-size: 13.5px; text-decoration: none; margin-left: -5px; }
+.brand-docs:hover { color: var(--fg); }
+.top-sp { flex: 1; }
+.top a.tl { color: var(--fg-2); text-decoration: none; font-size: 13.5px; }
+.top a.tl:hover { color: var(--fg); }
+.tbtn {
+  font: inherit; font-size: 13px; cursor: pointer;
+  background: transparent; color: var(--fg-2);
+  border: 1px solid var(--line-strong); border-radius: 6px; padding: 4px 10px;
+}
+.tbtn:hover { color: var(--fg); border-color: var(--btn-border); }
+
+/* shell */
+.shell { display: grid; grid-template-columns: 264px minmax(0, 1fr) 200px; gap: 0; align-items: start; }
+@media (max-width: 1100px) { .shell { grid-template-columns: 240px minmax(0, 1fr); } .onthis { display: none; } }
+@media (max-width: 760px) { .shell { grid-template-columns: minmax(0, 1fr); } .side { display: none; } }
+
+/* left nav */
+.side {
+  position: sticky; top: 52px; align-self: start;
+  height: calc(100vh - 52px); overflow-y: auto;
+  border-right: 1px solid var(--line); padding: 20px 8px 40px 20px;
+}
+.side h4 {
+  margin: 20px 0 6px; padding: 0 10px;
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--fg-3);
+}
+.side h4:first-child { margin-top: 0; }
+.side a {
+  display: block; padding: 5px 10px; margin: 1px 0;
+  border-radius: 4px; text-decoration: none;
+  color: var(--fg-2); font-size: 13.5px; line-height: 1.35;
+}
+.side a:hover { background: var(--panel); color: var(--fg); }
+.side a[aria-current="page"] { background: var(--sel); color: var(--fg); font-weight: 500; }
+
+/* content */
+.main { padding: 34px 40px 90px; min-width: 0; }
+.doc { max-width: 68ch; }
+.doc h1 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em;
+  margin: 0 0 18px;
+}
+.doc h2 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em;
+  margin: 34px 0 10px; padding-top: 14px; border-top: 1px solid var(--line);
+}
+.doc h3 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 16px; font-weight: 600; margin: 24px 0 8px;
+}
+.doc h2 a.anchor, .doc h3 a.anchor { color: inherit; text-decoration: none; }
+.doc h2 a.anchor:hover::after, .doc h3 a.anchor:hover::after {
+  content: " #"; color: var(--fg-3); font-weight: 400;
+}
+.doc p { margin: 0 0 14px; }
+.doc ul { margin: 0 0 14px; padding-left: 20px; }
+.doc li { margin: 5px 0; }
+.doc a { color: var(--link); text-decoration: none; }
+.doc a:hover { text-decoration: underline; }
+.doc code {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.86em; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+}
+.doc .code {
+  background: var(--code-bg); border: 1px solid var(--line);
+  border-radius: 8px; margin: 0 0 16px; overflow-x: auto;
+}
+.doc .code pre { margin: 0; padding: 13px 16px; }
+.doc .code code {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12.9px; line-height: 1.62; background: none; border: 0; padding: 0;
+  white-space: pre;
+}
+.c-kw { color: var(--kw); } .c-str { color: var(--str); }
+.c-fn { color: var(--fn); } .c-com { color: var(--com); } .c-num { color: var(--num); }
+
+.adm {
+  border: 1px solid var(--line-strong); border-left-width: 3px;
+  border-radius: 6px; padding: 12px 15px; margin: 0 0 16px; background: var(--panel);
+}
+.adm-title { font-weight: 600; margin: 0 0 6px !important; font-size: 14px; }
+.adm-warning { border-left-color: #E0A200; }
+.adm-note { border-left-color: var(--accent); }
+.adm > :last-child { margin-bottom: 0 !important; }
+
+/* on this page */
+.onthis { position: sticky; top: 52px; align-self: start; padding: 34px 20px 40px 0; max-height: calc(100vh - 52px); overflow-y: auto; }
+.onthis h4 { margin: 0 0 8px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-3); }
+.onthis a { display: block; padding: 3px 0; color: var(--fg-3); text-decoration: none; font-size: 12.5px; line-height: 1.35; }
+.onthis a:hover { color: var(--fg); }
+.onthis a.lv3 { padding-left: 12px; }
+
+figure.shot { margin: 0 0 16px; padding: 0; max-width: 100%; }
+figure.shot img {
+  display: block; max-width: 100%; height: auto;
+  border: 1px solid var(--line); border-radius: 8px;
+}
+.table-wrap { margin: 0 0 16px; max-width: 100%; overflow-x: auto; }
+.doc table { border-collapse: collapse; width: max-content; min-width: 100%; font-size: 14px; line-height: 1.45; }
+.doc th, .doc td { border: 1px solid var(--line); padding: 8px 12px; vertical-align: top; text-align: left; }
+.doc th { background: var(--panel); font-weight: 600; }
+.doc ol { margin: 0 0 14px; padding-left: 20px; }
+
+.footer { margin-top: 46px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--fg-3); font-size: 12.5px; }
+.footer a { color: var(--link); text-decoration: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page" data-theme="dark">
+  <header class="top">
+    <a class="brand" href="/" title="Jewel home"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" fill="#000"/><path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFF"/><path d="M256 76L436 256H256V76Z" fill="#CCC"/><path d="M76 256L256 436V256H76Z" fill="#CCC"/><path d="M256 436L436 256H256V436Z" fill="#808080"/></svg><b>Jewel</b></a>
+    <a class="brand-docs" href="../../index.html">docs</a>
+    <div class="top-sp"></div>
+    <a class="tl" href="https://github.com/rock3r/jewel-tooling" target="_blank" rel="noopener noreferrer">Plugin source</a>
+    <a class="tl" href="https://github.com/rock3r/jewel-tooling/issues" target="_blank" rel="noopener noreferrer">Issues</a>
+    <button class="tbtn" id="theme-btn" type="button">Light</button>
+  </header>
+  <div class="shell">
+    <nav class="side" aria-label="Documentation">
+<a href="../../index.html">Jewel</a>
+<h4>Get started</h4>
+<a href="../../start/plugin.html">In an IntelliJ plugin</a>
+<a href="../../start/standalone.html">Standalone app</a>
+<h4>Guides</h4>
+<a href="../../guides/theming.html">Theming</a>
+<a href="../../guides/swing-bridge.html">The Swing bridge</a>
+<a href="../../guides/icons.html">Icons</a>
+<a href="../../guides/typography.html">Typography and fonts</a>
+<a href="../../guides/lists-and-trees.html">Lists, trees and speed search</a>
+<a href="../../guides/markdown.html">Rendering Markdown</a>
+<a href="../../guides/decorated-windows.html">Decorated windows</a>
+<a href="../../guides/swing-interop.html">Swing interop</a>
+<a href="../../guides/code-highlighting.html">Code highlighting</a>
+<h4>Best practices</h4>
+<a href="../../best-practices/portable-ui.html">Portable UI</a>
+<a href="../../best-practices/testing.html">Testing your UI</a>
+<a href="../../best-practices/proguard.html">ProGuard and minification</a>
+<h4>Reference</h4>
+<a href="../../versioning.html">Versions and compatibility</a>
+<h4>Jewel Tooling</h4>
+<a href="../../tooling/index.html">Jewel Tooling</a>
+<a href="../../tooling/install.html">Install the plugin</a>
+<a href="../../tooling/editor.html">Editor hints</a>
+<a href="../../tooling/live-inspection.html">Live inspection</a>
+<a href="../../tooling/recordings.html">Recordings</a>
+<a href="../../tooling/customisation.html">Customisation</a>
+<a href="../../tooling/agents/index.html">Coding agents</a>
+<a href="../../tooling/agents/mcp.html" aria-current="page">Use Compose analysis from a coding agent</a>
+<a href="../../tooling/agents/skill.html">Agent skill</a>
+<a href="../../tooling/agents/workflows.html">Agent workflows</a>
+    </nav>
+    <main class="main">
+      <article class="doc">
+<h1>Use Compose analysis from a coding agent</h1>
+<p>Jewel Tooling exposes static Compose stability analysis through your running IDE. It uses the same engine as the editor hints. You do not need to launch your application, add a build plugin, or change a dependency.</p>
+<h2 id="enable-access-to-your-project"><a class="anchor" href="#enable-access-to-your-project">Enable access to your project</a></h2>
+<ol>
+<li>Install Jewel Tooling in a supported IntelliJ IDEA installation.</li>
+<li>Open your own Gradle or Bazel project. Import its Kotlin model and let indexing finish.</li>
+<li>Open <strong>Tools → Compose Analysis MCP Server…</strong>.</li>
+<li>Check the project name and path. Select <strong>Enable</strong>.</li>
+<li>Under <strong>Install in a coding client</strong>, select your client. Check the configuration file path.</li>
+<li>Select <strong>Install</strong>. Jewel Tooling writes and verifies the configuration.</li>
+<li>Refresh or restart your client. Accept its own trust prompt if shown.</li>
+</ol>
+<p>For Codex and Pi, check the <strong>Client executable</strong> field if automatic detection leaves it empty. You can still select <strong>Copy client setup commands</strong> for manual Codex or Claude Code setup.</p>
+<p>Access defaults to disabled. Enable it again after you close the project or restart the IDE. The existing client configuration still works. You do not need to copy a new port or token. The endpoint is separate from live Compose inspection and other IDE MCP servers.</p>
+<p>A working Kotlin project model is required. Missing dependencies can produce unknown findings. Bazel support uses the imported IDE model. It does not run Bazel or guess dependencies from build files.</p>
+<h2 id="one-click-client-setup"><a class="anchor" href="#one-click-client-setup">One-click client setup</a></h2>
+<figure class="shot"><img src="../images/mcp-standalone.png" alt="The MCP setup dialog after installing a client" loading="lazy"></figure>
+<p>Install supports these clients. The default scope is your local user configuration. Each entry selects this IDE profile and project. Other server entries remain unchanged.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Client</th><th>Default configuration</th><th>After installation</th></tr></thead>
+<tbody>
+<tr><td>Android Studio (Gemini)</td><td>Selected Android Studio profile's <code>mcp.json</code></td><td>Enable MCP Servers in Studio, then refresh its MCP settings</td></tr>
+<tr><td>Antigravity</td><td><code>~/.gemini/config/mcp_config.json</code></td><td>Refresh MCP servers</td></tr>
+<tr><td>Codex</td><td><code>$CODEX_HOME/config.toml</code>, or <code>~/.codex/config.toml</code></td><td>Reconnect MCP or restart the session</td></tr>
+<tr><td>Claude Code</td><td><code>~/.claude.json</code></td><td>Restart the session</td></tr>
+<tr><td>Pi (pi-mcp-adapter)</td><td><code>$PI_CODING_AGENT_DIR/mcp.json</code>, or <code>~/.pi/agent/mcp.json</code></td><td>Restart Pi, then inspect <code>/mcp</code></td></tr>
+<tr><td>Amp</td><td><code>~/.config/amp/settings.json</code> or <code>.jsonc</code></td><td>Refresh MCP or restart the session</td></tr>
+<tr><td>OpenCode</td><td><code>~/.config/opencode/opencode.json</code> or <code>.jsonc</code></td><td>Restart the session</td></tr>
+<tr><td>GitHub Copilot (JetBrains)</td><td><code>~/.config/github-copilot/intellij/mcp.json</code></td><td>Refresh Copilot's MCP servers</td></tr>
+<tr><td>GitHub Copilot (CLI)</td><td><code>~/.copilot/mcp-config.json</code></td><td>Restart the session</td></tr>
+<tr><td>GitHub Copilot (VS Code)</td><td>VS Code's user <code>mcp.json</code></td><td>Refresh MCP servers</td></tr>
+</tbody></table></div>
+<p>The dialog resolves platform paths and relevant configuration-directory overrides. For a custom client profile, select its actual configuration file. If multiple Android Studio profiles exist, choose one explicitly. The Studio file must be outside your project, in an existing profile with an <code>options</code> directory. No installation changes a client's global trust or approval settings.</p>
+<p><strong>Pi support uses pi-mcp-adapter.</strong> If no adapter package is registered, Install runs <code>pi install npm:pi-mcp-adapter@2.34.0</code>. An existing registered adapter is preserved. The package step needs package-registry access. If you use another Pi extension, ask your coding agent to adapt the setup. Pi can expose the tools through the adapter's <code>mcp</code> proxy. Use <code>/mcp</code> to inspect the connection.</p>
+<p>The optional agent skill is documented separately in <a href="skill.html">Agent skill</a>.</p>
+<h3 id="android-studio-and-endpoint-changes"><a class="anchor" href="#android-studio-and-endpoint-changes">Android Studio and endpoint changes</a></h3>
+<p>Android Studio supports HTTP MCP, but not stdio. Its configuration therefore contains a bearer credential. Jewel Tooling stores that file and its backup with owner-only permissions. Do not share the Studio configuration or commit it to a repository.</p>
+<p>Jewel Tooling updates its owned Studio entry whenever you enable the server or rotate credentials. On disable, project close, or plugin unload, it revokes access and marks the entry disabled without a credential. Refresh Studio's MCP settings after an update. An IDE crash cannot run cleanup, but the old endpoint no longer grants access. Enable again to refresh the saved entry after a restart. If you edit the entry yourself, automatic updates stop with a visible warning. Remove only the affected Jewel entry in Studio, then select Install again.</p>
+<p>Other clients use the private discovery bridge. Their saved configurations contain no token or ephemeral port.</p>
+<h3 id="existing-settings-and-installation-failures"><a class="anchor" href="#existing-settings-and-installation-failures">Existing settings and installation failures</a></h3>
+<p>Close client configuration editors before installation. Client applications can also write their own settings. Jewel Tooling checks for changes before and after each write. It cannot lock out an unrelated application's writer. If it detects a change, it stops and asks you to close the editor and retry. A successful installation confirms the saved configuration, not a live connection inside the external client.</p>
+<p>JSON and JSONC installation preserves unrelated text and comments. Duplicate keys and malformed files are rejected. Jewel Tooling keeps one private backup per destination under its IDE support directory. It never restores a backup automatically over another application's changes. Files are limited to 1 MiB, except Claude Code's state file, which allows 32 MiB. Nesting is limited to 64 levels. Symbolic links and files owned by another user are rejected. Select a direct, user-owned destination instead.</p>
+<p>Codex's installed CLI validates a private copy of its TOML configuration. Installation appends a new server table and preserves the original text. An unusual inline table, an old CLI, or a conflicting entry can prevent automatic installation. Use the copied command in that case. If an IDE move changes the Java path, remove the old named Codex entry and install again.</p>
+<p>Retrying installation is safe. An identical entry is left unchanged; a conflicting user entry is not overwritten. If Pi installs its package but cannot write the configuration, retry to finish setup. After deleting or replacing a project, remove its old Jewel entry from each client. Uninstalling Jewel Tooling does not remove settings from other applications. Its stopped endpoint denies access.</p>
+<p>Formats were checked against the current vendor documentation: <a href="https://developer.android.com/studio/gemini/add-mcp-server" target="_blank" rel="noopener noreferrer">Android Studio</a>, <a href="https://antigravity.google/docs/mcp" target="_blank" rel="noopener noreferrer">Antigravity</a>, <a href="https://ampcode.com/docs/customize/mcp" target="_blank" rel="noopener noreferrer">Amp</a>, <a href="https://opencode.ai/docs/mcp-servers/" target="_blank" rel="noopener noreferrer">OpenCode</a>, <a href="https://github.com/nicobailon/pi-mcp-adapter" target="_blank" rel="noopener noreferrer">Pi adapter</a>, <a href="https://docs.github.com/en/copilot/how-tos/provide-context/use-mcp-in-your-ide/extend-copilot-chat-with-mcp" target="_blank" rel="noopener noreferrer">Copilot IDE clients</a>, and <a href="https://docs.github.com/en/copilot/how-tos/copilot-cli/customize-copilot/add-mcp-servers" target="_blank" rel="noopener noreferrer">Copilot CLI</a>. The <a href="https://github.com/hechtcarmel/jetbrains-index-mcp-plugin" target="_blank" rel="noopener noreferrer">IDE Index MCP plugin</a> informed the setup workflow. No source code was copied.</p>
+<h2 id="manual-setup-for-codex-or-claude-code"><a class="anchor" href="#manual-setup-for-codex-or-claude-code">Manual setup for Codex or Claude Code</a></h2>
+<p>The IDE copies commands with the correct Java executable, bootstrap path, descriptor path, and project identity. The following paths are <strong>examples</strong>. Use the copied values for your own installation.</p>
+<div class="code"><pre><code class="lang-sh">codex mcp add jewel-example -- '/path/to/ide/jbr/bin/java' -jar '/private/support/bootstrap.jar' '/private/support/project.properties' 'PROJECT_ID'
+claude mcp add --transport stdio jewel-example -- '/path/to/ide/jbr/bin/java' -jar '/private/support/bootstrap.jar' '/private/support/project.properties' 'PROJECT_ID'</code></pre></div>
+<p>Run only the command for your client. Restart its session or reconnect the server through its MCP controls. The commands use the documented <a href="https://developers.openai.com/codex/mcp/" target="_blank" rel="noopener noreferrer">Codex MCP syntax</a> and <a href="https://code.claude.com/docs/en/mcp" target="_blank" rel="noopener noreferrer">Claude Code stdio syntax</a>. Their argument forms were checked against the installed CLIs.</p>
+<p>For a configuration file, use the same values. This Codex TOML is an <strong>example</strong>:</p>
+<div class="code"><pre><code class="lang-toml">[mcp_servers.jewel_example]
+command = &quot;/path/to/ide/jbr/bin/java&quot;
+args = [&quot;-jar&quot;, &quot;/private/support/bootstrap.jar&quot;, &quot;/private/support/project.properties&quot;, &quot;PROJECT_ID&quot;]</code></pre></div>
+<p>This Claude Code JSON is an <strong>example</strong>:</p>
+<div class="code"><pre><code class="lang-json">{
+  &quot;mcpServers&quot;: {
+    &quot;jewel_example&quot;: {
+      &quot;type&quot;: &quot;stdio&quot;,
+      &quot;command&quot;: &quot;/path/to/ide/jbr/bin/java&quot;,
+      &quot;args&quot;: [&quot;-jar&quot;, &quot;/private/support/bootstrap.jar&quot;, &quot;/private/support/project.properties&quot;, &quot;PROJECT_ID&quot;]
+    }
+  }
+}</code></pre></div>
+<p>The copied shell commands use POSIX quoting. On Windows, use the JSON configuration with escaped backslashes or forward slashes. The launcher uses your IDE's bundled Java runtime. Copy setup again if you move or remove that IDE installation. Each descriptor selects one IDE profile and one project. Give separate endpoints separate client names. Do not replace a project identity with another project's identity. The bridge never selects the first running IDE. If you move or recreate the project, copy its setup again.</p>
+<p>The client starts a local stdio bridge. That bridge reads private discovery data and connects to authenticated loopback HTTP. The descriptor contains a credential. Do not share it or add it to version control. The copied configuration contains no credential. A new enable operation creates a new credential and endpoint generation.</p>
+<h2 id="first-analysis-in-your-project"><a class="anchor" href="#first-analysis-in-your-project">First analysis in your project</a></h2>
+<p>Ask your agent to follow this sequence. Tool names can have a client-specific prefix.</p>
+<ol>
+<li>Call <code>jewel_status</code> with <code>{}</code>. Check <code>projectRoot</code>, <code>projectId</code>, and <code>readiness</code>.</li>
+<li>Call <code>jewel_composables</code> with <code>{&quot;file&quot;:&quot;src/main/kotlin/example/Screen.kt&quot;}</code>.</li>
+<li>Select a returned declaration ID. Call <code>jewel_analyze</code> with the same file and that <code>declarationId</code>.</li>
+<li>Call <code>jewel_explain</code> with the file, declaration ID, and parameter name.</li>
+<li>Cite the declaration location, document hash, classification, evidence, and reason in your explanation.</li>
+</ol>
+<p>These requests are <strong>examples</strong>:</p>
+<div class="code"><pre><code class="lang-json">{&quot;file&quot;:&quot;src/main/kotlin/example/Screen.kt&quot;,&quot;declarationId&quot;:&quot;GENERATION:FILE_HASH:CONTENT_HASH:OFFSET&quot;}</code></pre></div>
+<div class="code"><pre><code class="lang-json">{&quot;file&quot;:&quot;src/main/kotlin/example/Screen.kt&quot;,&quot;declarationId&quot;:&quot;GENERATION:FILE_HASH:CONTENT_HASH:OFFSET&quot;,&quot;parameter&quot;:&quot;items&quot;}</code></pre></div>
+<p>Use the actual returned ID. For an extension receiver, use the parameter name <code>&lt;receiver&gt;</code>. The explain tool describes a parameter's resolved type in context. It does not resolve arbitrary type strings.</p>
+<p>All results use this envelope. The following is a <strong>representative excerpt</strong>, not a complete response:</p>
+<div class="code"><pre><code class="lang-json">{
+  &quot;schemaVersion&quot;: 1,
+  &quot;payload&quot;: {
+    &quot;kind&quot;: &quot;result&quot;,
+    &quot;data&quot;: {
+      &quot;file&quot;: &quot;src/main/kotlin/example/Screen.kt&quot;,
+      &quot;documentRevision&quot;: &quot;42&quot;,
+      &quot;contentHash&quot;: &quot;SHA256_OF_CURRENT_DOCUMENT&quot;,
+      &quot;declarations&quot;: [{
+        &quot;name&quot;: &quot;Screen&quot;,
+        &quot;parameters&quot;: [{
+          &quot;name&quot;: &quot;items&quot;,
+          &quot;resolvedType&quot;: &quot;kotlin.collections.List&lt;example.Item&gt;&quot;,
+          &quot;stability&quot;: &quot;UNSTABLE&quot;,
+          &quot;evidence&quot;: [{&quot;code&quot;: &quot;BUILTIN&quot;, &quot;provenance&quot;: &quot;builtin&quot;}],
+          &quot;reasons&quot;: [{&quot;code&quot;: &quot;reason.collection&quot;, &quot;text&quot;: &quot;The collection type does not guarantee immutability.&quot;, &quot;locations&quot;: []}],
+          &quot;incomplete&quot;: []
+        }],
+        &quot;skippability&quot;: &quot;NOT_ANALYZED&quot;
+      }]
+    }
+  }
+}</code></pre></div>
+<h2 id="contract-and-evidence"><a class="anchor" href="#contract-and-evidence">Contract and evidence</a></h2>
+<p>The four tools are read-only. Their <code>inputSchema</code> and <code>outputSchema</code> are available through MCP tool discovery. Each success has <code>schemaVersion: 1</code> and a <code>payload</code> with <code>kind: &quot;result&quot;</code> and <code>data</code>. Each operational error has <code>kind: &quot;error&quot;</code>, <code>code</code>, <code>message</code>, <code>retryable</code>, and <code>remedy</code>. MCP also sets <code>isError</code>. Both shapes conform to the published output schema.</p>
+<p><code>jewel_status</code> reports versions, project identity, readiness, capabilities, and limits. The three analysis tools return a document snapshot with declaration and parameter details. <code>jewel_composables</code> includes stability summaries. <code>jewel_explain</code> narrows the parameter details to the selected parameter.</p>
+<p>Every snapshot includes the document revision, SHA-256 content hash, and PSI revision. Declaration IDs belong to the endpoint generation, canonical project-relative file, and document hash. Locations use one-based lines and columns, counted in UTF-16 code units. Range ends are exclusive.</p>
+<p><code>jewel_analyze</code> analyses the named file when no selector is supplied. A range selects declarations whose names begin inside it. A zero-width range selects the innermost containing function. A range and a declaration ID cannot be used together. All three analysis tools accept an optional <code>expectedHash</code> to reject changed documents.</p>
+<div class="table-wrap"><table>
+<thead><tr><th>Evidence</th><th>Meaning</th></tr></thead>
+<tbody>
+<tr><td><code>COMPILER_METADATA</code></td><td>Supported compiled metadata contributes to the classification</td></tr>
+<tr><td><code>DECLARED_CONTRACT</code></td><td>The resolved type declares a stability annotation contract</td></tr>
+<tr><td><code>SOURCE</code></td><td>The engine infers stability from supported source declarations</td></tr>
+<tr><td><code>BUILTIN</code></td><td>The engine applies a known language or library rule</td></tr>
+<tr><td><code>UNSUPPORTED</code></td><td>The available evidence does not support a conclusion</td></tr>
+</tbody></table></div>
+<p>Evidence can be mixed. Keep every evidence entry when explaining a result. A declared contract is not proof that the implementation satisfies it. Do not add <code>@Stable</code> or <code>@Immutable</code> merely to silence a finding. These annotations promise behaviour that the implementation must preserve.</p>
+<p><code>UNKNOWN</code> remains unknown. An incomplete entry explains missing metadata, unresolved types, unsupported evidence, or an analysis budget. Missing metadata is a partial finding, not a failed whole-file request. Stability does not prove compiler skippability, a recomposition count, or a performance problem. The server returns no runtime observations. <code>skippability</code> is <code>NOT_ANALYZED</code>.</p>
+<h2 id="unsaved-edits-and-limits"><a class="anchor" href="#unsaved-edits-and-limits">Unsaved edits and limits</a></h2>
+<p>Analysis uses the current editor document, including unsaved edits. It does not save your source file. A write can invalidate the snapshot. On <code>STALE_LOCATION</code>, list declarations again and use the new ID. Dependency changes can invalidate conclusions even when the source hash stays unchanged. Request fresh analysis before making a claim.</p>
+<p>Each request names one project-relative Kotlin file. No tool scans your repository implicitly. The limits are 1 MiB of source, 128 declarations, 256 parameters, and 1 MiB of encoded output. Two analyses can run per project. Additional analyses return <code>BUSY</code>. The deadline is ten seconds. Requests that exceed a limit fail explicitly. The server does not silently omit declarations.</p>
+<p>Client cancellation stops the request. A cancelled MCP request need not receive a response. Closing a session cancels its analyses. A dropped HTTP connection alone is not a cancellation signal. Disconnected analysis still has a deadline. Idle sessions expire and do not consume capacity indefinitely.</p>
+<h2 id="disable-or-rotate-access"><a class="anchor" href="#disable-or-rotate-access">Disable or rotate access</a></h2>
+<p>Select <strong>Disable</strong> in the server dialog to revoke access and stop the endpoint. Closing the project or unloading the plugin also stops it. Select <strong>Rotate credentials</strong> to replace credentials and end existing sessions. Reconnect the client afterward. Stdio clients keep the same discovery path. Jewel Tooling updates its owned Android Studio entry; refresh Studio after rotation.</p>
+<h2 id="troubleshooting"><a class="anchor" href="#troubleshooting">Troubleshooting</a></h2>
+<div class="table-wrap"><table>
+<thead><tr><th>Symptom</th><th>Action</th></tr></thead>
+<tbody>
+<tr><td>The bridge cannot connect</td><td>Open the selected project, enable MCP, and reconnect the client</td></tr>
+<tr><td><code>INDEXING</code></td><td>Wait for indexing to finish; check <code>jewel_status</code> again</td></tr>
+<tr><td><code>UNKNOWN</code> with unresolved evidence</td><td>Fix or import the Kotlin dependency model; request fresh analysis</td></tr>
+<tr><td><code>METADATA_UNAVAILABLE</code> in a parameter</td><td>Keep the result unknown; compiler evidence is not available for that classification</td></tr>
+<tr><td><code>STALE_LOCATION</code></td><td>List composables again; use the new declaration ID and hash</td></tr>
+<tr><td><code>BUSY</code></td><td>Let an existing request finish before retrying</td></tr>
+<tr><td><code>TIMEOUT</code></td><td>Wait for the IDE to become idle or analyse a smaller range</td></tr>
+<tr><td><code>LIMIT_EXCEEDED</code></td><td>Analyse a smaller file, range, or declaration</td></tr>
+<tr><td><code>OUTSIDE_PROJECT</code></td><td>Use a file inside the selected imported project</td></tr>
+<tr><td>The wrong project appears in status</td><td>Remove that client entry and copy setup from the intended project's dialog</td></tr>
+<tr><td>Setup fails on permissions</td><td>Use an owner-only IDE configuration directory; do not make the discovery files public</td></tr>
+<tr><td>Access stops after rotation or restart</td><td>Re-enable if needed, then reconnect the client with its existing configuration</td></tr>
+</tbody></table></div>
+      <p class="footer">Jewel Tooling is maintained by the Jewel lead, not by JetBrains.
+        <a href="https://github.com/rock3r/jewel-tooling" target="_blank" rel="noopener noreferrer">Plugin source</a> ·
+        <a href="https://plugins.jetbrains.com/plugin/34392-jewel-tooling" target="_blank" rel="noopener noreferrer">JetBrains Marketplace</a> ·
+        <a href="https://github.com/rock3r/jewel-tooling/issues" target="_blank" rel="noopener noreferrer">Issues</a></p>
+      </article>
+    </main>
+    <aside class="onthis"><h4>On this page</h4>
+<a class="lv2" href="#enable-access-to-your-project">Enable access to your project</a>
+<a class="lv2" href="#one-click-client-setup">One-click client setup</a>
+<a class="lv3" href="#android-studio-and-endpoint-changes">Android Studio and endpoint changes</a>
+<a class="lv3" href="#existing-settings-and-installation-failures">Existing settings and installation failures</a>
+<a class="lv2" href="#manual-setup-for-codex-or-claude-code">Manual setup for Codex or Claude Code</a>
+<a class="lv2" href="#first-analysis-in-your-project">First analysis in your project</a>
+<a class="lv2" href="#contract-and-evidence">Contract and evidence</a>
+<a class="lv2" href="#unsaved-edits-and-limits">Unsaved edits and limits</a>
+<a class="lv2" href="#disable-or-rotate-access">Disable or rotate access</a>
+<a class="lv2" href="#troubleshooting">Troubleshooting</a></aside>
+  </div>
+</div>
+<script>
+(function () {
+  var page = document.querySelector('.page');
+  function setTheme(t) {
+    page.setAttribute('data-theme', t);
+    var b = document.getElementById('theme-btn');
+    if (b) b.textContent = t === 'dark' ? 'Light' : 'Dark';
+    try { localStorage.setItem('jewel-theme', t); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('jewel-theme'); } catch (e) {}
+  if (!saved) saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  setTheme(saved);
+  var btn = document.getElementById('theme-btn');
+  if (btn) btn.addEventListener('click', function () {
+    setTheme(page.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+})();
+</script>
+</body>
+</html>
