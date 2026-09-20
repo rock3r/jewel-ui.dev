@@ -1,0 +1,15 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:org.jetbrains.jewel.intui.standalone.code.highlighting/SyntaxHighlightColors.Companion///PointingToDeclaration/org/jetbrains/jewel/intui/standalone/code/highlighting/SyntaxHighlightColors.Companion.html
+$dokka.location:org.jetbrains.jewel.intui.standalone.code.highlighting/TokenRule.Companion///PointingToDeclaration/org/jetbrains/jewel/intui/standalone/code/highlighting/TokenRule.Companion.html
+$dokka.location:org.jetbrains.jewel.intui.standalone.window.macos/ID.Companion///PointingToDeclaration/org/jetbrains/jewel/intui/standalone/window/macos/ID.Companion.html
+$dokka.location:org.jetbrains.jewel.intui.standalone/ScrollbarHelper.Companion///PointingToDeclaration/org/jetbrains/jewel/intui/standalone/ScrollbarHelper.Companion.html
+org.jetbrains.jewel.intui.core.theme
+org.jetbrains.jewel.intui.standalone
+org.jetbrains.jewel.intui.standalone.bundle
+org.jetbrains.jewel.intui.standalone.code.highlighting
+org.jetbrains.jewel.intui.standalone.menuShortcut
+org.jetbrains.jewel.intui.standalone.styling
+org.jetbrains.jewel.intui.standalone.theme
+org.jetbrains.jewel.intui.standalone.window
+org.jetbrains.jewel.intui.standalone.window.macos

@@ -1,0 +1,741 @@
+<!DOCTYPE HTML>
+<!-- NewPage -->
+<html lang="en"><head>
+    <title>Element </title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="dc.created" content="2020-03-25">
+    <link rel="stylesheet" type="text/css" href="../../../../../../stylesheet.css" title="Style">
+    <link rel="stylesheet" type="text/css" href="../../../../../../dokka-javadoc-stylesheet.css" title="Style">
+    <link rel="stylesheet" type="text/css" href="../../../../../../jquery/jquery-ui.css" title="Style">
+    <script type="text/javascript" src="../../../../../../jquery/jquery-3.6.0.min.js"></script>
+    <script type="text/javascript" src="../../../../../../jquery/jquery-migrate-3.4.0.min.js"></script>
+    <script type="text/javascript" src="../../../../../../jquery/jquery-ui.js"></script>
+
+    <script type="text/javascript" src="../../../../../../search.js"></script>
+    <script async type="text/javascript" src="../../../../../../module-search-index.js"></script>
+    <script async type="text/javascript" src="../../../../../../package-search-index.js"></script>
+    <script async type="text/javascript" src="../../../../../../type-search-index.js"></script>
+    <script async type="text/javascript" src="../../../../../../member-search-index.js"></script>
+    <script async type="text/javascript" src="../../../../../../tag-search-index.js"></script>
+</head><body>
+<script type="text/javascript">
+var pathtoroot = "../../../../../../";
+</script>
+<noscript>
+    <div>JavaScript is disabled on your browser.</div>
+</noscript><header role="banner">
+    <nav role="navigation">
+        <div class="fixedNav">
+            <!-- ========= START OF TOP NAVBAR ======= -->
+            <div class="topNav"><a id="navbar.top">
+                <!--   -->
+            </a>
+                <div class="skipNav"><a href="#skip.navbar.top" title="Skip navigation links">Skip navigation links</a>
+                </div>
+                <a id="navbar.top.firstrow">
+                    <!--   -->
+                </a>
+                <ul class="navList" title="Navigation">
+    <li><a href="../../../../../../index.html">Overview</a></li>
+    
+    <li><a href="package-summary.html">Package</a></li>
+    
+    <li>Class</li>
+    
+    <li><a href="package-tree.html">Tree</a></li>
+    
+    <li><a href="../../../../../../deprecated.html">Deprecated</a></li>
+    <li><a href="../../../../../../index-files/index-1.html">Index</a></li>
+    <li>Help</li>
+</ul></div>
+            <div class="subNav">
+<ul class="navList" id="allclasses_navbar_top" style="display: block;">
+    <li><a href="../../../../../../allclasses.html">All&nbsp;Classes</a></li>
+</ul>
+
+<ul class="navListSearch">
+<li><label for="search">SEARCH:</label>
+<input type="text" id="search" value="search" class="ui-autocomplete-input" autocomplete="off" placeholder="Search">
+<input type="reset" id="reset" value="reset">
+</li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+</div>
+<a id="skip.navbar.top">
+<!--   -->
+</a></div><!-- ========= END OF TOP NAVBAR ========= -->
+        </div>
+        <div class="navPadding">&nbsp;</div>
+        <script type="text/javascript"><!--
+        $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
+        //-->
+        </script>
+    </nav>
+</header>
+
+<main role="main">
+    <div class="header">
+        <div class="subTitle"><span class="packageLabelInType">Package</span>&nbsp;<a href="package-summary.html">org.jetbrains.jewel.foundation.lazy.tree</a></div>
+        <h2 title="Interface Tree.Element" class="title">Interface Tree.Element</h2>
+    </div>
+    <div class="contentContainer">
+        <!-- <ul class="inheritance">
+            <li>java.lang.Object</li>
+            <li>
+                <ul class="inheritance">
+                    <li>adaptation.Adaptation</li>
+                </ul>
+            </li>
+        </ul> TODO inheritance tree -->
+        <div class="description">
+            <ul class="blockList">
+                <li class="blockList">
+                    
+                    <dl>
+                        <dt>All Implemented Interfaces:</dt>
+                        <dd>
+                            
+                        </dd>
+                    </dl>
+                    
+                    <hr>
+                    <pre class="wrap-overflow">
+
+public interface <span class="typeNameLabel"><a href=Tree.Element.html>Tree.Element</a>&lt;T extends <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html>Object</a>&gt;</span>
+
+                    </pre>
+                    <div class="block"><p>An element in the tree, holding data plus depth, childIndex, a parent pointer, and next/previous pointers into the tree's flattened linked list.</p></div>
+
+                    <dl>
+
+                    
+
+                    
+
+                    </dl>
+                </li>
+            </ul>
+        </div>
+        <div class="summary">
+            <ul class="blockList">
+                <li class="blockList">
+                <!-- ======== NESTED CLASS SUMMARY ======== -->
+                    
+                    <section role="region">
+                        <ul class="blockList">
+                            <li class="blockList"><a id="nested.class.summary">
+                                <!--   -->
+                            </a>
+                                <h3>Nested Class Summary</h3>
+                                <div class="memberSummary">
+                                    <table>
+                                        <caption><span>Nested Classes</span><span class="tabEnd">&nbsp;</span></caption>
+                                        <tr>
+                                            <th class="colFirst" scope="col">Modifier and Type</th>
+                                            <th class="colSecond" scope="col">Class</th>
+                                            <th class="colLast" scope="col">Description</th>
+                                        </tr>
+                                        
+                                        <tr class="altColor">
+                                            <td class="colFirst"><code>public final class</code></td>
+                                            <th class="colSecond" scope="row"><code><a href="Tree.Element.Leaf.html">Tree.Element.Leaf</a></span></code>
+                                            </th>
+                                            <td class="colLast"><p>A terminal element in the tree that holds <a href=Tree.Element.Leaf.html#data>data</a> and has no children.</p></td>
+                                        </tr>
+                                        
+                                        <tr class="rowColor">
+                                            <td class="colFirst"><code>public final class</code></td>
+                                            <th class="colSecond" scope="row"><code><a href="Tree.Element.Node.html">Tree.Element.Node</a></span></code>
+                                            </th>
+                                            <td class="colLast"><p>A branching element in the tree that holds <a href=Tree.Element.Node.html#data>data</a> and can lazily generate <a href=Tree.Element.Node.html#children>children</a> when <a href=Tree.Element.Node.html#open(java.lang.Boolean)>open</a> is called.</p></td>
+                                        </tr>
+                                        
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                    
+                    <!-- =========== FIELD SUMMARY =========== -->
+                    
+                    <section role="region">
+                        <ul class="blockList">
+                            <li class="blockList"><a id="field.summary">
+                                <!--   -->
+                            </a>
+                                <h3>Field Summary</h3>
+                                <div class="memberSummary">
+                                    <table>
+                                        <caption><span>Fields</span><span class="tabEnd">&nbsp;</span></caption>
+                                        <tr>
+                                            <th class="colFirst" scope="col">Modifier and Type</th>
+                                            <th class="colSecond" scope="col">Field</th>
+                                            <th class="colLast" scope="col">Description</th>
+                                        </tr>
+                                        
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                    
+                    <!-- ======== CONSTRUCTOR SUMMARY ======== -->
+                    
+                    <section role="region">
+                        <ul class="blockList">
+                            <li class="blockList"><a id="constructor.summary">
+                                <!--   -->
+                            </a>
+                                <h3>Constructor Summary</h3>
+                                <div class="memberSummary">
+                                    <table>
+                                        <caption><span>Constructors</span><span class="tabEnd">&nbsp;</span></caption>
+                                        <tbody>
+                                        <tr>
+                                            <th class="colFirst" scope="col">Constructor</th>
+                                            <th class="colLast" scope="col">Description</th>
+                                        </tr>
+
+                                        
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </li>
+                        </ul>
+                    </section>
+                    
+                    <!-- =========== ENUM CONSTANT SUMMARY =========== -->
+                    
+                    <section role="region">
+                        <ul class="blockList">
+                            <li class="blockList"><a id="enum.constant.summary">
+                                <!--   -->
+                            </a>
+                                <h3>Enum Constant Summary</h3>
+                                <table class="memberSummary">
+                                    <caption><span>Enum Constants</span><span class="tabEnd">&nbsp;</span></caption>
+                                    <tr>
+                                        <th class="colFirst" scope="col">Enum Constant</th>
+                                        <th class="colLast" scope="col">Description</th>
+                                    </tr>
+                                    
+                                </table>
+                            </li>
+                        </ul>
+                    </section>
+                    
+                    <!-- ========== METHOD SUMMARY =========== -->
+                    
+                    <section role="region">
+                        <ul class="blockList">
+                            <li class="blockList"><a id="method.summary">
+                                <!--   -->
+                            </a>
+                                <h3>Method Summary</h3>
+                                <div class="memberSummary">
+                                    <div role="tablist" aria-orientation="horizontal">
+                                        <button role="tab" aria-selected="true" aria-controls="memberSummary_tabpanel" tabindex="0" onkeydown="switchTab(event)" id="t0" class="activeTableTab">All Methods</button>
+                                        <!-- TODO: Instance and Concrete Methods #1118 -->
+                                    </div>
+                                    <div id="memberSummary_tabpanel" role="tabpanel">
+                                    <table aria-labelledby="t0">
+                                        <tr>
+                                            <th class="colFirst" scope="col">Modifier and Type</th>
+                                            <th class="colSecond" scope="col">Method</th>
+                                            <th class="colLast" scope="col">Description</th>
+                                        </tr>
+                                        
+                                        <tr id="i0" class="altColor">
+                                            <td class="colFirst"><code><a href=https://docs.oracle.com/javase/8/docs/api/java/util/List.html>List</a>&lt;<a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt;&gt;</code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=Tree.Element.Node.html#path()>path</a>() </code>
+                                            </th>
+                                            <td class="colLast">Returns the ordered path from the root of the tree down to this element (inclusive).</td>
+                                        </tr>
+                                        
+                                        <tr id="i1" class="rowColor">
+                                            <td class="colFirst"><code><a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html>Iterable</a>&lt;<a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt;&gt;</code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=Tree.Element.Node.html#previousElementsIterable()>previousElementsIterable</a>() </code>
+                                            </th>
+                                            <td class="colLast">Returns an <a href=https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-iterable/index.html>Iterable</a> over elements preceding this one in the flattened linked list, in reverse order.</td>
+                                        </tr>
+                                        
+                                        <tr id="i2" class="altColor">
+                                            <td class="colFirst"><code><a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html>Iterable</a>&lt;<a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt;&gt;</code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=Tree.Element.Node.html#nextElementsIterable()>nextElementsIterable</a>() </code>
+                                            </th>
+                                            <td class="colLast">Returns an <a href=https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-iterable/index.html>Iterable</a> over elements following this one in the flattened linked list, in forward order.</td>
+                                        </tr>
+                                        
+                                        <tr id="i3" class="rowColor">
+                                            <td class="colFirst"><code>abstract <a href=Tree.Element.html>T</a></code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=Tree.Element.html#getData()>getData</a>() </code>
+                                            </th>
+                                            <td class="colLast">The data payload held by this element.</td>
+                                        </tr>
+                                        
+                                        <tr id="i4" class="altColor">
+                                            <td class="colFirst"><code>abstract <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html>Integer</a></code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=Tree.Element.html#getDepth()>getDepth</a>() </code>
+                                            </th>
+                                            <td class="colLast">The nesting depth of this element, where 0 means a root element.</td>
+                                        </tr>
+                                        
+                                        <tr id="i5" class="rowColor">
+                                            <td class="colFirst"><code>abstract <a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt;</code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=Tree.Element.html#getParent()>getParent</a>() </code>
+                                            </th>
+                                            <td class="colLast">The parent element of this element, or <code>null</code> if it is a root element.</td>
+                                        </tr>
+                                        
+                                        <tr id="i6" class="altColor">
+                                            <td class="colFirst"><code>abstract <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html>Integer</a></code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=Tree.Element.html#getChildIndex()>getChildIndex</a>() </code>
+                                            </th>
+                                            <td class="colLast">The zero-based index of this element among its siblings.</td>
+                                        </tr>
+                                        
+                                        <tr id="i7" class="rowColor">
+                                            <td class="colFirst"><code>abstract <a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt;</code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=Tree.Element.html#getNext()>getNext</a>() </code>
+                                            </th>
+                                            <td class="colLast">The next element in the flattened linked list, or <code>null</code> if this is the last element.</td>
+                                        </tr>
+                                        
+                                        <tr id="i8" class="altColor">
+                                            <td class="colFirst"><code>abstract <a href=https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html>Unit</a></code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=Tree.Element.html#setNext(org.jetbrains.jewel.foundation.lazy.tree.Tree.Element)>setNext</a>(<a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt; next) </code>
+                                            </th>
+                                            <td class="colLast">The next element in the flattened linked list, or <code>null</code> if this is the last element.</td>
+                                        </tr>
+                                        
+                                        <tr id="i9" class="rowColor">
+                                            <td class="colFirst"><code>abstract <a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt;</code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=Tree.Element.html#getPrevious()>getPrevious</a>() </code>
+                                            </th>
+                                            <td class="colLast">The previous element in the flattened linked list, or <code>null</code> if this is the first element.</td>
+                                        </tr>
+                                        
+                                        <tr id="i10" class="altColor">
+                                            <td class="colFirst"><code>abstract <a href=https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html>Unit</a></code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=Tree.Element.html#setPrevious(org.jetbrains.jewel.foundation.lazy.tree.Tree.Element)>setPrevious</a>(<a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt; previous) </code>
+                                            </th>
+                                            <td class="colLast">The previous element in the flattened linked list, or <code>null</code> if this is the first element.</td>
+                                        </tr>
+                                        
+                                        <tr id="i11" class="rowColor">
+                                            <td class="colFirst"><code>abstract <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html>Object</a></code>
+                                            </td>
+                                            <th class="colSecond" scope="row"><code><a href=Tree.Element.html#getId()>getId</a>() </code>
+                                            </th>
+                                            <td class="colLast">A stable identifier for this element, used to distinguish it from other elements in the tree.</td>
+                                        </tr>
+                                        
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <ul class="blockList">
+                                
+                                    <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
+                                        <!--   -->
+                                    </a>
+                                        <h3>Methods inherited from class&nbsp;java.lang.Object</h3>
+                                        <code>clone, equals, finalize, getClass, hashCode, notify, notifyAll, toString,
+                                            wait, wait, wait</code></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </section>
+                    
+                </li>
+            </ul>
+        </div>
+        <div class="details">
+            <ul class="blockList">
+                <li class="blockList">
+                    <!-- ========= CONSTRUCTOR DETAIL ======== -->
+                    
+                    <section role="region">
+                        <ul class="blockList">
+                            <li class="blockList"><a id="constructor.detail">
+                                <!--   -->
+                            </a>
+                                <h3>Constructor Detail</h3>
+                                
+                            </li>
+                        </ul>
+                    </section>
+                    
+                    <!-- ============ METHOD DETAIL ========== -->
+                    
+                    <section role="region">
+                        <ul class="blockList">
+                            <li class="blockList"><a id="method.detail">
+                                <!--   -->
+                            </a>
+                                <h3>Method Detail</h3>
+                                
+                                <a id="path()">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>path</h4>
+                                        <pre class="methodSignature"> <a href=https://docs.oracle.com/javase/8/docs/api/java/util/List.html>List</a>&lt;<a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt;&gt; <a href=Tree.Element.Node.html#path()>path</a>()</pre>
+                                        <div class="block"><p>Returns the ordered path from the root of the tree down to this element (inclusive).</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="previousElementsIterable()">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>previousElementsIterable</h4>
+                                        <pre class="methodSignature"> <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html>Iterable</a>&lt;<a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt;&gt; <a href=Tree.Element.Node.html#previousElementsIterable()>previousElementsIterable</a>()</pre>
+                                        <div class="block"><p>Returns an <a href=https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-iterable/index.html>Iterable</a> over elements preceding this one in the flattened linked list, in reverse order.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="nextElementsIterable()">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>nextElementsIterable</h4>
+                                        <pre class="methodSignature"> <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html>Iterable</a>&lt;<a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt;&gt; <a href=Tree.Element.Node.html#nextElementsIterable()>nextElementsIterable</a>()</pre>
+                                        <div class="block"><p>Returns an <a href=https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-iterable/index.html>Iterable</a> over elements following this one in the flattened linked list, in forward order.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="getData()">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>getData</h4>
+                                        <pre class="methodSignature"> abstract <a href=Tree.Element.html>T</a> <a href=Tree.Element.html#getData()>getData</a>()</pre>
+                                        <div class="block"><p>The data payload held by this element.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="getDepth()">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>getDepth</h4>
+                                        <pre class="methodSignature"> abstract <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html>Integer</a> <a href=Tree.Element.html#getDepth()>getDepth</a>()</pre>
+                                        <div class="block"><p>The nesting depth of this element, where 0 means a root element.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="getParent()">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>getParent</h4>
+                                        <pre class="methodSignature"> abstract <a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt; <a href=Tree.Element.html#getParent()>getParent</a>()</pre>
+                                        <div class="block"><p>The parent element of this element, or <code>null</code> if it is a root element.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="getChildIndex()">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>getChildIndex</h4>
+                                        <pre class="methodSignature"> abstract <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html>Integer</a> <a href=Tree.Element.html#getChildIndex()>getChildIndex</a>()</pre>
+                                        <div class="block"><p>The zero-based index of this element among its siblings.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="getNext()">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>getNext</h4>
+                                        <pre class="methodSignature"> abstract <a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt; <a href=Tree.Element.html#getNext()>getNext</a>()</pre>
+                                        <div class="block"><p>The next element in the flattened linked list, or <code>null</code> if this is the last element.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="setNext(org.jetbrains.jewel.foundation.lazy.tree.Tree.Element)">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>setNext</h4>
+                                        <pre class="methodSignature"> abstract <a href=https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html>Unit</a> <a href=Tree.Element.html#setNext(org.jetbrains.jewel.foundation.lazy.tree.Tree.Element)>setNext</a>(<a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt; next)</pre>
+                                        <div class="block"><p>The next element in the flattened linked list, or <code>null</code> if this is the last element.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="getPrevious()">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>getPrevious</h4>
+                                        <pre class="methodSignature"> abstract <a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt; <a href=Tree.Element.html#getPrevious()>getPrevious</a>()</pre>
+                                        <div class="block"><p>The previous element in the flattened linked list, or <code>null</code> if this is the first element.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="setPrevious(org.jetbrains.jewel.foundation.lazy.tree.Tree.Element)">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockList"
+                                          >
+                                    <li class="blockList">
+                                        <h4>setPrevious</h4>
+                                        <pre class="methodSignature"> abstract <a href=https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html>Unit</a> <a href=Tree.Element.html#setPrevious(org.jetbrains.jewel.foundation.lazy.tree.Tree.Element)>setPrevious</a>(<a href=Tree.Element.html>Tree.Element</a>&lt;<a href=Tree.Element.html>T</a>&gt; previous)</pre>
+                                        <div class="block"><p>The previous element in the flattened linked list, or <code>null</code> if this is the first element.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                                <a id="getId()">
+                                    <!--   -->
+                                </a>
+                                <ul class=
+                                              "blockListLast"
+                                          >
+                                    <li class="blockList">
+                                        <h4>getId</h4>
+                                        <pre class="methodSignature"> abstract <a href=https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html>Object</a> <a href=Tree.Element.html#getId()>getId</a>()</pre>
+                                        <div class="block"><p>A stable identifier for this element, used to distinguish it from other elements in the tree.</p></div>
+
+                                        <dl>
+
+                                        
+
+                                        
+
+                                        
+
+                                        </dl>
+                                    </li>
+                                </ul>
+                                
+                            </li>
+                        </ul>
+                    </section>
+                    
+                </li>
+            </ul>
+        </div>
+    </div>
+</main>
+<footer role="contentinfo">
+    <nav role="navigation">
+        <!-- ======= START OF BOTTOM NAVBAR ====== -->
+        <div class="bottomNav"><a id="navbar.bottom">
+            <!--   -->
+        </a>
+            <div class="skipNav"><a href="#skip.navbar.bottom" title="Skip navigation links">Skip navigation links</a>
+            </div>
+            <a id="navbar.bottom.firstrow">
+                <!--   -->
+            </a>
+            <ul class="navList" title="Navigation">
+    <li><a href="../../../../../../index.html">Overview</a></li>
+    
+    <li><a href="package-summary.html">Package</a></li>
+    
+    <li>Class</li>
+    
+    <li><a href="package-tree.html">Tree</a></li>
+    
+    <li><a href="../../../../../../deprecated.html">Deprecated</a></li>
+    <li><a href="../../../../../../index-files/index-1.html">Index</a></li>
+    <li>Help</li>
+</ul></div>
+        <a id="skip.navbar.bottom">
+            <!--   -->
+        </a>
+        <div class="subNav">
+<ul class="navList" id="allclasses_navbar_top" style="display: block;">
+    <li><a href="../../../../../../allclasses.html">All&nbsp;Classes</a></li>
+</ul>
+<div>
+<script type="text/javascript"><!--
+  allClassesLink = document.getElementById("allclasses_navbar_top");
+  if(window==top) {
+    allClassesLink.style.display = "block";
+  }
+  else {
+    allClassesLink.style.display = "none";
+  }
+  //-->
+</script>
+<noscript>
+<div>JavaScript is disabled on your browser.</div>
+</noscript>
+</div>
+<a id="skip.navbar.top">
+<!--   -->
+</a></div><!-- ======== END OF BOTTOM NAVBAR ======= -->
+    </nav>
+</footer><ul class="ui-autocomplete ui-front ui-menu ui-widget ui-widget-content" id="ui-id-1" tabindex="0"
+    style="display: none;"></ul>
+<span role="status" aria-live="assertive" aria-relevant="additions" class="ui-helper-hidden-accessible"></span>
+</body>
+</html>

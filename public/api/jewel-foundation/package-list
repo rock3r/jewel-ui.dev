@@ -1,0 +1,45 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:org.jetbrains.jewel.foundation.code/MimeType.Known///PointingToDeclaration/org/jetbrains/jewel/foundation/code/MimeType.Known.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy.tree/ChildrenGeneratorScope.ParentInfo///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/tree/ChildrenGeneratorScope.ParentInfo.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy.tree/DefaultMacOsTreeColumnKeybindings.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/tree/DefaultMacOsTreeColumnKeybindings.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy.tree/DefaultSelectableLazyColumnKeyActions.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/tree/DefaultSelectableLazyColumnKeyActions.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy.tree/DefaultTreeViewKeybindings.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/tree/DefaultTreeViewKeybindings.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy.tree/Tree.Element.Leaf///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/tree/Tree.Element.Leaf.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy.tree/Tree.Element.Node///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/tree/Tree.Element.Node.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy.tree/Tree.Element///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/tree/Tree.Element.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy.tree/TreeBuilder.Element.Leaf///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/tree/TreeBuilder.Element.Leaf.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy.tree/TreeBuilder.Element.Node///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/tree/TreeBuilder.Element.Node.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy.tree/TreeBuilder.Element///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/tree/TreeBuilder.Element.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy.tree/TreeElementState.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/tree/TreeElementState.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy/DefaultMacOsSelectableColumnKeybindings.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/DefaultMacOsSelectableColumnKeybindings.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy/DefaultSelectableColumnKeybindings.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/DefaultSelectableColumnKeybindings.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy/DefaultSelectableOnKeyEvent.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/DefaultSelectableOnKeyEvent.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy/SelectableLazyListKey.NotSelectable///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/SelectableLazyListKey.NotSelectable.html
+$dokka.location:org.jetbrains.jewel.foundation.lazy/SelectableLazyListKey.Selectable///PointingToDeclaration/org/jetbrains/jewel/foundation/lazy/SelectableLazyListKey.Selectable.html
+$dokka.location:org.jetbrains.jewel.foundation.search/SpeedSearchMatcher.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/search/SpeedSearchMatcher.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation.search/SpeedSearchMatcher.MatchResult.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/search/SpeedSearchMatcher.MatchResult.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation.search/SpeedSearchMatcher.MatchResult.Match///PointingToDeclaration/org/jetbrains/jewel/foundation/search/SpeedSearchMatcher.MatchResult.Match.html
+$dokka.location:org.jetbrains.jewel.foundation.search/SpeedSearchMatcher.MatchResult.NoMatch///PointingToDeclaration/org/jetbrains/jewel/foundation/search/SpeedSearchMatcher.MatchResult.NoMatch.html
+$dokka.location:org.jetbrains.jewel.foundation.search/SpeedSearchMatcher.MatchResult///PointingToDeclaration/org/jetbrains/jewel/foundation/search/SpeedSearchMatcher.MatchResult.html
+$dokka.location:org.jetbrains.jewel.foundation.state/ToggleableComponentState.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/state/ToggleableComponentState.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation.theme/JewelTheme.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/theme/JewelTheme.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation.theme/ThemeColorPalette.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/theme/ThemeColorPalette.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation.theme/ThemeIconData.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/theme/ThemeIconData.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation.util/JewelLogger.Companion///PointingToDeclaration/org/jetbrains/jewel/foundation/util/JewelLogger.Companion.html
+$dokka.location:org.jetbrains.jewel.foundation/Stroke.Alignment///PointingToDeclaration/org/jetbrains/jewel/foundation/Stroke.Alignment.html
+$dokka.location:org.jetbrains.jewel.foundation/Stroke.Brush///PointingToDeclaration/org/jetbrains/jewel/foundation/Stroke.Brush.html
+$dokka.location:org.jetbrains.jewel.foundation/Stroke.None///PointingToDeclaration/org/jetbrains/jewel/foundation/Stroke.None.html
+$dokka.location:org.jetbrains.jewel.foundation/Stroke.Solid///PointingToDeclaration/org/jetbrains/jewel/foundation/Stroke.Solid.html
+org.jetbrains.jewel.foundation
+org.jetbrains.jewel.foundation.actionSystem
+org.jetbrains.jewel.foundation.code
+org.jetbrains.jewel.foundation.code.highlighting
+org.jetbrains.jewel.foundation.layout
+org.jetbrains.jewel.foundation.lazy
+org.jetbrains.jewel.foundation.lazy.tree
+org.jetbrains.jewel.foundation.modifier
+org.jetbrains.jewel.foundation.search
+org.jetbrains.jewel.foundation.state
+org.jetbrains.jewel.foundation.theme
+org.jetbrains.jewel.foundation.util

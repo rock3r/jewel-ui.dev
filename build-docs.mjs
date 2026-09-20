@@ -321,10 +321,41 @@ body { margin: 0; }
 }
 .tbtn:hover { color: var(--fg); border-color: var(--btn-border); }
 
+.nav-btn {
+  display: none; align-items: center; justify-content: center;
+  width: 34px; height: 34px; padding: 0; cursor: pointer;
+  background: transparent; color: var(--fg-2);
+  border: 1px solid var(--line-strong); border-radius: 6px;
+}
+.nav-btn:hover { color: var(--fg); border-color: var(--btn-border); }
+.nav-btn svg { display: block; }
+.nav-backdrop { display: none; }
+
+
+
 /* shell */
 .shell { display: grid; grid-template-columns: 264px minmax(0, 1fr) 200px; gap: 0; align-items: start; }
 @media (max-width: 1100px) { .shell { grid-template-columns: 240px minmax(0, 1fr); } .onthis { display: none; } }
-@media (max-width: 760px) { .shell { grid-template-columns: minmax(0, 1fr); } .side { display: none; } }
+@media (max-width: 760px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .top .tl { display: none; } /* free space for the menu button */
+  .nav-btn { display: inline-flex; }
+  .side {
+    display: block;
+    position: fixed; top: 52px; left: 0; bottom: 0;
+    width: min(300px, 86vw); z-index: 30;
+    background: var(--bg); border-right: 1px solid var(--line);
+    transform: translateX(-105%);
+    transition: transform 0.18s ease;
+    padding-bottom: 48px;
+  }
+  .page.nav-open .side { transform: translateX(0); box-shadow: 8px 0 24px rgba(0,0,0,0.28); }
+  .nav-backdrop {
+    display: none; position: fixed; inset: 52px 0 0 0; z-index: 25;
+    background: rgba(0,0,0,0.45);
+  }
+  .page.nav-open .nav-backdrop { display: block; }
+}
 
 /* left nav */
 .side {
@@ -440,6 +471,34 @@ const JS = `
   if (btn) btn.addEventListener('click', function () {
     setTheme(page.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
   });
+
+  var navBtn = document.getElementById('nav-btn');
+  var backdrop = document.getElementById('nav-backdrop');
+  function setNav(open) {
+    page.classList.toggle('nav-open', open);
+    if (navBtn) {
+      navBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navBtn.setAttribute('aria-label', open ? 'Close documentation menu' : 'Open documentation menu');
+    }
+    if (backdrop) {
+      if (open) backdrop.removeAttribute('hidden');
+      else backdrop.setAttribute('hidden', '');
+    }
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+  }
+  if (navBtn) navBtn.addEventListener('click', function () {
+    setNav(!page.classList.contains('nav-open'));
+  });
+  if (backdrop) backdrop.addEventListener('click', function () { setNav(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setNav(false);
+  });
+  // Close the drawer after navigating (same-tab in-docs links).
+  var side = document.getElementById('docs-nav');
+  if (side) side.addEventListener('click', function (e) {
+    var a = e.target.closest('a');
+    if (a) setNav(false);
+  });
 })();
 `;
 
@@ -552,6 +611,9 @@ function build(rel) {
 <body>
 <div class="page" data-theme="dark">
   <header class="top">
+    <button class="nav-btn" id="nav-btn" type="button" aria-label="Open documentation menu" aria-controls="docs-nav" aria-expanded="false">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
     <a class="brand" href="/" title="Jewel home">${LOGO}<b>Jewel</b></a>
     <a class="brand-docs" href="${up}index.html">docs</a>
     <div class="top-sp"></div>
@@ -559,8 +621,9 @@ function build(rel) {
     <a class="tl" href="${issuesHref}" target="_blank" rel="noopener noreferrer">Issues</a>
     <button class="tbtn" id="theme-btn" type="button">Light</button>
   </header>
+  <div class="nav-backdrop" id="nav-backdrop" hidden></div>
   <div class="shell">
-    <nav class="side" aria-label="Documentation">
+    <nav class="side" id="docs-nav" aria-label="Documentation">
 ${nav}
     </nav>
     <main class="main">

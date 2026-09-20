@@ -1,0 +1,9 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:org.jetbrains.jewel.window.utils/DesktopPlatform.Companion///PointingToDeclaration/org/jetbrains/jewel/window/utils/DesktopPlatform.Companion.html
+$dokka.location:org.jetbrains.jewel.window/DecoratedWindowState.Companion///PointingToDeclaration/org/jetbrains/jewel/window/DecoratedWindowState.Companion.html
+org.jetbrains.jewel.intui.window
+org.jetbrains.jewel.intui.window.styling
+org.jetbrains.jewel.window
+org.jetbrains.jewel.window.styling
+org.jetbrains.jewel.window.utils

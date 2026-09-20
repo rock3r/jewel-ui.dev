@@ -14,6 +14,7 @@ docs/              the user documentation, Markdown
 build-site.mjs     renders src/Main.dc.html into public/
 build-docs.mjs     renders docs/ into public/docs/
 sync-tooling-docs.mjs  copies jewel-tooling/user-guide into docs/tooling/
+sync-api-docs.mjs      pulls Jewel Dokka (Maven -javadoc.jar) into public/api/
 check-links.mjs    verifies internal doc links and anchors
 update-version.mjs updates the Jewel version from Maven Central
 .rumdl.toml        Markdown formatting config for docs/
@@ -34,6 +35,7 @@ the two real interactions (the theme toggle and the setup popover).
 rumdl fmt docs                                 # must report nothing to fix
 node build-site.mjs src/Main.dc.html public   # landing page
 node build-docs.mjs docs public/docs          # documentation
+node sync-api-docs.mjs                         # API reference into public/api/
 node check-links.mjs                          # must report no broken links
 ```
 

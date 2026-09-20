@@ -1,0 +1,122 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:org.jetbrains.jewel.ui.component.gotit/GotItButtons.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/gotit/GotItButtons.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component.gotit/GotItIconOrStep.Icon///PointingToDeclaration/org/jetbrains/jewel/ui/component/gotit/GotItIconOrStep.Icon.html
+$dokka.location:org.jetbrains.jewel.ui.component.gotit/GotItIconOrStep.Step///PointingToDeclaration/org/jetbrains/jewel/ui/component/gotit/GotItIconOrStep.Step.html
+$dokka.location:org.jetbrains.jewel.ui.component.gotit/GotItLink.Browser///PointingToDeclaration/org/jetbrains/jewel/ui/component/gotit/GotItLink.Browser.html
+$dokka.location:org.jetbrains.jewel.ui.component.gotit/GotItLink.Regular///PointingToDeclaration/org/jetbrains/jewel/ui/component/gotit/GotItLink.Regular.html
+$dokka.location:org.jetbrains.jewel.ui.component.styling/DividerMetrics.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/styling/DividerMetrics.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component.styling/ScrollbarVisibility.AlwaysVisible///PointingToDeclaration/org/jetbrains/jewel/ui/component/styling/ScrollbarVisibility.AlwaysVisible.html
+$dokka.location:org.jetbrains.jewel.ui.component.styling/ScrollbarVisibility.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/styling/ScrollbarVisibility.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component.styling/ScrollbarVisibility.WhenScrolling///PointingToDeclaration/org/jetbrains/jewel/ui/component/styling/ScrollbarVisibility.WhenScrolling.html
+$dokka.location:org.jetbrains.jewel.ui.component.styling/TooltipMetrics.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/styling/TooltipMetrics.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/BadgeState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/BadgeState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/ButtonState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/ButtonState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/CheckboxState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/CheckboxState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/ChipState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/ChipState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/ComboBoxState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/ComboBoxState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/ContextMenuItemOptionAction.CopyMenuItemOptionAction///PointingToDeclaration/org/jetbrains/jewel/ui/component/ContextMenuItemOptionAction.CopyMenuItemOptionAction.html
+$dokka.location:org.jetbrains.jewel.ui.component/ContextMenuItemOptionAction.CutMenuItemOptionAction///PointingToDeclaration/org/jetbrains/jewel/ui/component/ContextMenuItemOptionAction.CutMenuItemOptionAction.html
+$dokka.location:org.jetbrains.jewel.ui.component/ContextMenuItemOptionAction.PasteMenuItemOptionAction///PointingToDeclaration/org/jetbrains/jewel/ui/component/ContextMenuItemOptionAction.PasteMenuItemOptionAction.html
+$dokka.location:org.jetbrains.jewel.ui.component/ContextMenuItemOptionAction.SelectAllMenuItemOptionAction///PointingToDeclaration/org/jetbrains/jewel/ui/component/ContextMenuItemOptionAction.SelectAllMenuItemOptionAction.html
+$dokka.location:org.jetbrains.jewel.ui.component/DropdownState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/DropdownState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/IconButtonState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/IconButtonState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/InputFieldState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/InputFieldState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/LinkState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/LinkState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/MenuItemState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/MenuItemState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/PopupRenderer.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/PopupRenderer.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/RadioButtonState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/RadioButtonState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/SegmentedControlButtonState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/SegmentedControlButtonState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/SegmentedControlState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/SegmentedControlState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/SelectableIconButtonState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/SelectableIconButtonState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/SliderState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/SliderState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/TabData.Default///PointingToDeclaration/org/jetbrains/jewel/ui/component/TabData.Default.html
+$dokka.location:org.jetbrains.jewel.ui.component/TabData.Editor///PointingToDeclaration/org/jetbrains/jewel/ui/component/TabData.Editor.html
+$dokka.location:org.jetbrains.jewel.ui.component/TabState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/TabState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/TabStripState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/TabStripState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.component/ToggleableIconButtonState.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/component/ToggleableIconButtonState.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Actions///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Actions.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Breakpoints///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Breakpoints.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Build///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Build.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Chooser///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Chooser.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.CodeStyle///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.CodeStyle.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.CodeWithMe///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.CodeWithMe.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Debugger.PinToTop///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Debugger.PinToTop.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Debugger.ThreadStates///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Debugger.ThreadStates.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Debugger///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Debugger.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Diff///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Diff.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Duplicates///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Duplicates.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.FileTypes///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.FileTypes.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.General///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.General.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Graph///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Graph.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Gutter///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Gutter.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Hierarchy///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Hierarchy.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Icons.Ide///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Icons.Ide.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Icons///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Icons.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Ide.Macro///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Ide.Macro.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Ide.Notification///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Ide.Notification.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Ide.RoundShadow///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Ide.RoundShadow.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Ide.Shadow///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Ide.Shadow.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Ide///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Ide.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Javaee///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Javaee.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Json///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Json.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Language///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Language.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Linux.Theme.Gnome///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Linux.Theme.Gnome.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Linux.Theme.Kde///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Linux.Theme.Kde.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Linux.Theme///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Linux.Theme.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Linux///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Linux.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Mac.Touchbar///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Mac.Touchbar.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Mac///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Mac.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.MeetNewUi///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.MeetNewUi.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Modules///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Modules.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Nodes///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Nodes.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.ObjectBrowser///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.ObjectBrowser.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Plugins///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Plugins.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Process.Big///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Process.Big.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Process.FS///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Process.FS.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Process///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Process.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Profiler///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Profiler.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Providers///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Providers.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.RemoteServers///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.RemoteServers.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Run.Widget///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Run.Widget.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Run///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Run.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.RunConfigurations.TestState///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.RunConfigurations.TestState.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.RunConfigurations///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.RunConfigurations.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Scope///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Scope.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Status///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Status.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Survey///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Survey.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Table///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Table.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Toolbar///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Toolbar.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.ToolbarDecorator///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.ToolbarDecorator.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Toolwindows///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Toolwindows.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.TransferSettings///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.TransferSettings.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Ultimate///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Ultimate.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Vcs.Vendors///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Vcs.Vendors.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Vcs///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Vcs.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Webreferences///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Webreferences.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Welcome.LearnTab///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Welcome.LearnTab.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Welcome.RecentProjects///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Welcome.RecentProjects.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Welcome///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Welcome.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Windows.Mouse///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Windows.Mouse.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Windows///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Windows.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Xml.Browsers///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Xml.Browsers.html
+$dokka.location:org.jetbrains.jewel.ui.icons/AllIconsKeys.Xml///PointingToDeclaration/org/jetbrains/jewel/ui/icons/AllIconsKeys.Xml.html
+$dokka.location:org.jetbrains.jewel.ui.painter.badge/DotBadgeShape.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/painter/badge/DotBadgeShape.Companion.html
+$dokka.location:org.jetbrains.jewel.ui.painter/PainterHint.None///PointingToDeclaration/org/jetbrains/jewel/ui/painter/PainterHint.None.html
+$dokka.location:org.jetbrains.jewel.ui/ComponentStyling.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/ComponentStyling.Companion.html
+$dokka.location:org.jetbrains.jewel.ui/Outline.Companion///PointingToDeclaration/org/jetbrains/jewel/ui/Outline.Companion.html
+org.jetbrains.jewel.ui
+org.jetbrains.jewel.ui.component
+org.jetbrains.jewel.ui.component.banner
+org.jetbrains.jewel.ui.component.gotit
+org.jetbrains.jewel.ui.component.search
+org.jetbrains.jewel.ui.component.styling
+org.jetbrains.jewel.ui.graphics
+org.jetbrains.jewel.ui.icon
+org.jetbrains.jewel.ui.icons
+org.jetbrains.jewel.ui.painter
+org.jetbrains.jewel.ui.painter.badge
+org.jetbrains.jewel.ui.painter.hints
+org.jetbrains.jewel.ui.platform
+org.jetbrains.jewel.ui.theme
+org.jetbrains.jewel.ui.util

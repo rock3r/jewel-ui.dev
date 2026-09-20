@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>API reference — Jewel</title>
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<style>
+:root { color-scheme: dark light; }
+body { margin: 0; font-family: Inter, Helvetica, Arial, sans-serif; background: #1E1F22; color: #DFE1E5; }
+@media (prefers-color-scheme: light) {
+  body { background: #fff; color: #27282E; }
+  a { color: #315FBD; }
+  .card { background: #F7F8FA; border-color: #EBECF0; }
+  .muted { color: #6C707E; }
+}
+a { color: #6B9BFA; text-decoration: none; }
+a:hover { text-decoration: underline; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
+h1 { font-family: Archivo, Helvetica, Arial, sans-serif; font-size: 28px; letter-spacing: -0.02em; margin: 0 0 12px; }
+.muted { color: #9DA0A8; font-size: 14.5px; line-height: 1.55; margin: 0 0 28px; }
+ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.card {
+  display: flex; flex-direction: column; gap: 4px;
+  padding: 14px 16px; border-radius: 8px;
+  background: #2B2D30; border: 1px solid #393B40;
+}
+.card span { color: inherit; opacity: 0.72; font-size: 13.5px; line-height: 1.45; }
+.top { font-size: 13.5px; margin-bottom: 28px; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <p class="top"><a href="/docs/">← Docs</a></p>
+    <h1>API reference</h1>
+    <p class="muted">Generated Dokka for Jewel <code>0.41.0-262.10968.63</code>, published from Maven Central.
+      Each module opens its own reference. Start with <a href="./jewel-ui/">UI</a> for components.</p>
+    <ul>
+    <li class="card">
+      <a href="./jewel-foundation/"><strong>Foundation</strong></a>
+      <span>Theme, utilities, and the shared primitives.</span>
+    </li>
+    <li class="card">
+      <a href="./jewel-ui/"><strong>UI</strong></a>
+      <span>The component library.</span>
+    </li>
+    <li class="card">
+      <a href="./jewel-int-ui-standalone/"><strong>Int UI standalone</strong></a>
+      <span>Standalone Int UI theme and painters.</span>
+    </li>
+    <li class="card">
+      <a href="./jewel-decorated-window/"><strong>Decorated window</strong></a>
+      <span>Custom title bar and window chrome.</span>
+    </li>
+    <li class="card">
+      <a href="./jewel-markdown-core/"><strong>Markdown</strong></a>
+      <span>CommonMark rendering with Jewel components.</span>
+    </li>
+    <li class="card">
+      <a href="./jewel-markdown-int-ui-standalone-styling/"><strong>Markdown · Int UI styling</strong></a>
+      <span>Standalone Int UI styling for the Markdown renderer.</span>
+    </li>
+    </ul>
+  </div>
+</body>
+</html>
