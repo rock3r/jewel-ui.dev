@@ -258,8 +258,11 @@ function injectChrome(root) {
   const jsHref = '/api/_chrome.js';
   const bar = topBarHtml();
   for (const file of walkHtml(root)) {
+    // Dokka loads navigation.html into #sideMenu — never inject site chrome there.
+    if (file.endsWith('/navigation.html') || file.endsWith('navigation.html')) continue;
     let html = readFileSync(file, 'utf8');
     if (html.includes('id="jewel-top"')) continue;
+    if (!/<html[\s>]/i.test(html)) continue;
     if (!html.includes(cssHref)) {
       html = html.replace(
         /<\/head>/i,
