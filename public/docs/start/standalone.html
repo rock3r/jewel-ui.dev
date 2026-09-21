@@ -76,6 +76,8 @@ body { margin: 0; }
 @media (max-width: 1100px) { .shell { grid-template-columns: 240px minmax(0, 1fr); } .onthis { display: none; } }
 @media (max-width: 760px) {
   .shell { grid-template-columns: minmax(0, 1fr); }
+  .top { padding: 0 12px; gap: 8px; }
+  .brand b { font-size: 14px; }
   .top .tl { display: none; } /* free space for the menu button */
   .nav-btn { display: inline-flex; }
   .side {
@@ -264,6 +266,13 @@ pluginManagement {
         <span class="c-fn">gradlePluginPortal</span>()
         <span class="c-fn">mavenCentral</span>()
     }
+}
+
+dependencyResolutionManagement {
+    repositories {
+        <span class="c-fn">google</span>()
+        <span class="c-fn">mavenCentral</span>()
+    }
 }</code></pre></div>
 <h2 id="plugins"><a class="anchor" href="#plugins">Plugins</a></h2>
 <p>You need three: Kotlin, Compose Multiplatform, and the Compose compiler plugin. The last one is separate from the Compose Gradle plugin and is often omitted.</p>
@@ -290,21 +299,24 @@ plugins {
         <span class="c-fn">exclude</span>(group = <span class="c-str">&quot;org.jetbrains.compose.material&quot;</span>)
     }
 }</code></pre></div>
-<p>Version strings look like <code>0.39.1-262.9437.29</code>: the Jewel version, then the IntelliJ Platform build it was compiled against. <a href="../versioning.html">Versions and compatibility</a> explains how to pick one, and which combinations exist.</p>
+<p>Version strings look like <code>0.41.0-262.10968.63</code>: the Jewel version, then the IntelliJ Platform build it was compiled against. <a href="../versioning.html">Versions and compatibility</a> explains how to pick one, and which combinations exist.</p>
 <h2 id="wrap-your-ui"><a class="anchor" href="#wrap-your-ui">Wrap your UI</a></h2>
 <p>Everything Jewel draws has to sit inside a theme.</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.layout.Column
+<span class="c-kw">import</span> androidx.compose.ui.window.Window
 <span class="c-kw">import</span> androidx.compose.ui.window.application
 <span class="c-kw">import</span> org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
 <span class="c-kw">import</span> org.jetbrains.jewel.ui.component.DefaultButton
 <span class="c-kw">import</span> org.jetbrains.jewel.ui.component.Text
 
 <span class="c-kw">fun</span> <span class="c-fn">main</span>() = application {
-    <span class="c-fn">IntUiTheme</span>(isDark = <span class="c-kw">true</span>) {
-        Column {
-            <span class="c-fn">Text</span>(<span class="c-str">&quot;Int UI, outside the IDE&quot;</span>)
-            <span class="c-fn">DefaultButton</span>(onClick = { <span class="c-com">/* … */</span> }) {
-                <span class="c-fn">Text</span>(<span class="c-str">&quot;Open&quot;</span>)
+    <span class="c-fn">Window</span>(onCloseRequest = ::exitApplication, title = <span class="c-str">&quot;Jewel&quot;</span>) {
+        <span class="c-fn">IntUiTheme</span>(isDark = <span class="c-kw">true</span>) {
+            Column {
+                <span class="c-fn">Text</span>(<span class="c-str">&quot;Int UI, outside the IDE&quot;</span>)
+                <span class="c-fn">DefaultButton</span>(onClick = { <span class="c-com">/* … */</span> }) {
+                    <span class="c-fn">Text</span>(<span class="c-str">&quot;Open&quot;</span>)
+                }
             }
         }
     }
@@ -362,6 +374,7 @@ dependencies {
 
   var navBtn = document.getElementById('nav-btn');
   var backdrop = document.getElementById('nav-backdrop');
+  var side = document.getElementById('docs-nav');
   function setNav(open) {
     page.classList.toggle('nav-open', open);
     if (navBtn) {
@@ -373,6 +386,12 @@ dependencies {
       else backdrop.setAttribute('hidden', '');
     }
     document.documentElement.style.overflow = open ? 'hidden' : '';
+    // Closed drawer must leave the tab order (translate alone is not enough).
+    if (side) {
+      if (open) side.removeAttribute('inert');
+      else if (window.matchMedia('(max-width: 760px)').matches) side.setAttribute('inert', '');
+      else side.removeAttribute('inert');
+    }
   }
   if (navBtn) navBtn.addEventListener('click', function () {
     setNav(!page.classList.contains('nav-open'));
@@ -381,8 +400,14 @@ dependencies {
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') setNav(false);
   });
+  if (window.matchMedia) {
+    window.matchMedia('(max-width: 760px)').addEventListener('change', function (e) {
+      if (!e.matches) setNav(false);
+      else if (side && !page.classList.contains('nav-open')) side.setAttribute('inert', '');
+    });
+    if (window.matchMedia('(max-width: 760px)').matches && side) side.setAttribute('inert', '');
+  }
   // Close the drawer after navigating (same-tab in-docs links).
-  var side = document.getElementById('docs-nav');
   if (side) side.addEventListener('click', function (e) {
     var a = e.target.closest('a');
     if (a) setNav(false);

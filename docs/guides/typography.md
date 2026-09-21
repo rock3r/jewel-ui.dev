@@ -65,6 +65,7 @@ README blurs this distinction. It matters because it tells you where to look whe
 something misbehaves:
 
 ```kotlin
+import androidx.compose.ui.text.font.EmbeddedFontFamily
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.platform.asComposeFontFamily
 

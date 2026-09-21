@@ -79,10 +79,10 @@ Task-first pages:
 
 ## Reference
 
-- [Components](../components/) — every component, with real screenshots
+- Components — gallery with real screenshots (coming soon)
 - [Versions and compatibility](versioning.md) — how versions are numbered, and which
   Jewel goes with which IntelliJ Platform
-- [Releases](releases/)
+- [Releases](https://github.com/JetBrains/intellij-community/blob/master/platform/jewel/RELEASE%20NOTES.md)
 - [API reference](../api/)
 
 ## Getting help

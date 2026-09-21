@@ -26,6 +26,10 @@ The long one takes a theme definition and component styling, and is what you use
 as you want to change anything:
 
 ```kotlin
+import org.jetbrains.jewel.foundation.theme.ComponentStyling
+import org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
+import org.jetbrains.jewel.intui.standalone.theme.default
+
 IntUiTheme(
     theme = themeDefinition,
     styling = ComponentStyling.default(),
@@ -84,6 +88,8 @@ composes, so you layer changes on top rather than replacing the whole set. Windo
 decoration styling arrives the same way:
 
 ```kotlin
+import org.jetbrains.jewel.foundation.theme.ComponentStyling
+import org.jetbrains.jewel.intui.standalone.theme.default
 import org.jetbrains.jewel.intui.window.decoratedWindow
 import org.jetbrains.jewel.intui.window.styling.dark
 import org.jetbrains.jewel.window.styling.TitleBarStyle

@@ -76,6 +76,8 @@ body { margin: 0; }
 @media (max-width: 1100px) { .shell { grid-template-columns: 240px minmax(0, 1fr); } .onthis { display: none; } }
 @media (max-width: 760px) {
   .shell { grid-template-columns: minmax(0, 1fr); }
+  .top { padding: 0 12px; gap: 8px; }
+  .brand b { font-size: 14px; }
   .top .tl { display: none; } /* free space for the menu button */
   .nav-btn { display: inline-flex; }
   .side {
@@ -247,8 +249,9 @@ figure.shot img {
 <p>The IDE's lists behave in ways people have internalised without noticing: what the arrow keys do, how a range selects, where selection lands after a filter hides the selected row. Jewel's list and tree components implement those behaviours, which is the main reason to use them instead of a plain <code>LazyColumn</code>.</p>
 <h2 id="selectable-lists"><a class="anchor" href="#selectable-lists">Selectable lists</a></h2>
 <p>Two entry points, one per selection model:</p>
-<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.foundation.lazy.SingleSelectionLazyColumn
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
 <span class="c-kw">import</span> org.jetbrains.jewel.foundation.lazy.MultiSelectionLazyColumn
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.lazy.SingleSelectionLazyColumn
 <span class="c-kw">import</span> org.jetbrains.jewel.foundation.lazy.rememberSingleSelectionLazyListState
 
 <span class="c-kw">@Composable</span>
@@ -287,7 +290,7 @@ VerticallyScrollableContainer {
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
 <ul>
 <li><a href="theming.html">Theming</a> — styling the components above</li>
-<li><a href="../../components/">Components</a> — every component, with screenshots</li>
+<li>Components — gallery with screenshots (coming soon)</li>
 </ul>
       <p class="footer">Jewel is a joint project by Google and JetBrains.
         <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Jewel source</a> ·
@@ -323,6 +326,7 @@ VerticallyScrollableContainer {
 
   var navBtn = document.getElementById('nav-btn');
   var backdrop = document.getElementById('nav-backdrop');
+  var side = document.getElementById('docs-nav');
   function setNav(open) {
     page.classList.toggle('nav-open', open);
     if (navBtn) {
@@ -334,6 +338,12 @@ VerticallyScrollableContainer {
       else backdrop.setAttribute('hidden', '');
     }
     document.documentElement.style.overflow = open ? 'hidden' : '';
+    // Closed drawer must leave the tab order (translate alone is not enough).
+    if (side) {
+      if (open) side.removeAttribute('inert');
+      else if (window.matchMedia('(max-width: 760px)').matches) side.setAttribute('inert', '');
+      else side.removeAttribute('inert');
+    }
   }
   if (navBtn) navBtn.addEventListener('click', function () {
     setNav(!page.classList.contains('nav-open'));
@@ -342,8 +352,14 @@ VerticallyScrollableContainer {
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') setNav(false);
   });
+  if (window.matchMedia) {
+    window.matchMedia('(max-width: 760px)').addEventListener('change', function (e) {
+      if (!e.matches) setNav(false);
+      else if (side && !page.classList.contains('nav-open')) side.setAttribute('inert', '');
+    });
+    if (window.matchMedia('(max-width: 760px)').matches && side) side.setAttribute('inert', '');
+  }
   // Close the drawer after navigating (same-tab in-docs links).
-  var side = document.getElementById('docs-nav');
   if (side) side.addEventListener('click', function (e) {
     var a = e.target.closest('a');
     if (a) setNav(false);

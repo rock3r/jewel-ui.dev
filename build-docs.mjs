@@ -4,11 +4,32 @@
 // bespoke renderer is smaller and more predictable than pulling in a parser.
 //
 // Design tokens are kept in sync with DESIGN.md and the landing page by hand.
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, cpSync } from 'node:fs';
+import { cpSync, existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from 'node:fs';
 import { join, dirname, relative, extname } from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 const SRC = process.argv[2] ?? 'docs';
 const OUT = process.argv[3] ?? 'public/docs';
+
+const REPO_ROOT = fileURLToPath(new URL('.', import.meta.url));
+
+// Landing-page version/artifact (src/Main.dc.html) — docs must not freeze these.
+function jewelRelease() {
+  const src = readFileSync(join(REPO_ROOT, 'src', 'Main.dc.html'), 'utf8');
+  const version = (src.match(/version:\s*'([^']+)'/) || [])[1];
+  const artifact = (src.match(/artifact:\s*'([^']+)'/) || [])[1];
+  if (!version || !artifact) {
+    throw new Error('Could not read version/artifact from src/Main.dc.html');
+  }
+  return { version, artifact };
+}
+const JEWEL = jewelRelease();
+
+function applyJewelPlaceholders(md) {
+  return md
+    .replaceAll('{{artifact}}', JEWEL.artifact)
+    .replaceAll('{{version}}', JEWEL.version);
+}
 
 // Navigation mirrors the ordering in docs/index.md. Adding a page means adding
 // it here; the build fails loudly if a page on disk is missing from the nav.
@@ -231,7 +252,15 @@ function renderBlocks(lines, hrefFix, headings) {
       continue;
     }
 
-    if (/^[-*]\s+/.test(line)) {
+        // Orphan "|" lines are not tables — consume as prose so blockStart cannot stall.
+    if (line.trim().startsWith('|')) {
+      html += `<p>${inline(paragraphText([line]), hrefFix)}</p>
+`;
+      i++;
+      continue;
+    }
+
+if (/^[-*]\s+/.test(line)) {
       const items = [];
       while (i < lines.length && (/^[-*]\s+/.test(lines[i]) || (/^\s+\S/.test(lines[i]) && items.length))) {
         if (/^[-*]\s+/.test(lines[i])) items.push([lines[i].replace(/^[-*]\s+/, '')]);
@@ -340,6 +369,8 @@ body { margin: 0; }
 @media (max-width: 1100px) { .shell { grid-template-columns: 240px minmax(0, 1fr); } .onthis { display: none; } }
 @media (max-width: 760px) {
   .shell { grid-template-columns: minmax(0, 1fr); }
+  .top { padding: 0 12px; gap: 8px; }
+  .brand b { font-size: 14px; }
   .top .tl { display: none; } /* free space for the menu button */
   .nav-btn { display: inline-flex; }
   .side {
@@ -476,6 +507,7 @@ const JS = `
 
   var navBtn = document.getElementById('nav-btn');
   var backdrop = document.getElementById('nav-backdrop');
+  var side = document.getElementById('docs-nav');
   function setNav(open) {
     page.classList.toggle('nav-open', open);
     if (navBtn) {
@@ -487,6 +519,12 @@ const JS = `
       else backdrop.setAttribute('hidden', '');
     }
     document.documentElement.style.overflow = open ? 'hidden' : '';
+    // Closed drawer must leave the tab order (translate alone is not enough).
+    if (side) {
+      if (open) side.removeAttribute('inert');
+      else if (window.matchMedia('(max-width: 760px)').matches) side.setAttribute('inert', '');
+      else side.removeAttribute('inert');
+    }
   }
   if (navBtn) navBtn.addEventListener('click', function () {
     setNav(!page.classList.contains('nav-open'));
@@ -495,8 +533,14 @@ const JS = `
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') setNav(false);
   });
+  if (window.matchMedia) {
+    window.matchMedia('(max-width: 760px)').addEventListener('change', function (e) {
+      if (!e.matches) setNav(false);
+      else if (side && !page.classList.contains('nav-open')) side.setAttribute('inert', '');
+    });
+    if (window.matchMedia('(max-width: 760px)').matches && side) side.setAttribute('inert', '');
+  }
   // Close the drawer after navigating (same-tab in-docs links).
-  var side = document.getElementById('docs-nav');
   if (side) side.addEventListener('click', function (e) {
     var a = e.target.closest('a');
     if (a) setNav(false);
@@ -552,7 +596,7 @@ const titles = Object.fromEntries(inNav.map((p) => [p, titleOf(p)]));
 const htmlPath = (rel) => rel.replace(/\.md$/, '.html');
 
 function build(rel) {
-  const md = readFileSync(join(SRC, rel), 'utf8');
+  const md = applyJewelPlaceholders(readFileSync(join(SRC, rel), 'utf8'));
   const depth = rel.split('/').length - 1;
   const up = depth ? '../'.repeat(depth) : './';
   const tooling = isTooling(rel);
@@ -646,6 +690,25 @@ ${body}      <p class="footer">${footer}</p>
 }
 
 mkdirSync(OUT, { recursive: true });
+
+// Drop HTML for pages that left docs/ + NAV, so deleted routes stop being served.
+{
+  const keep = new Set([...inNav].map((rel) => htmlPath(rel).replace(/\\/g, '/')));
+  const wipeDir = (dir) => {
+    if (!existsSync(dir)) return;
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, entry.name);
+      if (entry.isDirectory()) {
+        wipeDir(full);
+        try { rmSync(full); } catch { /* still has assets */ }
+      } else if (entry.name.endsWith('.html')) {
+        const rel = relative(OUT, full).replace(/\\/g, '/');
+        if (!keep.has(rel)) rmSync(full);
+      }
+    }
+  };
+  wipeDir(OUT);
+}
 
 const ASSET_EXT = new Set(['.png', '.jpg', '.jpeg', '.gif', '.webp', '.svg']);
 let assets = 0;

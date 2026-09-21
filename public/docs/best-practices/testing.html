@@ -76,6 +76,8 @@ body { margin: 0; }
 @media (max-width: 1100px) { .shell { grid-template-columns: 240px minmax(0, 1fr); } .onthis { display: none; } }
 @media (max-width: 760px) {
   .shell { grid-template-columns: minmax(0, 1fr); }
+  .top { padding: 0 12px; gap: 8px; }
+  .brand b { font-size: 14px; }
   .top .tl { display: none; } /* free space for the menu button */
   .nav-btn { display: inline-flex; }
   .side {
@@ -306,6 +308,7 @@ figure.shot img {
 
   var navBtn = document.getElementById('nav-btn');
   var backdrop = document.getElementById('nav-backdrop');
+  var side = document.getElementById('docs-nav');
   function setNav(open) {
     page.classList.toggle('nav-open', open);
     if (navBtn) {
@@ -317,6 +320,12 @@ figure.shot img {
       else backdrop.setAttribute('hidden', '');
     }
     document.documentElement.style.overflow = open ? 'hidden' : '';
+    // Closed drawer must leave the tab order (translate alone is not enough).
+    if (side) {
+      if (open) side.removeAttribute('inert');
+      else if (window.matchMedia('(max-width: 760px)').matches) side.setAttribute('inert', '');
+      else side.removeAttribute('inert');
+    }
   }
   if (navBtn) navBtn.addEventListener('click', function () {
     setNav(!page.classList.contains('nav-open'));
@@ -325,8 +334,14 @@ figure.shot img {
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') setNav(false);
   });
+  if (window.matchMedia) {
+    window.matchMedia('(max-width: 760px)').addEventListener('change', function (e) {
+      if (!e.matches) setNav(false);
+      else if (side && !page.classList.contains('nav-open')) side.setAttribute('inert', '');
+    });
+    if (window.matchMedia('(max-width: 760px)').matches && side) side.setAttribute('inert', '');
+  }
   // Close the drawer after navigating (same-tab in-docs links).
-  var side = document.getElementById('docs-nav');
   if (side) side.addEventListener('click', function (e) {
     var a = e.target.closest('a');
     if (a) setNav(false);

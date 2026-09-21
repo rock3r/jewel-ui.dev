@@ -17,7 +17,7 @@ import {
   statSync,
   writeFileSync,
 } from 'node:fs';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { homedir, tmpdir } from 'node:os';
@@ -65,24 +65,38 @@ async function mavenLatest() {
   return m[1];
 }
 
+function jdkMajor(home) {
+  const r = spawnSync(join(home, 'bin', 'java'), ['-version'], { encoding: 'utf8' });
+  const msg = `${r.stderr || ''}${r.stdout || ''}`;
+  const m = msg.match(/version "(\d+)/);
+  return m ? Number(m[1]) : 0;
+}
+
 function findJdk21() {
-  if (process.env.JEWEL_DOKKA_JAVA_HOME) {
-    const h = process.env.JEWEL_DOKKA_JAVA_HOME;
-    if (existsSync(join(h, 'bin', 'java'))) return h;
-  }
+  const candidates = [];
+  if (process.env.JEWEL_DOKKA_JAVA_HOME) candidates.push(process.env.JEWEL_DOKKA_JAVA_HOME);
+  // Honor JAVA_HOME when it already points at 21 (CI / nix / asdf), before Temurin probes.
+  if (process.env.JAVA_HOME) candidates.push(process.env.JAVA_HOME);
   try {
     const home = execFileSync('/usr/libexec/java_home', ['-v', '21'], { encoding: 'utf8' }).trim();
-    if (home) return home;
+    if (home) candidates.push(home);
   } catch {
     /* fall through */
   }
-  for (const c of [
+  candidates.push(
     join(homedir(), 'Library/Java/JavaVirtualMachines/temurin-21.0.12.1/Contents/Home'),
     join(homedir(), 'Library/Java/JavaVirtualMachines/temurin-21.0.12/Contents/Home'),
-  ]) {
-    if (existsSync(join(c, 'bin', 'java'))) return c;
+  );
+  const seen = new Set();
+  for (const h of candidates) {
+    if (!h || seen.has(h)) continue;
+    seen.add(h);
+    if (!existsSync(join(h, 'bin', 'java'))) continue;
+    if (jdkMajor(h) === 21) return h;
   }
-  throw new Error('JDK 21 required (Dokka 2.0 breaks on Java 25). Set JEWEL_DOKKA_JAVA_HOME.');
+  throw new Error(
+    'JDK 21 required (Dokka 2.0 breaks on Java 25). Set JEWEL_DOKKA_JAVA_HOME or JAVA_HOME to a JDK 21 install.',
+  );
 }
 
 function resolveArtifacts(version, jdkHome) {
@@ -281,6 +295,25 @@ html.theme-dark #jewel-top #searchBar.jewel-search-host path {
 }
 #jewel-top #searchBar.jewel-search-host:hover path {
   fill: var(--jewel-fg) !important;
+}
+@media (max-width: 760px) {
+  #jewel-top {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: var(--jewel-top-h);
+    padding: 8px 12px;
+    gap: 6px 10px;
+  }
+  #jewel-top .brand-sub,
+  #jewel-top a[href*="github.com"],
+  #jewel-top a[href*="youtrack"] {
+    display: none;
+  }
+  #jewel-top #searchBar.jewel-search-host {
+    order: 3;
+    flex: 1 1 100%;
+    max-width: none;
+  }
 }
 `;
 }

@@ -97,3 +97,23 @@ html.theme-dark #jewel-top #searchBar.jewel-search-host path {
 #jewel-top #searchBar.jewel-search-host:hover path {
   fill: var(--jewel-fg) !important;
 }
+
+@media (max-width: 760px) {
+  #jewel-top {
+    flex-wrap: wrap;
+    height: auto;
+    min-height: var(--jewel-top-h);
+    padding: 8px 12px;
+    gap: 6px 10px;
+  }
+  #jewel-top .brand-sub,
+  #jewel-top a[href*="github.com"],
+  #jewel-top a[href*="youtrack"] {
+    display: none;
+  }
+  #jewel-top #searchBar.jewel-search-host {
+    order: 3;
+    flex: 1 1 100%;
+    max-width: none;
+  }
+}

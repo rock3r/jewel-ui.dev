@@ -39,6 +39,13 @@ pluginManagement {
         mavenCentral()
     }
 }
+
+dependencyResolutionManagement {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
 ```
 
 ## Plugins
@@ -86,7 +93,7 @@ dependencies {
 }
 ```
 
-Version strings look like `0.39.1-262.9437.29`: the Jewel version, then the IntelliJ
+Version strings look like `{{artifact}}`: the Jewel version, then the IntelliJ
 Platform build it was compiled against. [Versions and compatibility](../versioning.md)
 explains how to pick one, and which combinations exist.
 
@@ -96,17 +103,20 @@ Everything Jewel draws has to sit inside a theme.
 
 ```kotlin
 import androidx.compose.foundation.layout.Column
+import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.application
 import org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
 import org.jetbrains.jewel.ui.component.DefaultButton
 import org.jetbrains.jewel.ui.component.Text
 
 fun main() = application {
-    IntUiTheme(isDark = true) {
-        Column {
-            Text("Int UI, outside the IDE")
-            DefaultButton(onClick = { /* … */ }) {
-                Text("Open")
+    Window(onCloseRequest = ::exitApplication, title = "Jewel") {
+        IntUiTheme(isDark = true) {
+            Column {
+                Text("Int UI, outside the IDE")
+                DefaultButton(onClick = { /* … */ }) {
+                    Text("Open")
+                }
             }
         }
     }

@@ -78,6 +78,9 @@ Compose and Swing sharing one window needs the newer Swing rendering pipeline sw
 on. For tool windows, Jewel does that for you:
 
 ```kotlin
+import com.intellij.openapi.project.Project
+import com.intellij.openapi.wm.ToolWindow
+import com.intellij.openapi.wm.ToolWindowFactory
 import org.jetbrains.jewel.bridge.addComposeTab
 
 class MyToolWindowFactory : ToolWindowFactory {

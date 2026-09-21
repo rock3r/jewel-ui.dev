@@ -10,8 +10,9 @@ reason to use them instead of a plain `LazyColumn`.
 Two entry points, one per selection model:
 
 ```kotlin
-import org.jetbrains.jewel.foundation.lazy.SingleSelectionLazyColumn
+import androidx.compose.runtime.Composable
 import org.jetbrains.jewel.foundation.lazy.MultiSelectionLazyColumn
+import org.jetbrains.jewel.foundation.lazy.SingleSelectionLazyColumn
 import org.jetbrains.jewel.foundation.lazy.rememberSingleSelectionLazyListState
 
 @Composable
@@ -98,4 +99,4 @@ linger duration are all part of the style rather than hardcoded.
 ## See also
 
 - [Theming](theming.md) — styling the components above
-- [Components](../../components/) — every component, with screenshots
+- Components — gallery with screenshots (coming soon)
