@@ -4,7 +4,7 @@
 // bespoke renderer is smaller and more predictable than pulling in a parser.
 //
 // Design tokens are kept in sync with DESIGN.md and the landing page by hand.
-import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, cpSync } from 'node:fs';
+import { readFileSync, writeFileSync, mkdirSync, readdirSync, statSync, cpSync, existsSync, unlinkSync } from 'node:fs';
 import { join, dirname, relative, extname } from 'node:path';
 
 const SRC = process.argv[2] ?? 'docs';
@@ -257,6 +257,15 @@ function renderBlocks(lines, hrefFix, headings) {
       continue;
     }
 
+    // A reserved prefix that did not match its block parser (orphan `|`, a
+    // lone `!!!`, …) must still advance `i`. Otherwise `blockStart` keeps the
+    // paragraph loop from consuming the line and the outer loop spins.
+    if (blockStart.test(line)) {
+      html += `<p>${inline(line.trim(), hrefFix)}</p>\n`;
+      i++;
+      continue;
+    }
+
     const buf = [];
     while (
       i < lines.length &&
@@ -299,6 +308,7 @@ body { margin: 0; }
   -webkit-font-smoothing: antialiased;
   scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin;
   min-height: 100vh; font-size: 15px; line-height: 1.6;
+  overflow-x: clip;
 }
 
 /* header */
@@ -307,6 +317,7 @@ body { margin: 0; }
   display: flex; align-items: center; gap: 14px;
   height: 52px; padding: 0 20px;
   background: var(--bg); border-bottom: 1px solid var(--line);
+  min-width: 0;
 }
 .brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--fg); }
 .brand svg { display: block; width: 20px; height: 20px; }
@@ -350,13 +361,20 @@ body { margin: 0; }
     transform: translateX(-105%);
     transition: transform 0.18s ease;
     padding-bottom: 48px;
+    visibility: hidden;
   }
-  .page.nav-open .side { transform: translateX(0); box-shadow: 8px 0 24px rgba(0,0,0,0.28); }
+  .page.nav-open .side { transform: translateX(0); visibility: visible; box-shadow: 8px 0 24px rgba(0,0,0,0.28); }
   .nav-backdrop {
     display: none; position: fixed; inset: 52px 0 0 0; z-index: 25;
     background: rgba(0,0,0,0.45);
   }
   .page.nav-open .nav-backdrop { display: block; }
+}
+@media (max-width: 400px) {
+  .top { padding: 0 10px; gap: 8px; }
+  .brand-docs { display: none; }
+  .brand b { font-size: 14px; }
+  .tbtn { padding: 4px 8px; }
 }
 
 /* left nav */
@@ -476,6 +494,13 @@ const JS = `
 
   var navBtn = document.getElementById('nav-btn');
   var backdrop = document.getElementById('nav-backdrop');
+  var side = document.getElementById('docs-nav');
+  var navQuery = window.matchMedia('(max-width: 760px)');
+  function setSideInert(inert) {
+    if (!side) return;
+    if (inert) side.setAttribute('inert', '');
+    else side.removeAttribute('inert');
+  }
   function setNav(open) {
     page.classList.toggle('nav-open', open);
     if (navBtn) {
@@ -486,7 +511,12 @@ const JS = `
       if (open) backdrop.removeAttribute('hidden');
       else backdrop.setAttribute('hidden', '');
     }
-    document.documentElement.style.overflow = open ? 'hidden' : '';
+    document.documentElement.style.overflow = open && navQuery.matches ? 'hidden' : '';
+    setSideInert(navQuery.matches && !open);
+  }
+  function syncNavForViewport() {
+    if (!navQuery.matches) setNav(false);
+    else if (!page.classList.contains('nav-open')) setSideInert(true);
   }
   if (navBtn) navBtn.addEventListener('click', function () {
     setNav(!page.classList.contains('nav-open'));
@@ -495,8 +525,10 @@ const JS = `
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') setNav(false);
   });
+  if (navQuery.addEventListener) navQuery.addEventListener('change', syncNavForViewport);
+  else navQuery.addListener(syncNavForViewport);
+  syncNavForViewport();
   // Close the drawer after navigating (same-tab in-docs links).
-  var side = document.getElementById('docs-nav');
   if (side) side.addEventListener('click', function (e) {
     var a = e.target.closest('a');
     if (a) setNav(false);
@@ -659,10 +691,34 @@ for (const full of walkAll(SRC)) {
 }
 
 let count = 0;
+const wantedHtml = new Set(inNav.map((rel) => htmlPath(rel)));
 for (const rel of inNav) {
   const out = join(OUT, htmlPath(rel));
   mkdirSync(dirname(out), { recursive: true });
   writeFileSync(out, build(rel));
   count++;
 }
-console.log(`built ${count} doc pages and copied ${assets} assets into ${OUT}`);
+
+function collectHtml(dir, acc = []) {
+  if (!existsSync(dir)) return acc;
+  for (const entry of readdirSync(dir)) {
+    const p = join(dir, entry);
+    if (statSync(p).isDirectory()) collectHtml(p, acc);
+    else if (entry.endsWith('.html')) acc.push(p);
+  }
+  return acc;
+}
+
+let removed = 0;
+for (const full of collectHtml(OUT)) {
+  const rel = relative(OUT, full);
+  if (wantedHtml.has(rel)) continue;
+  unlinkSync(full);
+  removed += 1;
+  console.log(`removed obsolete ${rel}`);
+}
+
+console.log(
+  `built ${count} doc pages and copied ${assets} assets into ${OUT}` +
+    (removed ? `, removed ${removed} obsolete page(s)` : '')
+);
