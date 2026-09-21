@@ -48,6 +48,7 @@ decorated window. Its content lambda receives the current `DecoratedWindowState`
 that state to react to the window being focused, maximised or fullscreen.
 
 ```kotlin
+import androidx.compose.ui.Modifier
 import org.jetbrains.jewel.window.DecoratedWindow
 import org.jetbrains.jewel.window.TitleBar
 import org.jetbrains.jewel.window.newFullscreenControls

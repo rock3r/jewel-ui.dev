@@ -84,8 +84,10 @@ composes, so you layer changes on top rather than replacing the whole set. Windo
 decoration styling arrives the same way:
 
 ```kotlin
+import org.jetbrains.jewel.intui.standalone.theme.default
 import org.jetbrains.jewel.intui.window.decoratedWindow
 import org.jetbrains.jewel.intui.window.styling.dark
+import org.jetbrains.jewel.ui.ComponentStyling
 import org.jetbrains.jewel.window.styling.TitleBarStyle
 
 ComponentStyling.default()

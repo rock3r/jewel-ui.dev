@@ -6,6 +6,11 @@ answer different questions.
 
 ## Reading a version
 
+The numbers below show the shape of a standalone artifact. They are a format
+example, not the current release. The landing page chip and [Maven
+Central](https://central.sonatype.com/namespace/org.jetbrains.jewel) are the
+live list.
+
 ```text
 0.39.1-262.9437.29
 └─┬──┘ └────┬────┘
@@ -21,10 +26,11 @@ standalone use. If two artifacts share a Jewel version, they expose the same API
 because the artifact has to match the platform you target. It is less important when you
 are writing a standalone app, where you only need a recent one.
 
-Each entry in the [release notes](releases/) records the minimum supported platform
-version and the Compose Multiplatform version that release was built against. For what
-is actually published, [Maven
-Central](https://central.sonatype.com/namespace/org.jetbrains.jewel) is the
+Each entry in the
+[Jewel release notes](https://github.com/JetBrains/intellij-community/blob/master/platform/jewel/RELEASE%20NOTES.md)
+records the minimum supported platform version and the Compose Multiplatform version that
+release was built against. For what is actually published,
+[Maven Central](https://central.sonatype.com/namespace/org.jetbrains.jewel) is the
 authoritative list.
 
 In a plugin you never write either number. The modules come from the platform, so the
