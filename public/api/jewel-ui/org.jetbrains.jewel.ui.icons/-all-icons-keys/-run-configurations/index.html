@@ -1,0 +1,743 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>RunConfigurations</title>
+<link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>  <link rel="stylesheet" href="/api/_chrome.css">
+  <script src="/api/_chrome.js" defer></script>
+</head>
+<body>
+<header id="jewel-top">
+  <a class="brand" href="/" title="Jewel home"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" fill="#000"/><path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFF"/><path d="M256 76L436 256H256V76Z" fill="#CCC"/><path d="M76 256L256 436V256H76Z" fill="#CCC"/><path d="M256 436L436 256H256V436Z" fill="#808080"/></svg><span>Jewel</span></a>
+  <a class="brand-sub" href="/docs/">docs</a>
+  <a href="/api/" aria-current="page">API</a>
+  <div class="sp"></div>
+  <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
+  <a href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+  <button class="tbtn" id="jewel-theme-btn" type="button">Light</button>
+</header>
+
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../../index.html">
+                    Jewel
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.41.0-262.10968.63
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="jewel-ui/main">ui</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id="jewel-ui/main" data-filter="jewel-ui/main">
+                                <span class="checkbox--icon"></span>
+                                ui
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    Jewel
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="jewel-ui::org.jetbrains.jewel.ui.icons/AllIconsKeys.RunConfigurations///PointingToDeclaration//-438319935">
+  <div class="breadcrumbs"><a href="../../../index.html">jewel-ui</a><span class="delimiter">/</span><a href="../../index.html">org.jetbrains.jewel.ui.icons</a><span class="delimiter">/</span><a href="../index.html">AllIconsKeys</a><span class="delimiter">/</span><span class="current">RunConfigurations</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Run</span><wbr><span><span>Configurations</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">RunConfigurations</a></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="1917949531%2FConstructors%2F-438319935" anchor-label="RunConfigurations" id="1917949531%2FConstructors%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-run-configurations.html"><span>Run</span><wbr><span><span>Configurations</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1917949531%2FConstructors%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1424177527%2FClasslikes%2F-438319935" anchor-label="TestState" id="1424177527%2FClasslikes%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-test-state/index.html"><span>Test</span><wbr><span><span>State</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1424177527%2FClasslikes%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-test-state/index.html">TestState</a></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="1228512541%2FProperties%2F-438319935" anchor-label="Applet" id="1228512541%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-applet.html"><span><span>Applet</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1228512541%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-applet.html">Applet</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1681208269%2FProperties%2F-438319935" anchor-label="Application" id="-1681208269%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-application.html"><span><span>Application</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1681208269%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-application.html">Application</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="398586476%2FProperties%2F-438319935" anchor-label="Compound" id="398586476%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-compound.html"><span><span>Compound</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="398586476%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-compound.html">Compound</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1044324133%2FProperties%2F-438319935" anchor-label="HidePassed" id="1044324133%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hide-passed.html"><span>Hide</span><wbr><span><span>Passed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1044324133%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-hide-passed.html">HidePassed</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1743595649%2FProperties%2F-438319935" anchor-label="IgnoredTest" id="-1743595649%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-ignored-test.html"><span>Ignored</span><wbr><span><span>Test</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1743595649%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-ignored-test.html">IgnoredTest</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="683928817%2FProperties%2F-438319935" anchor-label="InvalidConfigurationLayer" id="683928817%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-invalid-configuration-layer.html"><span>Invalid</span><wbr><span>Configuration</span><wbr><span><span>Layer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="683928817%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-invalid-configuration-layer.html">InvalidConfigurationLayer</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="814102229%2FProperties%2F-438319935" anchor-label="Junit" id="814102229%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-junit.html"><span><span>Junit</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="814102229%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-junit.html">Junit</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1288851127%2FProperties%2F-438319935" anchor-label="MultiLaunch" id="1288851127%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-multi-launch.html"><span>Multi</span><wbr><span><span>Launch</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1288851127%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-multi-launch.html">MultiLaunch</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1003163313%2FProperties%2F-438319935" anchor-label="Remote" id="1003163313%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-remote.html"><span><span>Remote</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1003163313%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-remote.html">Remote</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-457598346%2FProperties%2F-438319935" anchor-label="RemoteDebug" id="-457598346%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-remote-debug.html"><span>Remote</span><wbr><span><span>Debug</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-457598346%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-remote-debug.html">RemoteDebug</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1996042219%2FProperties%2F-438319935" anchor-label="RerunFailedTests" id="1996042219%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-rerun-failed-tests.html"><span>Rerun</span><wbr><span>Failed</span><wbr><span><span>Tests</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1996042219%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-rerun-failed-tests.html">RerunFailedTests</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1327980753%2FProperties%2F-438319935" anchor-label="Scroll_down" id="-1327980753%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-scroll_down.html"><span>Scroll_</span><wbr><span>down</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1327980753%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-scroll_down.html">Scroll_down</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-192867242%2FProperties%2F-438319935" anchor-label="Scroll_up" id="-192867242%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-scroll_up.html"><span>Scroll_</span><wbr><span>up</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-192867242%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-scroll_up.html">Scroll_up</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1813894670%2FProperties%2F-438319935" anchor-label="ShowIgnored" id="1813894670%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-show-ignored.html"><span>Show</span><wbr><span><span>Ignored</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1813894670%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-show-ignored.html">ShowIgnored</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1746479626%2FProperties%2F-438319935" anchor-label="ShowPassed" id="1746479626%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-show-passed.html"><span>Show</span><wbr><span><span>Passed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1746479626%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-show-passed.html">ShowPassed</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1759503150%2FProperties%2F-438319935" anchor-label="SortbyDuration" id="1759503150%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-sortby-duration.html"><span>Sortby</span><wbr><span><span>Duration</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1759503150%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-sortby-duration.html">SortbyDuration</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1297373708%2FProperties%2F-438319935" anchor-label="TestCustom" id="-1297373708%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-test-custom.html"><span>Test</span><wbr><span><span>Custom</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1297373708%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-test-custom.html">TestCustom</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2031256275%2FProperties%2F-438319935" anchor-label="TestError" id="-2031256275%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-test-error.html"><span>Test</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2031256275%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-test-error.html">TestError</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1920129704%2FProperties%2F-438319935" anchor-label="TestFailed" id="1920129704%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-test-failed.html"><span>Test</span><wbr><span><span>Failed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1920129704%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-test-failed.html">TestFailed</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="650816419%2FProperties%2F-438319935" anchor-label="TestIgnored" id="650816419%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-test-ignored.html"><span>Test</span><wbr><span><span>Ignored</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="650816419%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-test-ignored.html">TestIgnored</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1184820248%2FProperties%2F-438319935" anchor-label="TestMark" id="1184820248%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-test-mark.html"><span>Test</span><wbr><span><span>Mark</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1184820248%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-test-mark.html">TestMark</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1583903367%2FProperties%2F-438319935" anchor-label="TestNotRan" id="-1583903367%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-test-not-ran.html"><span>Test</span><wbr><span>Not</span><wbr><span><span>Ran</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1583903367%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-test-not-ran.html">TestNotRan</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1986055637%2FProperties%2F-438319935" anchor-label="TestPassed" id="1986055637%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-test-passed.html"><span>Test</span><wbr><span><span>Passed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1986055637%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-test-passed.html">TestPassed</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2049087949%2FProperties%2F-438319935" anchor-label="TestPassedIgnored" id="-2049087949%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-test-passed-ignored.html"><span>Test</span><wbr><span>Passed</span><wbr><span><span>Ignored</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2049087949%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-test-passed-ignored.html">TestPassedIgnored</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-922708265%2FProperties%2F-438319935" anchor-label="TestPaused" id="-922708265%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-test-paused.html"><span>Test</span><wbr><span><span>Paused</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-922708265%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-test-paused.html">TestPaused</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="278841093%2FProperties%2F-438319935" anchor-label="TestSkipped" id="278841093%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-test-skipped.html"><span>Test</span><wbr><span><span>Skipped</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="278841093%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-test-skipped.html">TestSkipped</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1305105534%2FProperties%2F-438319935" anchor-label="TestTerminated" id="-1305105534%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-test-terminated.html"><span>Test</span><wbr><span><span>Terminated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1305105534%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-test-terminated.html">TestTerminated</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="936547115%2FProperties%2F-438319935" anchor-label="TestUnknown" id="936547115%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-test-unknown.html"><span>Test</span><wbr><span><span>Unknown</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="936547115%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-test-unknown.html">TestUnknown</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-45704333%2FProperties%2F-438319935" anchor-label="Tomcat" id="-45704333%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-tomcat.html"><span><span>Tomcat</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-45704333%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-tomcat.html">Tomcat</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="360422922%2FProperties%2F-438319935" anchor-label="ToolbarError" id="360422922%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-toolbar-error.html"><span>Toolbar</span><wbr><span><span>Error</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="360422922%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-toolbar-error.html">ToolbarError</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1247226517%2FProperties%2F-438319935" anchor-label="ToolbarFailed" id="-1247226517%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-toolbar-failed.html"><span>Toolbar</span><wbr><span><span>Failed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1247226517%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-toolbar-failed.html">ToolbarFailed</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1181300584%2FProperties%2F-438319935" anchor-label="ToolbarPassed" id="-1181300584%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-toolbar-passed.html"><span>Toolbar</span><wbr><span><span>Passed</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1181300584%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-toolbar-passed.html">ToolbarPassed</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="861886992%2FProperties%2F-438319935" anchor-label="ToolbarPassedIgnored" id="861886992%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-toolbar-passed-ignored.html"><span>Toolbar</span><wbr><span>Passed</span><wbr><span><span>Ignored</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="861886992%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-toolbar-passed-ignored.html">ToolbarPassedIgnored</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="875046050%2FProperties%2F-438319935" anchor-label="ToolbarSkipped" id="875046050%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-toolbar-skipped.html"><span>Toolbar</span><wbr><span><span>Skipped</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="875046050%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-toolbar-skipped.html">ToolbarSkipped</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="546999493%2FProperties%2F-438319935" anchor-label="ToolbarTerminated" id="546999493%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-toolbar-terminated.html"><span>Toolbar</span><wbr><span><span>Terminated</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="546999493%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-toolbar-terminated.html">ToolbarTerminated</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1132003600%2FProperties%2F-438319935" anchor-label="TrackCoverage" id="1132003600%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-track-coverage.html"><span>Track</span><wbr><span><span>Coverage</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1132003600%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-track-coverage.html">TrackCoverage</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="954579085%2FProperties%2F-438319935" anchor-label="Web_app" id="954579085%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-web_app.html"><span>Web_</span><wbr><span>app</span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="954579085%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-web_app.html">Web_app</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1534827917%2FProperties%2F-438319935" anchor-label="Wsl" id="-1534827917%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-wsl.html"><span><span>Wsl</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1534827917%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span></div></div><span class="token keyword">val </span><a href="-wsl.html">Wsl</a><span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/NotNull///PointingToDeclaration/"><span class="token annotation builtin">NotNull</span></span>&nbsp;</span><a href="../../../org.jetbrains.jewel.ui.icon/-intelli-j-icon-key/index.html">IntelliJIconKey</a></div><div class="brief ">16x16</div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2026 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,457 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>org.jetbrains.jewel.ui.icon</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>  <link rel="stylesheet" href="/api/_chrome.css">
+  <script src="/api/_chrome.js" defer></script>
+</head>
+<body>
+<header id="jewel-top">
+  <a class="brand" href="/" title="Jewel home"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" fill="#000"/><path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFF"/><path d="M256 76L436 256H256V76Z" fill="#CCC"/><path d="M76 256L256 436V256H76Z" fill="#CCC"/><path d="M256 436L436 256H256V436Z" fill="#808080"/></svg><span>Jewel</span></a>
+  <a class="brand-sub" href="/docs/">docs</a>
+  <a href="/api/" aria-current="page">API</a>
+  <div class="sp"></div>
+  <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
+  <a href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+  <button class="tbtn" id="jewel-theme-btn" type="button">Light</button>
+</header>
+
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../index.html">
+                    Jewel
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.41.0-262.10968.63
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="jewel-ui/main">ui</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id="jewel-ui/main" data-filter="jewel-ui/main">
+                                <span class="checkbox--icon"></span>
+                                ui
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    Jewel
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="jewel-ui::org.jetbrains.jewel.ui.icon////PointingToDeclaration//-438319935">
+  <div class="breadcrumbs"><a href="../index.html">jewel-ui</a><span class="delimiter">/</span><span class="current">org.jetbrains.jewel.ui.icon</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button><button class="section-tab" data-togglable="PROPERTY,EXTENSION_PROPERTY">Properties</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="-1222127456%2FClasslikes%2F-438319935" anchor-label="ComposeImageResourceProvider" id="-1222127456%2FClasslikes%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-compose-image-resource-provider/index.html"><span>Compose</span><wbr><span>Image</span><wbr><span>Resource</span><wbr><span><span>Provider</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1222127456%2FClasslikes%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Internal///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Internal</span></span></div></div><span class="token keyword">class </span><a href="-compose-image-resource-provider/index.html">ComposeImageResourceProvider</a> : <span data-unresolved-link="com.intellij.platform.icons.rendering/ImageResourceProvider///PointingToDeclaration/">ImageResourceProvider</span></div><div class="brief "><p class="paragraph">An <span data-unresolved-link="com.intellij.platform.icons.rendering/ImageResourceProvider///PointingToDeclaration/">ImageResourceProvider</span> that loads SVG and bitmap images using Compose painter and bitmap APIs.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1659778866%2FClasslikes%2F-438319935" anchor-label="ComposeLayerPaintingContext" id="-1659778866%2FClasslikes%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-compose-layer-painting-context/index.html"><span>Compose</span><wbr><span>Layer</span><wbr><span>Painting</span><wbr><span><span>Context</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1659778866%2FClasslikes%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Internal///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Internal</span></span></div></div><span class="token keyword">class </span><a href="-compose-layer-painting-context/index.html">ComposeLayerPaintingContext</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>drawScope<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics.drawscope/DrawScope///PointingToDeclaration/">DrawScope</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>offsetX<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>offsetY<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator"> = </span><span class="token constant">0</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>slotWidth<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>slotHeight<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter ">overrideColorFilter<span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.filters/ColorFilter///PointingToDeclaration/">ColorFilter</span><span class="token operator">?</span><span class="token operator"> = </span>null<span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>alpha<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator"> = </span><span class="token constant">1.0f</span><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>scaling<span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.rendering/ScalingContext///PointingToDeclaration/">ScalingContext</span><span class="token operator"> = </span>DefaultScalingContext(drawScope.drawContext.density.density, 1f)</span></span><span class="token punctuation">)</span> : <span data-unresolved-link="com.intellij.platform.icons.rendering/LayerPaintingContext///PointingToDeclaration/">LayerPaintingContext</span></div><div class="brief "><p class="paragraph">A <span data-unresolved-link="com.intellij.platform.icons.rendering/LayerPaintingContext///PointingToDeclaration/">LayerPaintingContext</span> implementation that delegates drawing operations to a Compose <span data-unresolved-link="androidx.compose.ui.graphics.drawscope/DrawScope///PointingToDeclaration/">DrawScope</span>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1602776788%2FClasslikes%2F-438319935" anchor-label="IconKey" id="1602776788%2FClasslikes%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-icon-key/index.html"><span>Icon</span><wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1602776788%2FClasslikes%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">interface </span><a href="-icon-key/index.html">IconKey</a></div><div class="brief "><p class="paragraph">Represents a key that resolves to an icon path, associated with a class loader.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-408730677%2FClasslikes%2F-438319935" anchor-label="IntelliJIconKey" id="-408730677%2FClasslikes%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-intelli-j-icon-key/index.html"><span>Intelli</span><wbr><span>JIcon</span><wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-408730677%2FClasslikes%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-intelli-j-icon-key/index.html">IntelliJIconKey</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>oldUiPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>newUiPath<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>iconClass<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-icon-key/index.html">IconKey</a></div><div class="brief "><p class="paragraph">An <a href="-icon-key/index.html">IconKey</a> that resolves to different icon paths for the old and new IntelliJ UI.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="92445991%2FClasslikes%2F-438319935" anchor-label="NewUiChecker" id="92445991%2FClasslikes%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-new-ui-checker/index.html"><span>New</span><wbr><span>Ui</span><wbr><span><span>Checker</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="92445991%2FClasslikes%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token keyword">interface </span><a href="-new-ui-checker/index.html">NewUiChecker</a></div><div class="brief "><p class="paragraph">Functional interface that determines whether the IDE is running with the New UI enabled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-475834727%2FClasslikes%2F-438319935" anchor-label="PathIconKey" id="-475834727%2FClasslikes%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-path-icon-key/index.html"><span>Path</span><wbr><span>Icon</span><wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-475834727%2FClasslikes%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="-path-icon-key/index.html">PathIconKey</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">path<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>iconClass<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span> : <a href="-icon-key/index.html">IconKey</a></div><div class="brief "><p class="paragraph">An <a href="-icon-key/index.html">IconKey</a> that resolves to a single fixed icon <a href="-path-icon-key/path.html">path</a>, regardless of the UI mode.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="284917473%2FClasslikes%2F-438319935" anchor-label="PathImageResourceLocation" id="284917473%2FClasslikes%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-path-image-resource-location/index.html"><span>Path</span><wbr><span>Image</span><wbr><span>Resource</span><wbr><span><span>Location</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="284917473%2FClasslikes%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Internal///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Internal</span></span></div></div><span class="token keyword">class </span><a href="-path-image-resource-location/index.html">PathImageResourceLocation</a><span class="token punctuation">(</span><span class="parameters "><span class="parameter "><span class="token keyword">val </span>path<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">val </span>classLoader<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/ClassLoader.html">ClassLoader</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span> : <span data-unresolved-link="com.intellij.platform.icons/ImageResourceLocation///PointingToDeclaration/">ImageResourceLocation</span></div><div class="brief "><p class="paragraph">An <span data-unresolved-link="com.intellij.platform.icons/ImageResourceLocation///PointingToDeclaration/">ImageResourceLocation</span> that loads image bytes from a classpath resource at <a href="-path-image-resource-location/path.html">path</a> using <a href="-path-image-resource-location/class-loader.html">classLoader</a>, applying dark-mode path modifiers.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="PROPERTY">
+        <h2 class="">Properties</h2>
+        <div class="table"><a data-name="-1320554889%2FProperties%2F-438319935" anchor-label="LocalNewUiChecker" id="-1320554889%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-local-new-ui-checker.html"><span>Local</span><wbr><span>New</span><wbr><span>Ui</span><wbr><span><span>Checker</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1320554889%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">val </span><a href="-local-new-ui-checker.html">LocalNewUiChecker</a><span class="token operator">: </span><span data-unresolved-link="androidx.compose.runtime/ProvidableCompositionLocal///PointingToDeclaration/">ProvidableCompositionLocal</span><span class="token operator">&lt;</span><a href="-new-ui-checker/index.html">NewUiChecker</a><span class="token operator">&gt;</span></div><div class="brief "><p class="paragraph">CompositionLocal that provides the current <a href="-new-ui-checker/index.html">NewUiChecker</a> instance.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1749965917%2FProperties%2F-438319935" anchor-label="newUiChecker" id="1749965917%2FProperties%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_PROPERTY" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="new-ui-checker.html"><span>new</span><wbr><span>Ui</span><wbr><span><span>Checker</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1749965917%2FProperties%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@get:</span><span data-unresolved-link="androidx.compose.runtime/Composable///PointingToDeclaration/"><span class="token annotation builtin">Composable</span></span></div></div><span class="token keyword">val </span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.theme/-jewel-theme/-companion/index.html">JewelTheme.Companion</a><span class="token punctuation">.</span><a href="new-ui-checker.html">newUiChecker</a><span class="token operator">: </span><a href="-new-ui-checker/index.html">NewUiChecker</a></div><div class="brief "><p class="paragraph">The <a href="-new-ui-checker/index.html">NewUiChecker</a> for the current <a href="../../jewel-foundation/org.jetbrains.jewel.foundation.theme/-jewel-theme/index.html">JewelTheme</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="157202934%2FFunctions%2F-438319935" anchor-label="badge" id="157202934%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="badge.html"><span><span>badge</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="157202934%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><span data-unresolved-link="com.intellij.platform.icons.design/IconDesigner///PointingToDeclaration/">IconDesigner</span><span class="token punctuation">.</span><a href="badge.html"><span class="token function">badge</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">color<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token punctuation">, </span></span><span class="parameter ">shape<span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.design/Shape///PointingToDeclaration/">Shape</span><span class="token operator"> = </span>circle(2.8.dp)<span class="token punctuation">, </span></span><span class="parameter ">align<span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.design/IconAlign///PointingToDeclaration/">IconAlign</span><span class="token operator"> = </span>IconAlign.TopRight<span class="token punctuation">, </span></span><span class="parameter ">cutout<span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.design/IconUnit///PointingToDeclaration/">IconUnit</span><span class="token operator"> = </span>1.2.dp<span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.modifiers/IconModifier///PointingToDeclaration/">IconModifier</span><span class="token operator"> = </span>IconModifier</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Adds a badge to this icon using a Compose <a href="badge.html">color</a>, with configurable <a href="badge.html">shape</a>, <a href="badge.html">align</a>, <a href="badge.html">cutout</a>, and <a href="badge.html">modifier</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1002565122%2FFunctions%2F-438319935" anchor-label="circle" id="-1002565122%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="circle.html"><span><span>circle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1002565122%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><a href="circle.html"><span class="token function">circle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">radius<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.unit/Dp///PointingToDeclaration/">Dp</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.design/Circle///PointingToDeclaration/">Circle</span></div><div class="brief "><p class="paragraph">Creates a <span data-unresolved-link="com.intellij.platform.icons.design/Circle///PointingToDeclaration/">Circle</span> shape with the given <a href="circle.html">radius</a> for use in the IntelliJ Platform icon DSL.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-488421468%2FFunctions%2F-438319935" anchor-label="fillArea" id="-488421468%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="fill-area.html"><span>fill</span><wbr><span><span>Area</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-488421468%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><a href="fill-area.html"><span class="token function">fillArea</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">width<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.unit/Dp///PointingToDeclaration/">Dp</span><span class="token punctuation">, </span></span><span class="parameter ">heigth<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.unit/Dp///PointingToDeclaration/">Dp</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.scale/FillAreaScale///PointingToDeclaration/">FillAreaScale</span></div><div class="brief "><p class="paragraph">Creates a <span data-unresolved-link="com.intellij.platform.icons.scale/FillAreaScale///PointingToDeclaration/">FillAreaScale</span> that fills the icon to the given dimensions.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-2270810%2FFunctions%2F-438319935" anchor-label="fitArea" id="-2270810%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="fit-area.html"><span>fit</span><wbr><span><span>Area</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2270810%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><a href="fit-area.html"><span class="token function">fitArea</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">width<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.unit/Dp///PointingToDeclaration/">Dp</span><span class="token punctuation">, </span></span><span class="parameter ">heigth<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.unit/Dp///PointingToDeclaration/">Dp</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.scale/FitAreaScale///PointingToDeclaration/">FitAreaScale</span></div><div class="brief "><p class="paragraph">Creates a <span data-unresolved-link="com.intellij.platform.icons.scale/FitAreaScale///PointingToDeclaration/">FitAreaScale</span> that fits the icon within the given dimensions.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1029436258%2FFunctions%2F-438319935" anchor-label="iconKey" id="1029436258%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="icon-key.html"><span>icon</span><wbr><span><span>Key</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1029436258%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="com.intellij.platform.icons.design/IconDesigner///PointingToDeclaration/">IconDesigner</span><span class="token punctuation">.</span><a href="icon-key.html"><span class="token function">iconKey</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">iconKey<span class="token operator">: </span><a href="-icon-key/index.html">IconKey</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.modifiers/IconModifier///PointingToDeclaration/">IconModifier</span><span class="token operator"> = </span>IconModifier</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Renders the icon described by <a href="icon-key.html">iconKey</a> in this <span data-unresolved-link="com.intellij.platform.icons.design/IconDesigner///PointingToDeclaration/">IconDesigner</span>, using the New UI path and applying <a href="icon-key.html">modifier</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1844949417%2FFunctions%2F-438319935" anchor-label="rectangle" id="-1844949417%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="rectangle.html"><span><span>rectangle</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1844949417%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><a href="rectangle.html"><span class="token function">rectangle</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">width<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.unit/Dp///PointingToDeclaration/">Dp</span><span class="token punctuation">, </span></span><span class="parameter ">heigth<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.unit/Dp///PointingToDeclaration/">Dp</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.design/Rectangle///PointingToDeclaration/">Rectangle</span></div><div class="brief "><p class="paragraph">Creates a <span data-unresolved-link="com.intellij.platform.icons.design/Rectangle///PointingToDeclaration/">Rectangle</span> shape with the given dimensions for use in the IntelliJ Platform icon DSL.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-800496083%2FFunctions%2F-438319935" anchor-label="stroke" id="-800496083%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="stroke.html"><span><span>stroke</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-800496083%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><span data-unresolved-link="com.intellij.platform.icons.modifiers/IconModifier///PointingToDeclaration/">IconModifier</span><span class="token punctuation">.</span><a href="stroke.html"><span class="token function">stroke</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">composeColor<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.modifiers/IconModifier///PointingToDeclaration/">IconModifier</span></div><div class="brief "><p class="paragraph">Applies a stroke with the given Compose <a href="stroke.html">composeColor</a> to this <span data-unresolved-link="com.intellij.platform.icons.modifiers/IconModifier///PointingToDeclaration/">IconModifier</span>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1606896780%2FFunctions%2F-438319935" anchor-label="tintColor" id="1606896780%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="tint-color.html"><span>tint</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1606896780%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><span data-unresolved-link="com.intellij.platform.icons.modifiers/IconModifier///PointingToDeclaration/">IconModifier</span><span class="token punctuation">.</span><a href="tint-color.html"><span class="token function">tintColor</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">composeColor<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token punctuation">, </span></span><span class="parameter ">blendMode<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/BlendMode///PointingToDeclaration/">BlendMode</span><span class="token operator"> = </span>BlendMode.SrcIn</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.modifiers/IconModifier///PointingToDeclaration/">IconModifier</span></div><div class="brief "><p class="paragraph">Applies a tint of <a href="tint-color.html">composeColor</a> with <a href="tint-color.html">blendMode</a> to this <span data-unresolved-link="com.intellij.platform.icons.modifiers/IconModifier///PointingToDeclaration/">IconModifier</span>, converting to the IntelliJ Platform Icons color and blend-mode types.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="557923810%2FFunctions%2F-438319935" anchor-label="toCompose" id="557923810%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-compose.html"><span>to</span><wbr><span><span>Compose</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="557923810%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><span data-unresolved-link="com.intellij.platform.icons.design/BlendMode///PointingToDeclaration/">BlendMode</span><span class="token punctuation">.</span><a href="to-compose.html"><span class="token function">toCompose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/BlendMode///PointingToDeclaration/">BlendMode</span></div><div class="brief "><p class="paragraph">Converts this IntelliJ Platform Icons <span data-unresolved-link="com.intellij.platform.icons.design/BlendMode///PointingToDeclaration/">BlendMode</span> to a Compose <span data-unresolved-link="androidx.compose.ui.graphics/BlendMode///PointingToDeclaration/">BlendMode</span>.</p></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><span data-unresolved-link="com.intellij.platform.icons.design/Color///PointingToDeclaration/">Color</span><span class="token punctuation">.</span><a href="to-compose.html"><span class="token function">toCompose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span></div><div class="brief "><p class="paragraph">Converts this IntelliJ Platform Icons <span data-unresolved-link="com.intellij.platform.icons.design/Color///PointingToDeclaration/">Color</span> to a Compose <span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span>.</p></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><span data-unresolved-link="com.intellij.platform.icons.filters/ColorFilter///PointingToDeclaration/">ColorFilter</span><span class="token punctuation">.</span><a href="to-compose.html"><span class="token function">toCompose</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/ColorFilter///PointingToDeclaration/">ColorFilter</span></div><div class="brief "><p class="paragraph">Converts this IntelliJ Platform <span data-unresolved-link="com.intellij.platform.icons.filters/ColorFilter///PointingToDeclaration/">ColorFilter</span> to a Compose <span data-unresolved-link="androidx.compose.ui.graphics/ColorFilter///PointingToDeclaration/">ColorFilter</span>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1679590540%2FFunctions%2F-438319935" anchor-label="toIconsBlendMode" id="1679590540%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-icons-blend-mode.html"><span>to</span><wbr><span>Icons</span><wbr><span>Blend</span><wbr><span><span>Mode</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1679590540%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><span data-unresolved-link="androidx.compose.ui.graphics/BlendMode///PointingToDeclaration/">BlendMode</span><span class="token punctuation">.</span><a href="to-icons-blend-mode.html"><span class="token function">toIconsBlendMode</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.design/BlendMode///PointingToDeclaration/">BlendMode</span></div><div class="brief "><p class="paragraph">Converts this Compose <span data-unresolved-link="androidx.compose.ui.graphics/BlendMode///PointingToDeclaration/">BlendMode</span> to the equivalent IntelliJ Platform Icons <span data-unresolved-link="com.intellij.platform.icons.design/BlendMode///PointingToDeclaration/">BlendMode</span>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1487326292%2FFunctions%2F-438319935" anchor-label="toIconsColor" id="-1487326292%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-icons-color.html"><span>to</span><wbr><span>Icons</span><wbr><span><span>Color</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1487326292%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token punctuation">.</span><a href="to-icons-color.html"><span class="token function">toIconsColor</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.design/Color///PointingToDeclaration/">Color</span></div><div class="brief "><p class="paragraph">Converts this Compose <span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span> to an IntelliJ Platform Icons <span data-unresolved-link="com.intellij.platform.icons.design/Color///PointingToDeclaration/">Color</span>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1150446881%2FFunctions%2F-438319935" anchor-label="toIconsDp" id="1150446881%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="to-icons-dp.html"><span>to</span><wbr><span>Icons</span><wbr><span><span>Dp</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1150446881%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><span data-unresolved-link="androidx.compose.ui.unit/Dp///PointingToDeclaration/">Dp</span><span class="token punctuation">.</span><a href="to-icons-dp.html"><span class="token function">toIconsDp</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="com.intellij.platform.icons.design/DisplayPoint///PointingToDeclaration/">DisplayPoint</span></div><div class="brief "><p class="paragraph">Converts this Compose <span data-unresolved-link="androidx.compose.ui.unit/Dp///PointingToDeclaration/">Dp</span> value to an IntelliJ Platform Icons <span data-unresolved-link="com.intellij.platform.icons.design/DisplayPoint///PointingToDeclaration/">DisplayPoint</span>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2026 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

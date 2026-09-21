@@ -319,10 +319,15 @@ console.log(`using JDK ${jdkHome}`);
 
 const resolved = resolveArtifacts(version, jdkHome);
 const cliJar = readFileSync(join(resolved, 'dokka-cli.txt'), 'utf8').trim();
-const plugins = readFileSync(join(resolved, 'dokka-plugins.txt'), 'utf8')
+const allPlugins = readFileSync(join(resolved, 'dokka-plugins.txt'), 'utf8')
   .trim()
   .split('\n')
   .filter(Boolean);
+// Partials must NOT load all-modules-page-plugin — it replaces real module docs with stubs.
+const multiPlugins = allPlugins.filter(
+  (p) => /all-modules-page-plugin|templating-plugin/.test(p),
+);
+const basePlugins = allPlugins.filter((p) => !multiPlugins.includes(p));
 
 const work = join(tmpdir(), `jewel-api-dokka-${version}`);
 rmSync(work, { recursive: true, force: true });
@@ -346,7 +351,7 @@ for (const mod of MODULES) {
     unpackSources(srcJar, srcDir);
     runDokka({
       cliJar,
-      plugins,
+      plugins: basePlugins,
       sourcesDir: srcDir,
       classpath: cp,
       outDir: partialDir,
@@ -371,7 +376,7 @@ if (!present.length) {
 console.log('aggregating multimodule publication…');
 runDokkaAggregate({
   cliJar,
-  plugins,
+  plugins: [...basePlugins, ...multiPlugins],
   modules: present,
   version,
   outDir: OUT,

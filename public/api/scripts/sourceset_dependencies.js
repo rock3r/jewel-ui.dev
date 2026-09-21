@@ -1,1 +1,1 @@
-sourceset_dependencies='{}'
+sourceset_dependencies = '{"jewel-int-ui-standalone/main":[],"jewel-foundation/main":[],"jewel-decorated-window/main":[],"jewel-markdown-core/main":[],"jewel-ui/main":[],"jewel-markdown-int-ui-standalone-styling/main":[]}'

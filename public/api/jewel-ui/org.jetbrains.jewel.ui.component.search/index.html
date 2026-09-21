@@ -1,0 +1,228 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>org.jetbrains.jewel.ui.component.search</title>
+<link href="../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>  <link rel="stylesheet" href="/api/_chrome.css">
+  <script src="/api/_chrome.js" defer></script>
+</head>
+<body>
+<header id="jewel-top">
+  <a class="brand" href="/" title="Jewel home"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" fill="#000"/><path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFF"/><path d="M256 76L436 256H256V76Z" fill="#CCC"/><path d="M76 256L256 436V256H76Z" fill="#CCC"/><path d="M256 436L436 256H256V436Z" fill="#808080"/></svg><span>Jewel</span></a>
+  <a class="brand-sub" href="/docs/">docs</a>
+  <a href="/api/" aria-current="page">API</a>
+  <div class="sp"></div>
+  <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
+  <a href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+  <button class="tbtn" id="jewel-theme-btn" type="button">Light</button>
+</header>
+
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../index.html">
+                    Jewel
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.41.0-262.10968.63
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="jewel-ui/main">ui</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id="jewel-ui/main" data-filter="jewel-ui/main">
+                                <span class="checkbox--icon"></span>
+                                ui
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    Jewel
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageids="jewel-ui::org.jetbrains.jewel.ui.component.search////PointingToDeclaration//-438319935">
+  <div class="breadcrumbs"><a href="../index.html">jewel-ui</a><span class="delimiter">/</span><span class="current">org.jetbrains.jewel.ui.component.search</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1013315399%2FClasslikes%2F-438319935" anchor-label="SpeedSearchableLazyColumnScope" id="1013315399%2FClasslikes%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-speed-searchable-lazy-column-scope/index.html"><span>Speed</span><wbr><span>Searchable</span><wbr><span>Lazy</span><wbr><span>Column</span><wbr><span><span>Scope</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1013315399%2FClasslikes%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">interface </span><a href="-speed-searchable-lazy-column-scope/index.html">SpeedSearchableLazyColumnScope</a></div><div class="brief "><p class="paragraph">Defines the DSL scope for adding items to a <a href="-speed-searchable-lazy-column.html">SpeedSearchableLazyColumn</a>, associating each entry with its searchable text content.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="EXTENSION_FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-577430084%2FFunctions%2F-438319935" anchor-label="highlightSpeedSearchMatches" id="-577430084%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="highlight-speed-search-matches.html"><span>highlight</span><wbr><span>Speed</span><wbr><span>Search</span><wbr><span><span>Matches</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-577430084%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="androidx.compose.runtime/Composable///PointingToDeclaration/"><span class="token annotation builtin">Composable</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><span data-unresolved-link="androidx.compose.ui/Modifier///PointingToDeclaration/">Modifier</span><span class="token punctuation">.</span><a href="highlight-speed-search-matches.html"><span class="token function">highlightSpeedSearchMatches</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">textLayoutResult<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.text/TextLayoutResult///PointingToDeclaration/">TextLayoutResult</span><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">matchState<span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.component/-node-search-match-state/index.html">NodeSearchMatchState</a><span class="token operator">?</span><span class="token operator"> = </span>LocalNodeSearchMatchState.current</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui/Modifier///PointingToDeclaration/">Modifier</span></div><div class="brief "><p class="paragraph">Draws rounded-rectangle highlight backgrounds behind each matched character range reported by <a href="highlight-speed-search-matches.html">matchState</a>, using the bounding boxes from <a href="highlight-speed-search-matches.html">textLayoutResult</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="270052699%2FFunctions%2F-438319935" anchor-label="highlightTextSearch" id="270052699%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="highlight-text-search.html"><span>highlight</span><wbr><span>Text</span><wbr><span><span>Search</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="270052699%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="androidx.compose.runtime/Composable///PointingToDeclaration/"><span class="token annotation builtin">Composable</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-char-sequence/index.html">CharSequence</a><span class="token punctuation">.</span><a href="highlight-text-search.html"><span class="token function">highlightTextSearch</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">matchState<span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.component/-node-search-match-state/index.html">NodeSearchMatchState</a><span class="token operator">?</span><span class="token operator"> = </span>LocalNodeSearchMatchState.current</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.text/AnnotatedString///PointingToDeclaration/">AnnotatedString</span></div><div class="brief "><p class="paragraph">Returns an <span data-unresolved-link="androidx.compose.ui.text/AnnotatedString///PointingToDeclaration/">AnnotatedString</span> built from this <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-char-sequence/index.html">CharSequence</a> with the matched character ranges styled according to the current search highlight style.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="579167856%2FFunctions%2F-438319935" anchor-label="SpeedSearchableComboBox" id="579167856%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-speed-searchable-combo-box.html"><span>Speed</span><wbr><span>Searchable</span><wbr><span>Combo</span><wbr><span><span>Box</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="579167856%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="androidx.compose.runtime/Composable///PointingToDeclaration/"><span class="token annotation builtin">Composable</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><a href="../org.jetbrains.jewel.ui.component/-speed-search-scope/index.html">SpeedSearchScope</a><span class="token punctuation">.</span><a href="-speed-searchable-combo-box.html"><span class="token function">SpeedSearchableComboBox</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">items<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><span><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/Nls///PointingToDeclaration/"><span class="token annotation builtin">Nls</span></span>&nbsp;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">selectedIndex<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">onSelectedItemChange<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui/Modifier///PointingToDeclaration/">Modifier</span><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">popupModifier<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui/Modifier///PointingToDeclaration/">Modifier</span><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">itemKeys<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator"> = </span>{ _, item -&gt; item }<span class="token punctuation">, </span></span><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">outline<span class="token operator">: </span><a href="../org.jetbrains.jewel.ui/-outline/index.html">Outline</a><span class="token operator"> = </span>Outline.None<span class="token punctuation">, </span></span><span class="parameter ">maxPopupHeight<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.unit/Dp///PointingToDeclaration/">Dp</span><span class="token operator"> = </span>Dp.Unspecified<span class="token punctuation">, </span></span><span class="parameter ">maxPopupWidth<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.unit/Dp///PointingToDeclaration/">Dp</span><span class="token operator"> = </span>Dp.Unspecified<span class="token punctuation">, </span></span><span class="parameter ">style<span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.component.styling/-combo-box-style/index.html">ComboBoxStyle</a><span class="token operator"> = </span>JewelTheme.comboBoxStyle<span class="token punctuation">, </span></span><span class="parameter ">textStyle<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.text/TextStyle///PointingToDeclaration/">TextStyle</span><span class="token operator"> = </span>JewelTheme.defaultTextStyle<span class="token punctuation">, </span></span><span class="parameter ">onPopupVisibleChange<span class="token operator">: </span><span class="token punctuation">(</span>visible<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}<span class="token punctuation">, </span></span><span class="parameter ">listState<span class="token operator">: </span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy/-selectable-lazy-list-state/index.html">SelectableLazyListState</a><span class="token operator"> = </span>rememberSelectableLazyListState(selectedIndex.takeIfInBoundsOrZero(items.indices))<span class="token punctuation">, </span></span><span class="parameter ">dispatcher<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineDispatcher///PointingToDeclaration/">CoroutineDispatcher</span><span class="token operator"> = </span>Dispatchers.Default</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">A convenience overload of <a href="-speed-searchable-combo-box.html">SpeedSearchableComboBox</a> for plain <a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a> items.</p></div><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="androidx.compose.runtime/Composable///PointingToDeclaration/"><span class="token annotation builtin">Composable</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="-speed-searchable-combo-box.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../org.jetbrains.jewel.ui.component/-speed-search-scope/index.html">SpeedSearchScope</a><span class="token punctuation">.</span><a href="-speed-searchable-combo-box.html"><span class="token function">SpeedSearchableComboBox</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">items<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="-speed-searchable-combo-box.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">selectedIndex<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">onSelectedItemChange<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token punctuation">, </span></span><span class="parameter ">itemKeys<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span><a href="-speed-searchable-combo-box.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-any/index.html">Any</a><span class="token punctuation">, </span></span><span class="parameter ">itemText<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span><a href="-speed-searchable-combo-box.html">T</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui/Modifier///PointingToDeclaration/">Modifier</span><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">popupModifier<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui/Modifier///PointingToDeclaration/">Modifier</span><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">enabled<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span><span class="token punctuation">, </span></span><span class="parameter ">outline<span class="token operator">: </span><a href="../org.jetbrains.jewel.ui/-outline/index.html">Outline</a><span class="token operator"> = </span>Outline.None<span class="token punctuation">, </span></span><span class="parameter ">maxPopupHeight<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.unit/Dp///PointingToDeclaration/">Dp</span><span class="token operator"> = </span>Dp.Unspecified<span class="token punctuation">, </span></span><span class="parameter ">maxPopupWidth<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.unit/Dp///PointingToDeclaration/">Dp</span><span class="token operator"> = </span>Dp.Unspecified<span class="token punctuation">, </span></span><span class="parameter ">style<span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.component.styling/-combo-box-style/index.html">ComboBoxStyle</a><span class="token operator"> = </span>JewelTheme.comboBoxStyle<span class="token punctuation">, </span></span><span class="parameter ">onPopupVisibleChange<span class="token operator">: </span><span class="token punctuation">(</span>visible<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}<span class="token punctuation">, </span></span><span class="parameter ">listState<span class="token operator">: </span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy/-selectable-lazy-list-state/index.html">SelectableLazyListState</a><span class="token operator"> = </span>rememberSelectableLazyListState(selectedIndex.takeIfInBoundsOrZero(items.indices))<span class="token punctuation">, </span></span><span class="parameter ">dispatcher<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineDispatcher///PointingToDeclaration/">CoroutineDispatcher</span><span class="token operator"> = </span>Dispatchers.Default<span class="token punctuation">, </span></span><span class="parameter ">itemContent<span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="androidx.compose.runtime/Composable///PointingToDeclaration/"><span class="token annotation builtin">Composable</span></span>&nbsp;</span><span class="token punctuation">(</span>item<span class="token operator">: </span><a href="-speed-searchable-combo-box.html">T</a><span class="token punctuation">, </span>isSelected<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">, </span>isActive<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Renders a combo box whose popup list supports speed search functionality.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="741103439%2FFunctions%2F-438319935" anchor-label="SpeedSearchableLazyColumn" id="741103439%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-speed-searchable-lazy-column.html"><span>Speed</span><wbr><span>Searchable</span><wbr><span>Lazy</span><wbr><span><span>Column</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="741103439%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="androidx.compose.runtime/Composable///PointingToDeclaration/"><span class="token annotation builtin">Composable</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><a href="../org.jetbrains.jewel.ui.component/-speed-search-scope/index.html">SpeedSearchScope</a><span class="token punctuation">.</span><a href="-speed-searchable-lazy-column.html"><span class="token function">SpeedSearchableLazyColumn</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">modifier<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui/Modifier///PointingToDeclaration/">Modifier</span><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">selectionMode<span class="token operator">: </span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy/-selection-mode/index.html">SelectionMode</a><span class="token operator"> = </span>SelectionMode.Multiple<span class="token punctuation">, </span></span><span class="parameter ">state<span class="token operator">: </span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy/-selectable-lazy-list-state/index.html">SelectableLazyListState</a><span class="token operator"> = </span>rememberSelectableLazyListState()<span class="token punctuation">, </span></span><span class="parameter ">contentPadding<span class="token operator">: </span><span data-unresolved-link="androidx.compose.foundation.layout/PaddingValues///PointingToDeclaration/">PaddingValues</span><span class="token operator"> = </span>PaddingValues(0.dp)<span class="token punctuation">, </span></span><span class="parameter ">reverseLayout<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">false</span><span class="token punctuation">, </span></span><span class="parameter ">onSelectedIndexesChange<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}<span class="token punctuation">, </span></span><span class="parameter ">verticalArrangement<span class="token operator">: </span><span data-unresolved-link="androidx.compose.foundation.layout/Arrangement.Vertical///PointingToDeclaration/">Arrangement.Vertical</span><span class="token operator"> = </span>if (!reverseLayout) Arrangement.Top else Arrangement.Bottom<span class="token punctuation">, </span></span><span class="parameter ">horizontalAlignment<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui/Alignment.Horizontal///PointingToDeclaration/">Alignment.Horizontal</span><span class="token operator"> = </span>Alignment.Start<span class="token punctuation">, </span></span><span class="parameter ">flingBehavior<span class="token operator">: </span><span data-unresolved-link="androidx.compose.foundation.gestures/FlingBehavior///PointingToDeclaration/">FlingBehavior</span><span class="token operator"> = </span>ScrollableDefaults.flingBehavior()<span class="token punctuation">, </span></span><span class="parameter ">keyActions<span class="token operator">: </span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy.tree/-key-actions/index.html">KeyActions</a><span class="token operator"> = </span>DefaultSelectableLazyColumnKeyActions<span class="token punctuation">, </span></span><span class="parameter ">pointerEventActions<span class="token operator">: </span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy.tree/-pointer-event-actions/index.html">PointerEventActions</a><span class="token operator"> = </span>DefaultSelectableLazyColumnEventAction()<span class="token punctuation">, </span></span><span class="parameter ">dispatcher<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineDispatcher///PointingToDeclaration/">CoroutineDispatcher</span><span class="token operator"> = </span>Dispatchers.Default<span class="token punctuation">, </span></span><span class="parameter ">content<span class="token operator">: </span><a href="-speed-searchable-lazy-column-scope/index.html">SpeedSearchableLazyColumnScope</a><span class="token punctuation">.</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Creates a selectable lazy column with integrated speed search functionality.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="849916395%2FFunctions%2F-438319935" anchor-label="SpeedSearchableTree" id="849916395%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-speed-searchable-tree.html"><span>Speed</span><wbr><span>Searchable</span><wbr><span><span>Tree</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="849916395%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="androidx.compose.runtime/Composable///PointingToDeclaration/"><span class="token annotation builtin">Composable</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="-speed-searchable-tree.html">T</a><span class="token operator">&gt; </span><a href="../org.jetbrains.jewel.ui.component/-speed-search-scope/index.html">SpeedSearchScope</a><span class="token punctuation">.</span><a href="-speed-searchable-tree.html"><span class="token function">SpeedSearchableTree</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">tree<span class="token operator">: </span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy.tree/-tree/index.html">Tree</a><span class="token operator">&lt;</span><a href="-speed-searchable-tree.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">nodeText<span class="token operator">: </span><span class="token punctuation">(</span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy.tree/-tree/-element/index.html">Tree.Element</a><span class="token operator">&lt;</span><a href="-speed-searchable-tree.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">?</span><span class="token punctuation">, </span></span><span class="parameter ">modifier<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui/Modifier///PointingToDeclaration/">Modifier</span><span class="token operator"> = </span>Modifier<span class="token punctuation">, </span></span><span class="parameter ">treeState<span class="token operator">: </span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy.tree/-tree-state/index.html">TreeState</a><span class="token operator"> = </span>rememberTreeState()<span class="token punctuation">, </span></span><span class="parameter ">onElementClick<span class="token operator">: </span><span class="token punctuation">(</span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy.tree/-tree/-element/index.html">Tree.Element</a><span class="token operator">&lt;</span><a href="-speed-searchable-tree.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}<span class="token punctuation">, </span></span><span class="parameter ">onElementDoubleClick<span class="token operator">: </span><span class="token punctuation">(</span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy.tree/-tree/-element/index.html">Tree.Element</a><span class="token operator">&lt;</span><a href="-speed-searchable-tree.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}<span class="token punctuation">, </span></span><span class="parameter ">onSelectionChange<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy.tree/-tree/-element/index.html">Tree.Element</a><span class="token operator">&lt;</span><a href="-speed-searchable-tree.html">T</a><span class="token operator">&gt;</span><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a><span class="token operator"> = </span>{}<span class="token punctuation">, </span></span><span class="parameter ">keyActions<span class="token operator">: </span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy.tree/-key-actions/index.html">KeyActions</a><span class="token operator"> = </span>DefaultTreeViewKeyActions(treeState)<span class="token punctuation">, </span></span><span class="parameter ">style<span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.component.styling/-lazy-tree-style/index.html">LazyTreeStyle</a><span class="token operator"> = </span>JewelTheme.treeStyle<span class="token punctuation">, </span></span><span class="parameter ">dispatcher<span class="token operator">: </span><span data-unresolved-link="kotlinx.coroutines/CoroutineDispatcher///PointingToDeclaration/">CoroutineDispatcher</span><span class="token operator"> = </span>Dispatchers.Default<span class="token punctuation">, </span></span><span class="parameter ">nodeContent<span class="token operator">: </span><span><span class="token annotation builtin">@</span><span data-unresolved-link="androidx.compose.runtime/Composable///PointingToDeclaration/"><span class="token annotation builtin">Composable</span></span>&nbsp;</span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy/-selectable-lazy-item-scope/index.html">SelectableLazyItemScope</a><span class="token punctuation">.</span><span class="token punctuation">(</span><a href="../../jewel-foundation/org.jetbrains.jewel.foundation.lazy.tree/-tree/-element/index.html">Tree.Element</a><span class="token operator">&lt;</span><a href="-speed-searchable-tree.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-unit/index.html">Unit</a></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Renders a lazy tree view with integrated speed search functionality.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2026 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
