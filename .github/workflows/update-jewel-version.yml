@@ -2,10 +2,11 @@
 # Anything derived from the Jewel repo is generated, never hand-copied (see STYLE.md);
 # this is the generator for the header chip and the Gradle snippet.
 #
-# It commits straight to master and deploys, but only after proving the change is the
-# version and nothing else. verify-version-bump.mjs substitutes the new version back to
-# the old one and requires the result to be byte-identical to the committed file. If any
-# other byte moved, the deploy does not happen and a person looks at it.
+# It commits locally, deploys, then pushes to master, but only after proving the change
+# is the version and nothing else. verify-version-bump.mjs substitutes the new version
+# back to the old one and requires the result to be byte-identical to the committed file.
+# If any other byte moved, the deploy does not happen and a person looks at it. Push
+# waits for deploy so a failed publish can retry on the next run.
 name: Update Jewel version
 
 on:
@@ -69,6 +70,9 @@ jobs:
             '${{ steps.jewel.outputs.version }}'    '${{ steps.jewel.outputs.artifact }}'
           git --no-pager diff --stat
 
+      # Commit locally first. Push only after deploy succeeds, otherwise a failed
+      # Cloudflare publish would leave master bumped and every later scheduled run
+      # would see changed=false and skip, leaving production stale.
       - name: Commit
         if: steps.jewel.outputs.changed == 'true'
         env:
@@ -80,17 +84,19 @@ jobs:
           git add src/Main.dc.html public/index.html
           git commit -m "Update the Jewel version to $VERSION" \
                      -m "Published on Maven Central as $ARTIFACT."
-          git push
 
-      # Only reached when the proof passed, so what ships differs from the reviewed site
-      # by the version string alone. Without the secret this is skipped and the bump waits
-      # for someone to deploy by hand, as it did before.
+      # Deploy whenever the token is present, including unchanged source: a
+      # previous bump that pushed but did not publish can then retry next run.
       - name: Deploy
-        if: steps.jewel.outputs.changed == 'true' && env.CF_API_TOKEN != ''
+        if: env.CF_API_TOKEN != ''
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
         run: npx --yes wrangler@latest deploy
+
+      - name: Push
+        if: steps.jewel.outputs.changed == 'true'
+        run: git push
 
       - name: Report
         env:
@@ -103,6 +109,8 @@ jobs:
             echo "Landing page updated to $ARTIFACT, committed but not deployed." >> "$GITHUB_STEP_SUMMARY"
             echo "Set the CLOUDFLARE_API_TOKEN and CLOUDFLARE_ACCOUNT_ID secrets to deploy automatically," >> "$GITHUB_STEP_SUMMARY"
             echo "or publish it with \`npx wrangler@latest deploy\`." >> "$GITHUB_STEP_SUMMARY"
+          elif [ -n "$CF_API_TOKEN" ]; then
+            echo "Already on $ARTIFACT. Redeployed the committed site." >> "$GITHUB_STEP_SUMMARY"
           else
             echo "Already on $ARTIFACT. Nothing to do." >> "$GITHUB_STEP_SUMMARY"
           fi

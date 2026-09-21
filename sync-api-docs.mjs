@@ -17,7 +17,7 @@ import {
   statSync,
   writeFileSync,
 } from 'node:fs';
-import { execFileSync } from 'node:child_process';
+import { execFileSync, spawnSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { homedir, tmpdir } from 'node:os';
@@ -65,11 +65,22 @@ async function mavenLatest() {
   return m[1];
 }
 
+function isJdk21Home(home) {
+  if (!home) return false;
+  const java = join(home, 'bin', 'java');
+  if (!existsSync(java)) return false;
+  const r = spawnSync(java, ['-version'], { encoding: 'utf8' });
+  if (r.error) return false;
+  const text = `${r.stdout || ''}${r.stderr || ''}`;
+  return /version "?21(\.|")/.test(text);
+}
+
 function findJdk21() {
   if (process.env.JEWEL_DOKKA_JAVA_HOME) {
     const h = process.env.JEWEL_DOKKA_JAVA_HOME;
     if (existsSync(join(h, 'bin', 'java'))) return h;
   }
+  if (isJdk21Home(process.env.JAVA_HOME)) return process.env.JAVA_HOME;
   try {
     const home = execFileSync('/usr/libexec/java_home', ['-v', '21'], { encoding: 'utf8' }).trim();
     if (home) return home;
@@ -210,6 +221,7 @@ html, body {
   height: var(--jewel-top-h); box-sizing: border-box;
   display: flex; align-items: center; gap: 12px;
   padding: 0 18px;
+  min-width: 0;
   background: var(--jewel-bg);
   border-bottom: 1px solid var(--jewel-line);
   font-family: Inter, Helvetica, Arial, sans-serif;
@@ -281,6 +293,15 @@ html.theme-dark #jewel-top #searchBar.jewel-search-host path {
 }
 #jewel-top #searchBar.jewel-search-host:hover path {
   fill: var(--jewel-fg) !important;
+}
+@media (max-width: 720px) {
+  #jewel-top { padding: 0 10px; gap: 8px; }
+  #jewel-top > a:not(.brand):not(.brand-sub) { display: none; }
+}
+@media (max-width: 400px) {
+  #jewel-top { padding: 0 8px; gap: 6px; }
+  #jewel-top .brand-sub { display: none; }
+  #jewel-top #toc-toggle { display: none !important; }
 }
 `;
 }
