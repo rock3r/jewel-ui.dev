@@ -110,13 +110,25 @@ function unpackSources(jar, dest) {
   execFileSync('jar', ['xf', jar], { cwd: dest, stdio: 'pipe' });
 }
 
-function runDokka({ cliJar, plugins, sourcesDir, classpath, outDir, moduleId, version, jdkHome, workDir }) {
+function runDokka({
+  cliJar,
+  plugins,
+  sourcesDir,
+  classpath,
+  outDir,
+  moduleId,
+  version,
+  jdkHome,
+  workDir,
+  delayTemplateSubstitution = false,
+}) {
   mkdirSync(outDir, { recursive: true });
   mkdirSync(workDir, { recursive: true });
   const cfg = {
     moduleName: moduleId,
     moduleVersion: version,
     outputDir: outDir,
+    delayTemplateSubstitution,
     pluginsClasspath: plugins,
     sourceSets: [
       {
@@ -129,6 +141,30 @@ function runDokka({ cliJar, plugins, sourcesDir, classpath, outDir, moduleId, ve
     ],
   };
   const jsonPath = join(workDir, `${moduleId}.json`);
+  writeFileSync(jsonPath, JSON.stringify(cfg, null, 2));
+  execFileSync(join(jdkHome, 'bin', 'java'), ['-Xmx2g', '-jar', cliJar, jsonPath], {
+    stdio: 'inherit',
+    env: { ...process.env, JAVA_HOME: jdkHome },
+  });
+}
+
+function runDokkaAggregate({ cliJar, plugins, modules, version, outDir, jdkHome, workDir }) {
+  mkdirSync(outDir, { recursive: true });
+  mkdirSync(workDir, { recursive: true });
+  const cfg = {
+    moduleName: 'Jewel',
+    moduleVersion: version,
+    outputDir: outDir,
+    delayTemplateSubstitution: false,
+    pluginsClasspath: plugins,
+    modules: modules.map((m) => ({
+      name: m.id,
+      relativePathToOutputDirectory: m.id,
+      sourceOutputDirectory: m.partialDir,
+      includes: [],
+    })),
+  };
+  const jsonPath = join(workDir, 'aggregate.json');
   writeFileSync(jsonPath, JSON.stringify(cfg, null, 2));
   execFileSync(join(jdkHome, 'bin', 'java'), ['-Xmx2g', '-jar', cliJar, jsonPath], {
     stdio: 'inherit',
@@ -275,79 +311,6 @@ function injectChrome(root) {
   }
 }
 
-function writeIndex(version, modules) {
-  const cards = modules
-    .map(
-      (m) => `    <a class="card" href="./${m.id}/">
-      <strong>${m.title}</strong>
-      <span>${m.blurb}</span>
-    </a>`,
-    )
-    .join('\n');
-
-  writeFileSync(
-    join(OUT, 'index.html'),
-    `<!doctype html>
-<html lang="en-GB">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>API reference — Jewel</title>
-<meta name="color-scheme" content="dark light">
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&display=swap">
-<link rel="stylesheet" href="/api/_chrome.css">
-<script src="/api/_chrome.js"></script>
-<style>
-body {
-  margin: 0;
-  font-family: Inter, Helvetica, Arial, sans-serif;
-  background: var(--jewel-bg);
-  color: var(--jewel-fg);
-}
-.wrap { max-width: 720px; margin: 0 auto; padding: 88px 24px 80px; }
-h1 {
-  font-family: Archivo, Helvetica, Arial, sans-serif;
-  font-size: 28px; letter-spacing: -0.02em; margin: 0 0 12px;
-}
-.muted { color: var(--jewel-fg-3); font-size: 14.5px; line-height: 1.55; margin: 0 0 28px; }
-.muted a { color: inherit; }
-.muted code {
-  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
-  font-size: 0.9em;
-  background: color-mix(in srgb, var(--jewel-fg) 6%, transparent);
-  border: 1px solid var(--jewel-line); border-radius: 4px; padding: 1px 5px;
-}
-.grid { display: flex; flex-direction: column; gap: 10px; }
-.card {
-  display: flex; flex-direction: column; gap: 4px;
-  padding: 14px 16px; border-radius: 8px; text-decoration: none;
-  background: color-mix(in srgb, var(--jewel-fg) 5%, transparent);
-  border: 1px solid var(--jewel-line); color: inherit;
-}
-.card strong { color: #6b9bfa; font-size: 15.5px; font-weight: 600; }
-html:not(.theme-dark) .card strong { color: #315fbd; }
-.card span { color: var(--jewel-fg-2); font-size: 13.5px; line-height: 1.45; }
-.card:hover { border-color: var(--jewel-btn-border); }
-</style>
-</head>
-<body>
-${topBarHtml()}
-  <div class="wrap">
-    <h1>API reference</h1>
-    <p class="muted">Dokka HTML for Jewel <code>${version}</code>, built from the published sources on Maven Central.
-      Start with <a href="./jewel-ui/">UI</a> for components.</p>
-    <div class="grid">
-${cards}
-    </div>
-  </div>
-</body>
-</html>
-`,
-  );
-}
 
 const version = argVersion() || versionFromSite() || (await mavenLatest());
 const jdkHome = findJdk21();
@@ -368,6 +331,7 @@ mkdirSync(work, { recursive: true });
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 
+const partialRoot = join(work, 'partial');
 const present = [];
 for (const mod of MODULES) {
   const srcJar = readFileSync(join(resolved, `${mod.id}-sources.txt`), 'utf8').trim();
@@ -376,8 +340,8 @@ for (const mod of MODULES) {
     .split('\n')
     .filter(Boolean);
   const srcDir = join(work, 'sources', mod.id);
-  const modOut = join(work, 'out', mod.id);
-  process.stdout.write(`  ${mod.id}… `);
+  const partialDir = join(partialRoot, mod.id);
+  process.stdout.write(`  ${mod.id} (partial)… `);
   try {
     unpackSources(srcJar, srcDir);
     runDokka({
@@ -385,14 +349,14 @@ for (const mod of MODULES) {
       plugins,
       sourcesDir: srcDir,
       classpath: cp,
-      outDir: modOut,
+      outDir: partialDir,
       moduleId: mod.id,
       version,
       jdkHome,
       workDir: join(work, 'json'),
+      delayTemplateSubstitution: true,
     });
-    cpSync(modOut, join(OUT, mod.id), { recursive: true });
-    present.push(mod);
+    present.push({ ...mod, partialDir });
     console.log('ok');
   } catch (e) {
     console.log(`fail (${e.message})`);
@@ -404,10 +368,20 @@ if (!present.length) {
   process.exit(1);
 }
 
+console.log('aggregating multimodule publication…');
+runDokkaAggregate({
+  cliJar,
+  plugins,
+  modules: present,
+  version,
+  outDir: OUT,
+  jdkHome,
+  workDir: join(work, 'json'),
+});
+
 writeFileSync(join(OUT, '_chrome.css'), siteChromeCss());
 writeFileSync(join(OUT, '_chrome.js'), siteChromeJs());
-writeIndex(version, present);
-for (const mod of present) injectChrome(join(OUT, mod.id));
+injectChrome(OUT);
 
 writeFileSync(
   join(OUT, '.sync-meta.json'),
@@ -416,7 +390,7 @@ writeFileSync(
       version,
       when: new Date().toISOString(),
       modules: present.map((m) => m.id),
-      source: 'maven-central-sources-jar+dokka-html',
+      source: 'maven-central-sources-jar+dokka-html-multimodule',
       dokkaVersion: '2.0.0',
     },
     null,
@@ -424,4 +398,4 @@ writeFileSync(
   ) + '\n',
 );
 
-console.log(`wrote ${present.length} modules into public/api/ (modern Dokka + site chrome)`);
+console.log(`wrote multimodule Dokka for ${present.length} modules into public/api/`);

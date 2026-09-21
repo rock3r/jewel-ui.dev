@@ -1,1 +1,0 @@
-sourceset_dependencies='{"jewel-int-ui-standalone/main":[]}'

@@ -17,6 +17,9 @@ dependencies {
     dokkaCp("org.jetbrains.dokka:dokka-cli:$dokkaVersion")
     dokkaCp("org.jetbrains.dokka:dokka-base:$dokkaVersion")
     dokkaCp("org.jetbrains.dokka:analysis-kotlin-descriptors:$dokkaVersion")
+    // Needed to stitch per-module partial outputs into one publication.
+    dokkaCp("org.jetbrains.dokka:all-modules-page-plugin:$dokkaVersion")
+    dokkaCp("org.jetbrains.dokka:templating-plugin:$dokkaVersion")
 }
 
 val moduleBins = modules.associateWith { id ->

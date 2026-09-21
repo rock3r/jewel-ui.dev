@@ -1,6 +1,6 @@
 {
   "version": "0.41.0-262.10968.63",
-  "when": "2026-09-21T06:49:47.953Z",
+  "when": "2026-09-21T07:21:04.188Z",
   "modules": [
     "jewel-foundation",
     "jewel-ui",
@@ -9,6 +9,6 @@
     "jewel-markdown-core",
     "jewel-markdown-int-ui-standalone-styling"
   ],
-  "source": "maven-central-sources-jar+dokka-html",
+  "source": "maven-central-sources-jar+dokka-html-multimodule",
   "dokkaVersion": "2.0.0"
 }
