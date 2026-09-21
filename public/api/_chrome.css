@@ -71,3 +71,15 @@ body > .root {
 #jewel-top #toc-toggle {
   margin-right: 4px;
 }
+
+/* Dokka search control, re-homed into the Jewel bar */
+#jewel-top #searchBar.jewel-search-host {
+  display: inline-flex !important;
+  align-items: center;
+  margin: 0;
+  cursor: pointer;
+}
+#jewel-top #searchBar.jewel-search-host .search {
+  display: inline-flex;
+  align-items: center;
+}

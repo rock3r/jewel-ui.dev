@@ -256,6 +256,18 @@ body > .root {
 #jewel-top #toc-toggle {
   margin-right: 4px;
 }
+
+/* Dokka search control, re-homed into the Jewel bar */
+#jewel-top #searchBar.jewel-search-host {
+  display: inline-flex !important;
+  align-items: center;
+  margin: 0;
+  cursor: pointer;
+}
+#jewel-top #searchBar.jewel-search-host .search {
+  display: inline-flex;
+  align-items: center;
+}
 `;
 }
 
@@ -300,10 +312,18 @@ function siteChromeJs() {
       wrap.appendChild(filters);
       main.insertBefore(wrap, main.firstChild);
     }
+    // Dokka mounts its Ring search into #searchBar. Keep that same node, but pull it
+    // out of the hidden #navigation-wrapper so the popup can open.
     var searchBtn = document.getElementById('jewel-search-btn');
     var searchBar = document.getElementById('searchBar');
-    if (searchBtn && searchBar) {
-      searchBtn.addEventListener('click', function () { searchBar.click(); });
+    if (top && searchBar) {
+      searchBar.classList.add('jewel-search-host');
+      if (searchBtn) {
+        top.insertBefore(searchBar, searchBtn);
+        searchBtn.remove();
+      } else if (searchBar.parentElement !== top) {
+        top.appendChild(searchBar);
+      }
     } else if (searchBtn) {
       searchBtn.hidden = true;
     }
