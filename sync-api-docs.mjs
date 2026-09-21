@@ -201,6 +201,10 @@ html:not(.theme-dark) {
   --jewel-line: #ebecf0;
   --jewel-btn-border: #818594;
 }
+html, body {
+  height: 100%;
+  margin: 0;
+}
 #jewel-top {
   position: fixed; inset: 0 0 auto 0; z-index: 1000;
   height: var(--jewel-top-h); box-sizing: border-box;
@@ -228,11 +232,29 @@ html:not(.theme-dark) {
   border: 1px solid var(--jewel-btn-border); border-radius: 6px; padding: 4px 10px;
 }
 #jewel-top .tbtn:hover { color: var(--jewel-fg); }
-body > .root { padding-top: var(--jewel-top-h); }
-.navigation { top: var(--jewel-top-h) !important; }
-#leftColumn { top: calc(var(--jewel-top-h) + 52px) !important; }
-@media (max-width: 759px) {
-  #leftColumn { top: var(--jewel-top-h) !important; }
+/* Fill the viewport under the fixed Jewel bar (border-box so padding doesn't overflow). */
+body > .root {
+  box-sizing: border-box;
+  height: 100%;
+  max-height: 100%;
+  padding-top: var(--jewel-top-h);
+  overflow: hidden;
+}
+/* Dokka's own top nav duplicates Jewel chrome and caused clipped titles. Hide it.
+   Search / TOC / filters are re-homed by _chrome.js. */
+#navigation-wrapper {
+  display: none !important;
+}
+#jewel-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 8px 24px 0;
+}
+#jewel-top #toc-toggle {
+  margin-right: 4px;
 }
 `;
 }
@@ -260,18 +282,37 @@ function siteChromeJs() {
   if (btn) btn.addEventListener('click', function () {
     apply(document.documentElement.classList.contains('theme-dark') ? 'light' : 'dark');
   });
-  var dokkaBtn = document.getElementById('theme-toggle-button');
-  if (dokkaBtn) dokkaBtn.addEventListener('click', function () {
-    setTimeout(function () {
-      var dark = document.documentElement.classList.contains('theme-dark');
-      try { localStorage.setItem('jewel-theme', dark ? 'dark' : 'light'); } catch (e) {}
-      var b = document.getElementById('jewel-theme-btn');
-      if (b) b.textContent = dark ? 'Light' : 'Dark';
-    }, 0);
-  });
   window.addEventListener('storage', function (e) {
     if (e.key === 'jewel-theme' && (e.newValue === 'light' || e.newValue === 'dark')) apply(e.newValue);
   });
+
+  function rehome() {
+    var top = document.getElementById('jewel-top');
+    var toc = document.getElementById('toc-toggle');
+    if (top && toc && toc.parentElement !== top) {
+      top.insertBefore(toc, top.firstChild.nextSibling);
+    }
+    var filters = document.getElementById('filter-section');
+    var main = document.getElementById('main');
+    if (filters && main && !document.getElementById('jewel-filters')) {
+      var wrap = document.createElement('div');
+      wrap.id = 'jewel-filters';
+      wrap.appendChild(filters);
+      main.insertBefore(wrap, main.firstChild);
+    }
+    var searchBtn = document.getElementById('jewel-search-btn');
+    var searchBar = document.getElementById('searchBar');
+    if (searchBtn && searchBar) {
+      searchBtn.addEventListener('click', function () { searchBar.click(); });
+    } else if (searchBtn) {
+      searchBtn.hidden = true;
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', rehome);
+  } else {
+    rehome();
+  }
 })();
 `;
 }
@@ -284,6 +325,7 @@ function topBarHtml() {
   <div class="sp"></div>
   <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
   <a href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+  <button class="tbtn" id="jewel-search-btn" type="button">Search</button>
   <button class="tbtn" id="jewel-theme-btn" type="button">Light</button>
 </header>
 `;

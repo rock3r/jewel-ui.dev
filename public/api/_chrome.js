@@ -20,16 +20,35 @@
   if (btn) btn.addEventListener('click', function () {
     apply(document.documentElement.classList.contains('theme-dark') ? 'light' : 'dark');
   });
-  var dokkaBtn = document.getElementById('theme-toggle-button');
-  if (dokkaBtn) dokkaBtn.addEventListener('click', function () {
-    setTimeout(function () {
-      var dark = document.documentElement.classList.contains('theme-dark');
-      try { localStorage.setItem('jewel-theme', dark ? 'dark' : 'light'); } catch (e) {}
-      var b = document.getElementById('jewel-theme-btn');
-      if (b) b.textContent = dark ? 'Light' : 'Dark';
-    }, 0);
-  });
   window.addEventListener('storage', function (e) {
     if (e.key === 'jewel-theme' && (e.newValue === 'light' || e.newValue === 'dark')) apply(e.newValue);
   });
+
+  function rehome() {
+    var top = document.getElementById('jewel-top');
+    var toc = document.getElementById('toc-toggle');
+    if (top && toc && toc.parentElement !== top) {
+      top.insertBefore(toc, top.firstChild.nextSibling);
+    }
+    var filters = document.getElementById('filter-section');
+    var main = document.getElementById('main');
+    if (filters && main && !document.getElementById('jewel-filters')) {
+      var wrap = document.createElement('div');
+      wrap.id = 'jewel-filters';
+      wrap.appendChild(filters);
+      main.insertBefore(wrap, main.firstChild);
+    }
+    var searchBtn = document.getElementById('jewel-search-btn');
+    var searchBar = document.getElementById('searchBar');
+    if (searchBtn && searchBar) {
+      searchBtn.addEventListener('click', function () { searchBar.click(); });
+    } else if (searchBtn) {
+      searchBtn.hidden = true;
+    }
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', rehome);
+  } else {
+    rehome();
+  }
 })();
