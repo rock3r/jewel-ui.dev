@@ -70,9 +70,20 @@ user guide lives under `docs/tooling/`; refresh it with
 
 ## Deploy
 
+Pushes to `master` deploy automatically via `.github/workflows/deploy.yml`
+(needs the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets).
+
+Manual:
+
 ```bash
 CLOUDFLARE_API_TOKEN=... CLOUDFLARE_ACCOUNT_ID=... npx wrangler@latest deploy
 ```
+
+Prefer a **dedicated** Cloudflare API token for GitHub Actions (not a personal
+or LLM token). Create one at
+[dash.cloudflare.com → API Tokens](https://dash.cloudflare.com/profile/api-tokens)
+from the **Edit Cloudflare Workers** template, scoped to this account (and
+optionally the `jewel-ui-dev` worker only), then store it as `CLOUDFLARE_API_TOKEN`.
 
 ## Screenshots
 
