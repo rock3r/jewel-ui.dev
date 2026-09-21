@@ -8,8 +8,8 @@ disable = [
   # admonition syntax build-docs.mjs parses, not a mistake.
   "MD046",
   # MD057 resolves relative links against the repository. Links to
-  # releases/, components/ and api/ point at sections generated at deploy
-  # time; check-links.mjs is the authority on those.
+  # generated site routes such as /api/ are checked by check-links.mjs
+  # against public/, not by rumdl.
   "MD057",
 ]
 
