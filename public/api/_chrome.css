@@ -83,3 +83,17 @@ body > .root {
   display: inline-flex;
   align-items: center;
 }
+
+/* Search icon is white by default (Dokka nav was dark). Match Jewel chrome. */
+html:not(.theme-dark) #jewel-top #searchBar.jewel-search-host svg,
+html:not(.theme-dark) #jewel-top #searchBar.jewel-search-host path {
+  fill: var(--jewel-fg-2) !important;
+  color: var(--jewel-fg-2);
+}
+html.theme-dark #jewel-top #searchBar.jewel-search-host svg,
+html.theme-dark #jewel-top #searchBar.jewel-search-host path {
+  fill: var(--jewel-fg-2) !important;
+}
+#jewel-top #searchBar.jewel-search-host:hover path {
+  fill: var(--jewel-fg) !important;
+}
