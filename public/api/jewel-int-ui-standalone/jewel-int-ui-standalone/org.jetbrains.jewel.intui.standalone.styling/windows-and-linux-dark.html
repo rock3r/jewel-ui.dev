@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>windowsAndLinuxDark</title>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+  <link rel="stylesheet" href="/api/_chrome.css">
+  <script src="/api/_chrome.js" defer></script>
+</head>
+<body>
+<header id="jewel-top">
+  <a class="brand" href="/" title="Jewel home"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" fill="#000"/><path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFF"/><path d="M256 76L436 256H256V76Z" fill="#CCC"/><path d="M76 256L256 436V256H76Z" fill="#CCC"/><path d="M256 436L436 256H256V436Z" fill="#808080"/></svg><span>Jewel</span></a>
+  <a class="brand-sub" href="/docs/">docs</a>
+  <a href="/api/" aria-current="page">API</a>
+  <div class="sp"></div>
+  <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
+  <a href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+  <button class="tbtn" id="jewel-theme-btn" type="button">Light</button>
+</header>
+
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+            <a class="library-name--link" href="../../index.html">
+                    jewel-int-ui-standalone
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+0.41.0-262.10968.63        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active=""
+                        data-filter="jewel-int-ui-standalone/main">int-ui-standalone</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id="jewel-int-ui-standalone/main"
+                                       data-filter="jewel-int-ui-standalone/main"/>
+                                <span class="checkbox--icon"></span>
+                                int-ui-standalone
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                        data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    jewel-int-ui-standalone
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="member" id="content" pageIds="jewel-int-ui-standalone::org.jetbrains.jewel.intui.standalone.styling//windowsAndLinuxDark/org.jetbrains.jewel.ui.component.styling.ScrollbarStyle.Companion#org.jetbrains.jewel.ui.component.styling.ScrollbarColors#org.jetbrains.jewel.ui.component.styling.ScrollbarMetrics#org.jetbrains.jewel.ui.component.styling.TrackClickBehavior#org.jetbrains.jewel.ui.component.styling.ScrollbarVisibility.AlwaysVisible/PointingToDeclaration//1360655997">
+  <div class="breadcrumbs"><a href="../../index.html">jewel-int-ui-standalone</a><span class="delimiter">/</span><a href="index.html">org.jetbrains.jewel.intui.standalone.styling</a><span class="delimiter">/</span><span class="current">windowsAndLinuxDark</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>windows</span><wbr></wbr><span>And</span><wbr></wbr><span>Linux</span><wbr></wbr><span><span>Dark</span></span></h1>
+  </div>
+  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-int-ui-standalone/main"><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="org.jetbrains.jewel.ui.component.styling/ScrollbarStyle.Companion///PointingToDeclaration/">ScrollbarStyle.Companion</span><span class="token punctuation">.</span><a href="windows-and-linux-dark.html"><span class="token function">windowsAndLinuxDark</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">colors<span class="token operator">: </span><span data-unresolved-link="org.jetbrains.jewel.ui.component.styling/ScrollbarColors///PointingToDeclaration/">ScrollbarColors</span><span class="token operator"> = </span>ScrollbarColors.windowsAndLinuxDark()<span class="token punctuation">, </span></span><span class="parameter ">metrics<span class="token operator">: </span><span data-unresolved-link="org.jetbrains.jewel.ui.component.styling/ScrollbarMetrics///PointingToDeclaration/">ScrollbarMetrics</span><span class="token operator"> = </span>ScrollbarMetrics.windowsAndLinux()<span class="token punctuation">, </span></span><span class="parameter ">trackClickBehavior<span class="token operator">: </span><span data-unresolved-link="org.jetbrains.jewel.ui.component.styling/TrackClickBehavior///PointingToDeclaration/">TrackClickBehavior</span><span class="token operator"> = </span>TrackClickBehavior.JumpToSpot<span class="token punctuation">, </span></span><span class="parameter ">scrollbarVisibility<span class="token operator">: </span><span data-unresolved-link="org.jetbrains.jewel.ui.component.styling/ScrollbarVisibility.AlwaysVisible///PointingToDeclaration/">ScrollbarVisibility.AlwaysVisible</span><span class="token operator"> = </span>AlwaysVisible.windowsAndLinux()</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="org.jetbrains.jewel.ui.component.styling/ScrollbarStyle///PointingToDeclaration/">ScrollbarStyle</span></div><p class="paragraph">Creates a dark-themed <span data-unresolved-link="org.jetbrains.jewel.ui.component.styling/ScrollbarStyle///PointingToDeclaration/">ScrollbarStyle</span> specifically designed for Windows and Linux.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">A <span data-unresolved-link="org.jetbrains.jewel.ui.component.styling/ScrollbarStyle///PointingToDeclaration/">ScrollbarStyle</span> configured for dark theme on Windows and Linux.</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>colors</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The color scheme for the scrollbar.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span><span>metrics</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The sizing and shape properties.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>track</span><wbr></wbr><span>Click</span><wbr></wbr><span><span>Behavior</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The behavior when clicking on the track.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>scrollbar</span><wbr></wbr><span><span>Visibility</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The visibility behavior of the scrollbar.</p></div></div></div></div></div><hr><div class="symbol monospace"><span class="token keyword">fun </span><span data-unresolved-link="org.jetbrains.jewel.ui.component.styling/ScrollbarColors.Companion///PointingToDeclaration/">ScrollbarColors.Companion</span><span class="token punctuation">.</span><a href="windows-and-linux-dark.html"><span class="token function">windowsAndLinuxDark</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">thumbBackground<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator"> = </span>Color(0x47A6A6A6)<span class="token punctuation">, </span></span><span class="parameter ">thumbBackgroundActive<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator"> = </span>Color(0x59A6A6A6)<span class="token punctuation">, </span></span><span class="parameter ">thumbOpaqueBackground<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator"> = </span>thumbBackground<span class="token punctuation">, </span></span><span class="parameter ">thumbOpaqueBackgroundHovered<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator"> = </span>thumbBackgroundActive<span class="token punctuation">, </span></span><span class="parameter ">thumbBorder<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator"> = </span>Color(0x47383838)<span class="token punctuation">, </span></span><span class="parameter ">thumbBorderActive<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator"> = </span>Color(0x59383838)<span class="token punctuation">, </span></span><span class="parameter ">thumbOpaqueBorder<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator"> = </span>thumbBorder<span class="token punctuation">, </span></span><span class="parameter ">thumbOpaqueBorderHovered<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator"> = </span>thumbBorderActive<span class="token punctuation">, </span></span><span class="parameter ">trackBackground<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator"> = </span>Color(0x00808080)<span class="token punctuation">, </span></span><span class="parameter ">trackBackgroundHovered<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator"> = </span>Color(0x1A808080)<span class="token punctuation">, </span></span><span class="parameter ">trackOpaqueBackground<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator"> = </span>trackBackground<span class="token punctuation">, </span></span><span class="parameter ">trackOpaqueBackgroundHovered<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator"> = </span>trackBackgroundHovered</span></span><span class="token punctuation">)</span><span class="token operator">: </span><span data-unresolved-link="org.jetbrains.jewel.ui.component.styling/ScrollbarColors///PointingToDeclaration/">ScrollbarColors</span></div><p class="paragraph">Creates a dark-themed <span data-unresolved-link="org.jetbrains.jewel.ui.component.styling/ScrollbarColors///PointingToDeclaration/">ScrollbarColors</span> specifically designed for Windows and Linux.</p><span class="kdoc-tag"><h4 class="">Return</h4><p class="paragraph">A <span data-unresolved-link="org.jetbrains.jewel.ui.component.styling/ScrollbarColors///PointingToDeclaration/">ScrollbarColors</span> configured for dark theme on Windows and Linux.</p></span><h4 class="">Parameters</h4><div class="table"><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>thumb</span><wbr></wbr><span><span>Background</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The background color of the scrollbar thumb.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>thumb</span><wbr></wbr><span>Background</span><wbr></wbr><span><span>Active</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The background color of the scrollbar thumb when active.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>thumb</span><wbr></wbr><span>Opaque</span><wbr></wbr><span><span>Background</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The background color of the scrollbar thumb when in opaque mode.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>thumb</span><wbr></wbr><span>Opaque</span><wbr></wbr><span>Background</span><wbr></wbr><span><span>Hovered</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The background color of the scrollbar thumb when hovered and in opaque mode.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>thumb</span><wbr></wbr><span><span>Border</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The border color of the scrollbar thumb.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>thumb</span><wbr></wbr><span>Border</span><wbr></wbr><span><span>Active</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The border color of the scrollbar thumb when active.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>thumb</span><wbr></wbr><span>Opaque</span><wbr></wbr><span><span>Border</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The border color of the scrollbar thumb when in opaque mode.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>thumb</span><wbr></wbr><span>Opaque</span><wbr></wbr><span>Border</span><wbr></wbr><span><span>Hovered</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The border color of the scrollbar thumb when hovered and in opaque mode.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>track</span><wbr></wbr><span><span>Background</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The background color of the scrollbar track.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>track</span><wbr></wbr><span>Background</span><wbr></wbr><span><span>Hovered</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The background color of the scrollbar track when hovered.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>track</span><wbr></wbr><span>Opaque</span><wbr></wbr><span><span>Background</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The background color of the scrollbar track when in opaque mode.</p></div></div></div></div><div class="table-row" data-filterable-current="jewel-int-ui-standalone/main" data-filterable-set="jewel-int-ui-standalone/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><u><span>track</span><wbr></wbr><span>Opaque</span><wbr></wbr><span>Background</span><wbr></wbr><span><span>Hovered</span></span></u></div></span></div><div><div class="title"><p class="paragraph">The background color of the scrollbar track when hovered and in opaque mode.</p></div></div></div></div></div></div></div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2026 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

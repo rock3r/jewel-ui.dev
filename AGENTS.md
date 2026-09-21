@@ -19,7 +19,7 @@ Read the guide that matches what you are about to change. Both are binding.
 | `src/Main.dc.html` | Landing page source, a Design Component |
 | `build-site.mjs` | Renders `Main.dc.html` to static HTML |
 | `docs/` | User documentation, Markdown |
-| `public/api/` | Jewel Dokka HTML, refreshed with `node sync-api-docs.mjs` from Maven Central `-javadoc.jar`s |
+| `public/api/` | Jewel Dokka HTML (modern format), built by `node sync-api-docs.mjs` from Maven Central `-sources.jar`s via Dokka CLI |
 | `docs/tooling/` | Jewel Tooling user guide (copied from `jewel-tooling/user-guide`; refresh with `node sync-tooling-docs.mjs`). `rumdl` still owns wrap |
 | `build-docs.mjs` | Renders `docs/` to `public/docs/`, no dependencies |
 | `public/` | Build output, deployed to Cloudflare Workers |
@@ -51,7 +51,7 @@ Read the guide that matches what you are about to change. Both are binding.
   same commit.** Leaving it stale fails the proof and blocks the next bump, which is the
   point: a full rebuild would otherwise carry your unreviewed change into an automatic deploy.
 - Do not hand-copy anything derived from the Jewel repo. Version numbers, release notes and
-  the API reference are generated (`node sync-api-docs.mjs` unpacks the published Dokka javadoc jars into `public/api/`). A hand-maintained version table is what `VERSIONS.md`
+  the API reference are generated (`node sync-api-docs.mjs` builds modern Dokka HTML from published sources jars into `public/api/`). A hand-maintained version table is what `VERSIONS.md`
   was, and it drifted six releases behind before anyone noticed.
 
 ## Docs review loop

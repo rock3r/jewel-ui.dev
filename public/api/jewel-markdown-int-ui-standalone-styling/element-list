@@ -1,8 +1,0 @@
-$dokka.format:javadoc-v1
-$dokka.linkExtension:html
-
-org.jetbrains.jewel.intui.markdown.standalone
-org.jetbrains.jewel.intui.markdown.standalone.styling
-org.jetbrains.jewel.intui.markdown.standalone.styling.extensions.frontmatter
-org.jetbrains.jewel.intui.markdown.standalone.styling.extensions.github.alerts
-org.jetbrains.jewel.intui.markdown.standalone.styling.extensions.github.tables

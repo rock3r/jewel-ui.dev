@@ -33,7 +33,7 @@ const NAV = [
     title: 'Best practices',
     pages: ['best-practices/portable-ui.md', 'best-practices/testing.md', 'best-practices/proguard.md'],
   },
-  { title: 'Reference', pages: ['versioning.md'] },
+  { title: 'Reference', pages: ['versioning.md', { href: '/api/', label: 'API reference' }] },
   {
     title: 'Jewel Tooling',
     pages: [
@@ -54,6 +54,8 @@ const NAV = [
 const TOOLING_GITHUB = 'https://github.com/rock3r/jewel-tooling';
 const TOOLING_MARKETPLACE = 'https://plugins.jetbrains.com/plugin/34392-jewel-tooling';
 const isTooling = (rel) => rel === 'tooling/index.md' || rel.startsWith('tooling/');
+const isMdPage = (p) => typeof p === 'string';
+const mdInNav = () => NAV.flatMap((s) => s.pages).filter(isMdPage);
 
 const esc = (s) => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
 
@@ -529,7 +531,7 @@ function walkAll(dir) {
 }
 
 const onDisk = walk(SRC).map((p) => relative(SRC, p)).sort();
-const inNav = NAV.flatMap((s) => s.pages);
+const inNav = mdInNav();
 const missing = onDisk.filter((p) => !inNav.includes(p));
 if (missing.length) {
   console.error(`Pages on disk but absent from NAV in build-docs.mjs: ${missing.join(', ')}`);
@@ -566,6 +568,9 @@ function build(rel) {
   const nav = NAV.map((section) => {
     const items = section.pages
       .map((p) => {
+        if (!isMdPage(p)) {
+          return `<a href="${p.href}">${esc(p.label)}</a>`;
+        }
         const current = p === rel ? ' aria-current="page"' : '';
         return `<a href="${up}${htmlPath(p)}"${current}>${esc(titles[p])}</a>`;
       })

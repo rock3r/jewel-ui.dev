@@ -1,25 +1,32 @@
 #!/usr/bin/env node
-// Pulls published Jewel Dokka (javadoc jars from Maven Central) into public/api/.
-// The site links to /api/; those pages are generated, not hand-written (see AGENTS.md).
+// Build modern Dokka HTML for Jewel and publish under public/api/.
+// Maven Central only ships the old Javadoc-format -javadoc.jar; we generate
+// Dokka's HTML format from the published -sources.jar + binary classpath.
 //
- //   node sync-api-docs.mjs              # version from public/index.html, else Maven latest
+//   node sync-api-docs.mjs              # version from public/index.html, else Maven latest
 //   node sync-api-docs.mjs --version V
 //
- // Requires network. Commits the unpacked HTML under public/api/ so Cloudflare
- // Workers can serve it without a Jewel checkout at deploy time.
-import { createWriteStream, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs';
-import { pipeline } from 'node:stream/promises';
+// Needs network, JDK 21 (Dokka 2.0 breaks on 25), and tools/api-dokka/gradlew.
+import {
+  cpSync,
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  rmSync,
+  statSync,
+  writeFileSync,
+} from 'node:fs';
 import { execFileSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import { tmpdir } from 'node:os';
-import { Readable } from 'node:stream';
+import { homedir, tmpdir } from 'node:os';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const OUT = join(HERE, 'public', 'api');
+const TOOLS = join(HERE, 'tools', 'api-dokka');
 const MAVEN = 'https://repo1.maven.org/maven2/org/jetbrains/jewel';
 
-// Public modules that publish a -javadoc.jar. Names match Maven Central.
 const MODULES = [
   { id: 'jewel-foundation', title: 'Foundation', blurb: 'Theme, utilities, and the shared primitives.' },
   { id: 'jewel-ui', title: 'UI', blurb: 'The component library.' },
@@ -32,6 +39,8 @@ const MODULES = [
     blurb: 'Standalone Int UI styling for the Markdown renderer.',
   },
 ];
+
+const LOGO = `<svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" fill="#000"/><path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFF"/><path d="M256 76L436 256H256V76Z" fill="#CCC"/><path d="M76 256L256 436V256H76Z" fill="#CCC"/><path d="M256 436L436 256H256V436Z" fill="#808080"/></svg>`;
 
 function argVersion() {
   const i = process.argv.indexOf('--version');
@@ -56,27 +65,226 @@ async function mavenLatest() {
   return m[1];
 }
 
-async function download(url, dest) {
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`GET ${url} -> HTTP ${res.status}`);
-  await pipeline(Readable.fromWeb(res.body), createWriteStream(dest));
+function findJdk21() {
+  if (process.env.JEWEL_DOKKA_JAVA_HOME) {
+    const h = process.env.JEWEL_DOKKA_JAVA_HOME;
+    if (existsSync(join(h, 'bin', 'java'))) return h;
+  }
+  try {
+    const home = execFileSync('/usr/libexec/java_home', ['-v', '21'], { encoding: 'utf8' }).trim();
+    if (home) return home;
+  } catch {
+    /* fall through */
+  }
+  for (const c of [
+    join(homedir(), 'Library/Java/JavaVirtualMachines/temurin-21.0.12.1/Contents/Home'),
+    join(homedir(), 'Library/Java/JavaVirtualMachines/temurin-21.0.12/Contents/Home'),
+  ]) {
+    if (existsSync(join(c, 'bin', 'java'))) return c;
+  }
+  throw new Error('JDK 21 required (Dokka 2.0 breaks on Java 25). Set JEWEL_DOKKA_JAVA_HOME.');
 }
 
-function unpackJar(jar, dest) {
+function resolveArtifacts(version, jdkHome) {
+  writeFileSync(
+    join(TOOLS, 'gradle.properties'),
+    [
+      'org.gradle.jvmargs=-Xmx2g',
+      'dokkaVersion=2.0.0',
+      `jewelVersion=${version}`,
+      `org.gradle.java.home=${jdkHome}`,
+      '',
+    ].join('\n'),
+  );
+  execFileSync(join(TOOLS, 'gradlew'), ['resolveAll'], {
+    cwd: TOOLS,
+    stdio: 'inherit',
+    env: { ...process.env, JAVA_HOME: jdkHome },
+  });
+  return join(TOOLS, 'build', 'resolved');
+}
+
+function unpackSources(jar, dest) {
+  rmSync(dest, { recursive: true, force: true });
   mkdirSync(dest, { recursive: true });
   execFileSync('jar', ['xf', jar], { cwd: dest, stdio: 'pipe' });
 }
 
-function writeIndex(version, present) {
-  const items = present
+function runDokka({ cliJar, plugins, sourcesDir, classpath, outDir, moduleId, version, jdkHome, workDir }) {
+  mkdirSync(outDir, { recursive: true });
+  mkdirSync(workDir, { recursive: true });
+  const cfg = {
+    moduleName: moduleId,
+    moduleVersion: version,
+    outputDir: outDir,
+    pluginsClasspath: plugins,
+    sourceSets: [
+      {
+        displayName: moduleId.replace(/^jewel-/, ''),
+        sourceSetID: { scopeId: moduleId, sourceSetName: 'main' },
+        sourceRoots: [sourcesDir],
+        classpath,
+        analysisPlatform: 'jvm',
+      },
+    ],
+  };
+  const jsonPath = join(workDir, `${moduleId}.json`);
+  writeFileSync(jsonPath, JSON.stringify(cfg, null, 2));
+  execFileSync(join(jdkHome, 'bin', 'java'), ['-Xmx2g', '-jar', cliJar, jsonPath], {
+    stdio: 'inherit',
+    env: { ...process.env, JAVA_HOME: jdkHome },
+  });
+}
+
+function walkHtml(dir, files = []) {
+  for (const name of readdirSync(dir)) {
+    if (name.startsWith('.')) continue;
+    const full = join(dir, name);
+    if (statSync(full).isDirectory()) walkHtml(full, files);
+    else if (name.endsWith('.html')) files.push(full);
+  }
+  return files;
+}
+
+function siteChromeCss() {
+  return `/* Jewel site chrome sitting above Dokka */
+:root {
+  --jewel-top-h: 52px;
+  --jewel-bg: #1e1f22;
+  --jewel-fg: #dfe1e5;
+  --jewel-fg-2: #b4b8bf;
+  --jewel-fg-3: #9da0a8;
+  --jewel-line: #393b40;
+  --jewel-btn-border: #6f737a;
+}
+html:not(.theme-dark) {
+  --jewel-bg: #ffffff;
+  --jewel-fg: #27282e;
+  --jewel-fg-2: #494b57;
+  --jewel-fg-3: #6c707e;
+  --jewel-line: #ebecf0;
+  --jewel-btn-border: #818594;
+}
+#jewel-top {
+  position: fixed; inset: 0 0 auto 0; z-index: 1000;
+  height: var(--jewel-top-h); box-sizing: border-box;
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 18px;
+  background: var(--jewel-bg);
+  border-bottom: 1px solid var(--jewel-line);
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  color: var(--jewel-fg);
+}
+#jewel-top a { color: var(--jewel-fg-2); text-decoration: none; font-size: 13.5px; }
+#jewel-top a:hover { color: var(--jewel-fg); }
+#jewel-top .brand {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--jewel-fg) !important; font-weight: 700; font-size: 15px;
+  font-family: Archivo, Helvetica, Arial, sans-serif; letter-spacing: -0.01em;
+}
+#jewel-top .brand svg { width: 20px; height: 20px; display: block; }
+#jewel-top .brand-sub { color: var(--jewel-fg-3); margin-left: -4px; }
+#jewel-top a[aria-current="page"] { color: var(--jewel-fg); font-weight: 500; }
+#jewel-top .sp { flex: 1; }
+#jewel-top .tbtn {
+  font: inherit; font-size: 13px; cursor: pointer;
+  background: transparent; color: var(--jewel-fg-2);
+  border: 1px solid var(--jewel-btn-border); border-radius: 6px; padding: 4px 10px;
+}
+#jewel-top .tbtn:hover { color: var(--jewel-fg); }
+body > .root { padding-top: var(--jewel-top-h); }
+.navigation { top: var(--jewel-top-h) !important; }
+#leftColumn { top: calc(var(--jewel-top-h) + 52px) !important; }
+@media (max-width: 759px) {
+  #leftColumn { top: var(--jewel-top-h) !important; }
+}
+`;
+}
+
+function siteChromeJs() {
+  return `(function () {
+  function preferred() {
+    try {
+      var s = localStorage.getItem('jewel-theme');
+      if (s === 'light' || s === 'dark') return s;
+    } catch (e) {}
+    return window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches
+      ? 'light' : 'dark';
+  }
+  function apply(theme) {
+    var dark = theme === 'dark';
+    document.documentElement.classList.toggle('theme-dark', dark);
+    try { localStorage.setItem('jewel-theme', theme); } catch (e) {}
+    try { localStorage.setItem('dokka-dark-mode', JSON.stringify(dark)); } catch (e) {}
+    var btn = document.getElementById('jewel-theme-btn');
+    if (btn) btn.textContent = dark ? 'Light' : 'Dark';
+  }
+  apply(preferred());
+  var btn = document.getElementById('jewel-theme-btn');
+  if (btn) btn.addEventListener('click', function () {
+    apply(document.documentElement.classList.contains('theme-dark') ? 'light' : 'dark');
+  });
+  var dokkaBtn = document.getElementById('theme-toggle-button');
+  if (dokkaBtn) dokkaBtn.addEventListener('click', function () {
+    setTimeout(function () {
+      var dark = document.documentElement.classList.contains('theme-dark');
+      try { localStorage.setItem('jewel-theme', dark ? 'dark' : 'light'); } catch (e) {}
+      var b = document.getElementById('jewel-theme-btn');
+      if (b) b.textContent = dark ? 'Light' : 'Dark';
+    }, 0);
+  });
+  window.addEventListener('storage', function (e) {
+    if (e.key === 'jewel-theme' && (e.newValue === 'light' || e.newValue === 'dark')) apply(e.newValue);
+  });
+})();
+`;
+}
+
+function topBarHtml() {
+  return `<header id="jewel-top">
+  <a class="brand" href="/" title="Jewel home">${LOGO}<span>Jewel</span></a>
+  <a class="brand-sub" href="/docs/">docs</a>
+  <a href="/api/" aria-current="page">API</a>
+  <div class="sp"></div>
+  <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
+  <a href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+  <button class="tbtn" id="jewel-theme-btn" type="button">Light</button>
+</header>
+`;
+}
+
+function injectChrome(root) {
+  const cssHref = '/api/_chrome.css';
+  const jsHref = '/api/_chrome.js';
+  const bar = topBarHtml();
+  for (const file of walkHtml(root)) {
+    let html = readFileSync(file, 'utf8');
+    if (html.includes('id="jewel-top"')) continue;
+    if (!html.includes(cssHref)) {
+      html = html.replace(
+        /<\/head>/i,
+        `  <link rel="stylesheet" href="${cssHref}">\n  <script src="${jsHref}" defer></script>\n</head>`,
+      );
+    }
+    if (/<body[^>]*>/i.test(html)) html = html.replace(/<body[^>]*>/i, (m) => `${m}\n${bar}`);
+    else html = bar + html;
+    writeFileSync(file, html);
+  }
+}
+
+function writeIndex(version, modules) {
+  const cards = modules
     .map(
-      (m) => `    <li class="card">
-      <a href="./${m.id}/"><strong>${m.title}</strong></a>
+      (m) => `    <a class="card" href="./${m.id}/">
+      <strong>${m.title}</strong>
       <span>${m.blurb}</span>
-    </li>`
+    </a>`,
     )
     .join('\n');
-  const html = `<!doctype html>
+
+  writeFileSync(
+    join(OUT, 'index.html'),
+    `<!doctype html>
 <html lang="en-GB">
 <head>
 <meta charset="utf-8">
@@ -87,79 +295,117 @@ function writeIndex(version, present) {
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="/api/_chrome.css">
+<script src="/api/_chrome.js"></script>
 <style>
-:root { color-scheme: dark light; }
-body { margin: 0; font-family: Inter, Helvetica, Arial, sans-serif; background: #1E1F22; color: #DFE1E5; }
-@media (prefers-color-scheme: light) {
-  body { background: #fff; color: #27282E; }
-  a { color: #315FBD; }
-  .card { background: #F7F8FA; border-color: #EBECF0; }
-  .muted { color: #6C707E; }
+body {
+  margin: 0;
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  background: var(--jewel-bg);
+  color: var(--jewel-fg);
 }
-a { color: #6B9BFA; text-decoration: none; }
-a:hover { text-decoration: underline; }
-.wrap { max-width: 720px; margin: 0 auto; padding: 48px 24px 80px; }
-h1 { font-family: Archivo, Helvetica, Arial, sans-serif; font-size: 28px; letter-spacing: -0.02em; margin: 0 0 12px; }
-.muted { color: #9DA0A8; font-size: 14.5px; line-height: 1.55; margin: 0 0 28px; }
-ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 88px 24px 80px; }
+h1 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 28px; letter-spacing: -0.02em; margin: 0 0 12px;
+}
+.muted { color: var(--jewel-fg-3); font-size: 14.5px; line-height: 1.55; margin: 0 0 28px; }
+.muted a { color: inherit; }
+.muted code {
+  font-family: "JetBrains Mono", ui-monospace, Menlo, monospace;
+  font-size: 0.9em;
+  background: color-mix(in srgb, var(--jewel-fg) 6%, transparent);
+  border: 1px solid var(--jewel-line); border-radius: 4px; padding: 1px 5px;
+}
+.grid { display: flex; flex-direction: column; gap: 10px; }
 .card {
   display: flex; flex-direction: column; gap: 4px;
-  padding: 14px 16px; border-radius: 8px;
-  background: #2B2D30; border: 1px solid #393B40;
+  padding: 14px 16px; border-radius: 8px; text-decoration: none;
+  background: color-mix(in srgb, var(--jewel-fg) 5%, transparent);
+  border: 1px solid var(--jewel-line); color: inherit;
 }
-.card span { color: inherit; opacity: 0.72; font-size: 13.5px; line-height: 1.45; }
-.top { font-size: 13.5px; margin-bottom: 28px; }
+.card strong { color: #6b9bfa; font-size: 15.5px; font-weight: 600; }
+html:not(.theme-dark) .card strong { color: #315fbd; }
+.card span { color: var(--jewel-fg-2); font-size: 13.5px; line-height: 1.45; }
+.card:hover { border-color: var(--jewel-btn-border); }
 </style>
 </head>
 <body>
+${topBarHtml()}
   <div class="wrap">
-    <p class="top"><a href="/docs/">← Docs</a></p>
     <h1>API reference</h1>
-    <p class="muted">Generated Dokka for Jewel <code>${version}</code>, published from Maven Central.
-      Each module opens its own reference. Start with <a href="./jewel-ui/">UI</a> for components.</p>
-    <ul>
-${items}
-    </ul>
+    <p class="muted">Dokka HTML for Jewel <code>${version}</code>, built from the published sources on Maven Central.
+      Start with <a href="./jewel-ui/">UI</a> for components.</p>
+    <div class="grid">
+${cards}
+    </div>
   </div>
 </body>
 </html>
-`;
-  writeFileSync(join(OUT, 'index.html'), html);
+`,
+  );
 }
 
 const version = argVersion() || versionFromSite() || (await mavenLatest());
-console.log(`syncing API docs for Jewel ${version}`);
+const jdkHome = findJdk21();
+console.log(`syncing modern Dokka API docs for Jewel ${version}`);
+console.log(`using JDK ${jdkHome}`);
+
+const resolved = resolveArtifacts(version, jdkHome);
+const cliJar = readFileSync(join(resolved, 'dokka-cli.txt'), 'utf8').trim();
+const plugins = readFileSync(join(resolved, 'dokka-plugins.txt'), 'utf8')
+  .trim()
+  .split('\n')
+  .filter(Boolean);
+
+const work = join(tmpdir(), `jewel-api-dokka-${version}`);
+rmSync(work, { recursive: true, force: true });
+mkdirSync(work, { recursive: true });
 
 rmSync(OUT, { recursive: true, force: true });
 mkdirSync(OUT, { recursive: true });
 
-const scratch = join(tmpdir(), `jewel-api-${version}`);
-rmSync(scratch, { recursive: true, force: true });
-mkdirSync(scratch, { recursive: true });
-
 const present = [];
 for (const mod of MODULES) {
-  const url = `${MAVEN}/${mod.id}/${version}/${mod.id}-${version}-javadoc.jar`;
-  const jar = join(scratch, `${mod.id}.jar`);
+  const srcJar = readFileSync(join(resolved, `${mod.id}-sources.txt`), 'utf8').trim();
+  const cp = readFileSync(join(resolved, `${mod.id}-classpath.txt`), 'utf8')
+    .trim()
+    .split('\n')
+    .filter(Boolean);
+  const srcDir = join(work, 'sources', mod.id);
+  const modOut = join(work, 'out', mod.id);
   process.stdout.write(`  ${mod.id}… `);
   try {
-    await download(url, jar);
+    unpackSources(srcJar, srcDir);
+    runDokka({
+      cliJar,
+      plugins,
+      sourcesDir: srcDir,
+      classpath: cp,
+      outDir: modOut,
+      moduleId: mod.id,
+      version,
+      jdkHome,
+      workDir: join(work, 'json'),
+    });
+    cpSync(modOut, join(OUT, mod.id), { recursive: true });
+    present.push(mod);
+    console.log('ok');
   } catch (e) {
-    console.log(`skip (${e.message})`);
-    continue;
+    console.log(`fail (${e.message})`);
   }
-  const dest = join(OUT, mod.id);
-  unpackJar(jar, dest);
-  present.push(mod);
-  console.log('ok');
 }
 
 if (!present.length) {
-  console.error('no javadoc jars downloaded');
+  console.error('no modules generated');
   process.exit(1);
 }
 
+writeFileSync(join(OUT, '_chrome.css'), siteChromeCss());
+writeFileSync(join(OUT, '_chrome.js'), siteChromeJs());
 writeIndex(version, present);
+for (const mod of present) injectChrome(join(OUT, mod.id));
+
 writeFileSync(
   join(OUT, '.sync-meta.json'),
   JSON.stringify(
@@ -167,11 +413,12 @@ writeFileSync(
       version,
       when: new Date().toISOString(),
       modules: present.map((m) => m.id),
-      source: 'maven-central-javadoc-jar',
+      source: 'maven-central-sources-jar+dokka-html',
+      dokkaVersion: '2.0.0',
     },
     null,
-    2
-  ) + '\n'
+    2,
+  ) + '\n',
 );
 
-console.log(`wrote ${present.length} modules into public/api/`);
+console.log(`wrote ${present.length} modules into public/api/ (modern Dokka + site chrome)`);

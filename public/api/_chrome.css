@@ -1,0 +1,51 @@
+/* Jewel site chrome sitting above Dokka */
+:root {
+  --jewel-top-h: 52px;
+  --jewel-bg: #1e1f22;
+  --jewel-fg: #dfe1e5;
+  --jewel-fg-2: #b4b8bf;
+  --jewel-fg-3: #9da0a8;
+  --jewel-line: #393b40;
+  --jewel-btn-border: #6f737a;
+}
+html:not(.theme-dark) {
+  --jewel-bg: #ffffff;
+  --jewel-fg: #27282e;
+  --jewel-fg-2: #494b57;
+  --jewel-fg-3: #6c707e;
+  --jewel-line: #ebecf0;
+  --jewel-btn-border: #818594;
+}
+#jewel-top {
+  position: fixed; inset: 0 0 auto 0; z-index: 1000;
+  height: var(--jewel-top-h); box-sizing: border-box;
+  display: flex; align-items: center; gap: 12px;
+  padding: 0 18px;
+  background: var(--jewel-bg);
+  border-bottom: 1px solid var(--jewel-line);
+  font-family: Inter, Helvetica, Arial, sans-serif;
+  color: var(--jewel-fg);
+}
+#jewel-top a { color: var(--jewel-fg-2); text-decoration: none; font-size: 13.5px; }
+#jewel-top a:hover { color: var(--jewel-fg); }
+#jewel-top .brand {
+  display: inline-flex; align-items: center; gap: 8px;
+  color: var(--jewel-fg) !important; font-weight: 700; font-size: 15px;
+  font-family: Archivo, Helvetica, Arial, sans-serif; letter-spacing: -0.01em;
+}
+#jewel-top .brand svg { width: 20px; height: 20px; display: block; }
+#jewel-top .brand-sub { color: var(--jewel-fg-3); margin-left: -4px; }
+#jewel-top a[aria-current="page"] { color: var(--jewel-fg); font-weight: 500; }
+#jewel-top .sp { flex: 1; }
+#jewel-top .tbtn {
+  font: inherit; font-size: 13px; cursor: pointer;
+  background: transparent; color: var(--jewel-fg-2);
+  border: 1px solid var(--jewel-btn-border); border-radius: 6px; padding: 4px 10px;
+}
+#jewel-top .tbtn:hover { color: var(--jewel-fg); }
+body > .root { padding-top: var(--jewel-top-h); }
+.navigation { top: var(--jewel-top-h) !important; }
+#leftColumn { top: calc(var(--jewel-top-h) + 52px) !important; }
+@media (max-width: 759px) {
+  #leftColumn { top: var(--jewel-top-h) !important; }
+}

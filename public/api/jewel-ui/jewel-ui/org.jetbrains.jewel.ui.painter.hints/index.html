@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>org.jetbrains.jewel.ui.painter.hints</title>
+    <link href="../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../styles/style.css" rel="Stylesheet">
+<link href="../../styles/main.css" rel="Stylesheet">
+<link href="../../styles/prism.css" rel="Stylesheet">
+<link href="../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../ui-kit/ui-kit.min.js" defer="defer"></script>
+<script type="text/javascript" src="../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+  <link rel="stylesheet" href="/api/_chrome.css">
+  <script src="/api/_chrome.js" defer></script>
+</head>
+<body>
+<header id="jewel-top">
+  <a class="brand" href="/" title="Jewel home"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" fill="#000"/><path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFF"/><path d="M256 76L436 256H256V76Z" fill="#CCC"/><path d="M76 256L256 436V256H76Z" fill="#CCC"/><path d="M256 436L436 256H256V436Z" fill="#808080"/></svg><span>Jewel</span></a>
+  <a class="brand-sub" href="/docs/">docs</a>
+  <a href="/api/" aria-current="page">API</a>
+  <div class="sp"></div>
+  <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
+  <a href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+  <button class="tbtn" id="jewel-theme-btn" type="button">Light</button>
+</header>
+
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+            <a class="library-name--link" href="../../index.html">
+                    jewel-ui
+            </a>
+        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle"
+                type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">
+0.41.0-262.10968.63        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active=""
+                        data-filter="jewel-ui/main">ui</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox"
+                        data-role="dropdown-toggle"
+                        aria-controls="platform-tags-listbox"
+                        aria-haspopup="listbox"
+                        aria-expanded="false"
+                        aria-label="Toggle source sets"
+                ></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id="jewel-ui/main"
+                                       data-filter="jewel-ui/main"/>
+                                <span class="checkbox--icon"></span>
+                                ui
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button"
+                    type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list"
+                        data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    jewel-ui
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="package" id="content" pageIds="jewel-ui::org.jetbrains.jewel.ui.painter.hints////PointingToDeclaration//-438319935">
+  <div class="breadcrumbs"><a href="../../index.html">jewel-ui</a><span class="delimiter">/</span><span class="current">org.jetbrains.jewel.ui.painter.hints</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Package-level</span></span> <span><span>declarations</span></span></h1>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="TYPE">Types</button><button class="section-tab" data-togglable="FUNCTION,EXTENSION_FUNCTION">Functions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="TYPE">
+        <h2 class="">Types</h2>
+        <div class="table"><a data-name="1722363559%2FClasslikes%2F-438319935" anchor-label="EmbeddedToInlineCssStyleSvgPatchHint" id="1722363559%2FClasslikes%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-embedded-to-inline-css-style-svg-patch-hint/index.html"><span>Embedded</span><wbr></wbr><span>To</span><wbr></wbr><span>Inline</span><wbr></wbr><span>Css</span><wbr></wbr><span>Style</span><wbr></wbr><span>Svg</span><wbr></wbr><span>Patch</span><wbr></wbr><span><span>Hint</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1722363559%2FClasslikes%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="androidx.compose.runtime/Immutable///PointingToDeclaration/"><span class="token annotation builtin">Immutable</span></span></div></div><span class="token keyword">object </span><a href="-embedded-to-inline-css-style-svg-patch-hint/index.html">EmbeddedToInlineCssStyleSvgPatchHint</a> : <a href="../org.jetbrains.jewel.ui.painter/-painter-svg-patch-hint/index.html">PainterSvgPatchHint</a></div><div class="brief "><p class="paragraph">SVG patch hint that converts embedded CSS styles to inline style attributes.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-244685849%2FFunctions%2F-438319935" anchor-label="Badge" id="-244685849%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-badge.html"><span><span>Badge</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-244685849%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-badge.html"><span class="token function">Badge</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">color<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token punctuation">, </span></span><span class="parameter ">shape<span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.painter.badge/-badge-shape/index.html">BadgeShape</a><span class="token operator"> = </span>DotBadgeShape.Default</span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.painter/-painter-hint/index.html">PainterHint</a></div><div class="brief "><p class="paragraph">Adds a colored badge to the image being loaded.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-664450510%2FFunctions%2F-438319935" anchor-label="ColorBasedPaletteReplacement" id="-664450510%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-color-based-palette-replacement.html"><span>Color</span><wbr></wbr><span>Based</span><wbr></wbr><span>Palette</span><wbr></wbr><span><span>Replacement</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-664450510%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-color-based-palette-replacement.html"><span class="token function">ColorBasedPaletteReplacement</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">paletteMap<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token punctuation">, </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.painter/-painter-hint/index.html">PainterHint</a></div><div class="brief "><p class="paragraph">Creates a PainterHint that replaces all colors in the <a href="-color-based-palette-replacement.html">paletteMap</a> with their corresponding new value. It is used in IJ up to 23.3 to support patching the SVG colors for checkboxes and radio buttons.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1438432304%2FFunctions%2F-438319935" anchor-label="Dark" id="-1438432304%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-dark.html"><span><span>Dark</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1438432304%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-dark.html"><span class="token function">Dark</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">isDark<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.painter/-painter-hint/index.html">PainterHint</a></div><div class="brief "><p class="paragraph">Switches between the light and dark variants of an image based on <a href="-dark.html">isDark</a>. If no dark image exists, the light image will be used.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1670653859%2FFunctions%2F-438319935" anchor-label="HiDpi" id="-1670653859%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-hi-dpi.html"><span>Hi</span><wbr></wbr><span><span>Dpi</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1670653859%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-hi-dpi.html"><span class="token function">HiDpi</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.painter/-painter-hint/index.html">PainterHint</a></div><div class="brief "><p class="paragraph">Selects the <code class="lang-kotlin">@2x</code> HiDPI variant for bitmap images when running on a HiDPI screen.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="819279493%2FFunctions%2F-438319935" anchor-label="KeyBasedPaletteReplacement" id="819279493%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-key-based-palette-replacement.html"><span>Key</span><wbr></wbr><span>Based</span><wbr></wbr><span>Palette</span><wbr></wbr><span><span>Replacement</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="819279493%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-key-based-palette-replacement.html"><span class="token function">KeyBasedPaletteReplacement</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">paletteMap<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.painter/-painter-hint/index.html">PainterHint</a></div><div class="brief "><p class="paragraph">Creates a PainterHint that replaces colors with their corresponding new value, based on the IDs of each element. It is used in IJ 24.1 and later to support patching the SVG colors for checkboxes and radio buttons.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1633555008%2FFunctions%2F-438319935" anchor-label="PathOverride" id="-1633555008%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-path-override.html"><span>Path</span><wbr></wbr><span><span>Override</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1633555008%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-path-override.html"><span class="token function">PathOverride</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">overrides<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-map/index.html">Map</a><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-string/index.html">String</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.painter/-painter-hint/index.html">PainterHint</a></div><div class="brief "><p class="paragraph">A <a href="../org.jetbrains.jewel.ui.painter/-painter-path-hint/index.html">PainterPathHint</a> that will override the paths passed as keys in the <a href="-path-override.html">overrides</a> map with the corresponding map values.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="541021670%2FFunctions%2F-438319935" anchor-label="Selected" id="541021670%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-selected.html"><span><span>Selected</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="541021670%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-selected.html"><span class="token function">Selected</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">selected<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-boolean/index.html">Boolean</a><span class="token operator"> = </span><span class="token boolean">true</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.painter/-painter-hint/index.html">PainterHint</a></div><div class="brief "><p class="paragraph">Selects the &quot;selected&quot; variant of an image when <a href="-selected.html">selected</a> is true. If an image does not have a selected variant, the base version will be used.</p></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="-selected.html"><span class="token function">Selected</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><span data-unresolved-link="org.jetbrains.jewel.foundation.state/SelectableComponentState///PointingToDeclaration/">SelectableComponentState</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.painter/-painter-hint/index.html">PainterHint</a></div><div class="brief "><p class="paragraph">Selects the &quot;selected&quot; variant of an image based on <a href="-selected.html">state</a>'s <span data-unresolved-link="org.jetbrains.jewel.foundation.state/SelectableComponentState/isSelected/#/PointingToDeclaration/">SelectableComponentState.isSelected</span> flag.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1077200629%2FFunctions%2F-438319935" anchor-label="Size" id="-1077200629%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-size.html"><span><span>Size</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1077200629%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-size.html"><span class="token function">Size</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">size<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.painter/-painter-hint/index.html">PainterHint</a></div><div class="symbol monospace"><span class="token keyword">fun </span><a href="-size.html"><span class="token function">Size</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">width<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">height<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.painter/-painter-hint/index.html">PainterHint</a></div><div class="brief "><p class="paragraph">Selects a size variant for the image. If the specific size that was requested is not available, the base image will be used.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-221443062%2FFunctions%2F-438319935" anchor-label="Stateful" id="-221443062%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-stateful.html"><span><span>Stateful</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-221443062%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-stateful.html"><span class="token function">Stateful</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">state<span class="token operator">: </span><span data-unresolved-link="org.jetbrains.jewel.foundation.state/InteractiveComponentState///PointingToDeclaration/">InteractiveComponentState</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.painter/-painter-hint/index.html">PainterHint</a></div><div class="brief "><p class="paragraph">Selects a stateful variant of an image, based on the current <a href="-stateful.html">state</a>. Stateful variants are <code class="lang-kotlin">Focused</code>, <code class="lang-kotlin">Pressed</code>, <code class="lang-kotlin">Hovered</code>, and <code class="lang-kotlin">Disabled</code>. If an image does not have the required stateful variant, the base one will be used.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1101332112%2FFunctions%2F-438319935" anchor-label="Stroke" id="1101332112%2FFunctions%2F-438319935" data-filterable-set="jewel-ui/main"></a>
+          <div class="table-row" data-filterable-current="jewel-ui/main" data-filterable-set="jewel-ui/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-stroke.html"><span><span>Stroke</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1101332112%2FFunctions%2F-438319935"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-ui/main"><div class="symbol monospace"><span class="token keyword">fun </span><a href="-stroke.html"><span class="token function">Stroke</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">color<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.graphics/Color///PointingToDeclaration/">Color</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../org.jetbrains.jewel.ui.painter/-painter-hint/index.html">PainterHint</a></div><div class="brief "><p class="paragraph">Transforms an SVG image to only draw its borders in the provided <a href="-stroke.html">color</a>. All fills are removed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2026 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
