@@ -35,6 +35,7 @@ body { margin: 0; }
   -webkit-font-smoothing: antialiased;
   scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin;
   min-height: 100vh; font-size: 15px; line-height: 1.6;
+  overflow-x: clip;
 }
 
 /* header */
@@ -43,6 +44,7 @@ body { margin: 0; }
   display: flex; align-items: center; gap: 14px;
   height: 52px; padding: 0 20px;
   background: var(--bg); border-bottom: 1px solid var(--line);
+  min-width: 0;
 }
 .brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--fg); }
 .brand svg { display: block; width: 20px; height: 20px; }
@@ -86,13 +88,20 @@ body { margin: 0; }
     transform: translateX(-105%);
     transition: transform 0.18s ease;
     padding-bottom: 48px;
+    visibility: hidden;
   }
-  .page.nav-open .side { transform: translateX(0); box-shadow: 8px 0 24px rgba(0,0,0,0.28); }
+  .page.nav-open .side { transform: translateX(0); visibility: visible; box-shadow: 8px 0 24px rgba(0,0,0,0.28); }
   .nav-backdrop {
     display: none; position: fixed; inset: 52px 0 0 0; z-index: 25;
     background: rgba(0,0,0,0.45);
   }
   .page.nav-open .nav-backdrop { display: block; }
+}
+@media (max-width: 400px) {
+  .top { padding: 0 10px; gap: 8px; }
+  .brand-docs { display: none; }
+  .brand b { font-size: 14px; }
+  .tbtn { padding: 4px 8px; }
 }
 
 /* left nav */
@@ -247,7 +256,8 @@ figure.shot img {
 <p>The IDE's lists behave in ways people have internalised without noticing: what the arrow keys do, how a range selects, where selection lands after a filter hides the selected row. Jewel's list and tree components implement those behaviours, which is the main reason to use them instead of a plain <code>LazyColumn</code>.</p>
 <h2 id="selectable-lists"><a class="anchor" href="#selectable-lists">Selectable lists</a></h2>
 <p>Two entry points, one per selection model:</p>
-<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.foundation.lazy.SingleSelectionLazyColumn
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.lazy.SingleSelectionLazyColumn
 <span class="c-kw">import</span> org.jetbrains.jewel.foundation.lazy.MultiSelectionLazyColumn
 <span class="c-kw">import</span> org.jetbrains.jewel.foundation.lazy.rememberSingleSelectionLazyListState
 
@@ -287,7 +297,7 @@ VerticallyScrollableContainer {
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
 <ul>
 <li><a href="theming.html">Theming</a> — styling the components above</li>
-<li><a href="../../components/">Components</a> — every component, with screenshots</li>
+<li><a href="../../api/">API reference</a> — every component</li>
 </ul>
       <p class="footer">Jewel is a joint project by Google and JetBrains.
         <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Jewel source</a> ·
@@ -323,6 +333,13 @@ VerticallyScrollableContainer {
 
   var navBtn = document.getElementById('nav-btn');
   var backdrop = document.getElementById('nav-backdrop');
+  var side = document.getElementById('docs-nav');
+  var navQuery = window.matchMedia('(max-width: 760px)');
+  function setSideInert(inert) {
+    if (!side) return;
+    if (inert) side.setAttribute('inert', '');
+    else side.removeAttribute('inert');
+  }
   function setNav(open) {
     page.classList.toggle('nav-open', open);
     if (navBtn) {
@@ -333,7 +350,12 @@ VerticallyScrollableContainer {
       if (open) backdrop.removeAttribute('hidden');
       else backdrop.setAttribute('hidden', '');
     }
-    document.documentElement.style.overflow = open ? 'hidden' : '';
+    document.documentElement.style.overflow = open && navQuery.matches ? 'hidden' : '';
+    setSideInert(navQuery.matches && !open);
+  }
+  function syncNavForViewport() {
+    if (!navQuery.matches) setNav(false);
+    else if (!page.classList.contains('nav-open')) setSideInert(true);
   }
   if (navBtn) navBtn.addEventListener('click', function () {
     setNav(!page.classList.contains('nav-open'));
@@ -342,8 +364,10 @@ VerticallyScrollableContainer {
   document.addEventListener('keydown', function (e) {
     if (e.key === 'Escape') setNav(false);
   });
+  if (navQuery.addEventListener) navQuery.addEventListener('change', syncNavForViewport);
+  else navQuery.addListener(syncNavForViewport);
+  syncNavForViewport();
   // Close the drawer after navigating (same-tab in-docs links).
-  var side = document.getElementById('docs-nav');
   if (side) side.addEventListener('click', function (e) {
     var a = e.target.closest('a');
     if (a) setNav(false);
