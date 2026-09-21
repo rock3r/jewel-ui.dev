@@ -1,0 +1,47 @@
+name: Bug report
+description: Something wrong on jewel-ui.dev (docs, landing page, or API reference).
+title: "[Bug]: "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks — this form is for **jewel-ui.dev** (the site). Jewel library bugs belong on [YouTrack JEWEL](https://youtrack.jetbrains.com/issues/JEWEL).
+  - type: input
+    id: page
+    attributes:
+      label: Page
+      description: URL of the page where you saw the problem (filled in from the docs footer when you use Report an issue).
+      placeholder: https://jewel-ui.dev/docs/...
+    validations:
+      required: true
+  - type: textarea
+    id: selection
+    attributes:
+      label: Selected text or section
+      description: Optional highlight or heading from the page (filled in when you had a selection).
+      placeholder: Paste a short excerpt or a section heading
+    validations:
+      required: false
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What went wrong
+      description: What you expected vs what you got.
+      placeholder: Expected … / Actual …
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: Optional, if it is not obvious from the page.
+    validations:
+      required: false
+  - type: input
+    id: browser
+    attributes:
+      label: Browser / OS
+      description: Optional (e.g. Safari 18 / macOS 15).
+    validations:
+      required: false

@@ -545,6 +545,45 @@ const JS = `
     var a = e.target.closest('a');
     if (a) setNav(false);
   });
+
+  // Prefill the site bug template with this page URL and any selected text / nearest heading.
+  var report = document.getElementById('report-issue');
+  if (report) report.addEventListener('click', function (e) {
+    e.preventDefault();
+    var sel = '';
+    try {
+      sel = String(window.getSelection() || '').trim();
+    } catch (err) {}
+    if (sel.length > 1500) sel = sel.slice(0, 1500) + '…';
+    var section = '';
+    try {
+      var node = null;
+      var s = window.getSelection();
+      if (s && s.rangeCount) node = s.getRangeAt(0).startContainer;
+      if (node && node.nodeType === 3) node = node.parentElement;
+      var el = node;
+      while (el && el !== document.body) {
+        if (el.id && /^H[1-4]$/.test(el.tagName)) { section = el.id; break; }
+        var prev = el.previousElementSibling;
+        while (prev) {
+          if (prev.id && /^H[1-4]$/.test(prev.tagName)) { section = prev.id; break; }
+          prev = prev.previousElementSibling;
+        }
+        if (section) break;
+        el = el.parentElement;
+      }
+      if (!section) {
+        var h = document.querySelector('.doc h1[id], .doc h2[id]');
+        if (h) section = h.id;
+      }
+    } catch (err2) {}
+    var page = location.href.split('#')[0] + (section ? '#' + section : location.hash || '');
+    var u = new URL('https://github.com/rock3r/jewel-ui.dev/issues/new');
+    u.searchParams.set('template', 'bug_report.yml');
+    u.searchParams.set('page', page);
+    if (sel) u.searchParams.set('selection', sel);
+    window.open(u.toString(), '_blank', 'noopener,noreferrer');
+  });
 })();
 `;
 
@@ -635,14 +674,17 @@ function build(rel) {
   const issuesHref = tooling ? `${TOOLING_GITHUB}/issues` : 'https://youtrack.jetbrains.com/issues/JEWEL';
   const sourceLabel = tooling ? 'Plugin source' : 'Source';
 
+  const report = `<a class="report" id="report-issue" href="https://github.com/rock3r/jewel-ui.dev/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report an issue on this page</a>`;
   const footer = tooling
     ? `Jewel Tooling is maintained by the Jewel lead, not by JetBrains.
         <a href="${TOOLING_GITHUB}" target="_blank" rel="noopener noreferrer">Plugin source</a> ·
         <a href="${TOOLING_MARKETPLACE}" target="_blank" rel="noopener noreferrer">JetBrains Marketplace</a> ·
-        <a href="${TOOLING_GITHUB}/issues" target="_blank" rel="noopener noreferrer">Issues</a>`
+        <a href="${TOOLING_GITHUB}/issues" target="_blank" rel="noopener noreferrer">Issues</a> ·
+        ${report}`
     : `Jewel is a joint project by Google and JetBrains.
         <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Jewel source</a> ·
-        <a href="https://github.com/rock3r/jewel-ui.dev/tree/master/docs" target="_blank" rel="noopener noreferrer">Docs source</a>`;
+        <a href="https://github.com/rock3r/jewel-ui.dev/tree/master/docs" target="_blank" rel="noopener noreferrer">Docs source</a> ·
+        ${report}`;
 
   return `<!doctype html>
 <html lang="en-GB">

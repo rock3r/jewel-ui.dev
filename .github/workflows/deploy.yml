@@ -7,8 +7,11 @@ on:
     branches: [master]
   workflow_dispatch:
 
+# deployments:write lets the job register a GitHub Deployment for the environment
+# below. Only the public URL is recorded — no Cloudflare account IDs or tokens.
 permissions:
   contents: read
+  deployments: write
 
 concurrency:
   group: deploy-jewel-ui-dev
@@ -17,6 +20,9 @@ concurrency:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: jewel-ui.dev
+      url: https://jewel-ui.dev
     env:
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}

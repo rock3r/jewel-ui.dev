@@ -72,6 +72,8 @@ user guide lives under `docs/tooling/`; refresh it with
 
 Pushes to `master` deploy automatically via `.github/workflows/deploy.yml`
 (needs the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets).
+Each run registers a GitHub Deployment against the `jewel-ui.dev` environment
+(public URL only — no Cloudflare account IDs or tokens in the Deployments UI).
 
 Manual:
 
