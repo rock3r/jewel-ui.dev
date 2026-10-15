@@ -66,6 +66,22 @@ function rewriteMarkdown(text) {
   // In-tree README.md links become index.md (same directory or agents/).
   out = out.replace(/\]\((?:\.\.\/)?README\.md(#[^)]*)?\)/g, '](index.md$1)');
   out = out.replace(/\]\((?:\.\.\/)?agents\/README\.md(#[^)]*)?\)/g, '](agents/index.md$1)');
+  // Build instructions refer to the plugin checkout, not this website checkout.
+  out = out.replace(
+    'in this repository.',
+    'in a checkout of [rock3r/jewel-tooling](https://github.com/rock3r/jewel-tooling).'
+  );
+  out = out.replace(
+    '```sh\n./gradlew :buildPlugin',
+    'To build from source, clone\n' +
+      '[rock3r/jewel-tooling](https://github.com/rock3r/jewel-tooling).\n' +
+      'Run this command in that checkout:\n\n```sh\n./gradlew :buildPlugin'
+  );
+  out = out.replace(
+    /The Gradle wrapper in this repository builds the IDE plugin\. It does not impose a build\s+system on the project being analysed\./,
+    'The Gradle wrapper in `rock3r/jewel-tooling` builds the IDE plugin. The project being\n' +
+      'analysed can use a different build system.'
+  );
   return out;
 }
 
