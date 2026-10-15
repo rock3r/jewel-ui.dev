@@ -17,11 +17,14 @@ toolWindow.addComposeTab("My tab") {
 ```
 
 For anything else — a dialog, a settings page, an editor notification — build the
-component with `JewelComposePanel`:
+component with `JewelComposePanel`. Enable the newer Swing rendering pipeline before
+creating the panel:
 
 ```kotlin
 import org.jetbrains.jewel.bridge.JewelComposePanel
+import org.jetbrains.jewel.foundation.enableNewSwingCompositing
 
+enableNewSwingCompositing()
 val component = JewelComposePanel {
     MyPanel()
 }

@@ -94,8 +94,8 @@ class MyToolWindowFactory : ToolWindowFactory {
 
 `addComposeTab()` enables the newer Swing rendering pipeline. For a dialog, settings
 page, or editor notification, use `JewelComposePanel`. It also applies
-`SwingBridgeTheme`. If you create a raw `ComposePanel` yourself, call
-`enableNewSwingCompositing()` before creating the panel. See [Swing
+`SwingBridgeTheme`. Call `enableNewSwingCompositing()` before creating a
+`JewelComposePanel` or a raw `ComposePanel`. See [Swing
 interop](../guides/swing-interop.md).
 
 ## Compose plugin support is unofficial

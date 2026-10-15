@@ -254,9 +254,11 @@ figure.shot img {
 toolWindow.<span class="c-fn">addComposeTab</span>(<span class="c-str">&quot;My tab&quot;</span>) {
     <span class="c-fn">MyPanel</span>()
 }</code></pre></div>
-<p>For anything else — a dialog, a settings page, an editor notification — build the component with <code>JewelComposePanel</code>:</p>
+<p>For anything else — a dialog, a settings page, an editor notification — build the component with <code>JewelComposePanel</code>. Enable the newer Swing rendering pipeline before creating the panel:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.bridge.JewelComposePanel
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.enableNewSwingCompositing
 
+<span class="c-fn">enableNewSwingCompositing</span>()
 <span class="c-kw">val</span> component = JewelComposePanel {
     <span class="c-fn">MyPanel</span>()
 }</code></pre></div>
