@@ -301,7 +301,7 @@ dependencies {
         }
     }
 }</code></pre></div>
-<p><code>addComposeTab()</code> calls <code>enableNewSwingCompositing()</code> for you. For anywhere else — a dialog, a settings page, an editor notification — you are creating the <code>ComposePanel</code> yourself and must call <code>enableNewSwingCompositing()</code> explicitly. See <a href="../guides/swing-interop.html">Swing interop</a>.</p>
+<p><code>addComposeTab()</code> enables the newer Swing rendering pipeline. For a dialog, settings page, or editor notification, use <code>JewelComposePanel</code>. It also applies <code>SwingBridgeTheme</code>. If you create a raw <code>ComposePanel</code> yourself, call <code>enableNewSwingCompositing()</code> before creating the panel. See <a href="../guides/swing-interop.html">Swing interop</a>.</p>
 <h2 id="compose-plugin-support-is-unofficial"><a class="anchor" href="#compose-plugin-support-is-unofficial">Compose plugin support is unofficial</a></h2>
 <p>Writing third-party IntelliJ plugins in Compose Multiplatform is not officially supported by the IntelliJ Platform. It works, and several shipping products do this. If something breaks at the platform level, you are largely on your own.</p>
 <p>Jewel itself is below 1.0 and its APIs still move. What that means in practice — which APIs are safe to depend on, and how much warning you get before something is removed — is in <a href="../versioning.html">Versions and compatibility</a>.</p>

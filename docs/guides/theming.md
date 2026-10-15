@@ -103,15 +103,13 @@ see [Decorated windows](decorated-windows.md).
 
 ## How far you can take it
 
-Nothing about Jewel requires you to look like the IDE. Colours, metrics, icons and text
-styles are all values you supply. Int UI is a set of defaults, not a constraint.
+You can supply your own colours, metrics, icons and text styles.
+Int UI provides defaults that you can override.
 Starting from `ComponentStyling.default()` and overriding the pieces you care about is
 the usual path, and it keeps you current when the Int UI defaults change.
 
-What you should not do is fight the theme from the outside — wrapping components in
-modifiers that repaint them, or hardcoding colours next to themed components. The result
-stops following the user's light or dark choice. Following that choice is what Jewel is
-for.
+Avoid modifiers that repaint components and hardcoded colours beside themed components.
+Those values do not follow the user's light or dark choice.
 
 ## Reading theme values
 

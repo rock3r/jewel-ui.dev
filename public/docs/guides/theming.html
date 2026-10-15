@@ -309,8 +309,8 @@ ComponentStyling.<span class="c-fn">default</span>()
     .<span class="c-fn">decoratedWindow</span>(titleBarStyle = TitleBarStyle.<span class="c-fn">dark</span>())</code></pre></div>
 <p><code>decoratedWindow</code> lives in the decorated-window module, not the core styling package — see <a href="decorated-windows.html">Decorated windows</a>.</p>
 <h2 id="how-far-you-can-take-it"><a class="anchor" href="#how-far-you-can-take-it">How far you can take it</a></h2>
-<p>Nothing about Jewel requires you to look like the IDE. Colours, metrics, icons and text styles are all values you supply. Int UI is a set of defaults, not a constraint. Starting from <code>ComponentStyling.default()</code> and overriding the pieces you care about is the usual path, and it keeps you current when the Int UI defaults change.</p>
-<p>What you should not do is fight the theme from the outside — wrapping components in modifiers that repaint them, or hardcoding colours next to themed components. The result stops following the user's light or dark choice. Following that choice is what Jewel is for.</p>
+<p>You can supply your own colours, metrics, icons and text styles. Int UI provides defaults that you can override. Starting from <code>ComponentStyling.default()</code> and overriding the pieces you care about is the usual path, and it keeps you current when the Int UI defaults change.</p>
+<p>Avoid modifiers that repaint components and hardcoded colours beside themed components. Those values do not follow the user's light or dark choice.</p>
 <h2 id="reading-theme-values"><a class="anchor" href="#reading-theme-values">Reading theme values</a></h2>
 <p>Anything in the theme is available through <code>JewelTheme</code>:</p>
 <div class="code"><pre><code class="lang-kotlin">JewelTheme.globalColors

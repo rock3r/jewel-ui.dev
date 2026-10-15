@@ -62,7 +62,7 @@ plugins {
 }
 ```
 
-All three are required, and the version each takes is the part people get wrong. Since
+All three plugins are required. Since
 Kotlin 2.0 the Compose compiler ships in the Kotlin repository rather than with Compose
 Multiplatform, so it is applied as its own plugin — and it is versioned with **Kotlin**,
 not with Compose. Two of the three lines above take the same version. The middle one

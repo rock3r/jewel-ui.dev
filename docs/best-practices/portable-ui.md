@@ -15,16 +15,16 @@ IntUiTheme(isDark = true) {
 }
 ```
 
-`IssueList` does not change. This is not a coincidence of the current release: the
+`IssueList` does not change. The
 component library (`org.jetbrains.jewel.ui.component`) and the foundation module sit
 below both themes, and neither depends on the IntelliJ Platform. The platform dependency
 is confined to the bridge module.
 
-Design for that portability. Two useful things follow.
+Keep platform dependencies separate to reuse and test the UI.
 
-## Keep the platform at the edge
+## Separate platform code from UI code
 
-The constraint is simple: **no IntelliJ Platform types in your composables.**
+Keep IntelliJ Platform types out of your composables.
 
 A composable that takes a `Project`, requests a `Service`, or resolves a `VirtualFile`
 can only ever run inside the IDE. One that takes plain data and callbacks runs anywhere.
@@ -53,26 +53,21 @@ interface IssueSource {
 ```
 
 In the plugin, the implementation calls into the platform. In a test or a standalone
-harness, it returns whatever you want. The composable neither knows nor cares.
+harness, it returns test data. The composable uses the same interface in each environment.
 
-None of this is specific to Jewel — it is ordinary separation of concerns — but Jewel is
-what makes it pay off twice.
-
-## Which makes it testable
+## Test UI without the IDE
 
 Once your composables have no platform types, they can be tested against the standalone
 theme in a plain JVM test. No sandbox IDE, no platform fixture, no waiting for an IDE to
 start.
 
-That is faster and more accurate: the test exercises your UI rather than the harness
-around it. Platform-hosted UI tests are slow and prone to flaking on things that have
-nothing to do with the code under test. A test that fails for unrelated reasons gets
-ignored.
+These tests exercise UI behaviour without starting the IntelliJ Platform. Keep separate
+platform-hosted tests for integrations that need the IDE.
 
 The practical shape is: drive the composable with fake data through your own interface,
 render it under `IntUiTheme`, and assert on what it shows.
 
-## And reusable
+## Reuse UI in a desktop app
 
 The same screen can ship inside an IDE plugin and inside a standalone desktop app, from
 one source tree, with no forked UI code to keep in step. A companion desktop app for a

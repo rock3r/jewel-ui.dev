@@ -1,13 +1,11 @@
 # ProGuard and minification
 
-Short version: Jewel does not support running under ProGuard, R8 or similar tools, and
-there is no plan to.
+Jewel does not support running under ProGuard, R8 or similar tools.
 
-That is not a soft warning. Bug reports for issues caused by minification or obfuscation
-are not accepted, because the failure modes are opaque and the range of possible
-configurations is unbounded.
+The team does not accept bug reports for issues caused by minification or obfuscation.
+Failures depend on the minifier configuration and can be hard to diagnose.
 
-## If you do it anyway
+## Unofficial rules
 
 People do, and it can be made to work. There is no official rule set, but the rules used
 by [Kotlin

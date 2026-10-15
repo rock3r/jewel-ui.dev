@@ -7,6 +7,10 @@ IntelliJ IDEA 2026.2, from a
 JDK 25 and install it from disk. The plugin bytecode targets JVM 21. The IDE that hosts it
 uses JBR 25.
 
+To build from source, clone
+[rock3r/jewel-tooling](https://github.com/rock3r/jewel-tooling). Run this command in that
+checkout:
+
 ```sh
 ./gradlew :buildPlugin
 ```
@@ -48,5 +52,5 @@ Opening a dependency Kotlin file, such as Compose runtime source, shows the same
 hints, function gutter icon, and live duration badges as a project file. Decompiled class
 files without source still have no hints.
 
-The Gradle wrapper in this repository builds the IDE plugin. It does not impose a build
-system on the project being analysed.
+The Gradle wrapper in `rock3r/jewel-tooling` builds the IDE plugin. The project being
+analysed can use a different build system.

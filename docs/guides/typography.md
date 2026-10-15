@@ -45,7 +45,7 @@ the user's own settings.
     object were removed in 0.40. The three `remember*TextStyle` functions above replace
     both. Apply any unrelated `TextStyle` properties separately afterwards.
 
-## The editor font is not a guess
+## Use the user's editor font
 
 In a plugin, `editorTextStyle` and `consoleTextStyle` come from the IDE's editor colour
 scheme. If the user set their editor to a particular font at a particular size, a code
@@ -60,9 +60,7 @@ expects and uses them as defaults: `FontFamily.Inter` for UI text and JetBrains 
 editor text, in `org.jetbrains.jewel.intui.standalone`. Unless you override the theme's
 text styles, you get them without doing anything.
 
-For anything else, use **Compose Multiplatform's typography APIs, not Jewel's**. The
-README blurs this distinction. It matters because it tells you where to look when
-something misbehaves:
+To load other fonts, use Compose Multiplatform's typography APIs:
 
 ```kotlin
 import androidx.compose.ui.text.font.EmbeddedFontFamily

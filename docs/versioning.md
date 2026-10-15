@@ -52,8 +52,7 @@ its platform major.
 
 ## What is stable, and what is not
 
-Jewel is below 1.0. That does not mean everything moves without warning — the policy is
-explicit, and CI enforces it rather than relying on care.
+Jewel is below 1.0. CI checks API changes against the compatibility policy below.
 
 **Stable APIs.** Binary compatibility is guaranteed. Code compiled against a stable API
 keeps working across releases.
@@ -71,11 +70,9 @@ Call sites written the idiomatic way are the ones most protected. Positional cal
 functions that gain parameters are the ones most likely to break.
 
 Both the stable and experimental API surfaces are tracked per release, and an unintended
-change fails the build. A break has to be a decision.
+change fails the build.
 
 ## Why the release notes can be ahead of what you can use
-
-This is commonly misunderstood, so here is what happens.
 
 The release notes live on main and describe what has landed there. A standalone release
 is published to Maven Central at the same time the IntelliJ Platform build containing it

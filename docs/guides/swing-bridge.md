@@ -1,6 +1,6 @@
 # The Swing bridge
 
-Inside the IDE, Jewel does not approximate the current theme. It reads it.
+The Swing bridge reads the IDE's current theme.
 
 `SwingBridgeTheme` pulls colours, typography, metrics and icon palettes out of the
 running IntelliJ Platform's Swing look and feel, and supplies them to Compose as a Jewel
@@ -24,9 +24,7 @@ fun MyPanel() {
 plugin, and what every Jewel-based plugin uses. Treat the annotation as a warning that
 its signature can change, not that it is unfinished.
 
-## What it actually reads
-
-This matters, because it tells you what will and will not follow the theme.
+## Theme values
 
 **Colours** come from the platform's named colour keys, via `JBColor`. If a theme
 defines a key through the standard theming mechanism, the bridge picks it up.

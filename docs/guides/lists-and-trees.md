@@ -62,8 +62,6 @@ change.
 
 ### Where selection goes when the filter moves
 
-This is the part that is difficult to get right, and Jewel does it for you.
-
 When the filter changes and the selected item no longer matches, selection does not
 vanish or jump to the top. If there is still a selection anchor, the closest
 visible match to it is selected. Otherwise the rule is a forward scan: the topmost

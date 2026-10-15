@@ -246,7 +246,7 @@ figure.shot img {
     <main class="main">
       <article class="doc">
 <h1>Testing your UI</h1>
-<p>Compose UI is testable in a way Swing UI mostly was not, and Jewel's structure means a plugin's UI can be tested without starting the platform.</p>
+<p>Jewel lets you test a plugin's UI without starting the IntelliJ Platform.</p>
 <h2 id="test-against-the-standalone-theme"><a class="anchor" href="#test-against-the-standalone-theme">Test against the standalone theme</a></h2>
 <p>The components below the theme are the same in both worlds (<a href="portable-ui.html">Portable UI</a>). So a composable that takes plain data and callbacks can be rendered under <code>IntUiTheme</code> in an ordinary JVM test, with no IDE involved:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">@Test</span>
@@ -259,7 +259,7 @@ figure.shot img {
 
     composeRule.<span class="c-fn">onNodeWithText</span>(<span class="c-str">&quot;No issues&quot;</span>).<span class="c-fn">assertExists</span>()
 }</code></pre></div>
-<p>That runs in seconds rather than minutes, does not need a sandbox IDE, and fails for reasons that are about your UI. Platform-hosted UI tests are slow enough and flaky enough that people learn to ignore them. A test people ignore is worse than no test.</p>
+<p>The test runs without a sandbox IDE and checks the composable's output.</p>
 <p>The prerequisite is the discipline in <a href="portable-ui.html">Portable UI</a>: if the composable needs a <code>Project</code>, none of this is available to you.</p>
 <h2 id="what-this-does-and-does-not-prove"><a class="anchor" href="#what-this-does-and-does-not-prove">What this does and does not prove</a></h2>
 <p><strong>It proves</strong> structure, state handling, and behaviour: what renders for a given state, what a click does, whether the empty and error states appear when they should, whether content is reachable and labelled.</p>
@@ -270,7 +270,7 @@ figure.shot img {
 <p>That means semantics-based queries in tests generally match what assistive technology sees, so asserting on accessible names is both a UI test and a check that the UI is navigable. If a node is hard to find in a test, that is usually a real finding rather than a test problem.</p>
 <h2 id="testing-the-parts-that-need-the-ide"><a class="anchor" href="#testing-the-parts-that-need-the-ide">Testing the parts that need the IDE</a></h2>
 <p>Some things do need the platform: the bridge itself, anything reading a real <code>DataContext</code>, anything driven by platform actions. Test those where they live, with the platform's own test infrastructure, and keep that set as small as you can.</p>
-<p>The split is the point. A small number of slow, platform-hosted tests around the seam, and a large number of fast tests for the UI behind it.</p>
+<p>Use platform-hosted tests for IDE integration and standalone tests for UI behaviour.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
 <ul>
 <li><a href="portable-ui.html">Portable UI</a> — the structure that makes this possible</li>

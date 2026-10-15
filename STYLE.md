@@ -97,7 +97,7 @@ likely to be wrong or to have drifted.
 
 ### Ambiguity
 
-This section matters most, because most readers are not native English speakers.
+Use wording that has one clear meaning for readers who do not speak English natively.
 
 - Keep "only" and "not" next to the word they change.
 - Break up long noun strings. "The proto import budget check script" becomes "the script
