@@ -50,9 +50,9 @@ Read the guide that matches what you are about to change. Both are binding.
   for byte. **If you change `src/Main.dc.html`, commit the rebuilt `public/index.html` in the
   same commit.** Leaving it stale fails the proof and blocks the next bump, which is the
   point: a full rebuild would otherwise carry your unreviewed change into an automatic deploy.
-- Do not hand-copy anything derived from the Jewel repo. Version numbers, release notes and
-  the API reference are generated (`node sync-api-docs.mjs` builds modern Dokka HTML from published sources jars into `public/api/`). A hand-maintained version table is what `VERSIONS.md`
-  was, and it drifted six releases behind before anyone noticed.
+- Generate version numbers, release notes and the API reference from the Jewel repo.
+  `node sync-api-docs.mjs` builds Dokka HTML from published source jars into `public/api/`.
+  Do not maintain a separate version table.
 
 ## Docs review loop
 

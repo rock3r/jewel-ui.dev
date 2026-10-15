@@ -67,7 +67,7 @@ If you are rendering a preview next to an editor, set the processor's mode to ed
 preview. It then does an incremental re-parse instead of rebuilding the document on
 every keystroke.
 
-What that means precisely, because it is easy to overstate: parsing is incremental at
+Parsing is incremental at
 **CommonMark block granularity**. On each edit the processor diffs the old and new text
 by common prefix and suffix, re-parses the top-level blocks that changed — plus the
 block immediately before the change, so blocks that merge are handled correctly — and

@@ -92,9 +92,10 @@ class MyToolWindowFactory : ToolWindowFactory {
 }
 ```
 
-`addComposeTab()` calls `enableNewSwingCompositing()` for you. For anywhere else — a
-dialog, a settings page, an editor notification — you are creating the `ComposePanel`
-yourself and must call `enableNewSwingCompositing()` explicitly. See [Swing
+`addComposeTab()` enables the newer Swing rendering pipeline. For a dialog, settings
+page, or editor notification, use `JewelComposePanel`. It also applies
+`SwingBridgeTheme`. Call `enableNewSwingCompositing()` before creating a
+`JewelComposePanel` or a raw `ComposePanel`. See [Swing
 interop](../guides/swing-interop.md).
 
 ## Compose plugin support is unofficial

@@ -1,7 +1,6 @@
 # Testing your UI
 
-Compose UI is testable in a way Swing UI mostly was not, and Jewel's structure means a
-plugin's UI can be tested without starting the platform.
+Jewel lets you test a plugin's UI without starting the IntelliJ Platform.
 
 ## Test against the standalone theme
 
@@ -22,9 +21,7 @@ fun `shows an empty state when there are no issues`() {
 }
 ```
 
-That runs in seconds rather than minutes, does not need a sandbox IDE, and fails for
-reasons that are about your UI. Platform-hosted UI tests are slow enough and flaky
-enough that people learn to ignore them. A test people ignore is worse than no test.
+The test runs without a sandbox IDE and checks the composable's output.
 
 The prerequisite is the discipline in [Portable UI](portable-ui.md): if the composable
 needs a `Project`, none of this is available to you.
@@ -59,8 +56,7 @@ Some things do need the platform: the bridge itself, anything reading a real
 `DataContext`, anything driven by platform actions. Test those where they live, with the
 platform's own test infrastructure, and keep that set as small as you can.
 
-The split is the point. A small number of slow, platform-hosted tests around the seam,
-and a large number of fast tests for the UI behind it.
+Use platform-hosted tests for IDE integration and standalone tests for UI behaviour.
 
 ## See also
 

@@ -111,7 +111,7 @@ implementing it directly. `PainterSuffixHint` and `PainterPrefixHint` handle pat
 manipulation, which covers most cases. There are also hooks for patching SVG and XML
 content, and for wrapping the resulting painter.
 
-The one thing to watch: `suffix()` is declared on `PainterProviderScope`, so your
+`suffix()` is declared on `PainterProviderScope`, so your
 override needs the receiver, as in the sample above. Writing `override fun suffix()`
 without it does not compile.
 

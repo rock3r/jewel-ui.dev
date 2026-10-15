@@ -312,7 +312,7 @@ figure.shot img {
 <p>Given a base path of <code>components/myIcon.svg</code>, that resolves to the right file for the state — <code>myIconIndeterminate.svg</code>, <code>myIconSelected.svg</code> and so on — without you naming any of them.</p>
 <h3 id="writing-your-own-hint"><a class="anchor" href="#writing-your-own-hint">Writing your own hint</a></h3>
 <p><code>PainterHint</code> is sealed, so you extend one of its sub-hierarchies rather than implementing it directly. <code>PainterSuffixHint</code> and <code>PainterPrefixHint</code> handle path manipulation, which covers most cases. There are also hooks for patching SVG and XML content, and for wrapping the resulting painter.</p>
-<p>The one thing to watch: <code>suffix()</code> is declared on <code>PainterProviderScope</code>, so your override needs the receiver, as in the sample above. Writing <code>override fun suffix()</code> without it does not compile.</p>
+<p><code>suffix()</code> is declared on <code>PainterProviderScope</code>, so your override needs the receiver, as in the sample above. Writing <code>override fun suffix()</code> without it does not compile.</p>
 <h2 id="what-the-defaults-do-for-you"><a class="anchor" href="#what-the-defaults-do-for-you">What the defaults do for you</a></h2>
 <p>Four behaviours run automatically, and knowing they exist saves you reimplementing them:</p>
 <ul>

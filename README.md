@@ -3,7 +3,7 @@
 The landing page for [Jewel](https://github.com/JetBrains/intellij-community/tree/master/platform/jewel),
 the IntelliJ Platform's New UI implemented in Compose Multiplatform for desktop.
 
-Served as a Cloudflare Worker with static assets.
+Cloudflare Workers serves the site as static assets.
 
 ## Layout
 
@@ -14,7 +14,7 @@ docs/              the user documentation, Markdown
 build-site.mjs     renders src/Main.dc.html into public/
 build-docs.mjs     renders docs/ into public/docs/
 sync-tooling-docs.mjs  copies jewel-tooling/user-guide into docs/tooling/
-sync-api-docs.mjs      pulls Jewel Dokka (Maven -javadoc.jar) into public/api/
+sync-api-docs.mjs  builds Dokka HTML from Maven source jars into public/api/
 check-links.mjs    verifies internal doc links and anchors
 update-version.mjs updates the Jewel version from Maven Central
 .rumdl.toml        Markdown formatting config for docs/
@@ -26,8 +26,8 @@ writing style guide ([STYLE.md](STYLE.md)) and the design language
 ([DESIGN.md](DESIGN.md)).
 
 `src/Main.dc.html` is the single source of truth for the page. The build keeps
-both theme variants in the DOM so the light/dark toggle is instant, and wires up
-the two real interactions (the theme toggle and the setup popover).
+both theme variants in the DOM for the theme toggle. It also connects the theme toggle
+and the setup popover to their event handlers.
 
 ## Build
 

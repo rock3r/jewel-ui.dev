@@ -247,6 +247,7 @@ figure.shot img {
       <article class="doc">
 <h1>Install the plugin</h1>
 <p>Install Jewel Tooling from <a href="https://plugins.jetbrains.com/plugin/34392-jewel-tooling" target="_blank" rel="noopener noreferrer">JetBrains Marketplace</a> in IntelliJ IDEA 2026.2, from a <a href="https://github.com/rock3r/jewel-tooling/releases" target="_blank" rel="noopener noreferrer">GitHub Release</a>, or build the ZIP with JDK 25 and install it from disk. The plugin bytecode targets JVM 21. The IDE that hosts it uses JBR 25.</p>
+<p>To build from source, clone <a href="https://github.com/rock3r/jewel-tooling" target="_blank" rel="noopener noreferrer">rock3r/jewel-tooling</a>. Run this command in that checkout:</p>
 <div class="code"><pre><code class="lang-sh">./gradlew :buildPlugin</code></pre></div>
 <p>In IntelliJ IDEA, open <strong>Settings → Plugins</strong>, choose the gear menu, then <strong>Install Plugin from Disk</strong>. Select <code>build/distributions/jewel-tooling-0.9.0.zip</code> and restart when prompted.</p>
 <p>To use an existing compatible IDE instead of downloading one for the build:</p>
@@ -259,7 +260,7 @@ figure.shot img {
 <p>Kotlin Multiplatform source-set models are untested. Unannotated types in another source module remain unknown. Supported compiled dependencies can use compiler metadata.</p>
 <figure class="shot"><img src="images/ijpl-editor.png" alt="Parameter hints in the Bazel-built IntelliJ plugin fixture" loading="lazy"></figure>
 <p>Opening a dependency Kotlin file, such as Compose runtime source, shows the same parameter hints, function gutter icon, and live duration badges as a project file. Decompiled class files without source still have no hints.</p>
-<p>The Gradle wrapper in this repository builds the IDE plugin. It does not impose a build system on the project being analysed.</p>
+<p>The Gradle wrapper in <code>rock3r/jewel-tooling</code> builds the IDE plugin. The project being analysed can use a different build system.</p>
       <p class="footer">Jewel Tooling is maintained by the Jewel lead, not by JetBrains.
         <a href="https://github.com/rock3r/jewel-tooling" target="_blank" rel="noopener noreferrer">Plugin source</a> ·
         <a href="https://plugins.jetbrains.com/plugin/34392-jewel-tooling" target="_blank" rel="noopener noreferrer">JetBrains Marketplace</a> ·

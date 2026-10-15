@@ -12,7 +12,7 @@ This is the 0.9.0 distribution. It targets IntelliJ IDEA 2026.2.0.1 (build 262.8
 with the bundled Kotlin plugin in K2 mode. Install it from
 [JetBrains Marketplace](https://plugins.jetbrains.com/plugin/34392-jewel-tooling), from a
 [GitHub Release](https://github.com/rock3r/jewel-tooling/releases), or from the ZIP built
-in this repository.
+in a checkout of [rock3r/jewel-tooling](https://github.com/rock3r/jewel-tooling).
 
 ## What you get
 

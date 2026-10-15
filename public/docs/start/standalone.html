@@ -282,7 +282,7 @@ plugins {
     <span class="c-fn">id</span>(<span class="c-str">&quot;org.jetbrains.compose&quot;</span>) version <span class="c-str">&quot;...&quot;</span>               <span class="c-com">// Compose Multiplatform version</span>
     <span class="c-fn">id</span>(<span class="c-str">&quot;org.jetbrains.kotlin.plugin.compose&quot;</span>) version <span class="c-str">&quot;...&quot;</span> <span class="c-com">// Kotlin version, not Compose</span>
 }</code></pre></div>
-<p>All three are required, and the version each takes is the part people get wrong. Since Kotlin 2.0 the Compose compiler ships in the Kotlin repository rather than with Compose Multiplatform, so it is applied as its own plugin — and it is versioned with <strong>Kotlin</strong>, not with Compose. Two of the three lines above take the same version. The middle one does not.</p>
+<p>All three plugins are required. Since Kotlin 2.0 the Compose compiler ships in the Kotlin repository rather than with Compose Multiplatform, so it is applied as its own plugin — and it is versioned with <strong>Kotlin</strong>, not with Compose. Two of the three lines above take the same version. The middle one does not.</p>
 <p>Those versions also have to line up with what Jewel is built against. Each release records the Compose Multiplatform version it targets, and the minimum Kotlin version follows from the minimum supported IntelliJ Platform.</p>
 <div class="adm adm-warning"><p class="adm-title">Convention plugins</p>
 <p>If you configure your project with convention plugins, apply these once — for example in the root build script with <code>apply false</code>, then apply them in the modules that need them. Initialising them more than once causes resolution failures.</p>
