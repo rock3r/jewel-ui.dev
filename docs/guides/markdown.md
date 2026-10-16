@@ -26,8 +26,8 @@ dependencies {
 }
 ```
 
-Plugins declare bundled modules. The IntelliJ Platform supplies IDE styling, so that
-styling module has no Maven Central publication:
+Plugins declare bundled modules. The IntelliJ Platform supplies IDE styling. Maintainers
+deliberately exclude that styling module from Maven Central:
 
 ```kotlin
 bundledModule("intellij.platform.jewel.markdown.core")

@@ -43,7 +43,7 @@ settings.
     Version 0.40 removed `TextStyle.copyWithSize()` and
     `org.jetbrains.jewel.ui.component.Typography`. Replace them with the three
     `remember*TextStyle` functions above. Apply other `TextStyle` properties separately
-    afterward.
+    afterwards.
 
 ## Use the user's editor font
 

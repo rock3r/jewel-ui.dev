@@ -263,7 +263,7 @@ figure.shot img {
     <span class="c-com">// Styling, standalone</span>
     <span class="c-fn">implementation</span>(<span class="c-str">&quot;org.jetbrains.jewel:jewel-markdown-int-ui-standalone-styling:$jewelVersion&quot;</span>)
 }</code></pre></div>
-<p>Plugins declare bundled modules. The IntelliJ Platform supplies IDE styling, so that styling module has no Maven Central publication:</p>
+<p>Plugins declare bundled modules. The IntelliJ Platform supplies IDE styling. Maintainers deliberately exclude that styling module from Maven Central:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-fn">bundledModule</span>(<span class="c-str">&quot;intellij.platform.jewel.markdown.core&quot;</span>)
 <span class="c-fn">bundledModule</span>(<span class="c-str">&quot;intellij.platform.jewel.markdown.ideLafBridgeStyling&quot;</span>)</code></pre></div>
 <h2 id="providing-styling"><a class="anchor" href="#providing-styling">Providing styling</a></h2>

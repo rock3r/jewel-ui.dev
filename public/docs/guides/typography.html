@@ -266,7 +266,7 @@ figure.shot img {
 <span class="c-kw">val</span> quietConsole = JewelTheme.typography.<span class="c-fn">rememberConsoleTextStyle</span>(fontStyle = FontStyle.Italic)</code></pre></div>
 <p>Each function returns a <code>TextStyle</code> and accepts optional <code>fontSize</code>, <code>fontWeight</code>, and <code>fontStyle</code> arguments. Unchanged properties retain their font family, features, and user settings.</p>
 <div class="adm adm-note"><p class="adm-title">If you are upgrading</p>
-<p>Version 0.40 removed <code>TextStyle.copyWithSize()</code> and <code>org.jetbrains.jewel.ui.component.Typography</code>. Replace them with the three <code>remember*TextStyle</code> functions above. Apply other <code>TextStyle</code> properties separately afterward.</p>
+<p>Version 0.40 removed <code>TextStyle.copyWithSize()</code> and <code>org.jetbrains.jewel.ui.component.Typography</code>. Replace them with the three <code>remember*TextStyle</code> functions above. Apply other <code>TextStyle</code> properties separately afterwards.</p>
 </div>
 <h2 id="use-the-users-editor-font"><a class="anchor" href="#use-the-users-editor-font">Use the user's editor font</a></h2>
 <p>In plugins, the IDE's editor colour scheme supplies <code>editorTextStyle</code> and <code>consoleTextStyle</code>. Code views using these styles follow the user's chosen font and size, including later changes.</p>
