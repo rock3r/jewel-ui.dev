@@ -1,12 +1,13 @@
 # Swing interop
 
-Compose and Swing can share a window. Getting them to composite cleanly, without z-order
-conflicts, takes one call, and in the common plugin cases Jewel makes it for you.
+Compose and Swing can share a window with consistent z-order. Enable the newer Swing
+rendering pipeline before creating panels. Jewel's tool window helper enables it
+automatically.
 
 ## In a plugin
 
-For a tool window, use `addComposeTab`. It creates the panel, wraps your content in
-`SwingBridgeTheme`, and switches on the newer Swing rendering pipeline.
+Call `addComposeTab` for tool windows. This helper creates a panel with `SwingBridgeTheme`
+and enables the newer Swing rendering pipeline.
 
 ```kotlin
 import org.jetbrains.jewel.bridge.addComposeTab
@@ -16,9 +17,8 @@ toolWindow.addComposeTab("My tab") {
 }
 ```
 
-For anything else — a dialog, a settings page, an editor notification — build the
-component with `JewelComposePanel`. Enable the newer Swing rendering pipeline before
-creating the panel:
+Use `JewelComposePanel` for dialogs, settings pages, and editor notifications.
+Enable the rendering pipeline before creating the panel:
 
 ```kotlin
 import org.jetbrains.jewel.bridge.JewelComposePanel
@@ -30,20 +30,19 @@ val component = JewelComposePanel {
 }
 ```
 
-It returns a `JComponent` you can drop wherever Swing expects one, and it applies
-`SwingBridgeTheme` for you, so the content follows the IDE's theme without further work.
+`JewelComposePanel` returns a `JComponent` for use in Swing containers.
+It applies `SwingBridgeTheme` so content follows the IDE theme.
 
-Both take `focusOnClickInside`, which defaults to `true` and controls whether clicking
-inside the Compose area moves focus into it. Leave it alone unless you have a reason.
+Both helpers accept `focusOnClickInside`, with default `true`. This setting moves focus
+into the Compose area when the user clicks inside it. Change it only when needed.
 
-There is also `JewelComposeNoThemePanel`, which applies no theme at all. It exists for
-the case where you supply a completely custom theme yourself. Use it only then. A panel
-with no theme has no colours to draw with.
+If you supply a complete custom theme, use `JewelComposeNoThemePanel`.
+It applies no theme itself. Content without any theme has no drawing colours.
 
 ## In a standalone app
 
-Nothing here is bridge-specific if you are embedding Compose into an existing Swing
-desktop app. Call `enableNewSwingCompositing()` before you create any `ComposePanel`:
+When embedding Compose in a standalone Swing app, call `enableNewSwingCompositing()`
+before creating the first `ComposePanel`:
 
 ```kotlin
 import org.jetbrains.jewel.foundation.enableNewSwingCompositing
@@ -54,22 +53,19 @@ fun main() {
 }
 ```
 
-It sets a system property that switches Compose to rendering through the Swing graphics
-pipeline, which is what keeps the two toolkits in the same z-order. Because it is a
-system property, set it before the first panel is created. Setting it later has no
-effect on panels that already exist.
+The function sets a system property to render Compose through Swing's graphics pipeline.
+This pipeline keeps the toolkits in the same z-order. Existing panels ignore later
+changes to the property.
 
 `enableNewSwingCompositing()` is annotated experimental.
 
 ## The cost
 
-The newer pipeline has a known performance caveat: infinitely repeating animations are
-more expensive under it than they would otherwise be. That is a Compose Multiplatform
-issue requiring changes in the Java runtime, not something Jewel can work around.
+Infinitely repeating animations cost more with the newer pipeline. Resolving this Compose
+Multiplatform issue requires Java runtime changes. Jewel cannot work around it.
 
-In practice this is rarely a problem, because IDE UI is not usually animating
-continuously. If you have an always-running spinner in a panel that is always visible,
-this is where the cost comes from.
+IDE UI usually has few continuous animations, so this cost rarely affects typical panels.
+Always-visible, continuously running spinners can expose it.
 
 ## See also
 

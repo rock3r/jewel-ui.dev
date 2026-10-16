@@ -1,9 +1,10 @@
 # jewel-ui.dev
 
-The landing page for [Jewel](https://github.com/JetBrains/intellij-community/tree/master/platform/jewel),
-the IntelliJ Platform's New UI implemented in Compose Multiplatform for desktop.
+This repository contains the landing page and guides for
+[Jewel](https://github.com/JetBrains/intellij-community/tree/master/platform/jewel).
+Jewel implements the IntelliJ Platform's New UI in Compose Multiplatform for desktop.
 
-Cloudflare Workers serves the site as static assets.
+Cloudflare Workers serves the generated static assets.
 
 ## Layout
 
@@ -21,13 +22,12 @@ update-version.mjs updates the Jewel version from Maven Central
 wrangler.jsonc     Worker + static asset config
 ```
 
-Contributors and agents should read [AGENTS.md](AGENTS.md), which points at the
-writing style guide ([STYLE.md](STYLE.md)) and the design language
-([DESIGN.md](DESIGN.md)).
+Before contributing, read [AGENTS.md](AGENTS.md), [STYLE.md](STYLE.md), and
+[DESIGN.md](DESIGN.md) for repository, writing, and design rules.
 
-`src/Main.dc.html` is the single source of truth for the page. The build keeps
-both theme variants in the DOM for the theme toggle. It also connects the theme toggle
-and the setup popover to their event handlers.
+Edit landing page content in `src/Main.dc.html`. The build retains both theme variants
+in the Document Object Model (DOM). It connects event handlers for the theme toggle and
+setup popover.
 
 ## Build
 
@@ -39,59 +39,56 @@ node sync-api-docs.mjs                         # API reference into public/api/
 node check-links.mjs                          # must report no broken links
 ```
 
-The Jewel version shown on the page is not typed in by hand. `update-version.mjs` reads
-the published coordinate from Maven Central and writes both fields into
-`src/Main.dc.html`:
+Generate the displayed Jewel version with `update-version.mjs`. The script reads the
+published Maven Central coordinate and updates both version fields in `src/Main.dc.html`:
 
 ```bash
 node update-version.mjs --dry-run   # report what would change
 node update-version.mjs             # write it, then rebuild the landing page
 ```
 
-`.github/workflows/update-jewel-version.yml` runs this daily, commits the bump to `master`
-and deploys it. Because that deploy is unattended, it is gated on `verify-version-bump.mjs`:
-the new version is substituted back to the old, and the result must equal the committed file
-byte for byte. Anything else in the diff stops the deploy.
+The daily `.github/workflows/update-jewel-version.yml` workflow commits version updates
+to `master` and deploys them. Before deployment, `verify-version-bump.mjs` substitutes the
+previous version back into the generated content. The result must match the committed
+file byte for byte. Any other difference stops deployment.
 
-That gate means a change to `src/Main.dc.html` must be committed together with the rebuilt
-`public/index.html`. Otherwise the next bump's rebuild would sweep the change into a deploy
-nobody reviewed, and the proof fails instead.
+Commit changes to `src/Main.dc.html` together with rebuilt `public/index.html`.
+Otherwise, the next version update would include unreviewed generated changes.
+The verification gate detects that mismatch and blocks deployment.
 
-`build-docs.mjs` has no dependencies. The Markdown these pages use is small and
-fixed (h1-h3, flat bullets, fenced code, admonitions, inline formatting), so a
-bespoke renderer is smaller and more predictable than a parser. Its `NAV`
-constant is the table of contents; the build fails if a page on disk is missing
-from it, or vice versa.
+`build-docs.mjs` renders a fixed Markdown subset without dependencies: h1-h3, flat bullets,
+code fences, admonitions, and inline formatting. Its custom renderer keeps this limited
+build small and predictable. The `NAV` constant defines the table of contents.
+The build fails when the navigation and page files differ.
 
-Docs are linked from the landing page and are indexed. The Jewel Tooling
-user guide lives under `docs/tooling/`; refresh it with
-`node sync-tooling-docs.mjs` when the sibling `jewel-tooling` repo is present
-(the script records the synced commit in `docs/tooling/.sync-meta.json`).
+The landing page links to the indexed documentation. To refresh `docs/tooling/`, run
+`node sync-tooling-docs.mjs` with the sibling `jewel-tooling` checkout available.
+The script records the source commit in `docs/tooling/.sync-meta.json`.
 
 ## Deploy
 
-Pushes to `master` deploy automatically via `.github/workflows/deploy.yml`
-(needs the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets).
-Each run registers a GitHub Deployment against the `jewel-ui.dev` environment
-(public URL only — no Cloudflare account IDs or tokens in the Deployments UI).
+Pushes to `master` trigger deployment through `.github/workflows/deploy.yml`.
+Set the `CLOUDFLARE_API_TOKEN` and `CLOUDFLARE_ACCOUNT_ID` repository secrets first.
+Each run registers a GitHub Deployment for the `jewel-ui.dev` environment.
+Deployment records expose only the public URL and exclude Cloudflare account IDs and tokens.
 
-Manual:
+To deploy manually, run:
 
 ```bash
 CLOUDFLARE_API_TOKEN=... CLOUDFLARE_ACCOUNT_ID=... npx wrangler@latest deploy
 ```
 
-Prefer a **dedicated** Cloudflare API token for GitHub Actions (not a personal
-or LLM token). Create one at
+Give GitHub Actions a **dedicated** Cloudflare API token. Keep it separate from personal
+and LLM tokens. Create the token at
 [dash.cloudflare.com → API Tokens](https://dash.cloudflare.com/profile/api-tokens)
 from the **Edit Cloudflare Workers** template, scoped to this account (and
 optionally the `jewel-ui-dev` worker only), then store it as `CLOUDFLARE_API_TOKEN`.
 
 ## Screenshots
 
-The product screenshots under `public/` are real captures of the Jewel standalone
-sample running on the JetBrains Runtime, taken with
-[Spectre](https://github.com/rock3r/spectre). They are not mockups. Each exists in
-a light and a dark variant so the page's theme toggle swaps them with the palette.
+The screenshots in `public/` show the Jewel standalone sample running on the JetBrains
+Runtime. [Spectre](https://github.com/rock3r/spectre) captured them from the running app.
+Each screenshot has light and dark variants. The theme toggle switches screenshots
+together with the palette.
 
-The Jewel logo is used unmodified from the Jewel repository.
+The site uses the original Jewel repository logo without changes.

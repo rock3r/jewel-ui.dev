@@ -50,10 +50,10 @@ function mapRel(rel) {
 }
 
 const ESCAPES = [
-  ['../CONTRIBUTING.md', 'https://github.com/rock3r/jewel-tooling/blob/master/CONTRIBUTING.md'],
-  ['../docs/architecture.md', 'https://github.com/rock3r/jewel-tooling/blob/master/docs/architecture.md'],
-  ['../docs/testing.md', 'https://github.com/rock3r/jewel-tooling/blob/master/docs/testing.md'],
-  ['../docs/recording-adapter.md', 'https://github.com/rock3r/jewel-tooling/blob/master/docs/recording-adapter.md'],
+  ['../CONTRIBUTING.md', 'https://github.com/rock3r/jewel-tooling/blob/main/CONTRIBUTING.md'],
+  ['../docs/architecture.md', 'https://github.com/rock3r/jewel-tooling/blob/main/docs/architecture.md'],
+  ['../docs/testing.md', 'https://github.com/rock3r/jewel-tooling/blob/main/docs/testing.md'],
+  ['../docs/recording-adapter.md', 'https://github.com/rock3r/jewel-tooling/blob/main/docs/recording-adapter.md'],
 ];
 
 function rewriteMarkdown(text) {
@@ -70,6 +70,14 @@ function rewriteMarkdown(text) {
   out = out.replace(
     'in this repository.',
     'in a checkout of [rock3r/jewel-tooling](https://github.com/rock3r/jewel-tooling).'
+  );
+  out = out.replace(
+    'built from this repository.',
+    'built from [rock3r/jewel-tooling](https://github.com/rock3r/jewel-tooling).'
+  );
+  out = out.replace(
+    "Use this repository's Gradle wrapper to build Jewel Tooling.",
+    'Use the Gradle wrapper in `rock3r/jewel-tooling` to build Jewel Tooling.'
   );
   out = out.replace(
     '```sh\n./gradlew :buildPlugin',

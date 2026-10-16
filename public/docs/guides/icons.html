@@ -246,16 +246,16 @@ figure.shot img {
     <main class="main">
       <article class="doc">
 <h1>Icons</h1>
-<p>Ask Jewel for an icon by key and it does what the IDE does: picks the New UI path, patches the SVG's key colours for the current theme, selects the dark variant, and uses the <code>@2x</code> bitmap when the display warrants it. You call one composable. The pipeline is the same one the platform uses.</p>
+<p>Load icons by key to use the platform's icon handling. Jewel selects New UI paths, patches SVG key colours, and chooses dark variants for the current theme. It also selects <code>@2x</code> bitmaps for high-density displays. One composable applies this pipeline.</p>
 <h2 id="loading-an-icon"><a class="anchor" href="#loading-an-icon">Loading an icon</a></h2>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.ui.component.Icon
 <span class="c-kw">import</span> org.jetbrains.jewel.ui.icons.AllIconsKeys
 
 <span class="c-fn">Icon</span>(key = AllIconsKeys.General.Add, contentDescription = <span class="c-str">&quot;Add&quot;</span>)</code></pre></div>
-<p><code>AllIconsKeys</code> is generated from the platform's <code>AllIcons</code>, so anything the IDE ships is available by the name you already know. In a plugin, it needs no setup. The icons are on the classpath. Standalone, add the icons artifact. See <a href="../start/standalone.html#platform-icons">Platform icons in a standalone app</a>.</p>
-<p>Because icon paths shift between platform versions, use a Jewel version that matches the platform you target. Icons move between majors, and occasionally between minors.</p>
+<p>Jewel generates <code>AllIconsKeys</code> from the platform's <code>AllIcons</code>, preserving icon names. Plugins already have these icons on the classpath. Standalone apps need the icons artifact. See <a href="../start/standalone.html#platform-icons">Platform icons in a standalone app</a>.</p>
+<p>Match Jewel to the target platform version. Icon paths can change between platform major versions and sometimes between minor versions.</p>
 <h2 id="your-own-icons"><a class="anchor" href="#your-own-icons">Your own icons</a></h2>
-<p>An icon key is anything implementing <code>IconKey</code>, from <code>org.jetbrains.jewel.ui.icon</code>. Two implementations cover almost everything:</p>
+<p>Icon keys implement <code>IconKey</code> from <code>org.jetbrains.jewel.ui.icon</code>. Use <code>PathIconKey</code> for a shared path or <code>IntelliJIconKey</code> for separate old and New UI paths:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.ui.icon.IntelliJIconKey
 <span class="c-kw">import</span> org.jetbrains.jewel.ui.icon.PathIconKey
 
@@ -266,20 +266,20 @@ figure.shot img {
     <span class="c-com">// Different icons for old and new UI</span>
     <span class="c-kw">val</span> run = <span class="c-fn">IntelliJIconKey</span>(<span class="c-str">&quot;icons/run.svg&quot;</span>, <span class="c-str">&quot;icons/expui/run.svg&quot;</span>, MyIcons::<span class="c-kw">class</span>.java)
 }</code></pre></div>
-<p><code>IntelliJIconKey</code> takes both paths <em>and</em> the class used to resolve the resource. If you have more than a few dozen icons, generate the holder rather than writing it out. Jewel generates its own the same way.</p>
+<p>Supply both paths and a resource-resolving class to <code>IntelliJIconKey</code>. For more than a few dozen icons, generate the holder. Jewel generates its own holders too.</p>
 <h2 id="painter-hints"><a class="anchor" href="#painter-hints">Painter hints</a></h2>
-<p>A <code>PainterHint</code> influences the loading pipeline. A hint can change the path, patch the image, decorate it, or do nothing at all. <code>PainterHint.None</code> exists precisely so you can pass a hint unconditionally and let it opt out.</p>
-<p>The most useful ones live in <code>org.jetbrains.jewel.ui.painter.hints</code> and are functions, not types you construct:</p>
+<p>A <code>PainterHint</code> can change an icon path, patch or decorate the image, or leave it unchanged. Use <code>PainterHint.None</code> when a conditional hint needs no effect.</p>
+<p>The <code>org.jetbrains.jewel.ui.painter.hints</code> package provides these hint functions:</p>
 <ul>
 <li><code>Size(size)</code> or <code>Size(width, height)</code> — select a specific icon size</li>
 <li><code>Selected(state)</code> or <code>Selected(selected)</code> — the selected variant</li>
-<li><code>Stateful(state)</code> — hover, pressed, disabled and friends, from a component state</li>
+<li><code>Stateful(state)</code> — hover, pressed, disabled, and other component states</li>
 <li><code>Badge(color)</code> — a dot badge over the icon</li>
 <li><code>Stroke(color)</code>, <code>Dark(isDark)</code>, <code>HiDpi()</code> — the lower-level pieces the defaults use</li>
 </ul>
-<p>Both themes install a default set of hints, so runtime patching happens without you asking for it.</p>
+<p>Both themes install default hints that patch icons at runtime automatically.</p>
 <h3 id="stateful-icons"><a class="anchor" href="#stateful-icons">Stateful icons</a></h3>
-<p>When the icon depends on component state, pass the hints and let Jewel resolve the path. Note the named <code>hints</code> argument: it is a <code>vararg</code>, and the positional slot after <code>contentDescription</code> is <code>modifier</code>, so hints must be named.</p>
+<p>For state-dependent icons, supply hints and let Jewel choose the resource path. Use the named <code>hints</code> argument for this <code>vararg</code>. The positional argument after <code>contentDescription</code> is <code>modifier</code>.</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
 <span class="c-kw">import</span> androidx.compose.ui.state.ToggleableState
 <span class="c-kw">import</span> org.jetbrains.jewel.foundation.state.SelectableComponentState
@@ -309,17 +309,17 @@ figure.shot img {
         hints = <span class="c-fn">arrayOf</span>(indeterminateHint, <span class="c-fn">Selected</span>(myState), <span class="c-fn">Stateful</span>(myState)),
     )
 }</code></pre></div>
-<p>Given a base path of <code>components/myIcon.svg</code>, that resolves to the right file for the state — <code>myIconIndeterminate.svg</code>, <code>myIconSelected.svg</code> and so on — without you naming any of them.</p>
+<p>With base path <code>components/myIcon.svg</code>, Jewel selects state-specific resources such as <code>myIconIndeterminate.svg</code> or <code>myIconSelected.svg</code>. Callers need only the base key and hints.</p>
 <h3 id="writing-your-own-hint"><a class="anchor" href="#writing-your-own-hint">Writing your own hint</a></h3>
-<p><code>PainterHint</code> is sealed, so you extend one of its sub-hierarchies rather than implementing it directly. <code>PainterSuffixHint</code> and <code>PainterPrefixHint</code> handle path manipulation, which covers most cases. There are also hooks for patching SVG and XML content, and for wrapping the resulting painter.</p>
-<p><code>suffix()</code> is declared on <code>PainterProviderScope</code>, so your override needs the receiver, as in the sample above. Writing <code>override fun suffix()</code> without it does not compile.</p>
+<p>Extend a subtype of the sealed <code>PainterHint</code> hierarchy. <code>PainterSuffixHint</code> and <code>PainterPrefixHint</code> support common path changes. Other hooks patch SVG or XML content, or wrap the resulting painter.</p>
+<p>Include the <code>PainterProviderScope</code> receiver when overriding <code>suffix()</code>, as shown above. An override without that receiver fails compilation.</p>
 <h2 id="what-the-defaults-do-for-you"><a class="anchor" href="#what-the-defaults-do-for-you">What the defaults do for you</a></h2>
-<p>Four behaviours run automatically, and knowing they exist saves you reimplementing them:</p>
+<p>The default hints apply four behaviours:</p>
 <ul>
-<li><strong>New UI path swapping.</strong> With the New UI active, <code>IntelliJIconKey</code> resolves its new-UI path. Both themes also support overriding paths outright.</li>
-<li><strong>Palette replacement.</strong> SVG key colours are swapped for the current theme's palette, the same mechanism the IDE uses to recolour its icons.</li>
-<li><strong>Dark variants.</strong> A <code>_dark</code> suffix is appended when the theme is dark.</li>
-<li><strong><code>@2x</code> bitmaps.</strong> For bitmap icons, the <code>@2x</code> variant is chosen when the density warrants it. SVGs need no equivalent.</li>
+<li>With New UI active, <code>IntelliJIconKey</code> selects its New UI path. Both themes also support explicit path overrides.</li>
+<li>Jewel replaces SVG key colours with colours from the current theme's palette, using the IDE's recolouring mechanism.</li>
+<li>Dark themes add the <code>_dark</code> suffix.</li>
+<li>High-density displays select <code>@2x</code> bitmap variants. SVGs need no separate variant.</li>
 </ul>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
 <ul>

@@ -1,9 +1,8 @@
 # Icons
 
-Ask Jewel for an icon by key and it does what the IDE does: picks the New UI path,
-patches the SVG's key colours for the current theme, selects the dark variant, and uses
-the `@2x` bitmap when the display warrants it. You call one composable. The pipeline is
-the same one the platform uses.
+Load icons by key to use the platform's icon handling. Jewel selects New UI paths, patches
+SVG key colours, and chooses dark variants for the current theme. It also selects `@2x`
+bitmaps for high-density displays. One composable applies this pipeline.
 
 ## Loading an icon
 
@@ -14,18 +13,18 @@ import org.jetbrains.jewel.ui.icons.AllIconsKeys
 Icon(key = AllIconsKeys.General.Add, contentDescription = "Add")
 ```
 
-`AllIconsKeys` is generated from the platform's `AllIcons`, so anything the IDE ships is
-available by the name you already know. In a plugin, it needs no setup. The icons are on
-the classpath. Standalone, add the icons artifact. See [Platform icons in a standalone
+Jewel generates `AllIconsKeys` from the platform's `AllIcons`, preserving icon names.
+Plugins already have these icons on the classpath. Standalone apps need the icons
+artifact. See [Platform icons in a standalone
 app](../start/standalone.md#platform-icons).
 
-Because icon paths shift between platform versions, use a Jewel version that matches the
-platform you target. Icons move between majors, and occasionally between minors.
+Match Jewel to the target platform version. Icon paths can change between platform
+major versions and sometimes between minor versions.
 
 ## Your own icons
 
-An icon key is anything implementing `IconKey`, from `org.jetbrains.jewel.ui.icon`. Two
-implementations cover almost everything:
+Icon keys implement `IconKey` from `org.jetbrains.jewel.ui.icon`. Use `PathIconKey` for a
+shared path or `IntelliJIconKey` for separate old and New UI paths:
 
 ```kotlin
 import org.jetbrains.jewel.ui.icon.IntelliJIconKey
@@ -40,33 +39,29 @@ object MyIcons {
 }
 ```
 
-`IntelliJIconKey` takes both paths *and* the class used to resolve the resource. If you
-have more than a few dozen icons, generate the holder rather than writing it out. Jewel
-generates its own the same way.
+Supply both paths and a resource-resolving class to `IntelliJIconKey`.
+For more than a few dozen icons, generate the holder. Jewel generates its own holders too.
 
 ## Painter hints
 
-A `PainterHint` influences the loading pipeline. A hint can change the path, patch the
-image, decorate it, or do nothing at all. `PainterHint.None` exists precisely so you can
-pass a hint unconditionally and let it opt out.
+A `PainterHint` can change an icon path, patch or decorate the image, or leave it
+unchanged. Use `PainterHint.None` when a conditional hint needs no effect.
 
-The most useful ones live in `org.jetbrains.jewel.ui.painter.hints` and are functions,
-not types you construct:
+The `org.jetbrains.jewel.ui.painter.hints` package provides these hint functions:
 
 - `Size(size)` or `Size(width, height)` — select a specific icon size
 - `Selected(state)` or `Selected(selected)` — the selected variant
-- `Stateful(state)` — hover, pressed, disabled and friends, from a component state
+- `Stateful(state)` — hover, pressed, disabled, and other component states
 - `Badge(color)` — a dot badge over the icon
 - `Stroke(color)`, `Dark(isDark)`, `HiDpi()` — the lower-level pieces the defaults use
 
-Both themes install a default set of hints, so runtime patching happens without you
-asking for it.
+Both themes install default hints that patch icons at runtime automatically.
 
 ### Stateful icons
 
-When the icon depends on component state, pass the hints and let Jewel resolve the path.
-Note the named `hints` argument: it is a `vararg`, and the positional slot after
-`contentDescription` is `modifier`, so hints must be named.
+For state-dependent icons, supply hints and let Jewel choose the resource path.
+Use the named `hints` argument for this `vararg`. The positional argument after
+`contentDescription` is `modifier`.
 
 ```kotlin
 import androidx.compose.runtime.Composable
@@ -100,32 +95,29 @@ fun StatefulIcon(myKey: IconKey, myState: MyState) {
 }
 ```
 
-Given a base path of `components/myIcon.svg`, that resolves to the right file for the
-state — `myIconIndeterminate.svg`, `myIconSelected.svg` and so on — without you naming
-any of them.
+With base path `components/myIcon.svg`, Jewel selects state-specific resources such as
+`myIconIndeterminate.svg` or `myIconSelected.svg`. Callers need only the base key and
+hints.
 
 ### Writing your own hint
 
-`PainterHint` is sealed, so you extend one of its sub-hierarchies rather than
-implementing it directly. `PainterSuffixHint` and `PainterPrefixHint` handle path
-manipulation, which covers most cases. There are also hooks for patching SVG and XML
-content, and for wrapping the resulting painter.
+Extend a subtype of the sealed `PainterHint` hierarchy. `PainterSuffixHint` and
+`PainterPrefixHint` support common path changes. Other hooks patch SVG or XML content,
+or wrap the resulting painter.
 
-`suffix()` is declared on `PainterProviderScope`, so your
-override needs the receiver, as in the sample above. Writing `override fun suffix()`
-without it does not compile.
+Include the `PainterProviderScope` receiver when overriding `suffix()`, as shown above.
+An override without that receiver fails compilation.
 
 ## What the defaults do for you
 
-Four behaviours run automatically, and knowing they exist saves you reimplementing them:
+The default hints apply four behaviours:
 
-- **New UI path swapping.** With the New UI active, `IntelliJIconKey` resolves its
-  new-UI path. Both themes also support overriding paths outright.
-- **Palette replacement.** SVG key colours are swapped for the current theme's palette,
-  the same mechanism the IDE uses to recolour its icons.
-- **Dark variants.** A `_dark` suffix is appended when the theme is dark.
-- **`@2x` bitmaps.** For bitmap icons, the `@2x` variant is chosen when the density
-  warrants it. SVGs need no equivalent.
+- With New UI active, `IntelliJIconKey` selects its New UI path. Both themes also support
+  explicit path overrides.
+- Jewel replaces SVG key colours with colours from the current theme's palette, using
+  the IDE's recolouring mechanism.
+- Dark themes add the `_dark` suffix.
+- High-density displays select `@2x` bitmap variants. SVGs need no separate variant.
 
 ## See also
 

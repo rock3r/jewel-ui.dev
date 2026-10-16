@@ -1,27 +1,25 @@
 # ProGuard and minification
 
-Jewel does not support running under ProGuard, R8 or similar tools.
+Running Jewel with ProGuard, R8, or similar tools has no official support.
 
-The team does not accept bug reports for issues caused by minification or obfuscation.
-Failures depend on the minifier configuration and can be hard to diagnose.
+The team rejects bug reports caused by minification or obfuscation. Minifier
+configuration affects failures and can make diagnosis difficult.
 
 ## Unofficial rules
 
-People do, and it can be made to work. There is no official rule set, but the rules used
-by [Kotlin
+Some projects successfully minify Jewel. No official rule set exists. The [Kotlin
 Explorer](https://github.com/romainguy/kotlin-explorer/blob/main/compose-desktop.pro)
-are known to work for some projects and are a reasonable starting point.
+rules work for some projects and can provide a starting point.
 
-Expect to maintain them yourself. Compose and Jewel both rely on reflection and resource
-loading in places that minifiers cannot see, so a working configuration is a snapshot
-rather than a settled answer. An upgrade can break it. The symptom is usually a missing
-resource or a crash a long way from the cause.
+Maintain these rules yourself. Compose and Jewel use reflection and resource loading
+that minifiers cannot always detect. Upgrades can break previously working rules.
+Failures often appear as missing resources or crashes far from the affected code.
 
 ## What to do instead
 
-If your motivation is distribution size, Compose Multiplatform's own packaging already
-gets most of the benefit without the fragility. It produces a runtime image containing
-only the modules you use.
+To reduce distribution size, use Compose Multiplatform packaging. It creates a runtime
+image with only the modules you use. This gives most of the size benefit without
+minifier-related failures.
 
-If your motivation is obfuscation, weigh it against the support position above. You are
-choosing to be on your own for any UI-layer bug.
+Before choosing obfuscation, account for the support limits. You must diagnose resulting
+UI-layer bugs yourself.

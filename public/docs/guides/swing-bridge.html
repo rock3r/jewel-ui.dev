@@ -246,8 +246,7 @@ figure.shot img {
     <main class="main">
       <article class="doc">
 <h1>The Swing bridge</h1>
-<p>The Swing bridge reads the IDE's current theme.</p>
-<p><code>SwingBridgeTheme</code> pulls colours, typography, metrics and icon palettes out of the running IntelliJ Platform's Swing look and feel, and supplies them to Compose as a Jewel theme. The user switches to the dark theme, installs a theme from the Marketplace, or increases the IDE font size, and your Compose UI follows, with no mapping table on your side to maintain.</p>
+<p><code>SwingBridgeTheme</code> creates a Jewel theme from the running IntelliJ Platform's Swing look and feel. It supplies colours, typography, metrics, and icon palettes to Compose. Plugin UI follows dark mode, Marketplace themes, and IDE font changes without a separate mapping table.</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
 <span class="c-kw">import</span> org.jetbrains.jewel.bridge.theme.SwingBridgeTheme
 
@@ -257,22 +256,25 @@ figure.shot img {
         <span class="c-com">// Jewel components here look like the rest of the IDE</span>
     }
 }</code></pre></div>
-<p><code>SwingBridgeTheme</code> is annotated experimental. It is nonetheless the only way to theme a plugin, and what every Jewel-based plugin uses. Treat the annotation as a warning that its signature can change, not that it is unfinished.</p>
+<p><code>SwingBridgeTheme</code> is annotated experimental because its signature can change. It is the only plugin theme entry point, and every Jewel-based plugin uses it. The annotation does not describe feature completeness.</p>
 <h2 id="theme-values"><a class="anchor" href="#theme-values">Theme values</a></h2>
-<p><strong>Colours</strong> come from the platform's named colour keys, via <code>JBColor</code>. If a theme defines a key through the standard theming mechanism, the bridge picks it up.</p>
-<p><strong>Metrics</strong> — sizes, insets, and the like — come from <code>UIManager</code>, scaled through the platform's own scaling so your panel matches the IDE's density rather than guessing at it.</p>
-<p><strong>Typography</strong> comes from <code>JBFont</code>: the label font and its size variants, and the heading scale. Editor and console styles come from the editor colour scheme, which is why a code view in your plugin can use the font the user actually chose for the editor.</p>
-<p><strong>Icon palettes</strong> come from the active <code>UITheme</code>, so icons are recoloured for the theme the same way the IDE recolours its own.</p>
-<p>It also keeps listening. The bridge subscribes to look-and-feel changes, UI settings changes and editor colour scheme changes, so a theme switch updates a live Compose panel rather than requiring a restart.</p>
+<p>The bridge reads these theme values:</p>
+<ul>
+<li>Colours come from named platform keys through <code>JBColor</code>. The bridge reads keys that themes define through the standard theming mechanism.</li>
+<li>Metrics, including sizes and insets, come from <code>UIManager</code>. Platform scaling makes them match the IDE's density.</li>
+<li>UI typography comes from <code>JBFont</code>, including label size variants and heading styles. Editor and console styles follow the editor colour scheme and the user's font choice.</li>
+<li>Icon palettes come from the active <code>UITheme</code>. Icons use the IDE's recolouring mechanism.</li>
+</ul>
+<p>The bridge listens for look-and-feel, UI settings, and editor colour scheme changes. These changes update an open Compose panel without a restart.</p>
 <h2 id="what-it-cannot-do"><a class="anchor" href="#what-it-cannot-do">What it cannot do</a></h2>
-<p>A theme that works by supplying custom Swing component implementations, rather than by declaring values through the standard theming mechanism, cannot be mirrored. There is nothing to read: the appearance lives in painting code, not in values. Those themes are not supported and cannot be.</p>
-<p>This is rarely a problem in practice: themes on the Marketplace overwhelmingly use the standard mechanism. That unsupported case is the real boundary.</p>
+<p>The bridge cannot mirror themes that implement custom Swing painting instead of standard theme values. Painting code exposes no values for Compose to read. Those themes have no support.</p>
+<p>Most Marketplace themes use the standard mechanism and fall within the bridge's support boundary.</p>
 <h2 id="swing-compatibility-mode"><a class="anchor" href="#swing-compatibility-mode">Swing compatibility mode</a></h2>
-<p>The bridge enables Jewel's Swing compatibility mode. It affects text rendering so Compose text lines up with Swing text in the same window. That alignment matters when your Compose panel sits next to Swing components.</p>
-<p>You do not switch this on yourself in a plugin. <code>SwingBridgeTheme</code> does it. It is one reason the same composable can look very slightly different standalone and in the IDE. See the caveat in <a href="../best-practices/portable-ui.html">Portable UI</a>.</p>
+<p>Jewel's Swing compatibility mode adjusts text rendering to align Compose and Swing text within the same window. The bridge enables this mode for plugin panels.</p>
+<p><code>SwingBridgeTheme</code> needs no manual compatibility setting. This mode can make the same composable look slightly different in standalone apps and the IDE. See <a href="../best-practices/portable-ui.html">Portable UI</a> for testing limits.</p>
 <h2 id="the-relationship-to-the-standalone-theme"><a class="anchor" href="#the-relationship-to-the-standalone-theme">The relationship to the standalone theme</a></h2>
-<p><code>SwingBridgeTheme</code> and <code>IntUiTheme</code> are interchangeable at the call site. Both establish a Jewel theme. Everything inside the content lambda is the same API. The difference is where the values come from: the bridge reads them from the running IDE, while <code>IntUiTheme</code> holds the Int UI specs as data.</p>
-<p>That means a plugin's UI code is not bridge-specific. If you keep IntelliJ Platform types out of your composables, the same screen renders standalone. That is what lets you test it without starting the platform. <a href="../best-practices/portable-ui.html">Portable UI</a> covers how to arrange that.</p>
+<p>Both <code>SwingBridgeTheme</code> and <code>IntUiTheme</code> wrap the shared Jewel component API. The bridge reads values from the running IDE. <code>IntUiTheme</code> uses Int UI specifications stored as data.</p>
+<p>Keep IntelliJ Platform types outside composables to render the same screen standalone. This separation also supports tests without starting the platform. Follow <a href="../best-practices/portable-ui.html">Portable UI</a> to structure that boundary.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
 <ul>
 <li><a href="../start/plugin.html">In an IntelliJ plugin</a> — setup and the tool window entry point</li>

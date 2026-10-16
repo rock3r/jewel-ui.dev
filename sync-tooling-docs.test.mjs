@@ -26,6 +26,20 @@ test('synced plugin build instructions name the plugin checkout', () => {
     assert.match(install, /Run this command in that checkout:/);
     assert.match(install, /wrapper in `rock3r\/jewel-tooling`/);
     assert.match(readFileSync(join(site, 'docs/tooling/index.md'), 'utf8'), /checkout of \[rock3r\/jewel-tooling\]/);
+
+    writeFileSync(join(plugin, 'user-guide', 'README.md'),
+      'Install a ZIP built from this repository.\n\n[Contributors](../CONTRIBUTING.md)\n');
+    writeFileSync(join(plugin, 'user-guide', 'install.md'),
+      '```sh\n./gradlew :buildPlugin\n```\n\n' +
+      "Use this repository's Gradle wrapper to build Jewel Tooling.\n");
+    execFileSync(process.execPath, [join(site, 'sync-tooling-docs.mjs')]);
+    const rewrittenInstall = readFileSync(join(site, 'docs/tooling/install.md'), 'utf8');
+    assert.match(rewrittenInstall, /Run this command in that checkout:/);
+    assert.match(rewrittenInstall, /wrapper in `rock3r\/jewel-tooling`/);
+    assert.match(rewrittenInstall, /```sh\n\.\/gradlew :buildPlugin\n```/);
+    const index = readFileSync(join(site, 'docs/tooling/index.md'), 'utf8');
+    assert.match(index, /built from \[rock3r\/jewel-tooling\]/);
+    assert.match(index, /blob\/main\/CONTRIBUTING\.md/);
   } finally {
     rmSync(root, { recursive: true, force: true });
   }

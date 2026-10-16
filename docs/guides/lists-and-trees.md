@@ -1,13 +1,12 @@
 # Lists, trees and speed search
 
-The IDE's lists behave in ways people have internalised without noticing: what the arrow
-keys do, how a range selects, where selection lands after a filter hides the selected
-row. Jewel's list and tree components implement those behaviours, which is the main
-reason to use them instead of a plain `LazyColumn`.
+Jewel lists and trees implement IDE keyboard navigation, range selection, and selection
+changes after filtering. Use these components when you need those behaviours in place
+of a plain `LazyColumn`.
 
 ## Selectable lists
 
-Two entry points, one per selection model:
+Choose the list component for your selection model:
 
 ```kotlin
 import androidx.compose.runtime.Composable
@@ -23,30 +22,28 @@ fun Files(paths: List<String>) {
 }
 ```
 
-`SingleSelectionLazyColumn` and `MultiSelectionLazyColumn` live in
-`org.jetbrains.jewel.foundation.lazy`, and each has a matching state factory:
-`rememberSingleSelectionLazyListState()` and `rememberMultiSelectionLazyListState()`.
+Import `SingleSelectionLazyColumn` or `MultiSelectionLazyColumn` from
+`org.jetbrains.jewel.foundation.lazy`. Create state with the matching
+`rememberSingleSelectionLazyListState()` or `rememberMultiSelectionLazyListState()`.
 
-If you find `SelectableLazyColumn` in older code or examples, it is deprecated in favour
-of these two. Choosing the component that matches your selection model, rather than
-configuring one that does both, is the point of the split.
+`SelectableLazyColumn` is deprecated. Replace it with the component matching the required
+single-selection or multi-selection model.
 
 ## Trees
 
-Use `LazyTree` from `org.jetbrains.jewel.ui.component`. It takes its colours and metrics
-from the ambient theme.
+For themed trees, use `LazyTree` from `org.jetbrains.jewel.ui.component`. The ambient
+theme supplies its colours and metrics.
 
-`BasicLazyTree`, in the foundation module, is the unstyled version underneath. Use it
-only if you are building your own styled tree and want to supply every colour and
-padding yourself.
+To supply every colour and padding value, use `BasicLazyTree` from the foundation module.
+This underlying component supplies behaviour without theme styling.
 
-The same split runs through Jewel generally: `foundation` holds behaviour without strong
-styling, `ui` holds the themed components built on top.
+Across Jewel, `foundation` provides behaviour with little styling. The `ui` module builds
+themed components on that behaviour.
 
 ## Speed search
 
-`SpeedSearchArea` gives a list or tree the IDE's type-to-find behaviour: start typing, a
-small search field appears, and matches are highlighted in place.
+Wrap a list or tree in `SpeedSearchArea` to add type-to-find. Typing opens a small search
+field and highlights matching text in the content.
 
 ```kotlin
 import org.jetbrains.jewel.ui.component.SpeedSearchArea
@@ -56,25 +53,23 @@ SpeedSearchArea {
 }
 ```
 
-`dismissOnLoseFocus` controls whether the search field hides when it loses focus, and
-defaults to `true`. `SpeedSearchArea` is annotated experimental. The signature can
-change.
+The search field hides on focus loss when `dismissOnLoseFocus` is `true`, its default.
+`SpeedSearchArea` is annotated experimental, so its signature can change.
 
 ### Where selection goes when the filter moves
 
-When the filter changes and the selected item no longer matches, selection does not
-vanish or jump to the top. If there is still a selection anchor, the closest
-visible match to it is selected. Otherwise the rule is a forward scan: the topmost
-visible match, or failing that the first match below the viewport, wrapping around to
-the first match from the top of the list.
+If filtering hides the selected item, an existing selection anchor selects its closest
+visible match. Without an anchor, selection scans forward. It chooses the topmost visible
+match, then the first match below the viewport. If neither exists, selection wraps to the
+first match from the top of the list.
 
-The effect is that filtering keeps your place, as it does in the IDE.
+This selection rule preserves position during filtering, matching IDE behaviour.
 
 ## Scrollbars
 
-Scrollable containers and scrollbars take an optional `ScrollbarAdapter`, which lets you
-control thumb sizing and positioning when the scrollable content is not what the
-scrollbar is nominally attached to.
+Scrollable containers and scrollbars accept an optional `ScrollbarAdapter`.
+Use it to control thumb size and position when scrollable content differs from the
+scrollbar's attached container.
 
 ```kotlin
 import org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
@@ -84,15 +79,13 @@ VerticallyScrollableContainer {
 }
 ```
 
-The overloads without an `adapter` parameter are deprecated. The current ones default it
-to `null`, which behaves as before.
+Use current overloads with an `adapter` parameter. Older overloads without it are
+deprecated. The default `null` adapter preserves the previous behaviour.
 
-Scrollbar appearance is not a Jewel choice. `ScrollbarVisibility` has two shapes,
-`AlwaysVisible` and `WhenScrolling`, and on macOS Jewel reads the user's **System
-Settings → Appearance → Show scroll bars** preference and follows it — including the
-layout consequence, since an always-visible scrollbar sits beside the content while a
-when-scrolling one is overlaid on top of it. Track thickness, expand animation and
-linger duration are all part of the style rather than hardcoded.
+`ScrollbarVisibility` supports `AlwaysVisible` and `WhenScrolling`. On macOS, Jewel
+follows **System Settings → Appearance → Show scroll bars**. Always-visible scrollbars
+occupy space beside content. When-scrolling scrollbars overlay the content. Styles control
+track thickness, expansion animation, and linger duration.
 
 ## See also
 
