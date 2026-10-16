@@ -1,16 +1,15 @@
 # Theming
 
-Every Jewel component reads its colours, metrics and text styles from an ambient theme.
-Which theme you establish decides where those values come from, and it is the one line
-that differs between a plugin and a standalone app.
+Jewel components read colours, metrics, and text styles from the ambient theme.
+Select a theme wrapper to choose where those values come from.
 
-In a plugin you use `SwingBridgeTheme`, which reads the running IDE — see [The Swing
-bridge](swing-bridge.md). This page is about the standalone theme and about customising
-either.
+Plugins use `SwingBridgeTheme` to read the running IDE. See [The Swing
+bridge](swing-bridge.md) for plugin details. This page covers standalone themes and
+customisation shared by both environments.
 
 ## The standalone theme
 
-`IntUiTheme` has two public overloads. The short one is for when the defaults are fine:
+Use the shorter of `IntUiTheme`'s two public overloads for default styling:
 
 ```kotlin
 import org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
@@ -20,10 +19,9 @@ IntUiTheme(isDark = true) {
 }
 ```
 
-`isDark` defaults to `false`, so pass it unless you want the light theme.
+The default `isDark = false` selects light styling. Pass `true` for dark styling.
 
-The long one takes a theme definition and component styling, and is what you use as soon
-as you want to change anything:
+For custom styling, use the overload accepting a theme definition and component styling:
 
 ```kotlin
 import org.jetbrains.jewel.foundation.theme.ComponentStyling
@@ -38,14 +36,14 @@ IntUiTheme(
 }
 ```
 
-Both also accept `swingCompatMode`, which adjusts text rendering so Compose text lines
-up with Swing text in the same window. You want it when embedding Compose in a Swing
-app. The bridge sets it for you in a plugin.
+Both overloads accept `swingCompatMode` to align Compose text with Swing text.
+Enable it when embedding Compose in a Swing application. In plugins, the bridge enables
+it automatically.
 
 ## Building a theme definition
 
-A theme definition holds the palette, the metrics and the base text styles. Build one
-from the Int UI defaults and change what you need:
+Theme definitions contain palettes, metrics, and base text styles. Start with Int UI
+defaults and override the required values:
 
 ```kotlin
 import androidx.compose.runtime.Composable
@@ -76,16 +74,15 @@ fun MyTheme(isDark: Boolean, content: @Composable () -> Unit) {
 }
 ```
 
-`createDefaultTextStyle()` and `createEditorTextStyle()` are extensions on `JewelTheme`
-that hold the Int UI defaults — Inter for UI text, JetBrains Mono for editor text. Pass
-arguments to change size, family or weight rather than constructing a `TextStyle` from
-nothing, so you inherit everything you did not mean to change.
+The `JewelTheme` extensions `createDefaultTextStyle()` and `createEditorTextStyle()`
+provide Int UI defaults. They use Inter for UI text and JetBrains Mono for editor text.
+Pass size, family, or weight arguments to preserve the remaining defaults.
 
 ## Component styling
 
-`ComponentStyling.default()` supplies the Int UI styling for every component. It
-composes, so you layer changes on top rather than replacing the whole set. Window
-decoration styling arrives the same way:
+`ComponentStyling.default()` provides Int UI styles for all components.
+Combine it with selective overrides to preserve unchanged defaults.
+Window decoration uses the same approach:
 
 ```kotlin
 import org.jetbrains.jewel.foundation.theme.ComponentStyling
@@ -98,22 +95,21 @@ ComponentStyling.default()
     .decoratedWindow(titleBarStyle = TitleBarStyle.dark())
 ```
 
-`decoratedWindow` lives in the decorated-window module, not the core styling package —
-see [Decorated windows](decorated-windows.md).
+Import `decoratedWindow` from the decorated-window module. See [Decorated
+windows](decorated-windows.md) for setup.
 
 ## How far you can take it
 
-You can supply your own colours, metrics, icons and text styles.
-Int UI provides defaults that you can override.
-Starting from `ComponentStyling.default()` and overriding the pieces you care about is
-the usual path, and it keeps you current when the Int UI defaults change.
+Custom themes can supply colours, metrics, icons, and text styles.
+Start with `ComponentStyling.default()` and override specific values.
+Unchanged values then follow updates to Int UI defaults.
 
 Avoid modifiers that repaint components and hardcoded colours beside themed components.
 Those values do not follow the user's light or dark choice.
 
 ## Reading theme values
 
-Anything in the theme is available through `JewelTheme`:
+Read current theme values through `JewelTheme`:
 
 ```kotlin
 JewelTheme.globalColors
@@ -122,32 +118,30 @@ JewelTheme.defaultTextStyle
 JewelTheme.isDark
 ```
 
-Use those instead of literals when you draw something custom next to Jewel components.
-That is what keeps your own drawing in step when the theme changes.
+Use these values for custom drawing beside Jewel components. Your drawing then follows
+theme changes with the surrounding components.
 
 ## Islands themes
 
 [Islands](https://plugins.jetbrains.com/docs/intellij/supporting-islands-theme.html) is
-a variant of the New UI with its own themes. Jewel reads its colour palette, but the
-palette is indexed differently, and that difference is often missed.
+a New UI variant with its own themes. Jewel reads Islands palettes using a different
+index scheme from classic palettes.
 
-Classic palettes number their colours `1, 2, 3`. Islands palettes number them `10, 20,
-30`. So the Islands equivalent of `blueOrNull(1)` is `blueOrNull(10)`, and
-`redOrNull(3)` becomes `redOrNull(30)`. Use the scheme that belongs to the palette you
-are reading, which `ThemeColorPalette.isIslands` tells you.
+Classic palettes use colour indices `1, 2, 3`. Islands uses `10, 20, 30`.
+For Islands, replace `blueOrNull(1)` with `blueOrNull(10)` and `redOrNull(3)` with
+`redOrNull(30)`. Check `ThemeColorPalette.isIslands` to select the correct scheme.
 
 ```kotlin
 val palette = JewelTheme.colorPalette
 val blue = if (palette.isIslands) palette.blueOrNull(10) else palette.blueOrNull(1)
 ```
 
-Two more differences matter. An Islands palette is the same in light and dark, where a
-classic palette is not, and semantic tokens are layered on top of it. Jewel does not
-support those tokens yet, though you can read them from the Swing look and feel.
+Islands palettes share values across light and dark themes. Classic palettes differ
+between those themes. Islands adds semantic tokens above its palette. Jewel cannot read
+those tokens directly. Read them from the Swing look and feel when needed.
 
-The official Islands themes currently also include the classic palette entries, so
-classic indices happen to work against them today. Do not rely on it. Third-party themes
-need not do the same, and neither need future official ones.
+Official Islands themes also include classic palette entries. Avoid depending on those
+entries. Third-party themes and future official themes can omit them.
 
 ## See also
 

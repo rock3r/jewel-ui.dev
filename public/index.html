@@ -329,9 +329,9 @@
       <div class="hero-grid" style="display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 56px; align-items: center; padding: 104px 0 96px">
 
         <div style="display: flex; flex-direction: column; gap: 28px">
-          <h1 class="display h1" style="margin: 0; font-size: 64px; line-height: 1.03; font-weight: 700; letter-spacing: -0.032em; text-wrap: balance"><span class="keep">Compose Multiplatform</span> that already looks like <span class="keep">the IDE.</span></h1>
+          <h1 class="display h1" style="margin: 0; font-size: 64px; line-height: 1.03; font-weight: 700; letter-spacing: -0.032em; text-wrap: balance">Build IDE-style UI with <span class="keep">Compose Multiplatform.</span></h1>
 
-          <p style="margin: 0; font-size: 19px; line-height: 1.6; color: var(--fg-2); max-width: 56ch; text-wrap: pretty">Jewel implements the IntelliJ Platform's New UI in Compose Multiplatform for desktop: 40+ components built to the real Int UI specs, plus a Swing bridge that makes your plugin follow whatever theme the user picked, including third-party ones you have never seen.</p>
+          <p style="margin: 0; font-size: 19px; line-height: 1.6; color: var(--fg-2); max-width: 56ch; text-wrap: pretty">Jewel implements the IntelliJ Platform's New UI in Compose Multiplatform for desktop. It provides 40+ components based on the Int UI specifications. Its Swing bridge makes plugin UI follow the user's IDE theme, including supported third-party themes.</p>
 
           <div class="hero-cta" style="display: flex; flex-direction: column; gap: 14px; align-items: flex-start; padding-top: 2px">
             <div class="hero-cta-btns" style="display: flex; gap: 14px; align-items: center; flex-wrap: wrap">
@@ -386,7 +386,7 @@
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 100px 40px">
       <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 46px">
         <h2 class="display h2">Use Jewel in a plugin or desktop app</h2>
-        <p class="lede" style="max-width: 64ch">The same components, two very different setups. Inside the IDE, Jewel is already on the classpath and follows the user's theme. Outside it, Jewel is one dependency and a theme wrapper.</p>
+        <p class="lede" style="max-width: 64ch">Both environments use the same components. Plugins use Jewel bundled with the IDE and follow its theme. Standalone apps add a dependency and a theme wrapper.</p>
       </div>
 
       <div class="two-up" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 26px">
@@ -399,11 +399,11 @@
               <div style="display: flex; flex-direction: column; gap: 12px">
                 <div class="bullet">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-                  <span>Jewel ships inside the IntelliJ Platform from 251.2 onwards. No repository, no external dependency. Declare the bundled modules.</span>
+                  <span>IntelliJ Platform builds from 251.2 include Jewel. Declare its bundled modules without adding an external repository or dependency.</span>
                 </div>
                 <div class="bullet">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-                  <span><code>SwingBridgeTheme</code> reads the live Swing look and feel and hands it to Compose, so your panel matches the IDE around it.</span>
+                  <span><code>SwingBridgeTheme</code> reads the current Swing look and feel. It supplies theme values to Compose so your panel matches the IDE.</span>
                 </div>
                 <div class="bullet">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
@@ -438,15 +438,15 @@
               <div style="display: flex; flex-direction: column; gap: 12px">
                 <div class="bullet">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-                  <span>One dependency and an <code>IntUiTheme</code> wrapper. It matches the official Int UI specs by default, in light and dark.</span>
+                  <span>Add the standalone dependency and wrap content in <code>IntUiTheme</code>. Its light and dark defaults follow the official Int UI specifications.</span>
                 </div>
                 <div class="bullet">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-                  <span><code>DecoratedWindow</code> gives you the IDE's own custom title bar on the JetBrains Runtime. Or drop to the primitives and go fully custom.</span>
+                  <span>On the JetBrains Runtime, <code>DecoratedWindow</code> provides an IDE-style title bar. Use the window primitives to supply custom decoration.</span>
                 </div>
                 <div class="bullet">
                   <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-                  <span>Every colour, metric and icon is themeable. Start from Int UI, end up somewhere entirely your own.</span>
+                  <span>Override Int UI colours, metrics, and icons through the theme to create a custom appearance.</span>
                 </div>
               </div>
 
@@ -477,7 +477,7 @@
             <div class="split" style="display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 40px; align-items: start">
               <div style="display: flex; flex-direction: column; gap: 14px">
                 <h3 class="display" style="margin: 0; font-size: 29px; line-height: 1.18; font-weight: 700; letter-spacing: -0.018em">Both environments use the same components</h3>
-                <p style="margin: 0; font-size: 16px; line-height: 1.65; color: var(--fg-2)">Everything inside the theme is the same API on both sides. Swap the wrapper and your composables do not change, because there is only one Jewel component library underneath both of them.</p>
+                <p style="margin: 0; font-size: 16px; line-height: 1.65; color: var(--fg-2)">Both themes use one Jewel component library. Composables use the same API inside either wrapper, so shared UI code needs no changes.</p>
               </div>
 
               <div class="fork mono" style="font-size: 12.5px; line-height: 1.75">
@@ -493,7 +493,7 @@
                 </div>
                 <div class="fork-shared">
                   <div class="l" style="padding-left: 18px"><span style="color: var(--fn)">YourScreen</span>(state, onAction)</div>
-                  <span style="font-family: Inter, Helvetica, Arial, sans-serif; font-size: 12.5px; color: var(--fg-2)">identical, both sides</span>
+                  <span style="font-family: Inter, Helvetica, Arial, sans-serif; font-size: 12.5px; color: var(--fg-2)">Both themes call the same screen.</span>
                 </div>
                 <div class="fork-split">
                   <div><div class="l">}</div></div>
@@ -505,15 +505,15 @@
             <div class="three-up" style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 26px; padding-top: 4px; border-top: 1px solid var(--line)">
               <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 20px">
                 <h4 class="display" style="margin: 0; font-size: 17px; font-weight: 600">Separate platform code from UI code</h4>
-                <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">Take what you need from the IntelliJ Platform outside your composables and pass it in behind your own interfaces. The UI layer then contains no platform types at all.</p>
+                <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">Access the IntelliJ Platform outside composables. Pass data through your own interfaces to keep platform types out of the UI layer.</p>
               </div>
               <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 20px">
                 <h4 class="display" style="margin: 0; font-size: 17px; font-weight: 600">Test UI without the IDE</h4>
-                <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">Those composables can then be tested against the standalone theme: far faster than starting the platform, much less flaky, and it tests your UI rather than the harness around it.</p>
+                <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">Run platform-independent composables under the standalone theme to test UI behaviour without starting an IDE. Test platform integration separately in the IDE.</p>
               </div>
               <div style="display: flex; flex-direction: column; gap: 8px; padding-top: 20px">
                 <h4 class="display" style="margin: 0; font-size: 17px; font-weight: 600">Reuse UI in a desktop app</h4>
-                <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">The same screen can ship inside an IDE plugin and inside a standalone desktop app, from one source tree, with no forked UI code to keep in step.</p>
+                <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">Share screens between an IDE plugin and a standalone desktop app. Keep their UI code in one source tree.</p>
               </div>
             </div>
           </div>
@@ -526,7 +526,7 @@
   <div id="look" class="sec" style="border-bottom: 1px solid var(--line); background: var(--panel)">
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 100px 40px">
       <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 42px">
-        <h2 class="display h2">40+ components, built to the spec.</h2>
+        <h2 class="display h2">Use 40+ components based on Int UI</h2>
         <p class="lede" style="max-width: 64ch">Jewel provides buttons, fields, combo boxes, trees, tabs, banners, tooltips, sliders and split panes with IntelliJ Platform styling and behaviour.</p>
       </div>
 
@@ -539,7 +539,7 @@
         </span>
       </div>
 
-      <p class="caption">Captured from the standalone sample running on the JetBrains Runtime — not a mockup.</p>
+      <p class="caption">This screenshot shows the standalone sample running on the JetBrains Runtime.</p>
 
     </div>
   </div>
@@ -548,7 +548,7 @@
   <div id="why" class="sec" style="border-bottom: 1px solid var(--line)">
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 100px 40px">
       <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 46px">
-        <h2 class="display h2">Why Compose, and not Swing?</h2>
+        <h2 class="display h2">Compose supports state-driven desktop UI</h2>
         <p class="lede" style="max-width: 64ch">Jewel builds on Compose Multiplatform to give desktop apps the IDE's appearance and behaviour.</p>
       </div>
 
@@ -596,37 +596,37 @@
         
           <div class="why-item" style="position: relative; display: flex; flex-direction: column; gap: 9px; padding: 28px 0; border-top: 1px solid var(--line)">
             <div style="display: flex; align-items: center; gap: 7px">
-              <h3 class="display" style="margin: 0; font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">Expressive and adaptive by default</h3>
+              <h3 class="display" style="margin: 0; font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">Use animation and adaptive layout APIs</h3>
               
             </div>
-            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">The Android lineage brings rich animation APIs, flexible first-party layouts and adaptive behaviour built in, and Skia draws all of it on the GPU. Much is possible in Swing too, at a cost in time and complexity you will not enjoy maintaining.</p>
+            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">Compose provides animation APIs, first-party layouts, and adaptive behaviour developed through Android. Skia renders the UI on the GPU. Similar Swing features can require more development and maintenance work.</p>
             
             
           </div>
         
           <div class="why-item" style="position: relative; display: flex; flex-direction: column; gap: 9px; padding: 28px 0; border-top: 1px solid var(--line)">
             <div style="display: flex; align-items: center; gap: 7px">
-              <h3 class="display" style="margin: 0; font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">Kotlin in the UI layer, not just under it</h3>
+              <h3 class="display" style="margin: 0; font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">Use Kotlin flows and scoped effects</h3>
               
             </div>
-            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">Flows collect straight into the UI, effects are scoped to the lifetime of the composition, and cancellation is structured. No manual marshalling onto the EDT, and no listener you forgot to remove.</p>
+            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">Compose collects flows into UI state and scopes effects to the composition lifetime. Structured cancellation manages that work. These APIs reduce manual event dispatch thread scheduling and listener cleanup.</p>
             
             
           </div>
         
           <div class="why-item" style="position: relative; display: flex; flex-direction: column; gap: 9px; padding: 28px 0; border-top: 1px solid var(--line)">
             <div style="display: flex; align-items: center; gap: 7px">
-              <h3 class="display" style="margin: 0; font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">You do not have to rewrite anything</h3>
+              <h3 class="display" style="margin: 0; font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">Add Compose panels to existing Swing UI</h3>
               
             </div>
-            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">A Compose panel drops into an existing Swing hierarchy, so adoption happens one tool window, one dialog, one panel at a time. Jewel wires up the panel for you, and the rest of your plugin carries on being Swing.</p>
+            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">Embed a Compose panel in an existing Swing hierarchy. Jewel configures the panel while the remaining plugin UI continues to use Swing. Adopt Compose one tool window, dialog, or panel at a time.</p>
             
             
           </div>
         
           <div class="why-item" style="position: relative; display: flex; flex-direction: column; gap: 9px; padding: 28px 0; border-top: 1px solid var(--line)">
             <div style="display: flex; align-items: center; gap: 7px">
-              <h3 class="display" style="margin: 0; font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">A dev loop that does not start with a restart</h3>
+              <h3 class="display" style="margin: 0; font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">Apply UI changes with Compose Hot Reload</h3>
               
                 <button class="info-btn" aria-label="What you need to switch on first" aria-expanded="false" aria-controls="hot-reload-setup" data-info-toggle>
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
@@ -636,7 +636,7 @@
                 </button>
               
             </div>
-            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">The DevKit plugin and the Compose Hot Reload Gradle plugin apply your UI changes straight to the running plugin, so a padding tweak shows up immediately rather than after another sandbox IDE restart. Standalone apps get the same treatment: Compose Hot Reload ships with Compose Multiplatform.</p>
+            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">The DevKit plugin and Compose Hot Reload Gradle plugin apply UI edits to a running plugin without restarting the sandbox IDE. Compose Multiplatform also includes Hot Reload for standalone apps.</p>
             
               <a class="arrow-link" href="https://kotlinlang.org/docs/multiplatform/compose-hot-reload.html" target="_blank" rel="noreferrer" style="font-size: 14px; margin-top: 2px">
                 Compose Hot Reload
@@ -645,7 +645,7 @@
             
             
               <div class="info-pop" id="hot-reload-setup">
-                <p style="margin: 0 0 12px; font-size: 13.5px; line-height: 1.55; color: var(--fg-2)">Needs the Compose Hot Reload Gradle plugin in your build, plus Enable Compose tooling switched on. That setting is off by default, and it also turns on the Compose UI preview.</p>
+                <p style="margin: 0 0 12px; font-size: 13.5px; line-height: 1.55; color: var(--fg-2)">Apply the Compose Hot Reload Gradle plugin in your build. Turn on Enable Compose tooling in Advanced Settings. This setting defaults to off and also enables Compose UI previews.</p>
                 <img class="shot-plain" src="devkit-compose-tooling.webp" alt="IntelliJ IDEA Advanced Settings, filtered to compose, showing the DevKit section with the Enable Compose tooling checkbox ticked.">
                 <a class="arrow-link" href="jetbrains://idea/settings?name=Advanced+Settings" style="font-size: 13.5px; margin-top: 12px">
                   Open Advanced Settings
@@ -672,8 +672,8 @@
           <div class="split" style="display: grid; grid-template-columns: minmax(0, 0.95fr) minmax(0, 1.05fr); gap: 40px; padding: 38px; align-items: center">
             <div style="display: flex; flex-direction: column; gap: 18px">
               <h3 class="display" style="margin: 0; font-size: 29px; line-height: 1.18; font-weight: 700; letter-spacing: -0.018em">The Swing bridge reads the IDE's current theme</h3>
-              <p style="margin: 0; font-size: 16px; line-height: 1.65; color: var(--fg-2)">Inside the IDE, Jewel pulls colours, typography, metrics and images straight out of the current Swing look and feel and hands them to Compose. Switch to dark, install a theme from the Marketplace, bump the IDE's font size, and your Compose UI moves with it. There is no mapping table to keep in sync, and no drift when the platform's design evolves.</p>
-              <p style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--fg-3)">Any theme built on the platform's standard theming mechanism works, including ones written long after your plugin shipped.</p>
+              <p style="margin: 0; font-size: 16px; line-height: 1.65; color: var(--fg-2)">The Swing bridge supplies Compose with colours, typography, metrics, and images from the IDE's current look and feel. Open panels follow theme and font changes. Plugins need no separate mapping table to track platform design values.</p>
+              <p style="margin: 0; font-size: 15px; line-height: 1.6; color: var(--fg-3)">The bridge supports themes using the platform's standard theming mechanism, including themes released after your plugin.</p>
             </div>
 
             <div style="display: flex; flex-direction: column; gap: 12px">
@@ -685,7 +685,7 @@
                 <span class="label">Int UI Dark</span>
                 <img class="shot-plain" src="bridge-dark.webp" alt="The same Jewel buttons rendered in the dark Int UI theme.">
               </div>
-              <p style="margin: 2px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--fg-3)">Same composables, same code. Only the theme changed.</p>
+              <p style="margin: 2px 0 0; font-size: 13.5px; line-height: 1.5; color: var(--fg-3)">Both screenshots use the same composables with different themes.</p>
             </div>
           </div>
         </div>
@@ -694,7 +694,7 @@
       <div class="card speed-card" style="padding: 32px; display: grid; grid-template-columns: minmax(0, 1fr) 430px; gap: 32px; align-items: center; margin-bottom: 42px">
         <div style="display: flex; flex-direction: column; gap: 14px">
           <h3 class="display" style="margin: 0; font-size: 24px; font-weight: 600; letter-spacing: -0.014em">Lists and trees follow IDE selection behaviour</h3>
-          <p style="margin: 0; font-size: 15px; line-height: 1.62; color: var(--fg-2)"><code>SingleSelectionLazyColumn</code>, <code>MultiSelectionLazyColumn</code> and <code>LazyTree</code> handle keyboard selection, ranges and focus the way the IDE does. <code>SpeedSearchArea</code> adds type-to-find with match highlighting — and keeps a sensible selection when the filter hides the selected row.</p>
+          <p style="margin: 0; font-size: 15px; line-height: 1.62; color: var(--fg-2)"><code>SingleSelectionLazyColumn</code>, <code>MultiSelectionLazyColumn</code> and <code>LazyTree</code> implement IDE keyboard selection, ranges, and focus behaviour. <code>SpeedSearchArea</code> adds type-to-find and match highlighting. When filtering hides the selected row, it selects a nearby match.</p>
         </div>
         <span class="only-dark">
           <img class="shot-plain" src="shot-speedsearch-dark.webp" alt="Speed search in the standalone sample, dark theme: typing 'spr' highlights the matching characters in Spring Boot, Spring Framework, Spring Data and Spring Security.">
@@ -707,43 +707,43 @@
       <div>
         
           <div class="row">
-            <h3>Icons that behave like the platform’s</h3>
-            <p>Ask for an icon key and Jewel does what the IDE does: swaps in the New UI path, patches SVG key colours for the current theme, picks the dark or @2x variant, and appends state suffixes for selected, hovered or indeterminate. Every step is a painter hint, and you can add your own.</p>
+            <h3>Icons follow platform loading rules</h3>
+            <p>Jewel resolves icon keys through New UI paths, theme-aware SVG colours, and dark or @2x variants. State suffixes select selected, hovered, or indeterminate resources. Painter hints control each step and support custom behaviour.</p>
           </div>
         
           <div class="row">
             <h3>Compose integrates with the platform data context</h3>
-            <p>The bridge goes well past colours and components. A composable can publish values into the IntelliJ data context, so platform actions, the paste provider and anything else that reads DataContext work inside your Compose UI exactly as they do in Swing. Icons come from the platform’s own set rather than a copy of it.</p>
+            <p>Composables can publish values into the IntelliJ data context. Platform actions, paste providers, and other DataContext consumers can then use those values as they do in Swing. The bridge loads icons from the platform’s own set.</p>
           </div>
         
           <div class="row">
-            <h3>Disabled states drawn the way the IDE draws them</h3>
-            <p>Greying a component out is not an alpha change. Jewel runs an SKSL fragment shader over a separate graphics layer to apply the platform’s brightness, contrast and alpha curve, so a disabled Compose control matches the disabled Swing control beside it instead of looking faded.</p>
+            <h3>Disabled controls use platform colour adjustments</h3>
+            <p>Jewel applies the platform’s brightness, contrast, and alpha curve through a Skia Shading Language (SKSL) fragment shader on a separate graphics layer. Disabled Compose controls therefore match adjacent disabled Swing controls.</p>
           </div>
         
           <div class="row">
-            <h3>Scrollbars that obey the operating system</h3>
-            <p>On macOS the scrollbar follows the user’s Show scroll bars setting, including whether it sits beside the content or floats over it, and whether a connected mouse changes the answer. Track thickness, expand animation and linger duration are all part of the style rather than hardcoded.</p>
+            <h3>Scrollbars follow operating system settings</h3>
+            <p>On macOS, Jewel follows Show scroll bars, including mouse-dependent changes. The setting determines whether scrollbars occupy space beside content or overlay it. Styles control track thickness, expansion animation, and linger duration.</p>
           </div>
         
           <div class="row">
             <h3>Popups, menus and tooltips with IDE timing</h3>
-            <p>Tooltips carry the platform’s regular and full disappear delays and its auto-hide behaviour. Menus render keyboard shortcut hints next to their items, and popups can opt into a custom renderer for shadows and borders the host window cannot draw.</p>
+            <p>Tooltips use the platform’s regular and full disappear delays and auto-hide behaviour. Menus show shortcut hints beside items. Popups support custom rendering for shadows and borders that the host window cannot draw.</p>
           </div>
         
           <div class="row">
-            <h3>Typography that fits right in, everywhere</h3>
-            <p>The default, editor and console text styles are all exposed, and new ones can be derived at a requested size, weight or style. Your code view uses the user’s actual editor font, not your best guess at it.</p>
+            <h3>Text styles follow the selected IDE fonts</h3>
+            <p>Jewel exposes default, editor, and console text styles. Derive variants with a chosen size, weight, or style. Code views can use the user’s configured editor font.</p>
           </div>
         
           <div class="row">
-            <h3>The IDE’s window chrome, in your app</h3>
-            <p>A standalone app gets the IDE’s own title bar, project stripe and window controls, so it looks like IntelliJ before you style anything. Mark client regions to keep controls in the bar clickable, or drop the styling and draw all the chrome yourself.</p>
+            <h3>Standalone windows support IDE-style decoration</h3>
+            <p>Standalone apps can use the IDE-style title bar, project stripe, and window controls. Mark interactive controls as client regions so they remain clickable. Custom applications can replace the styling and draw their own window decoration.</p>
           </div>
         
           <div class="row">
-            <h3>Accessibility built into the components</h3>
-            <p>Lists and trees report their selection state to screen readers and take content descriptions from their children, while decorative chrome like dividers and scrollbars stays out of the accessibility tree entirely. Where a Swing component exposes something to assistive technology, its Jewel counterpart does too.</p>
+            <h3>Components expose accessibility information</h3>
+            <p>Lists and trees expose selection state to screen readers and use child content descriptions. Dividers and scrollbars stay outside the accessibility tree. Jewel components expose the information their Swing counterparts give assistive technology.</p>
           </div>
         
       </div>
@@ -756,25 +756,25 @@
       <div class="split" style="display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: start; margin-bottom: 42px">
         <div style="display: flex; flex-direction: column; gap: 14px">
           <h2 class="display h2">Render Markdown with Compose components</h2>
-          <p class="lede">No WebView, no HTML bridge, no second rendering engine inside your plugin. Jewel parses CommonMark and renders it with Jewel components, so Markdown picks up the same theme, the same fonts and the same text selection as the rest of your UI.</p>
+          <p class="lede">Jewel parses CommonMark and renders it with Compose components. Markdown shares the surrounding UI's theme, fonts, and text selection. Rendering needs no WebView, HTML bridge, or second rendering engine in the plugin.</p>
         </div>
 
         <div style="display: flex; flex-direction: column; gap: 14px; padding-top: 4px">
           <div class="bullet">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-            <span><strong style="color: var(--fg); font-weight: 600">GitHub flavour, as opt-in modules.</strong> Tables, strikethrough, autolinks, front matter, images and GitHub's alert blocks each live in their own extension artifact — take only what you render.</span>
+            <span>Add extension artifacts for tables, strikethrough, autolinks, front matter, images, and GitHub alert blocks. Include only the features your documents need.</span>
           </div>
           <div class="bullet">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-            <span><strong style="color: var(--fg); font-weight: 600">Incremental parsing.</strong> A live preview re-parses what changed rather than the whole document, so typing into a long file stays smooth.</span>
+            <span>Editor preview mode re-parses changed CommonMark blocks and the preceding block. It reuses unchanged blocks to reduce parsing work in long documents.</span>
           </div>
           <div class="bullet">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-            <span><strong style="color: var(--fg); font-weight: 600">Styled for where it runs.</strong> <code>int-ui-standalone-styling</code> for apps, <code>ide-laf-bridge-styling</code> for plugins — the same document, themed by its host.</span>
+            <span>Use <code>int-ui-standalone-styling</code> for apps and <code>ide-laf-bridge-styling</code> for plugins. Each module styles documents for its host.</span>
           </div>
           <div class="bullet">
             <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-            <span><strong style="color: var(--fg); font-weight: 600">Your own blocks.</strong> Add block types with a renderer extension, and plug in a highlighter for fenced code.</span>
+            <span>Add custom block types through a renderer extension. Supply a code highlighter for fenced code blocks.</span>
           </div>
         </div>
       </div>
@@ -788,7 +788,7 @@
         </span>
       </div>
 
-      <p class="caption">Live editor on the left, Jewel-rendered Markdown on the right. Every GitHub alert type, themed by the host.</p>
+      <p class="caption">The live editor appears on the left. Jewel renders Markdown on the right, including every GitHub alert type in the host theme.</p>
     </div>
   </div>
 
@@ -798,20 +798,20 @@
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 100px 40px">
       <div class="split" style="display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: 48px; align-items: center">
         <div style="display: flex; flex-direction: column; gap: 18px">
-          <h2 class="display h2">Stability hints and live inspection, in the IDE.</h2>
-          <p class="lede">Jewel Tooling is an IntelliJ IDEA plugin for Compose UI authors. It paints a stability estimate beside each <code>@Composable</code> parameter, and it can record live recompositions from a run you already have. No dependency to add, no server to start.</p>
+          <h2 class="display h2">Inspect stability and live composition in the IDE</h2>
+          <p class="lede">Jewel Tooling estimates stability beside each <code>@Composable</code> parameter in IntelliJ IDEA. It records live composition activity through an existing run configuration. Editor hints need no extra dependency or server.</p>
           <div style="display: flex; flex-direction: column; gap: 12px; padding-top: 2px">
             <div class="bullet">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-              <span><strong style="color: var(--fg); font-weight: 600">Editor hints.</strong> Stable, unstable or unknown after each parameter type — hover for the reason, open the gutter for the whole function.</span>
+              <span>Read stable, unstable, or unknown estimates after parameter types. Hover for the reason. Click the gutter indicator to inspect all function inputs.</span>
             </div>
             <div class="bullet">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-              <span><strong style="color: var(--fg); font-weight: 600">Live inspection.</strong> Launch a temporary copy of your run configuration and watch recomposition counts fill in as you use the UI.</span>
+              <span>Launch a temporary copy of your run configuration to capture composition activity. Execution counts update as you use the UI.</span>
             </div>
             <div class="bullet">
               <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"></path></svg>
-              <span><strong style="color: var(--fg); font-weight: 600">Agent-ready.</strong> The same static analysis is available over MCP and as a skill for coding agents.</span>
+              <span>Coding agents can call the same static analysis over the Model Context Protocol (MCP). An optional skill explains the tools and their evidence.</span>
             </div>
           </div>
           <div style="display: flex; gap: 18px; align-items: center; flex-wrap: wrap; padding-top: 6px">
@@ -824,7 +824,7 @@
               <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"></path></svg>
             </a>
           </div>
-          <p style="margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--fg-3)">Available on JetBrains Marketplace and GitHub Releases.</p>
+          <p style="margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--fg-3)">Install Jewel Tooling from JetBrains Marketplace or GitHub Releases.</p>
         </div>
         <div class="shot-wrap">
           <img class="shot" src="tooling-editor.webp" alt="Jewel Tooling editor hints in a Jewel Standalone project: stable and unstable parameter estimates shown beside @Composable parameters.">
@@ -837,30 +837,30 @@
   <div id="next" class="sec" style="border-bottom: 1px solid var(--line)">
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 100px 40px">
       <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 46px">
-        <h2 class="display h2">Where it goes next.</h2>
-        <p class="lede" style="max-width: 64ch">Jewel is not finished. The next phase goes deeper into the platform, and then brings all of it back out to standalone.</p>
+        <h2 class="display h2">Planned work extends platform integration</h2>
+        <p class="lede" style="max-width: 64ch">The Jewel team plans further platform integration and shared improvements for standalone applications.</p>
       </div>
 
       <div class="why-grid" style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 56px; margin-bottom: 34px">
         
           <div style="display: flex; flex-direction: column; gap: 9px; padding: 28px 0; border-top: 1px solid var(--line)">
             <h3 class="display" style="margin: 0; font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">A new cross-frontend Icons API</h3>
-            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">Built together with the platform team. Icons become data that either Swing or Compose can render, they can be layered and modified declaratively, and because the declaration carries no rendering dependency it can be made on a backend and sent over RPC.</p>
+            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">Jewel and the platform team are developing icons as data for Swing and Compose renderers. Declarations support layers and modifications without rendering dependencies. A backend can create declarations and send them through remote procedure calls (RPC).</p>
           </div>
         
           <div style="display: flex; flex-direction: column; gap: 9px; padding: 28px 0; border-top: 1px solid var(--line)">
             <h3 class="display" style="margin: 0; font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">Actions system integration</h3>
-            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">Platform actions invoked and presented from Compose, so a Compose toolbar or menu works with the action system instead of running a parallel implementation kept in step by hand.</p>
+            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">The team plans to let Compose toolbars and menus present and invoke platform actions directly. This integration removes the need to maintain a separate action implementation.</p>
           </div>
         
           <div style="display: flex; flex-direction: column; gap: 9px; padding: 28px 0; border-top: 1px solid var(--line)">
             <h3 class="display" style="margin: 0; font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">Keyboard shortcuts</h3>
-            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">Shortcut handling that respects the user’s keymap, so your Compose UI answers to the same bindings as the rest of the IDE, including the ones they have remapped.</p>
+            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">Planned shortcut handling follows the user’s keymap. Compose UI will use the IDE’s bindings, including shortcuts the user has remapped.</p>
           </div>
         
           <div style="display: flex; flex-direction: column; gap: 9px; padding: 28px 0; border-top: 1px solid var(--line)">
             <h3 class="display" style="margin: 0; font-size: 18px; line-height: 1.3; font-weight: 600; letter-spacing: -0.01em">Performance work</h3>
-            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">We work with the Compose Multiplatform and JetBrains Runtime teams to continuously improve performance in Compose for Desktop and the Skiko pipeline. That work benefits every Compose desktop app, not just Jewel. Frame limiting and vsync support in Skiko, for example, stop animations from rendering frames that never get drawn.</p>
+            <p style="margin: 0; font-size: 14.5px; line-height: 1.62; color: var(--fg-2)">The Jewel, Compose Multiplatform, and JetBrains Runtime teams work on desktop rendering performance and the Skiko pipeline. These improvements apply to all Compose desktop apps. For example, Skiko frame limiting and vsync prevent rendering animation frames that the display never shows.</p>
           </div>
         
       </div>
@@ -875,7 +875,7 @@
               <path d="M76 256L256 436V256H76Z" fill="#CCCCCC"></path>
               <path d="M256 436L436 256H256V436Z" fill="#808080"></path>
             </svg>
-            <p style="margin: 0; font-size: 17px; line-height: 1.6; color: var(--fg-2); flex: 1 1 420px"><strong style="color: var(--fg); font-weight: 600">And all of it lands in standalone too.</strong> Whatever the platform side gains, standalone Jewel gains as well, so a desktop app of your own can be built on the same advanced patterns and technology as the best IDE platform out there.</p>
+            <p style="margin: 0; font-size: 17px; line-height: 1.6; color: var(--fg-2); flex: 1 1 420px">The team plans to bring these platform improvements to standalone Jewel too. Desktop apps can then use the same patterns and technology.</p>
           </div>
         </div>
       </div>
@@ -891,11 +891,11 @@
           <h2 class="display h2">Stable APIs preserve binary compatibility</h2>
           <p class="lede">Jewel is below 1.0. Its compatibility policy distinguishes stable and experimental APIs. CI checks API changes on every commit.</p>
           <div class="mono" style="font-size: 12.5px; line-height: 1.9; color: var(--fg-3); border-left: 1px solid var(--line-strong); padding-left: 16px; margin-top: 8px">
-            <div>Standalone versions read</div>
+            <div>Standalone versions use this format:</div>
             <div style="color: var(--fg)">[jewel-version]-[ijp-build]</div>
-            <div style="margin-top: 8px">e.g. 0.41.0-262.10968.63</div>
+            <div style="margin-top: 8px">For example: 0.41.0-262.10968.63</div>
           </div>
-          <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.6; color: var(--fg-3)">The Jewel version determines API compatibility; the suffix is the IntelliJ Platform build it was compiled against. Release branches keep older platform majors alive with the same functionality.</p>
+          <p style="margin: 8px 0 0; font-size: 15px; line-height: 1.6; color: var(--fg-3)">The Jewel version determines API compatibility. The suffix identifies the IntelliJ Platform build used for compilation. Release branches support older platform majors with the same functionality.</p>
         </div>
 
         <div style="display: flex; flex-direction: column">
@@ -907,21 +907,21 @@
           
             <div class="row">
               <h3>Experimental APIs</h3>
-              <p>We keep them binary-compatible wherever we can, but they come with no hard promise. They are annotated, so you always know which kind you are depending on.</p>
+              <p>Maintainers preserve binary compatibility when possible without guaranteeing it. Annotations identify experimental APIs whose signatures can change.</p>
             </div>
           
             <div class="row">
               <h3>Deprecated APIs</h3>
-              <p>Anything deprecated usually survives about two major IntelliJ Platform bumps before it is removed, which is enough warning to plan the migration.</p>
+              <p>Maintainers usually remove deprecated APIs after about two IntelliJ Platform major releases. Plan migration within that warning period.</p>
             </div>
           
             <div class="row">
               <h3>Source compatibility</h3>
-              <p>Best effort overall, and mainly guaranteed for named-parameter usage. Call sites written the idiomatic way are the ones we protect hardest.</p>
+              <p>Maintainers make a best effort to preserve source compatibility. Guarantees mainly cover named-parameter calls.</p>
             </div>
           
 
-          <p style="margin: 0; padding: 26px 0 0; font-size: 15px; line-height: 1.6; color: var(--fg-2)">When something does have to go, the <a href="https://github.com/JetBrains/intellij-community/blob/master/platform/jewel/RELEASE%20NOTES.md" target="_blank" rel="noreferrer">release notes</a> include a migration guide for it.</p>
+          <p style="margin: 0; padding: 26px 0 0; font-size: 15px; line-height: 1.6; color: var(--fg-2)">The <a href="https://github.com/JetBrains/intellij-community/blob/master/platform/jewel/RELEASE%20NOTES.md" target="_blank" rel="noreferrer">release notes</a> include a migration guide for each API removal.</p>
         </div>
 
       </div>
@@ -932,7 +932,7 @@
   <div id="community" class="sec" style="border-bottom: 1px solid var(--line)">
     <div class="shell" style="max-width: 1200px; margin: 0 auto; padding: 92px 40px">
       <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 42px">
-        <h2 class="display h2">Come build it with us.</h2>
+        <h2 class="display h2">Contribute code, issues, or questions</h2>
         <p class="lede" style="max-width: 64ch">Jewel's source is in the IntelliJ Community repository. Report bugs, request features or contribute through the links below.</p>
       </div>
 
@@ -940,7 +940,7 @@
         
           <div class="door" style="display: flex; flex-direction: column; gap: 10px; padding: 30px; border-left: 1px solid var(--line)">
             <a class="display" href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noreferrer" style="font-size: 20px; font-weight: 600; letter-spacing: -0.01em">Read the source</a>
-            <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">platform/jewel in the IntelliJ Community repository, with contribution and PR guides in docs/.</p>
+            <p style="margin: 0; font-size: 14.5px; line-height: 1.6; color: var(--fg-2)">Find Jewel under platform/jewel in the IntelliJ Community repository. Its docs/ directory includes contribution and pull request guides.</p>
           </div>
         
           <div class="door" style="display: flex; flex-direction: column; gap: 10px; padding: 30px; border-left: 1px solid var(--line)">
@@ -957,7 +957,7 @@
 
       <div class="card" style="margin-top: 20px; border-radius: 8px; padding: 26px 30px; display: flex; align-items: center; gap: 22px; flex-wrap: wrap">
         <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="var(--link)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink: 0" aria-hidden="true"><rect x="2" y="4.5" width="20" height="15" rx="3"></rect><path d="M10 9l5 3-5 3V9Z"></path></svg>
-        <span style="font-size: 16px; line-height: 1.55; color: var(--fg-2); flex: 1 1 340px">Sebastiano and Chris walk through why Compose is a serious choice for desktop UI, and what Jewel adds on top.</span>
+        <span style="font-size: 16px; line-height: 1.55; color: var(--fg-2); flex: 1 1 340px">Sebastiano and Chris explain how Compose supports desktop UI and which features Jewel adds.</span>
         <a class="btn btn-sm btn-ghost" href="https://www.youtube.com/watch?v=2H1jMn_SGcA" target="_blank" rel="noreferrer">Watch the talk</a>
       </div>
     </div>
@@ -978,7 +978,7 @@
           </svg>
           <span class="display" style="font-size: 17px; font-weight: 700">Jewel</span>
         </div>
-        <p style="margin: 0; font-size: 14px; line-height: 1.65; color: var(--fg-3); max-width: 34ch">A joint project by Google and JetBrains, licensed under Apache 2.0. Requires the JetBrains Runtime — other JDKs are not supported.</p>
+        <p style="margin: 0; font-size: 14px; line-height: 1.65; color: var(--fg-3); max-width: 34ch">Google and JetBrains develop Jewel under the Apache 2.0 licence. Jewel requires the JetBrains Runtime. Other JDKs have no support.</p>
         <span class="mono" style="font-size: 12px; color: var(--fg-3)">jewel-ui.dev</span>
       </div>
 

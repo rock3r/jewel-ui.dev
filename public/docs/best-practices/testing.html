@@ -246,9 +246,9 @@ figure.shot img {
     <main class="main">
       <article class="doc">
 <h1>Testing your UI</h1>
-<p>Jewel lets you test a plugin's UI without starting the IntelliJ Platform.</p>
+<p>Test platform-independent plugin UI with Jewel's standalone theme without starting the IntelliJ Platform.</p>
 <h2 id="test-against-the-standalone-theme"><a class="anchor" href="#test-against-the-standalone-theme">Test against the standalone theme</a></h2>
-<p>The components below the theme are the same in both worlds (<a href="portable-ui.html">Portable UI</a>). So a composable that takes plain data and callbacks can be rendered under <code>IntUiTheme</code> in an ordinary JVM test, with no IDE involved:</p>
+<p>Plugin and standalone themes share the same components. Composables accepting plain data and callbacks can run inside <code>IntUiTheme</code> in ordinary JVM tests. See <a href="portable-ui.html">Portable UI</a> for the required structure.</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">@Test</span>
 <span class="c-kw">fun</span> `shows an empty state <span class="c-kw">when</span> there are no issues`() {
     composeRule.setContent {
@@ -259,18 +259,18 @@ figure.shot img {
 
     composeRule.<span class="c-fn">onNodeWithText</span>(<span class="c-str">&quot;No issues&quot;</span>).<span class="c-fn">assertExists</span>()
 }</code></pre></div>
-<p>The test runs without a sandbox IDE and checks the composable's output.</p>
-<p>The prerequisite is the discipline in <a href="portable-ui.html">Portable UI</a>: if the composable needs a <code>Project</code>, none of this is available to you.</p>
+<p>This test checks the composable's output without launching a sandbox IDE.</p>
+<p>Remove platform dependencies before using this approach. A composable requiring <code>Project</code> still needs an IDE-hosted test.</p>
 <h2 id="what-this-does-and-does-not-prove"><a class="anchor" href="#what-this-does-and-does-not-prove">What this does and does not prove</a></h2>
-<p><strong>It proves</strong> structure, state handling, and behaviour: what renders for a given state, what a click does, whether the empty and error states appear when they should, whether content is reachable and labelled.</p>
-<p><strong>It does not prove appearance inside the IDE.</strong> The bridge supplies different values and switches on Swing compatibility mode, so pixels can differ. Do not treat a standalone render as a preview of the plugin, and do not screenshot-test the standalone render as a proxy for what users see.</p>
-<p>For appearance, look at the real thing in the IDE.</p>
+<p>Standalone tests check structure, state handling, and behaviour. Assert on rendered content, click results, empty states, error states, reachability, and labels.</p>
+<p>These tests cannot establish appearance inside the IDE. Bridge theme values and Swing compatibility mode can change pixels. Standalone screenshots cannot replace screenshots of the plugin running in its IDE host.</p>
+<p>Inspect the running plugin in the IDE to check its appearance.</p>
 <h2 id="accessibility-is-covered-too"><a class="anchor" href="#accessibility-is-covered-too">Accessibility is covered too</a></h2>
-<p>Jewel's lists and trees expose selection state to screen readers, and take content descriptions from their children. Decorative chrome — dividers, scrollbars — is kept out of the accessibility tree deliberately.</p>
-<p>That means semantics-based queries in tests generally match what assistive technology sees, so asserting on accessible names is both a UI test and a check that the UI is navigable. If a node is hard to find in a test, that is usually a real finding rather than a test problem.</p>
+<p>Lists and trees expose selection state to screen readers. Their children supply content descriptions. Jewel deliberately excludes decorative elements, including dividers and scrollbars, from the accessibility tree.</p>
+<p>Semantics-based test queries generally use the same information as assistive technology. Accessible-name assertions check UI behaviour and navigation. Investigate nodes that tests cannot locate for possible accessibility defects.</p>
 <h2 id="testing-the-parts-that-need-the-ide"><a class="anchor" href="#testing-the-parts-that-need-the-ide">Testing the parts that need the IDE</a></h2>
-<p>Some things do need the platform: the bridge itself, anything reading a real <code>DataContext</code>, anything driven by platform actions. Test those where they live, with the platform's own test infrastructure, and keep that set as small as you can.</p>
-<p>Use platform-hosted tests for IDE integration and standalone tests for UI behaviour.</p>
+<p>The bridge, real <code>DataContext</code> access, and platform actions require the IDE. Cover these integrations with the platform's test infrastructure. Limit platform-hosted tests to code that requires it.</p>
+<p>Keep UI behaviour tests under the standalone theme and integration tests in the IDE host.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
 <ul>
 <li><a href="portable-ui.html">Portable UI</a> — the structure that makes this possible</li>

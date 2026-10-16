@@ -246,14 +246,14 @@ figure.shot img {
     <main class="main">
       <article class="doc">
 <h1>Jewel Tooling</h1>
-<p>Jewel Tooling is an IntelliJ IDEA plugin for Compose UI authors. It shows a static stability estimate beside each <code>@Composable</code> parameter, and it can record live composition activity from a local development run.</p>
-<p>You do not add a dependency, change application source, or start a server for the editor hints. Live inspection uses a bundled agent on a temporary copy of a run configuration you already have.</p>
-<p>This is the 0.9.0 distribution. It targets IntelliJ IDEA 2026.2.0.1 (build 262.8665.337) with the bundled Kotlin plugin in K2 mode. Install it from <a href="https://plugins.jetbrains.com/plugin/34392-jewel-tooling" target="_blank" rel="noopener noreferrer">JetBrains Marketplace</a>, from a <a href="https://github.com/rock3r/jewel-tooling/releases" target="_blank" rel="noopener noreferrer">GitHub Release</a>, or from the ZIP built in a checkout of <a href="https://github.com/rock3r/jewel-tooling" target="_blank" rel="noopener noreferrer">rock3r/jewel-tooling</a>.</p>
+<p>Jewel Tooling helps Compose UI authors inspect their code in IntelliJ IDEA. The plugin estimates each <code>@Composable</code> parameter's stability. It also records composition activity during local development runs.</p>
+<p>Editor hints work without extra dependencies, source changes, or a server. For live inspection, the plugin adds its bundled agent to a temporary copy of an existing run configuration.</p>
+<p>Version 0.9.0 targets IntelliJ IDEA 2026.2.0.1 (build 262.8665.337). It uses the bundled Kotlin plugin in K2 mode. Install from <a href="https://plugins.jetbrains.com/plugin/34392-jewel-tooling" target="_blank" rel="noopener noreferrer">JetBrains Marketplace</a>, a <a href="https://github.com/rock3r/jewel-tooling/releases" target="_blank" rel="noopener noreferrer">GitHub Release</a>, or a ZIP built from <a href="https://github.com/rock3r/jewel-tooling" target="_blank" rel="noopener noreferrer">rock3r/jewel-tooling</a>.</p>
 <h2 id="what-you-get"><a class="anchor" href="#what-you-get">What you get</a></h2>
 <figure class="shot"><img src="images/standalone-editor.png" alt="Stable and unstable parameter hints in a Jewel Standalone project" loading="lazy"></figure>
-<p>Editor hints appear after parameter types in project sources and in attached dependency Kotlin sources. Hover a hint for its reason. Click the function gutter icon for every input in one place.</p>
+<p>The editor shows hints after parameter types in project Kotlin files and attached dependency sources. Hover over a hint to read its reason. Click a function's gutter icon to inspect all its inputs.</p>
 <figure class="shot"><img src="images/live-standalone.png" alt="A live capture from a Jewel Standalone target" loading="lazy"></figure>
-<p><strong>Run with Compose Inspection</strong> starts your selected configuration, connects, and fills the <strong>Live recompositions</strong> tab as you use the UI. Inclusive duration badges appear at the end of matching function or property lines. Those times include nested calls and capture overhead. They are not frame times, and they do not prove a skip or a performance problem.</p>
+<p>Choose <strong>Run with Compose Inspection</strong> to launch the selected configuration and connect to its target. The <strong>Live recompositions</strong> tab updates as you use the UI. Matching function and property lines show inclusive duration badges. Each duration includes nested calls and capture overhead. These measurements cannot establish frame times, skipped calls, or performance problems.</p>
 <h2 id="start-here"><a class="anchor" href="#start-here">Start here</a></h2>
 <div class="table-wrap"><table>
 <thead><tr><th>Page</th><th>Use it to</th></tr></thead>
@@ -265,7 +265,7 @@ figure.shot img {
 <tr><td><a href="customisation.html">Customisation</a></td><td>Change hint colours, gutters, and inlay visibility</td></tr>
 <tr><td><a href="agents/index.html">Agents</a></td><td>Use the same static analysis from a coding agent</td></tr>
 </tbody></table></div>
-<p>Contributors: start at <a href="https://github.com/rock3r/jewel-tooling/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">CONTRIBUTING.md</a>. Internal architecture, testing, and conventions live under <a href="https://github.com/rock3r/jewel-tooling/blob/master/docs/architecture.md" target="_blank" rel="noopener noreferrer">docs/</a>.</p>
+<p>For contributor setup, read <a href="https://github.com/rock3r/jewel-tooling/blob/main/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer">CONTRIBUTING.md</a>. The <a href="https://github.com/rock3r/jewel-tooling/blob/main/docs/architecture.md" target="_blank" rel="noopener noreferrer">internal docs</a> cover architecture, tests, and conventions.</p>
       <p class="footer">Jewel Tooling is maintained by the Jewel lead, not by JetBrains.
         <a href="https://github.com/rock3r/jewel-tooling" target="_blank" rel="noopener noreferrer">Plugin source</a> ·
         <a href="https://plugins.jetbrains.com/plugin/34392-jewel-tooling" target="_blank" rel="noopener noreferrer">JetBrains Marketplace</a> ·

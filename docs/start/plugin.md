@@ -1,11 +1,9 @@
 # In an IntelliJ plugin
 
-Jewel ships inside the IntelliJ Platform from build 251.2 onwards. There is no
-repository to add and no dependency to resolve: declare the bundled modules and the
-platform provides them.
+IntelliJ Platform builds from 251.2 include Jewel. Declare the bundled modules to use
+the platform's copy. Setup needs no external repository or dependency.
 
-If you are writing a desktop app rather than a plugin, read [Standalone
-app](standalone.md) instead.
+For desktop application setup, follow [Standalone app](standalone.md).
 
 ## Declare the bundled modules
 
@@ -29,16 +27,15 @@ bundledModule("intellij.platform.jewel.markdown.core")
 bundledModule("intellij.platform.jewel.markdown.ideLafBridgeStyling")
 ```
 
-Because these come from the platform, their version is the platform's version. There is
-no Jewel version to choose here, and nothing to keep in sync — see [Versions and
-compatibility](../versioning.md) for what that means when you target several IntelliJ
-Platform releases.
+The platform supplies the versions of these modules. Plugins never select a separate
+Jewel version. See [Versions and compatibility](../versioning.md) for rules that apply
+when targeting several IntelliJ Platform releases.
 
 ## Wrap your UI
 
-Plugins use `SwingBridgeTheme`, not the standalone theme. It reads the IDE's current
-Swing look and feel and passes it to Compose, so your panel matches whatever theme the
-user has chosen — including third-party themes you have never seen.
+Wrap plugin content in `SwingBridgeTheme`. It reads values from the IDE's current Swing
+look and feel and supplies them to Compose. Your panel follows the user's selected
+theme, including supported third-party themes.
 
 ```kotlin
 import androidx.compose.foundation.layout.Column
@@ -63,19 +60,18 @@ fun MyPanel() {
 }
 ```
 
-You do not restyle anything to make this happen, and you do not maintain a mapping from
-IDE colours to your own. [The Swing bridge](../guides/swing-bridge.md) explains what is
-read and what the limits are.
+The bridge supplies these values without manual restyling or a separate colour mapping.
+Read [The Swing bridge](../guides/swing-bridge.md) for the values it reads and its limits.
 
-`SwingBridgeTheme` is annotated experimental. In practice it is the only way to theme a
-plugin and every Jewel-based plugin uses it, but the annotation is accurate: its
-signature can change. See [what stable and experimental
+`SwingBridgeTheme` is annotated experimental because its signature can change.
+It is the only plugin theme entry point, and every Jewel-based plugin uses it.
+See [what stable and experimental
 mean](../versioning.md#what-is-stable-and-what-is-not).
 
 ## Adding it to a tool window
 
-Compose and Swing sharing one window needs the newer Swing rendering pipeline switched
-on. For tool windows, Jewel does that for you:
+A window containing Compose and Swing needs the newer Swing rendering pipeline.
+For tool windows, `addComposeTab()` enables that pipeline:
 
 ```kotlin
 import com.intellij.openapi.project.Project
@@ -92,21 +88,19 @@ class MyToolWindowFactory : ToolWindowFactory {
 }
 ```
 
-`addComposeTab()` enables the newer Swing rendering pipeline. For a dialog, settings
-page, or editor notification, use `JewelComposePanel`. It also applies
-`SwingBridgeTheme`. Call `enableNewSwingCompositing()` before creating a
-`JewelComposePanel` or a raw `ComposePanel`. See [Swing
+For dialogs, settings pages, and editor notifications, use `JewelComposePanel`.
+That panel also applies `SwingBridgeTheme`. Before creating it or a raw `ComposePanel`,
+call `enableNewSwingCompositing()`. See [Swing
 interop](../guides/swing-interop.md).
 
 ## Compose plugin support is unofficial
 
-Writing third-party IntelliJ plugins in Compose Multiplatform is not officially
-supported by the IntelliJ Platform. It works, and several shipping products do this. If
-something breaks at the platform level, you are largely on your own.
+The IntelliJ Platform gives no official support for third-party Compose Multiplatform
+plugins. Several released products use this approach. Plugin authors must handle most
+platform-level failures themselves.
 
-Jewel itself is below 1.0 and its APIs still move. What that means in practice — which
-APIs are safe to depend on, and how much warning you get before something is removed —
-is in [Versions and compatibility](../versioning.md).
+Jewel remains below 1.0, and its APIs can change. Read [Versions and
+compatibility](../versioning.md) for API guarantees and deprecation periods.
 
 ## Next
 

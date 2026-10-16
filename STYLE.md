@@ -153,11 +153,12 @@ answer is the same.
   description` convention in "See also" and index lists is intentional; leave it. A
   parenthetical pair that reads cleanly may stay. Split a dash that joins two independent
   clauses, and always split one that separates a sentence's subject from its verb.
-- **Keep `deliberately`** where it marks design intent rather than accident. Keep "test
-  harness", a term of art. Keep the `It proves` / `It does not prove` pair in
-  `best-practices/testing.md`, a deliberate parallel.
-- The definition-list sentence fragments in `versioning.md` are a deliberate repeated
-  device. Do not rewrite them into full sentences.
+- Keep `deliberately` when it describes design intent. Keep the technical term "test harness".
+- Explain test coverage and limits in direct, independent sentences. Avoid formulaic
+  proof contrasts in `best-practices/testing.md`.
+- Use complete sentences in the compatibility and version descriptions in `versioning.md`.
+  Remove fragments, aphorisms, rhetorical contrasts, and commentary about how readers
+  interpret the text throughout the docs.
 - **"Compose Multiplatform"**, never "Compose for Desktop" or "CfD". The old name is
   retired; the official docs use "Compose Multiplatform" and plain "desktop".
 

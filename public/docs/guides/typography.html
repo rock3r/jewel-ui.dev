@@ -246,9 +246,9 @@ figure.shot img {
     <main class="main">
       <article class="doc">
 <h1>Typography and fonts</h1>
-<p>Jewel exposes the three text styles the IDE distinguishes — the UI font, the editor font and the console font — and lets you derive variants of each. That distinction matters: a code view that uses the UI font looks wrong, and a code view that guesses at a monospace font ignores what the user actually chose.</p>
+<p>Jewel provides UI, editor, and console text styles. Derive variants from each to preserve the user's font settings. Use editor styles for code views so they match the chosen editor font.</p>
 <h2 id="the-typography-api"><a class="anchor" href="#the-typography-api">The typography API</a></h2>
-<p><code>JewelTheme.typography</code> is the entry point.</p>
+<p>Read the theme's text styles through <code>JewelTheme.typography</code>:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
 <span class="c-kw">import</span> org.jetbrains.jewel.foundation.theme.JewelTheme
 <span class="c-kw">import</span> org.jetbrains.jewel.ui.component.Text
@@ -258,22 +258,22 @@ figure.shot img {
 <span class="c-kw">fun</span> <span class="c-fn">Heading</span>() {
     <span class="c-fn">Text</span>(<span class="c-str">&quot;Section&quot;</span>, style = JewelTheme.typography.h2TextStyle)
 }</code></pre></div>
-<p>It defines the heading scale (<code>h0TextStyle</code> through <code>h4TextStyle</code>), the label style and its size, the <code>regular</code>, <code>medium</code> and <code>small</code> variants, and <code>editorTextStyle</code> and <code>consoleTextStyle</code>.</p>
+<p>Typography includes headings from <code>h0TextStyle</code> through <code>h4TextStyle</code>, label styling and size, and <code>regular</code>, <code>medium</code>, and <code>small</code> variants. It also includes <code>editorTextStyle</code> and <code>consoleTextStyle</code>.</p>
 <h2 id="deriving-a-style"><a class="anchor" href="#deriving-a-style">Deriving a style</a></h2>
-<p>To change size, weight or slant, derive rather than copy. Three functions, one per base style, with the same signature:</p>
+<p>To change font size, weight, or slant, derive from the relevant base style. These three functions share the same signature:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">val</span> bigger = JewelTheme.typography.<span class="c-fn">rememberDefaultTextStyle</span>(fontSize = <span class="c-num">15.sp</span>)
 <span class="c-kw">val</span> boldCode = JewelTheme.typography.<span class="c-fn">rememberEditorTextStyle</span>(fontWeight = FontWeight.Bold)
 <span class="c-kw">val</span> quietConsole = JewelTheme.typography.<span class="c-fn">rememberConsoleTextStyle</span>(fontStyle = FontStyle.Italic)</code></pre></div>
-<p>Each takes <code>fontSize</code>, <code>fontWeight</code> and <code>fontStyle</code>, all optional, and returns a <code>TextStyle</code>. Deriving keeps everything else intact: the family, the font features, and the user's own settings.</p>
+<p>Each function returns a <code>TextStyle</code> and accepts optional <code>fontSize</code>, <code>fontWeight</code>, and <code>fontStyle</code> arguments. Unchanged properties retain their font family, features, and user settings.</p>
 <div class="adm adm-note"><p class="adm-title">If you are upgrading</p>
-<p><code>TextStyle.copyWithSize()</code> and the old <code>org.jetbrains.jewel.ui.component.Typography</code> object were removed in 0.40. The three <code>remember*TextStyle</code> functions above replace both. Apply any unrelated <code>TextStyle</code> properties separately afterwards.</p>
+<p>Version 0.40 removed <code>TextStyle.copyWithSize()</code> and <code>org.jetbrains.jewel.ui.component.Typography</code>. Replace them with the three <code>remember*TextStyle</code> functions above. Apply other <code>TextStyle</code> properties separately afterwards.</p>
 </div>
 <h2 id="use-the-users-editor-font"><a class="anchor" href="#use-the-users-editor-font">Use the user's editor font</a></h2>
-<p>In a plugin, <code>editorTextStyle</code> and <code>consoleTextStyle</code> come from the IDE's editor colour scheme. If the user set their editor to a particular font at a particular size, a code view in your plugin uses it, and follows them when they change it.</p>
-<p>A hardcoded monospace family is visibly not the editor font.</p>
+<p>In plugins, the IDE's editor colour scheme supplies <code>editorTextStyle</code> and <code>consoleTextStyle</code>. Code views using these styles follow the user's chosen font and size, including later changes.</p>
+<p>Hardcoded monospace families ignore the user's editor font choice.</p>
 <h2 id="fonts-in-a-standalone-app"><a class="anchor" href="#fonts-in-a-standalone-app">Fonts in a standalone app</a></h2>
-<p>Outside the IDE there is no editor colour scheme, so Jewel ships the families Int UI expects and uses them as defaults: <code>FontFamily.Inter</code> for UI text and JetBrains Mono for editor text, in <code>org.jetbrains.jewel.intui.standalone</code>. Unless you override the theme's text styles, you get them without doing anything.</p>
-<p>To load other fonts, use Compose Multiplatform's typography APIs:</p>
+<p>Standalone apps have no IDE editor colour scheme. Jewel bundles Int UI's default fonts in <code>org.jetbrains.jewel.intui.standalone</code>: <code>FontFamily.Inter</code> for UI text and JetBrains Mono for editor text. Themes use these fonts unless you override their text styles.</p>
+<p>Load other fonts through Compose Multiplatform's typography APIs:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.ui.text.font.EmbeddedFontFamily
 <span class="c-kw">import</span> androidx.compose.ui.text.font.FontFamily
 <span class="c-kw">import</span> androidx.compose.ui.text.platform.asComposeFontFamily
@@ -286,9 +286,9 @@ figure.shot img {
 
 <span class="c-com">// Any java.awt.Font, including a JBFont inside the IDE</span>
 <span class="c-kw">val</span> fromAwt = myAwtFont.<span class="c-fn">asComposeFontFamily</span>()</code></pre></div>
-<p><code>FontFamily(String)</code> and <code>EmbeddedFontFamily(String)</code> are in <code>androidx.compose.ui.text.font</code>. <code>asComposeFontFamily()</code> is in <code>androidx.compose.ui.text.platform</code>. <code>EmbeddedFontFamily</code> returns null when the family is absent, so always supply a fallback.</p>
+<p>Import <code>FontFamily(String)</code> and <code>EmbeddedFontFamily(String)</code> from <code>androidx.compose.ui.text.font</code>. Import <code>asComposeFontFamily()</code> from <code>androidx.compose.ui.text.platform</code>. Supply a fallback because <code>EmbeddedFontFamily</code> returns null for missing families.</p>
 <h2 id="supplying-your-own-text-styles"><a class="anchor" href="#supplying-your-own-text-styles">Supplying your own text styles</a></h2>
-<p>The standalone theme builds its definition from a default and an editor text style, so overriding typography wholesale means supplying those when you construct the theme rather than restyling components one at a time. See <a href="theming.html">Theming</a>.</p>
+<p>To replace standalone typography, supply default and editor text styles when building the theme definition. This updates components through the theme. See <a href="theming.html">Theming</a>.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
 <ul>
 <li><a href="theming.html">Theming</a> — where text styles come from</li>

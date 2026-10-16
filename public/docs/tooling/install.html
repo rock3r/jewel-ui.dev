@@ -246,21 +246,21 @@ figure.shot img {
     <main class="main">
       <article class="doc">
 <h1>Install the plugin</h1>
-<p>Install Jewel Tooling from <a href="https://plugins.jetbrains.com/plugin/34392-jewel-tooling" target="_blank" rel="noopener noreferrer">JetBrains Marketplace</a> in IntelliJ IDEA 2026.2, from a <a href="https://github.com/rock3r/jewel-tooling/releases" target="_blank" rel="noopener noreferrer">GitHub Release</a>, or build the ZIP with JDK 25 and install it from disk. The plugin bytecode targets JVM 21. The IDE that hosts it uses JBR 25.</p>
+<p>For IntelliJ IDEA 2026.2, get Jewel Tooling from <a href="https://plugins.jetbrains.com/plugin/34392-jewel-tooling" target="_blank" rel="noopener noreferrer">JetBrains Marketplace</a> or a <a href="https://github.com/rock3r/jewel-tooling/releases" target="_blank" rel="noopener noreferrer">GitHub Release</a>. You can also build a ZIP with JDK 25 and install it from disk. The plugin targets JVM 21 bytecode. Its host IDE uses JBR 25.</p>
 <p>To build from source, clone <a href="https://github.com/rock3r/jewel-tooling" target="_blank" rel="noopener noreferrer">rock3r/jewel-tooling</a>. Run this command in that checkout:</p>
 <div class="code"><pre><code class="lang-sh">./gradlew :buildPlugin</code></pre></div>
-<p>In IntelliJ IDEA, open <strong>Settings → Plugins</strong>, choose the gear menu, then <strong>Install Plugin from Disk</strong>. Select <code>build/distributions/jewel-tooling-0.9.0.zip</code> and restart when prompted.</p>
-<p>To use an existing compatible IDE instead of downloading one for the build:</p>
+<p>Open <strong>Settings → Plugins</strong> in IntelliJ IDEA. From the gear menu, choose <strong>Install Plugin from Disk</strong>. Select <code>build/distributions/jewel-tooling-0.9.0.zip</code>. Restart the IDE if prompted.</p>
+<p>To build with an existing compatible IDE, supply its path:</p>
 <div class="code"><pre><code class="lang-sh">./gradlew -PlocalIdePath=/path/to/IntelliJIDEA.app/Contents :buildPlugin</code></pre></div>
-<p>There is no upper IDE build limit, so a newer IDE can install the plugin. Only build 262.8665.337 has been validated. Newer IntelliJ IDEA and Android Studio builds may need API compatibility fixes.</p>
+<p>The plugin sets no upper IDE build limit. Newer IDEs can install it, but testing covers only build 262.8665.337. Newer IntelliJ IDEA and Android Studio builds may require API compatibility fixes.</p>
 <h2 id="open-a-project"><a class="anchor" href="#open-a-project">Open a project</a></h2>
-<p>Import the Gradle or Bazel project you want to inspect and let synchronization and indexing finish. The IDE must resolve Compose annotations and the parameter types. Jewel Tooling reads those resolved roots and dependencies. It does not run Bazel or parse build output during editing.</p>
-<p>For a Gradle application such as Jewel Standalone, import the Gradle project normally.</p>
-<p>For a Bazel project, use the project's supported IntelliJ model. Bazel build files alone do not define the IDE's source roots, classpaths, or Kotlin compiler options. The model should include the Compose compiler plugin used by the build, especially for libraries that use Kotlin 2.4 composable function types.</p>
-<p>Kotlin Multiplatform source-set models are untested. Unannotated types in another source module remain unknown. Supported compiled dependencies can use compiler metadata.</p>
+<p>Import the Gradle or Bazel project to inspect. Wait for synchronization and indexing to finish. Jewel Tooling uses the IDE's resolved source roots, dependencies, Compose annotations, and parameter types. Editing never runs Bazel or parses build output.</p>
+<p>For applications such as Jewel Standalone, use the normal Gradle import.</p>
+<p>For Bazel, import the project's supported IntelliJ model. The IDE needs that model to define source roots, classpaths, and Kotlin compiler options. Bazel build files alone cannot supply them. Include the build's Compose compiler plugin in the model, especially for libraries with Kotlin 2.4 composable function types.</p>
+<p>Tests do not cover Kotlin Multiplatform source-set models. The plugin leaves unannotated types from other source modules unknown. For supported compiled dependencies, it can read compiler metadata.</p>
 <figure class="shot"><img src="images/ijpl-editor.png" alt="Parameter hints in the Bazel-built IntelliJ plugin fixture" loading="lazy"></figure>
-<p>Opening a dependency Kotlin file, such as Compose runtime source, shows the same parameter hints, function gutter icon, and live duration badges as a project file. Decompiled class files without source still have no hints.</p>
-<p>The Gradle wrapper in <code>rock3r/jewel-tooling</code> builds the IDE plugin. The project being analysed can use a different build system.</p>
+<p>Attached Kotlin sources, including Compose runtime sources, show parameter hints, function gutter icons, and live duration badges. These features match those in project files. Decompiled class files without source have no hints.</p>
+<p>Use the Gradle wrapper in <code>rock3r/jewel-tooling</code> to build Jewel Tooling. Inspected projects can use their own build systems.</p>
       <p class="footer">Jewel Tooling is maintained by the Jewel lead, not by JetBrains.
         <a href="https://github.com/rock3r/jewel-tooling" target="_blank" rel="noopener noreferrer">Plugin source</a> ·
         <a href="https://plugins.jetbrains.com/plugin/34392-jewel-tooling" target="_blank" rel="noopener noreferrer">JetBrains Marketplace</a> ·

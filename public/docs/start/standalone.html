@@ -246,19 +246,19 @@ figure.shot img {
     <main class="main">
       <article class="doc">
 <h1>Standalone app</h1>
-<p>Jewel runs in a Compose Multiplatform desktop app that has nothing to do with the IntelliJ Platform. You get the Int UI look, and you own every part of it.</p>
-<p>If you are writing an IntelliJ plugin, read <a href="plugin.html">In an IntelliJ plugin</a> instead — the setup is different, and simpler.</p>
+<p>Jewel gives Compose Multiplatform desktop apps the Int UI appearance without an IntelliJ Platform dependency. Applications control their own theme and window setup.</p>
+<p>For plugin setup, follow <a href="plugin.html">In an IntelliJ plugin</a>.</p>
 <h2 id="before-you-start"><a class="anchor" href="#before-you-start">Before you start</a></h2>
-<p>Jewel requires the <strong>JetBrains Runtime</strong>. Not as a recommendation: font loading and window decoration depend on patches that only the JBR has, and running on another JDK is unsupported. Point your toolchain at it explicitly.</p>
+<p>Jewel requires the <strong>JetBrains Runtime (JBR)</strong> for font loading and window decoration patches. Other JDKs have no support. Set the toolchain vendor explicitly:</p>
 <div class="code"><pre><code class="lang-kotlin">kotlin {
     jvmToolchain {
         languageVersion = JavaLanguageVersion.<span class="c-fn">of</span>(<span class="c-num">21</span>)
         vendor = JvmVendorSpec.JETBRAINS
     }
 }</code></pre></div>
-<p>Setting only <code>languageVersion</code> is a common mistake. Gradle will resolve any JDK of that version, and the first thing to fail is <code>DecoratedWindow</code>, which throws outright when it does not find the JBR.</p>
+<p>Setting <code>languageVersion</code> alone lets Gradle choose any vendor's JDK with that version. Without JBR, <code>DecoratedWindow</code> throws an exception.</p>
 <h2 id="repositories"><a class="anchor" href="#repositories">Repositories</a></h2>
-<p>Compose Multiplatform's Gradle plugin comes from the Gradle Plugin Portal, and its artifacts from Maven Central and Google's repository.</p>
+<p>Resolve the Compose Multiplatform Gradle plugin through the Gradle Plugin Portal. Resolve its artifacts through Maven Central and Google's repository.</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-com">// settings.gradle.kts</span>
 pluginManagement {
     repositories {
@@ -275,17 +275,17 @@ dependencyResolutionManagement {
     }
 }</code></pre></div>
 <h2 id="plugins"><a class="anchor" href="#plugins">Plugins</a></h2>
-<p>You need three: Kotlin, Compose Multiplatform, and the Compose compiler plugin. The last one is separate from the Compose Gradle plugin and is often omitted.</p>
+<p>Apply Kotlin, Compose Multiplatform, and the Compose compiler plugin. The Compose compiler requires its own plugin declaration:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-com">// build.gradle.kts</span>
 plugins {
     <span class="c-fn">kotlin</span>(<span class="c-str">&quot;jvm&quot;</span>) version <span class="c-str">&quot;...&quot;</span>                             <span class="c-com">// Kotlin version</span>
     <span class="c-fn">id</span>(<span class="c-str">&quot;org.jetbrains.compose&quot;</span>) version <span class="c-str">&quot;...&quot;</span>               <span class="c-com">// Compose Multiplatform version</span>
     <span class="c-fn">id</span>(<span class="c-str">&quot;org.jetbrains.kotlin.plugin.compose&quot;</span>) version <span class="c-str">&quot;...&quot;</span> <span class="c-com">// Kotlin version, not Compose</span>
 }</code></pre></div>
-<p>All three plugins are required. Since Kotlin 2.0 the Compose compiler ships in the Kotlin repository rather than with Compose Multiplatform, so it is applied as its own plugin — and it is versioned with <strong>Kotlin</strong>, not with Compose. Two of the three lines above take the same version. The middle one does not.</p>
-<p>Those versions also have to line up with what Jewel is built against. Each release records the Compose Multiplatform version it targets, and the minimum Kotlin version follows from the minimum supported IntelliJ Platform.</p>
+<p>Since Kotlin 2.0, the Kotlin repository distributes the Compose compiler separately from Compose Multiplatform. Use the <strong>Kotlin</strong> version for both Kotlin plugins. Select the Compose Multiplatform plugin version separately. All three plugins are required.</p>
+<p>Choose versions compatible with Jewel's build. Release notes list the targeted Compose Multiplatform version. The minimum supported IntelliJ Platform determines the minimum Kotlin version.</p>
 <div class="adm adm-warning"><p class="adm-title">Convention plugins</p>
-<p>If you configure your project with convention plugins, apply these once — for example in the root build script with <code>apply false</code>, then apply them in the modules that need them. Initialising them more than once causes resolution failures.</p>
+<p>With convention plugins, initialise these plugins once. For example, declare them in the root build script with <code>apply false</code>. Then apply them in the modules that need them. Repeated initialisation causes resolution failures.</p>
 </div>
 <h2 id="dependencies"><a class="anchor" href="#dependencies">Dependencies</a></h2>
 <div class="code"><pre><code class="lang-kotlin">dependencies {
@@ -299,9 +299,9 @@ plugins {
         <span class="c-fn">exclude</span>(group = <span class="c-str">&quot;org.jetbrains.compose.material&quot;</span>)
     }
 }</code></pre></div>
-<p>Version strings look like <code>0.41.0-262.10968.63</code>: the Jewel version, then the IntelliJ Platform build it was compiled against. <a href="../versioning.html">Versions and compatibility</a> explains how to pick one, and which combinations exist.</p>
+<p>Versions use the form <code>0.41.0-262.10968.63</code>. The Jewel version precedes the IntelliJ Platform build used for compilation. See <a href="../versioning.html">Versions and compatibility</a> to select a published combination.</p>
 <h2 id="wrap-your-ui"><a class="anchor" href="#wrap-your-ui">Wrap your UI</a></h2>
-<p>Everything Jewel draws has to sit inside a theme.</p>
+<p>Place all Jewel components inside a theme wrapper:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.layout.Column
 <span class="c-kw">import</span> androidx.compose.ui.window.Window
 <span class="c-kw">import</span> androidx.compose.ui.window.application
@@ -321,9 +321,9 @@ plugins {
         }
     }
 }</code></pre></div>
-<p>That is the whole setup. <code>IntUiTheme</code> has richer overloads for supplying your own theme definition and component styling — see <a href="../guides/theming.html">Theming</a> — and <a href="../guides/decorated-windows.html">Decorated windows</a> covers replacing the system title bar with the IDE's.</p>
+<p>To supply custom theme definitions or component styles, use the other <code>IntUiTheme</code> overloads described in <a href="../guides/theming.html">Theming</a>. To replace the system title bar with IDE-style decoration, follow <a href="../guides/decorated-windows.html">Decorated windows</a>.</p>
 <h2 id="platform-icons"><a class="anchor" href="#platform-icons">Platform icons</a></h2>
-<p>Jewel can load the IntelliJ Platform's own icons through <code>AllIconsKeys</code>, but outside the IDE they are not on the classpath. Add the icons artifact and the repository it lives in:</p>
+<p><code>AllIconsKeys</code> loads IntelliJ Platform icons. Standalone apps must add those icons to the classpath. Declare the icons artifact and its repository:</p>
 <div class="code"><pre><code class="lang-kotlin">repositories {
     <span class="c-com">// Pick the one matching the IJP build you target</span>
     <span class="c-fn">maven</span>(<span class="c-str">&quot;https://www.jetbrains.com/intellij-repository/releases&quot;</span>)
@@ -333,7 +333,7 @@ plugins {
 dependencies {
     <span class="c-fn">implementation</span>(<span class="c-str">&quot;com.jetbrains.intellij.platform:icons:[ijp-version]&quot;</span>)
 }</code></pre></div>
-<p>Copying the icons you need into your own resources, at the same paths, works too. The artifact is easier to use and smaller. <a href="../guides/icons.html">Icons</a> covers loading your own.</p>
+<p>You can also copy the required icons into application resources at their original paths. The artifact is smaller and requires less setup. See <a href="../guides/icons.html">Icons</a> to load custom resources.</p>
 <h2 id="next"><a class="anchor" href="#next">Next</a></h2>
 <ul>
 <li><a href="../guides/theming.html">Theming</a> — customising Int UI, or leaving it behind</li>

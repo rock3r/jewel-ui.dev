@@ -1,18 +1,18 @@
 # Code highlighting
 
-Fenced code blocks in rendered Markdown are syntax highlighted. Where the colours and
-the grammar come from differs between a plugin and a standalone app, and in both cases
-the default is already wired up.
+Jewel can highlight syntax in Markdown code fences. Standalone apps use built-in
+grammars and theme colours. Plugins can use the IDE's highlighting through a project-aware
+styling provider.
 
 ## In a standalone app
 
-No setup is needed. `ProvideMarkdownStyling` supplies a highlighter by default, using
-light or dark syntax colours to match the theme. Render Markdown with a fenced code
-block and it is highlighted.
+`ProvideMarkdownStyling` supplies a default highlighter without extra setup. It selects
+light or dark syntax colours to match the theme. Markdown code fences use that
+highlighter.
 
 ## Adding a language
 
-Extra grammars go to the highlighter, not through an interface of your own:
+Pass additional grammars directly to the highlighter:
 
 ```kotlin
 import org.jetbrains.jewel.intui.markdown.standalone.ProvideMarkdownStyling
@@ -25,32 +25,31 @@ ProvideMarkdownStyling(codeHighlighter = highlighter) {
 }
 ```
 
-Additional grammars are searched before the built-in ones, so supplying a grammar for a
-language that is already covered overrides it rather than conflicting with it.
+The highlighter searches additional grammars first. An additional grammar therefore
+overrides any built-in grammar for the same language.
 
 ## Replacing highlighting entirely
 
-If you want a different engine — because you already have one, or because you need
-semantic rather than lexical highlighting — implement `CodeHighlighter` from
-`org.jetbrains.jewel.foundation.code.highlighting`:
+To use another engine, implement `CodeHighlighter` from
+`org.jetbrains.jewel.foundation.code.highlighting`. A custom engine can supply semantic
+highlighting or reuse an existing highlighter:
 
 ```kotlin
 fun highlight(code: String, language: String = ""): Flow<AnnotatedString>
 ```
 
-It returns a `Flow`, not a single value. The `Flow` is the useful part: highlighting can
-arrive progressively, and can be re-emitted when something changes underneath it — a
-colour scheme switch, or a slower analysis completing after a fast first pass. Emit as
-often as you have something better to show.
+The result is a `Flow<AnnotatedString>` that can emit updated highlighting.
+For example, emit again after a colour scheme change or after slower analysis completes.
+The flow also supports progressive results after an initial fast pass.
 
-Pass your implementation as the `codeHighlighter` argument to `ProvideMarkdownStyling`.
+Supply the implementation through `ProvideMarkdownStyling`'s `codeHighlighter` argument.
 
 ## In a plugin
 
-The bridge highlights code with the IDE's own editor colour scheme, so a code block in
-your plugin matches the editor beside it — including when the user changes scheme.
+The bridge uses the IDE's editor colour scheme for code blocks. Blocks follow the
+editor's colours when the user changes schemes.
 
-Use a `ProvideMarkdownStyling` overload that takes a `Project`:
+Choose a `ProvideMarkdownStyling` overload with a `Project` parameter:
 
 ```kotlin
 import org.jetbrains.jewel.intui.markdown.bridge.ProvideMarkdownStyling
@@ -60,16 +59,14 @@ ProvideMarkdownStyling(project) {
 }
 ```
 
-The project is what lets it reach the highlighting machinery. **The overloads that do
-not take a `Project` fall back to no highlighting at all** — not to a simple built-in
-highlighter. If code blocks in your plugin render unstyled, the missing `Project` is
-almost always why.
+The provider needs the project to access IDE highlighting. Overloads without `Project`
+disable highlighting entirely. If code blocks have no syntax colours, check that you
+passed a project.
 
 ## Stability
 
-The code highlighting APIs are annotated experimental, in both the standalone and bridge
-modules. The defaults are stable enough to rely on. It is the shape of the customisation
-API that may still move.
+Standalone and bridge code highlighting APIs are annotated experimental. Applications
+can rely on the default behaviour, but customisation API signatures can change.
 
 ## See also
 

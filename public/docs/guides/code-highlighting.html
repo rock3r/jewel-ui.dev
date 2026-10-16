@@ -246,11 +246,11 @@ figure.shot img {
     <main class="main">
       <article class="doc">
 <h1>Code highlighting</h1>
-<p>Fenced code blocks in rendered Markdown are syntax highlighted. Where the colours and the grammar come from differs between a plugin and a standalone app, and in both cases the default is already wired up.</p>
+<p>Jewel can highlight syntax in Markdown code fences. Standalone apps use built-in grammars and theme colours. Plugins can use the IDE's highlighting through a project-aware styling provider.</p>
 <h2 id="in-a-standalone-app"><a class="anchor" href="#in-a-standalone-app">In a standalone app</a></h2>
-<p>No setup is needed. <code>ProvideMarkdownStyling</code> supplies a highlighter by default, using light or dark syntax colours to match the theme. Render Markdown with a fenced code block and it is highlighted.</p>
+<p><code>ProvideMarkdownStyling</code> supplies a default highlighter without extra setup. It selects light or dark syntax colours to match the theme. Markdown code fences use that highlighter.</p>
 <h2 id="adding-a-language"><a class="anchor" href="#adding-a-language">Adding a language</a></h2>
-<p>Extra grammars go to the highlighter, not through an interface of your own:</p>
+<p>Pass additional grammars directly to the highlighter:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.intui.markdown.standalone.ProvideMarkdownStyling
 <span class="c-kw">import</span> org.jetbrains.jewel.intui.standalone.code.highlighting.SimpleCodeHighlighter
 
@@ -259,23 +259,23 @@ figure.shot img {
 <span class="c-fn">ProvideMarkdownStyling</span>(codeHighlighter = highlighter) {
     <span class="c-com">// Markdown rendered here uses your grammars</span>
 }</code></pre></div>
-<p>Additional grammars are searched before the built-in ones, so supplying a grammar for a language that is already covered overrides it rather than conflicting with it.</p>
+<p>The highlighter searches additional grammars first. An additional grammar therefore overrides any built-in grammar for the same language.</p>
 <h2 id="replacing-highlighting-entirely"><a class="anchor" href="#replacing-highlighting-entirely">Replacing highlighting entirely</a></h2>
-<p>If you want a different engine — because you already have one, or because you need semantic rather than lexical highlighting — implement <code>CodeHighlighter</code> from <code>org.jetbrains.jewel.foundation.code.highlighting</code>:</p>
+<p>To use another engine, implement <code>CodeHighlighter</code> from <code>org.jetbrains.jewel.foundation.code.highlighting</code>. A custom engine can supply semantic highlighting or reuse an existing highlighter:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">fun</span> <span class="c-fn">highlight</span>(code: String, language: String = <span class="c-str">&quot;&quot;</span>): Flow&lt;AnnotatedString&gt;</code></pre></div>
-<p>It returns a <code>Flow</code>, not a single value. The <code>Flow</code> is the useful part: highlighting can arrive progressively, and can be re-emitted when something changes underneath it — a colour scheme switch, or a slower analysis completing after a fast first pass. Emit as often as you have something better to show.</p>
-<p>Pass your implementation as the <code>codeHighlighter</code> argument to <code>ProvideMarkdownStyling</code>.</p>
+<p>The result is a <code>Flow&lt;AnnotatedString&gt;</code> that can emit updated highlighting. For example, emit again after a colour scheme change or after slower analysis completes. The flow also supports progressive results after an initial fast pass.</p>
+<p>Supply the implementation through <code>ProvideMarkdownStyling</code>'s <code>codeHighlighter</code> argument.</p>
 <h2 id="in-a-plugin"><a class="anchor" href="#in-a-plugin">In a plugin</a></h2>
-<p>The bridge highlights code with the IDE's own editor colour scheme, so a code block in your plugin matches the editor beside it — including when the user changes scheme.</p>
-<p>Use a <code>ProvideMarkdownStyling</code> overload that takes a <code>Project</code>:</p>
+<p>The bridge uses the IDE's editor colour scheme for code blocks. Blocks follow the editor's colours when the user changes schemes.</p>
+<p>Choose a <code>ProvideMarkdownStyling</code> overload with a <code>Project</code> parameter:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.intui.markdown.bridge.ProvideMarkdownStyling
 
 <span class="c-fn">ProvideMarkdownStyling</span>(project) {
     <span class="c-com">// code blocks highlighted with the IDE's colour scheme</span>
 }</code></pre></div>
-<p>The project is what lets it reach the highlighting machinery. <strong>The overloads that do not take a <code>Project</code> fall back to no highlighting at all</strong> — not to a simple built-in highlighter. If code blocks in your plugin render unstyled, the missing <code>Project</code> is almost always why.</p>
+<p>The provider needs the project to access IDE highlighting. Overloads without <code>Project</code> disable highlighting entirely. If code blocks have no syntax colours, check that you passed a project.</p>
 <h2 id="stability"><a class="anchor" href="#stability">Stability</a></h2>
-<p>The code highlighting APIs are annotated experimental, in both the standalone and bridge modules. The defaults are stable enough to rely on. It is the shape of the customisation API that may still move.</p>
+<p>Standalone and bridge code highlighting APIs are annotated experimental. Applications can rely on the default behaviour, but customisation API signatures can change.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
 <ul>
 <li><a href="markdown.html">Rendering Markdown</a> — where highlighting fits into rendering</li>

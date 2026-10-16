@@ -1,7 +1,7 @@
 # Portable UI
 
-The two ways of using Jewel differ in one line. `SwingBridgeTheme` in a plugin,
-`IntUiTheme` in a standalone app — and everything inside that wrapper is the same API.
+Wrap plugin content in `SwingBridgeTheme` and standalone content in `IntUiTheme`.
+Both wrappers provide the same component API:
 
 ```kotlin
 // In a plugin
@@ -15,19 +15,18 @@ IntUiTheme(isDark = true) {
 }
 ```
 
-`IssueList` does not change. The
-component library (`org.jetbrains.jewel.ui.component`) and the foundation module sit
-below both themes, and neither depends on the IntelliJ Platform. The platform dependency
-is confined to the bridge module.
+Both environments use the same `IssueList`. The component library
+(`org.jetbrains.jewel.ui.component`) and foundation module support both themes without
+IntelliJ Platform dependencies. Only the bridge module depends on the platform.
 
-Keep platform dependencies separate to reuse and test the UI.
+Separate platform dependencies from UI code to support reuse and tests.
 
 ## Separate platform code from UI code
 
-Keep IntelliJ Platform types out of your composables.
+Pass plain data and callbacks to composables.
 
-A composable that takes a `Project`, requests a `Service`, or resolves a `VirtualFile`
-can only ever run inside the IDE. One that takes plain data and callbacks runs anywhere.
+A composable that accepts `Project`, requests `Service`, or resolves `VirtualFile`
+requires the IDE. Plain data and callbacks let composables run in other environments.
 
 ```kotlin
 // Not portable: the platform is inside the UI
@@ -44,7 +43,7 @@ fun IssueList(issues: List<Issue>, onSelect: (Issue) -> Unit) {
 }
 ```
 
-Everything platform-shaped moves outward, behind an interface you own:
+Put platform access behind an application-owned interface outside the UI:
 
 ```kotlin
 interface IssueSource {
@@ -52,39 +51,36 @@ interface IssueSource {
 }
 ```
 
-In the plugin, the implementation calls into the platform. In a test or a standalone
-harness, it returns test data. The composable uses the same interface in each environment.
+Implement the interface with platform calls in the plugin. In tests or standalone
+harnesses, return test data. Composables use the same interface in both cases.
 
 ## Test UI without the IDE
 
-Once your composables have no platform types, they can be tested against the standalone
-theme in a plain JVM test. No sandbox IDE, no platform fixture, no waiting for an IDE to
-start.
+Composables without platform dependencies can run under the standalone theme in plain
+JVM tests. These tests need no sandbox IDE or platform fixture.
 
-These tests exercise UI behaviour without starting the IntelliJ Platform. Keep separate
-platform-hosted tests for integrations that need the IDE.
+Use standalone tests for UI behaviour. Test integrations that require the IDE separately
+in platform-hosted tests.
 
-The practical shape is: drive the composable with fake data through your own interface,
-render it under `IntUiTheme`, and assert on what it shows.
+Supply fake data through your interface. Render the composable inside `IntUiTheme` and
+assert on its output.
 
 ## Reuse UI in a desktop app
 
-The same screen can ship inside an IDE plugin and inside a standalone desktop app, from
-one source tree, with no forked UI code to keep in step. A companion desktop app for a
-plugin, or a plugin for a desktop app, becomes ordinary work rather than a rewrite.
+A shared source tree can provide screens for an IDE plugin and a standalone desktop app.
+This structure supports companion apps and plugins without separate copies of UI code.
 
-## The same API, not pixel-identical output
+## Rendering differs between environments
 
-Portable means *the same API*, not *pixel-identical output*.
+The shared API can produce different pixels in each environment.
 
-The bridge deliberately behaves differently in places. It enables Swing compatibility
-mode so Compose text aligns with Swing text, and it swaps in platform-backed providers
-for typography, icon painting, clipboard handling and density scaling. Your code
-compiles and runs identically either way. What it renders can differ slightly, because
-the values behind the theme differ by design.
+The bridge deliberately enables Swing compatibility mode to align Compose and Swing text.
+It also supplies platform-backed typography, icon painting, clipboard handling, and
+density scaling. Shared code compiles and runs in either environment. Different theme
+values can change the rendered appearance slightly.
 
-Use standalone to test behaviour, structure and state. Do not use it as a pixel
-reference for what the plugin will look like inside the IDE.
+Standalone tests cover behaviour, structure, and state. Check plugin pixels inside the
+IDE. Standalone renders cannot establish the plugin's exact appearance.
 
 ## See also
 

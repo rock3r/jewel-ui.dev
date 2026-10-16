@@ -1,11 +1,9 @@
 # Jewel
 
-Jewel brings the IntelliJ IDEs' look to Compose Multiplatform for desktop. It gives you
-the same components the IDE uses, so a Compose UI can sit inside an IntelliJ plugin
-without looking out of place, or run as a standalone desktop app that borrows the IDE's
-design.
+Jewel provides IntelliJ-style components for Compose Multiplatform desktop UI.
+Use them in an IntelliJ plugin to match the IDE, or in a standalone desktop app.
 
-Three names appear throughout these docs, and they are not interchangeable:
+These docs use three names for related parts of the IDE's design:
 
 - **[Int UI](https://www.figma.com/community/file/1227732692272811382/int-ui-kit)** is
   the design system. It is the colours, metrics and component specs, published as a
@@ -17,33 +15,30 @@ Three names appear throughout these docs, and they are not interchangeable:
   is a theme variant with its own palette format. Jewel reads it. See [Islands
   themes](guides/theming.md#islands-themes).
 
-Standalone, Jewel implements Int UI directly. In a plugin it does not: the Swing bridge
-reads whatever theme the running IDE has, so your UI follows the user's choice rather
-than a fixed copy of the specs.
+In standalone apps, Jewel implements Int UI directly. In plugins, the Swing bridge reads
+the running IDE's theme. Plugin UI therefore follows the user's selected theme.
 
-Jewel requires the JetBrains Runtime. Other JDKs are not supported.
+Run Jewel on the JetBrains Runtime. Other JDKs have no support.
 
 ## Start here
 
-There are two ways to use Jewel, and the setup differs enough that they get their own
-pages:
+Choose the setup guide for your application:
 
-- **[In an IntelliJ plugin](start/plugin.md).** Jewel ships inside the IntelliJ
-  Platform, so there is no external dependency to add. Your UI reads the IDE's current
-  theme and changes with it.
-- **[In a standalone app](start/standalone.md).** One dependency and a theme wrapper.
-  You get the Int UI look, and full control over how far you take it.
+- **[In an IntelliJ plugin](start/plugin.md).** Declare the Jewel modules bundled with
+  the IntelliJ Platform. Your UI follows the IDE's current theme.
+- **[In a standalone app](start/standalone.md).** Add the standalone dependency and a
+  theme wrapper. Use the default Int UI appearance or supply custom theme values.
 
 ## Jewel Tooling
 
-[Jewel Tooling](tooling/index.md) is an IntelliJ IDEA plugin for Compose UI authors.
-It shows a stability estimate beside each `@Composable` parameter, and it can
-record live composition activity from a local development run.
+[Jewel Tooling](tooling/index.md) helps Compose UI authors inspect code in IntelliJ IDEA.
+It estimates each `@Composable` parameter's stability. It also records composition
+activity during local development runs.
 
-## Past the theme, it is one codebase
+## Both environments share the component API
 
-The two tracks differ in exactly one place: which theme composable wraps your UI.
-Everything inside that wrapper is the same API either way.
+Use the same component API inside either theme wrapper. The wrapper selects the source
+of theme values for the environment:
 
 ```kotlin
 // In a plugin
@@ -57,15 +52,14 @@ IntUiTheme(isDark = true) {
 }
 ```
 
-`YourScreen` does not change between the two. Design around that: keep IntelliJ
-Platform types out of your composables and pass what they need in behind your own
-interfaces, and the same UI code runs in a plugin and in a standalone app. You can
-test it against the standalone theme without starting the platform. See [Portable
-UI](best-practices/portable-ui.md).
+Both wrappers call the same `YourScreen`. Keep IntelliJ Platform types outside
+composables and pass data through your own interfaces. The UI can then run in plugins,
+standalone apps, and tests without a running IDE. See [Portable
+UI](best-practices/portable-ui.md) for the boundaries and rendering differences.
 
 ## Guides
 
-Task-first pages:
+Use these guides for specific tasks:
 
 - [Theming](guides/theming.md) — the Int UI theme, and how to change it
 - [The Swing bridge](guides/swing-bridge.md) — how a plugin follows the IDE's theme
@@ -87,8 +81,8 @@ Task-first pages:
 
 ## Getting help
 
-Jewel is developed in the open, in the [IntelliJ Community
+Google and JetBrains develop Jewel in the [IntelliJ Community
 repository](https://github.com/JetBrains/intellij-community/tree/master/platform/jewel).
-Bugs and feature requests go to [YouTrack, project
-JEWEL](https://youtrack.jetbrains.com/issues/JEWEL). Questions are welcome in [#jewel on
-the Kotlin Slack](https://kotlinlang.org/community/).
+Report bugs and request features in [YouTrack's JEWEL
+project](https://youtrack.jetbrains.com/issues/JEWEL). Ask questions in [#jewel on the
+Kotlin Slack](https://kotlinlang.org/community/).

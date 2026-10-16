@@ -1,16 +1,14 @@
 # Standalone app
 
-Jewel runs in a Compose Multiplatform desktop app that has nothing to do with the
-IntelliJ Platform. You get the Int UI look, and you own every part of it.
+Jewel gives Compose Multiplatform desktop apps the Int UI appearance without an IntelliJ
+Platform dependency. Applications control their own theme and window setup.
 
-If you are writing an IntelliJ plugin, read [In an IntelliJ plugin](plugin.md) instead —
-the setup is different, and simpler.
+For plugin setup, follow [In an IntelliJ plugin](plugin.md).
 
 ## Before you start
 
-Jewel requires the **JetBrains Runtime**. Not as a recommendation: font loading and
-window decoration depend on patches that only the JBR has, and running on another JDK is
-unsupported. Point your toolchain at it explicitly.
+Jewel requires the **JetBrains Runtime (JBR)** for font loading and window decoration
+patches. Other JDKs have no support. Set the toolchain vendor explicitly:
 
 ```kotlin
 kotlin {
@@ -21,14 +19,13 @@ kotlin {
 }
 ```
 
-Setting only `languageVersion` is a common mistake. Gradle will resolve any JDK of that
-version, and the first thing to fail is `DecoratedWindow`, which throws outright when it
-does not find the JBR.
+Setting `languageVersion` alone lets Gradle choose any vendor's JDK with that version.
+Without JBR, `DecoratedWindow` throws an exception.
 
 ## Repositories
 
-Compose Multiplatform's Gradle plugin comes from the Gradle Plugin Portal, and its
-artifacts from Maven Central and Google's repository.
+Resolve the Compose Multiplatform Gradle plugin through the Gradle Plugin Portal.
+Resolve its artifacts through Maven Central and Google's repository.
 
 ```kotlin
 // settings.gradle.kts
@@ -50,8 +47,8 @@ dependencyResolutionManagement {
 
 ## Plugins
 
-You need three: Kotlin, Compose Multiplatform, and the Compose compiler plugin. The last
-one is separate from the Compose Gradle plugin and is often omitted.
+Apply Kotlin, Compose Multiplatform, and the Compose compiler plugin.
+The Compose compiler requires its own plugin declaration:
 
 ```kotlin
 // build.gradle.kts
@@ -62,20 +59,18 @@ plugins {
 }
 ```
 
-All three plugins are required. Since
-Kotlin 2.0 the Compose compiler ships in the Kotlin repository rather than with Compose
-Multiplatform, so it is applied as its own plugin — and it is versioned with **Kotlin**,
-not with Compose. Two of the three lines above take the same version. The middle one
-does not.
+Since Kotlin 2.0, the Kotlin repository distributes the Compose compiler separately from
+Compose Multiplatform. Use the **Kotlin** version for both Kotlin plugins. Select the
+Compose Multiplatform plugin version separately. All three plugins are required.
 
-Those versions also have to line up with what Jewel is built against. Each release
-records the Compose Multiplatform version it targets, and the minimum Kotlin version
-follows from the minimum supported IntelliJ Platform.
+Choose versions compatible with Jewel's build. Release notes list the targeted Compose
+Multiplatform version. The minimum supported IntelliJ Platform determines the minimum
+Kotlin version.
 
 !!! warning "Convention plugins"
-    If you configure your project with convention plugins, apply these once — for
-    example in the root build script with `apply false`, then apply them in the modules
-    that need them. Initialising them more than once causes resolution failures.
+    With convention plugins, initialise these plugins once. For example, declare them
+    in the root build script with `apply false`. Then apply them in the modules that
+    need them. Repeated initialisation causes resolution failures.
 
 ## Dependencies
 
@@ -93,13 +88,13 @@ dependencies {
 }
 ```
 
-Version strings look like `{{artifact}}`: the Jewel version, then the IntelliJ
-Platform build it was compiled against. [Versions and compatibility](../versioning.md)
-explains how to pick one, and which combinations exist.
+Versions use the form `{{artifact}}`. The Jewel version precedes the IntelliJ Platform
+build used for compilation. See [Versions and compatibility](../versioning.md) to select
+a published combination.
 
 ## Wrap your UI
 
-Everything Jewel draws has to sit inside a theme.
+Place all Jewel components inside a theme wrapper:
 
 ```kotlin
 import androidx.compose.foundation.layout.Column
@@ -123,16 +118,14 @@ fun main() = application {
 }
 ```
 
-That is the whole setup. `IntUiTheme` has richer overloads for supplying your own theme
-definition and component styling — see [Theming](../guides/theming.md) — and [Decorated
-windows](../guides/decorated-windows.md) covers replacing the system title bar with the
-IDE's.
+To supply custom theme definitions or component styles, use the other `IntUiTheme`
+overloads described in [Theming](../guides/theming.md). To replace the system title bar
+with IDE-style decoration, follow [Decorated windows](../guides/decorated-windows.md).
 
 ## Platform icons
 
-Jewel can load the IntelliJ Platform's own icons through `AllIconsKeys`, but outside the
-IDE they are not on the classpath. Add the icons artifact and the repository it lives
-in:
+`AllIconsKeys` loads IntelliJ Platform icons. Standalone apps must add those icons to the
+classpath. Declare the icons artifact and its repository:
 
 ```kotlin
 repositories {
@@ -146,9 +139,9 @@ dependencies {
 }
 ```
 
-Copying the icons you need into your own resources, at the same paths, works too. The
-artifact is easier to use and smaller. [Icons](../guides/icons.md) covers loading your
-own.
+You can also copy the required icons into application resources at their original paths.
+The artifact is smaller and requires less setup. See [Icons](../guides/icons.md) to load
+custom resources.
 
 ## Next
 
