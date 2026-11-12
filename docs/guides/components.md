@@ -95,7 +95,7 @@ fun SearchablePanel() {
 `searchState.processKeyEvent()`. You can also set the text through
 `searchState.textFieldState`. `FilterableLazyColumn` forwards key events this way.
 
-`SearchTextField`, `SearchArea` and their state functions are annotated experimental.
+`SearchTextField` and `SearchArea` are annotated experimental.
 
 ## Show a toggle switch
 
