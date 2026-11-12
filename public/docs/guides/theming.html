@@ -220,6 +220,7 @@ figure.shot img {
 <a href="../guides/icons.html">Icons</a>
 <a href="../guides/typography.html">Typography and fonts</a>
 <a href="../guides/lists-and-trees.html">Lists, trees and speed search</a>
+<a href="../guides/components.html">Components</a>
 <a href="../guides/markdown.html">Rendering Markdown</a>
 <a href="../guides/decorated-windows.html">Decorated windows</a>
 <a href="../guides/swing-interop.html">Swing interop</a>
@@ -257,7 +258,7 @@ figure.shot img {
 }</code></pre></div>
 <p>The default <code>isDark = false</code> selects light styling. Pass <code>true</code> for dark styling.</p>
 <p>For custom styling, use the overload accepting a theme definition and component styling:</p>
-<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.foundation.theme.ComponentStyling
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.ui.ComponentStyling
 <span class="c-kw">import</span> org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
 <span class="c-kw">import</span> org.jetbrains.jewel.intui.standalone.theme.default
 
@@ -299,7 +300,7 @@ figure.shot img {
 <p>The <code>JewelTheme</code> extensions <code>createDefaultTextStyle()</code> and <code>createEditorTextStyle()</code> provide Int UI defaults. They use Inter for UI text and JetBrains Mono for editor text. Pass size, family, or weight arguments to preserve the remaining defaults.</p>
 <h2 id="component-styling"><a class="anchor" href="#component-styling">Component styling</a></h2>
 <p><code>ComponentStyling.default()</code> provides Int UI styles for all components. Combine it with selective overrides to preserve unchanged defaults. Window decoration uses the same approach:</p>
-<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.foundation.theme.ComponentStyling
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.ui.ComponentStyling
 <span class="c-kw">import</span> org.jetbrains.jewel.intui.standalone.theme.default
 <span class="c-kw">import</span> org.jetbrains.jewel.intui.window.decoratedWindow
 <span class="c-kw">import</span> org.jetbrains.jewel.intui.window.styling.dark
@@ -321,8 +322,12 @@ JewelTheme.isDark</code></pre></div>
 <h2 id="islands-themes"><a class="anchor" href="#islands-themes">Islands themes</a></h2>
 <p><a href="https://plugins.jetbrains.com/docs/intellij/supporting-islands-theme.html" target="_blank" rel="noopener noreferrer">Islands</a> is a New UI variant with its own themes. Jewel reads Islands palettes using a different index scheme from classic palettes.</p>
 <p>Classic palettes use colour indices <code>1, 2, 3</code>. Islands uses <code>10, 20, 30</code>. For Islands, replace <code>blueOrNull(1)</code> with <code>blueOrNull(10)</code> and <code>redOrNull(3)</code> with <code>redOrNull(30)</code>. Check <code>ThemeColorPalette.isIslands</code> to select the correct scheme.</p>
-<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">val</span> palette = JewelTheme.colorPalette
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.foundation.theme.JewelTheme
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.theme.colorPalette
+
+<span class="c-kw">val</span> palette = JewelTheme.colorPalette
 <span class="c-kw">val</span> blue = <span class="c-fn">if</span> (palette.isIslands) palette.<span class="c-fn">blueOrNull</span>(<span class="c-num">10</span>) <span class="c-kw">else</span> palette.<span class="c-fn">blueOrNull</span>(<span class="c-num">1</span>)</code></pre></div>
+<p>To check whether the IDE has Islands turned on, read <code>JewelTheme.isIslands</code>. In a plugin, it follows the IDE's Islands setting. In a standalone app, it is always <code>false</code>.</p>
 <p>Islands palettes share values across light and dark themes. Classic palettes differ between those themes. Islands adds semantic tokens above its palette. Jewel cannot read those tokens directly. Read them from the Swing look and feel when needed.</p>
 <p>Official Islands themes also include classic palette entries. Avoid depending on those entries. Third-party themes and future official themes can omit them.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>

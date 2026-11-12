@@ -110,4 +110,4 @@ track thickness, expansion animation, and linger duration.
 ## See also
 
 - [Theming](theming.md) — styling the components above
-- Components — gallery with screenshots (coming soon)
+- [Components](components.md) — filterable lists, search fields and group headers

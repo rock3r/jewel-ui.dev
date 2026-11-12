@@ -220,6 +220,7 @@ figure.shot img {
 <a href="../guides/icons.html" aria-current="page">Icons</a>
 <a href="../guides/typography.html">Typography and fonts</a>
 <a href="../guides/lists-and-trees.html">Lists, trees and speed search</a>
+<a href="../guides/components.html">Components</a>
 <a href="../guides/markdown.html">Rendering Markdown</a>
 <a href="../guides/decorated-windows.html">Decorated windows</a>
 <a href="../guides/swing-interop.html">Swing interop</a>
@@ -267,6 +268,14 @@ figure.shot img {
     <span class="c-kw">val</span> run = <span class="c-fn">IntelliJIconKey</span>(<span class="c-str">&quot;icons/run.svg&quot;</span>, <span class="c-str">&quot;icons/expui/run.svg&quot;</span>, MyIcons::<span class="c-kw">class</span>.java)
 }</code></pre></div>
 <p>Supply both paths and a resource-resolving class to <code>IntelliJIconKey</code>. For more than a few dozen icons, generate the holder. Jewel generates its own holders too.</p>
+<h2 id="icons-from-the-intellij-platform-icons-api"><a class="anchor" href="#icons-from-the-intellij-platform-icons-api">Icons from the IntelliJ Platform icons API</a></h2>
+<p><code>Icon()</code> also draws an <code>IconDescriptor</code> from the IntelliJ Platform icons API, in <code>com.intellij.platform.icons</code>. A descriptor describes an icon as layers, such as images, other icons and badges. To build one in place, pass an <code>IconDesigner</code> block:</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.ui.component.Icon
+
+<span class="c-fn">Icon</span>(contentDescription = <span class="c-str">&quot;Refresh&quot;</span>) {
+    <span class="c-fn">image</span>(<span class="c-str">&quot;icons/refresh.svg&quot;</span>, MyIcons::<span class="c-kw">class</span>.java.classLoader)
+}</code></pre></div>
+<p>When you already have a descriptor, pass it as <code>iconDescriptor</code>. The optional <code>scale</code> parameter resizes the icon. The <code>jewel-ui</code> artifact depends on the IntelliJ Platform icons API artifacts, so <code>com.intellij.platform.icons</code> needs no separate dependency.</p>
 <h2 id="painter-hints"><a class="anchor" href="#painter-hints">Painter hints</a></h2>
 <p>A <code>PainterHint</code> can change an icon path, patch or decorate the image, or leave it unchanged. Use <code>PainterHint.None</code> when a conditional hint needs no effect.</p>
 <p>The <code>org.jetbrains.jewel.ui.painter.hints</code> package provides these hint functions:</p>
@@ -335,6 +344,7 @@ figure.shot img {
     <aside class="onthis"><h4>On this page</h4>
 <a class="lv2" href="#loading-an-icon">Loading an icon</a>
 <a class="lv2" href="#your-own-icons">Your own icons</a>
+<a class="lv2" href="#icons-from-the-intellij-platform-icons-api">Icons from the IntelliJ Platform icons API</a>
 <a class="lv2" href="#painter-hints">Painter hints</a>
 <a class="lv3" href="#stateful-icons">Stateful icons</a>
 <a class="lv3" href="#writing-your-own-hint">Writing your own hint</a>
