@@ -269,11 +269,11 @@ figure.shot img {
 <p>To supply every colour and padding value, use <code>BasicLazyTree</code> from the foundation module. This underlying component supplies behaviour without theme styling.</p>
 <p>Across Jewel, <code>foundation</code> provides behaviour with little styling. The <code>ui</code> module builds themed components on that behaviour.</p>
 <h2 id="speed-search"><a class="anchor" href="#speed-search">Speed search</a></h2>
-<p>Wrap a list or tree in <code>SpeedSearchArea</code> to add type-to-find. Typing opens a small search field and highlights matching text in the content.</p>
+<p>To add type-to-find, put a <code>SpeedSearchableLazyColumn</code> or <code>SpeedSearchableTree</code> inside <code>SpeedSearchArea</code>. Both components are in <code>org.jetbrains.jewel.ui.component.search</code> and are annotated experimental. Typing opens a small search field and highlights matching text in the content.</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.ui.component.SpeedSearchArea
 
 SpeedSearchArea {
-    <span class="c-com">// a list or tree here becomes type-to-find</span>
+    <span class="c-com">// SpeedSearchableLazyColumn or SpeedSearchableTree goes here</span>
 }</code></pre></div>
 <p>The search field hides on focus loss when <code>dismissOnLoseFocus</code> is <code>true</code>, its default. <code>SpeedSearchArea</code> is annotated experimental, so its signature can change.</p>
 <h3 id="where-selection-goes-when-the-filter-moves"><a class="anchor" href="#where-selection-goes-when-the-filter-moves">Where selection goes when the filter moves</a></h3>
@@ -299,7 +299,7 @@ VerticallyScrollableContainer {
         <span class="c-com">// items</span>
     }
 }</code></pre></div>
-<p>The default scrollbar supports <code>ScrollState</code>, <code>LazyListState</code> and <code>LazyGridState</code>. For any other state, or when the scrollable content differs from the container's own content, pass a <code>ScrollbarAdapter</code> as <code>adapter</code>. The adapter controls the thumb size and position.</p>
+<p>The default scrollbar supports <code>ScrollState</code>, <code>LazyListState</code>, <code>LazyGridState</code> and <code>TextFieldScrollState</code>. For any other state, or when the scrollable content differs from the container's own content, pass a <code>ScrollbarAdapter</code> as <code>adapter</code>. The adapter controls the thumb size and position.</p>
 <p><code>ScrollbarVisibility</code> supports <code>AlwaysVisible</code> and <code>WhenScrolling</code>. On macOS, Jewel follows <strong>System Settings → Appearance → Show scroll bars</strong>. Always-visible scrollbars occupy space beside content. When-scrolling scrollbars overlay the content. Styles control track thickness, expansion animation, and linger duration.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
 <ul>

@@ -45,7 +45,7 @@ For more than a few dozen icons, generate the holder. Jewel generates its own ho
 ## Icons from the IntelliJ Platform icons API
 
 `Icon()` also draws an `IconDescriptor` from the IntelliJ Platform icons API, in
-`com.intellij.platform.icons`. A descriptor describes an icon as layers, such as images,
+`com.intellij.platform.icons`. A descriptor defines an icon as layers, such as images,
 other icons and badges. To build one in place, pass an `IconDesigner` block:
 
 ```kotlin
@@ -57,8 +57,9 @@ Icon(contentDescription = "Refresh") {
 ```
 
 When you already have a descriptor, pass it as `iconDescriptor`. The optional `scale`
-parameter resizes the icon. The `jewel-ui` artifact depends on the IntelliJ Platform icons
-API artifacts, so `com.intellij.platform.icons` needs no separate dependency.
+parameter takes an `IconScale` and resizes the icon. The `jewel-ui` artifact depends on
+the IntelliJ Platform icons API artifacts, so `com.intellij.platform.icons` needs no
+separate dependency.
 
 ## Painter hints
 
