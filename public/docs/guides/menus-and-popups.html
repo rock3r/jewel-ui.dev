@@ -248,9 +248,9 @@ figure.shot img {
     <main class="main">
       <article class="doc">
 <h1>Menus and popups</h1>
-<p>Use <code>MenuComboBox</code> to choose an option from a menu, and <code>PopupMenu</code> to open a menu from any control. For other floating content, use <code>Popup</code>.</p>
+<p>To choose an option from a menu, use <code>MenuComboBox</code>. To open a menu from any control, use <code>PopupMenu</code>. For other floating content, use <code>Popup</code>.</p>
 <h2 id="choose-an-option-from-a-menu"><a class="anchor" href="#choose-an-option-from-a-menu">Choose an option from a menu</a></h2>
-<p><code>MenuComboBox</code> shows a label and opens a menu when the user clicks it. It replaces the deprecated <code>Dropdown</code>.</p>
+<p><code>MenuComboBox</code> shows a label and opens a menu when the user clicks the combo box. <code>MenuComboBox</code> replaces the deprecated <code>Dropdown</code>.</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.layout.width
 <span class="c-kw">import</span> androidx.compose.runtime.Composable
 <span class="c-kw">import</span> androidx.compose.runtime.getValue
@@ -284,16 +284,17 @@ figure.shot img {
     }
 }</code></pre></div>
 <p>Give the combo box a fixed width, for example with <code>width()</code> or <code>fillMaxWidth()</code>. Without one, the combo box sizes itself to its label content. The popup matches the combo box width unless you set <code>maxPopupWidth</code>.</p>
-<p><code>MenuComboBox</code> is annotated experimental. For a long list of options, use <code>ListComboBox</code>. For a field that also accepts typed text, use <code>EditableListComboBox</code>.</p>
+<p><code>MenuComboBox</code> is annotated experimental. For a long list of options, use <code>ListComboBox</code>. The <code>ListComboBox</code> overload for <code>String</code> items is stable. The generic overload for other item types is annotated experimental. For a field that also accepts typed text, use <code>EditableListComboBox</code>.</p>
 <h2 id="add-items-to-a-menu"><a class="anchor" href="#add-items-to-a-menu">Add items to a menu</a></h2>
 <p>The menu content block is a <code>MenuScope</code>. It supports these items:</p>
 <ul>
 <li><code>selectableItem()</code> draws a clickable item with an optional icon and keybinding. The item with <code>selected = true</code> draws in its selected state and takes focus when the menu opens.</li>
-<li><code>submenu()</code> adds an item that opens a nested menu. Build the nested menu in its <code>submenu</code> block.</li>
+<li><code>submenu()</code> adds an item that opens a nested menu. Pass the nested menu as the <code>submenu</code> argument. The trailing lambda draws the item itself, for example <code>submenu(submenu = { … }) { Text(&quot;Sort by&quot;) }</code>.</li>
 <li><code>passiveItem()</code> draws content that the user cannot select.</li>
 <li><code>separator()</code> draws a divider.</li>
 <li><code>items()</code> adds one selectable item for each entry in a list, or for a count.</li>
 </ul>
+<p><code>separator()</code> and <code>items()</code> are extension functions. Import them from <code>org.jetbrains.jewel.ui.component</code>.</p>
 <p>Menus support keyboard navigation:</p>
 <ul>
 <li><strong>Up</strong> and <strong>Down</strong> move between items.</li>
@@ -301,7 +302,7 @@ figure.shot img {
 <li><strong>Escape</strong> closes the menu and all its submenus.</li>
 </ul>
 <h2 id="open-a-menu-from-any-control"><a class="anchor" href="#open-a-menu-from-any-control">Open a menu from any control</a></h2>
-<p><code>PopupMenu</code> shows the same menu items next to the control that opens it. Show it while a state is <code>true</code>, and set the state to <code>false</code> in <code>onDismissRequest</code>:</p>
+<p><code>PopupMenu</code> shows the same menu items as <code>MenuComboBox</code>. The menu opens next to its parent layout, so put <code>PopupMenu</code> in a <code>Box</code> with the control that opens the menu. Show <code>PopupMenu</code> while a state is <code>true</code>. Set the state to <code>false</code> in <code>onDismissRequest</code>:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.layout.Box
 <span class="c-kw">import</span> androidx.compose.runtime.Composable
 <span class="c-kw">import</span> androidx.compose.runtime.getValue
@@ -337,7 +338,7 @@ figure.shot img {
 <p>Return <code>true</code> from <code>onDismissRequest</code> when the callback handled the dismissal.</p>
 <p>The menu closes after the user selects an item. To make a long menu scroll, set <code>maxHeight</code>. To place the menu yourself, use the <code>PopupMenu</code> overload that takes a <code>popupPositionProvider</code>.</p>
 <h2 id="show-your-own-content-in-a-popup"><a class="anchor" href="#show-your-own-content-in-a-popup">Show your own content in a popup</a></h2>
-<p><code>Popup</code> shows any content at the position its <code>PopupPositionProvider</code> returns. <code>PopupContainer</code> adds the themed popup background, border, rounded corners and shadow around the content.</p>
+<p><code>Popup</code> shows any content at the position its <code>PopupPositionProvider</code> returns. <code>PopupContainer</code> is a <code>Popup</code> with the themed popup background, border, rounded corners and shadow. Use <code>PopupContainer</code> in place of <code>Popup</code>, not inside it. By default, <code>PopupContainer</code> opens next to its parent layout, aligned by <code>horizontalAlignment</code>.</p>
 <p><code>onDismissRequest</code> on <code>Popup</code> and <code>PopupContainer</code> receives an <code>InputMode</code> that tells you what caused the dismissal:</p>
 <ul>
 <li><code>InputMode.Keyboard</code> means a key press, such as <strong>Escape</strong>.</li>
@@ -353,7 +354,7 @@ figure.shot img {
 <span class="c-kw">fun</span> <span class="c-fn">enableSeparatePopupWindows</span>() {
     JewelFlags.useCustomPopupRenderer = <span class="c-kw">true</span>
 }</code></pre></div>
-<p>With the flag set, Jewel popups ignore the Compose <code>compose.layers.type</code> setting. In a plugin, Jewel popups then use the IntelliJ Platform popup implementation. A popup can then be larger than the Compose component that shows it. The flag does not change dialogs.</p>
+<p>With the flag set, Jewel popups ignore the Compose <code>compose.layers.type</code> setting. In a plugin, Jewel popups use the IntelliJ Platform popup implementation, so a popup can be larger than the Compose component that shows it. The flag does not change dialogs.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
 <ul>
 <li><a href="components.html">Components</a> — search fields, filterable lists and group headers</li>

@@ -270,13 +270,13 @@ figure.shot img {
 }</code></pre></div>
 <p>Supply both paths and a resource-resolving class to <code>IntelliJIconKey</code>. For more than a few dozen icons, generate the holder. Jewel generates its own holders too.</p>
 <h2 id="icons-from-the-intellij-platform-icons-api"><a class="anchor" href="#icons-from-the-intellij-platform-icons-api">Icons from the IntelliJ Platform icons API</a></h2>
-<p><code>Icon()</code> also draws an <code>IconDescriptor</code> from the IntelliJ Platform icons API, in <code>com.intellij.platform.icons</code>. A descriptor describes an icon as layers, such as images, other icons and badges. To build one in place, pass an <code>IconDesigner</code> block:</p>
+<p><code>Icon()</code> also draws an <code>IconDescriptor</code> from the IntelliJ Platform icons API, in <code>com.intellij.platform.icons</code>. A descriptor defines an icon as layers, such as images, other icons and badges. To build one in place, pass an <code>IconDesigner</code> block:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.ui.component.Icon
 
 <span class="c-fn">Icon</span>(contentDescription = <span class="c-str">&quot;Refresh&quot;</span>) {
     <span class="c-fn">image</span>(<span class="c-str">&quot;icons/refresh.svg&quot;</span>, MyIcons::<span class="c-kw">class</span>.java.classLoader)
 }</code></pre></div>
-<p>When you already have a descriptor, pass it as <code>iconDescriptor</code>. The optional <code>scale</code> parameter resizes the icon. The <code>jewel-ui</code> artifact depends on the IntelliJ Platform icons API artifacts, so <code>com.intellij.platform.icons</code> needs no separate dependency.</p>
+<p>When you already have a descriptor, pass it as <code>iconDescriptor</code>. The optional <code>scale</code> parameter takes an <code>IconScale</code> and resizes the icon. The <code>jewel-ui</code> artifact depends on the IntelliJ Platform icons API artifacts, so <code>com.intellij.platform.icons</code> needs no separate dependency.</p>
 <h2 id="painter-hints"><a class="anchor" href="#painter-hints">Painter hints</a></h2>
 <p>A <code>PainterHint</code> can change an icon path, patch or decorate the image, or leave it unchanged. Use <code>PainterHint.None</code> when a conditional hint needs no effect.</p>
 <p>The <code>org.jetbrains.jewel.ui.painter.hints</code> package provides these hint functions:</p>

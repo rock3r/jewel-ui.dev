@@ -36,7 +36,7 @@ IntUiTheme(
 }
 ```
 
-Both overloads accept `swingCompatMode` to align Compose text with Swing text.
+Both overloads accept `swingCompatMode`, which turns off hover and press state changes.
 Enable it when embedding Compose in a Swing application. In plugins, the bridge enables
 it automatically.
 
@@ -140,8 +140,8 @@ val blue = if (palette.isIslands) palette.blueOrNull(10) else palette.blueOrNull
 ```
 
 To check whether the IDE has Islands turned on, read `JewelTheme.isIslands`.
-In a plugin, it follows the IDE's Islands setting. In a standalone app, it is always
-`false`.
+In a plugin, `isIslands` follows the IDE's Islands setting. In a standalone app,
+`isIslands` is always `false`.
 
 Islands palettes share values across light and dark themes. Classic palettes differ
 between those themes. Islands adds semantic tokens above its palette. Jewel cannot read

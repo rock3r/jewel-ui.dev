@@ -46,14 +46,16 @@ themed components on that behaviour.
 
 ## Speed search
 
-Wrap a list or tree in `SpeedSearchArea` to add type-to-find. Typing opens a small search
-field and highlights matching text in the content.
+To add type-to-find, put a `SpeedSearchableLazyColumn` or `SpeedSearchableTree` inside
+`SpeedSearchArea`. Both components are in `org.jetbrains.jewel.ui.component.search` and
+are annotated experimental. Typing opens a small search field and highlights matching text
+in the content.
 
 ```kotlin
 import org.jetbrains.jewel.ui.component.SpeedSearchArea
 
 SpeedSearchArea {
-    // a list or tree here becomes type-to-find
+    // SpeedSearchableLazyColumn or SpeedSearchableTree goes here
 }
 ```
 
@@ -102,7 +104,8 @@ VerticallyScrollableContainer(listState) {
 }
 ```
 
-The default scrollbar supports `ScrollState`, `LazyListState` and `LazyGridState`. For any
+The default scrollbar supports `ScrollState`, `LazyListState`, `LazyGridState` and
+`TextFieldScrollState`. For any
 other state, or when the scrollable content differs from the container's own content, pass
 a `ScrollbarAdapter` as `adapter`. The adapter controls the thumb size and position.
 

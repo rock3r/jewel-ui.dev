@@ -99,7 +99,7 @@ import org.jetbrains.jewel.markdown.processing.MarkdownProcessor
 val processor = MarkdownProcessor(parseEmbeddedHtml = true)
 ```
 
-The converter supports these tags:
+The processor converts these tags:
 
 - Blocks: `p`, `ul`, `ol`, `li`, `h1` to `h6`, `pre`, `code` and `img`
 - Inline content: `a`, `b`, `strong`, `i`, `em`, `code`, `pre`, `br` and `img`
@@ -109,7 +109,8 @@ the processor wraps it in `MarkdownBlock.HtmlBlockWithAttributes`. The default r
 applies the `align` attribute with the values `left`, `center` and `right`. To support
 other attributes, override `RenderHtmlBlockWithAttributes()` in your block renderer.
 
-The `MarkdownProcessor` constructor with `parseEmbeddedHtml` is annotated experimental.
+`MarkdownProcessor` and `MarkdownBlock.HtmlBlockWithAttributes` are annotated
+experimental.
 
 ## Live previews re-parse only what changed
 
@@ -130,12 +131,14 @@ In an editor with a live preview, a `ScrollingSynchronizer` links the scroll pos
 the two panes. When the user scrolls either pane, the other pane scrolls to the same place
 in the document.
 
-Create the synchronizer from the preview's scroll state with `createContinuous()`. It
-accepts the `LazyListState` of a `LazyMarkdown`, or the `ScrollState` of a `Markdown`. For
-any other state, it returns `null`. Pass the synchronizer to `MarkdownMode.EditorPreview`.
-Render the preview with a `ScrollSyncMarkdownBlockRenderer`, which reports the position of
-each block to the synchronizer. Then call `syncScrolling()` with the editor's
-`ScrollState`, and the editor's line positions from `sourceLineOffsets()`.
+Create the synchronizer from the preview's scroll state with
+`ScrollingSynchronizer.createContinuous()`. `createContinuous()` accepts the
+`LazyListState` of a `LazyMarkdown`, or a `ScrollState` that scrolls a `Markdown`. For any
+other state, `createContinuous()` returns `null`. Pass the synchronizer to
+`MarkdownMode.EditorPreview`. Render the preview with a `ScrollSyncMarkdownBlockRenderer`,
+which reports the position of each block to the synchronizer. Then call `syncScrolling()`
+from a coroutine, such as a `LaunchedEffect`. Pass the editor's `ScrollState` and a
+function that returns the editor's line positions from `sourceLineOffsets()`.
 
 ```kotlin
 import androidx.compose.foundation.layout.Row
@@ -219,9 +222,11 @@ fun EditorWithPreview(editorState: TextFieldState) {
 }
 ```
 
-`WithMarkdownMode()` gives the preview access to the synchronizer. The synchronizer,
+`WithMarkdownMode()` gives the preview access to the synchronizer. Every Jewel Markdown
+API in this sample is annotated experimental, including `WithMarkdownMode()`,
+`LazyMarkdown()`, `ProvideMarkdownStyling()`, the synchronizer,
 `MarkdownMode.EditorPreview`, `ScrollSyncMarkdownBlockRenderer`, `syncScrolling()` and
-`sourceLineOffsets()` are annotated experimental.
+`sourceLineOffsets()`.
 
 ## Rendering your own blocks
 
