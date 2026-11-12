@@ -1,0 +1,305 @@
+<!doctype html>
+<html class="no-js">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>ContinuousScrollingSynchronizer</title>
+<link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">    <script>var pathToRoot = "../../../";</script>
+    <script>document.documentElement.classList.replace("no-js","js");</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="https://unpkg.com/kotlin-playground@1/dist/playground.min.js" async></script>
+<script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async></script>
+<link href="../../../styles/style.css" rel="Stylesheet">
+<link href="../../../styles/main.css" rel="Stylesheet">
+<link href="../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../styles/logo-styles.css" rel="Stylesheet">
+<link href="../../../styles/font-jb-sans-auto.css" rel="Stylesheet">
+<link href="../../../ui-kit/ui-kit.min.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../scripts/clipboard.js" async></script>
+<script type="text/javascript" src="../../../scripts/navigation-loader.js" async></script>
+<script type="text/javascript" src="../../../scripts/platform-content-handler.js" async></script>
+<script type="text/javascript" src="../../../scripts/main.js" defer></script>
+<script type="text/javascript" src="../../../scripts/prism.js" async></script>
+<script type="text/javascript" src="../../../ui-kit/ui-kit.min.js" defer></script>
+<script type="text/javascript" src="../../../scripts/symbol-parameters-wrapper_deferred.js" defer></script>  <link rel="stylesheet" href="/api/_chrome.css">
+  <script src="/api/_chrome.js" defer></script>
+</head>
+<body>
+<header id="jewel-top">
+  <a class="brand" href="/" title="Jewel home"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" fill="#000"/><path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFF"/><path d="M256 76L436 256H256V76Z" fill="#CCC"/><path d="M76 256L256 436V256H76Z" fill="#CCC"/><path d="M256 436L436 256H256V436Z" fill="#808080"/></svg><span>Jewel</span></a>
+  <a class="brand-sub" href="/docs/">docs</a>
+  <a href="/api/" aria-current="page">API</a>
+  <div class="sp"></div>
+  <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
+  <a href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+  <button class="tbtn" id="jewel-search-btn" type="button">Search</button>
+  <button class="tbtn" id="jewel-theme-btn" type="button">Light</button>
+</header>
+
+    <div class="root">
+    <nav class="navigation theme-dark" id="navigation-wrapper">
+<a class="library-name--link" href="../../../index.html">
+                    Jewel
+            </a>        <button class="navigation-controls--btn navigation-controls--btn_toc ui-kit_mobile-only" id="toc-toggle" type="button">Toggle table of contents
+        </button>
+        <div class="navigation-controls--break ui-kit_mobile-only"></div>
+        <div class="library-version" id="library-version">0.42.0-263.7307.200
+        </div>
+        <div class="navigation-controls">
+        <div class="filter-section filter-section_loading" id="filter-section">
+                <button class="platform-tag platform-selector jvm-like" data-active="" data-filter="jewel-markdown-core/main">markdown-core</button>
+            <div class="dropdown filter-section--dropdown" data-role="dropdown" id="filter-section-dropdown">
+                <button class="button button_dropdown filter-section--dropdown-toggle" role="combobox" data-role="dropdown-toggle" aria-controls="platform-tags-listbox" aria-haspopup="listbox" aria-expanded="false" aria-label="Toggle source sets"></button>
+                <ul role="listbox" id="platform-tags-listbox" class="dropdown--list" data-role="dropdown-listbox">
+                    <div class="dropdown--header"><span>Platform filter</span>
+                        <button class="button" data-role="dropdown-toggle" aria-label="Close platform filter">
+                            <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                        </button>
+                    </div>
+                        <li role="option" class="dropdown--option platform-selector-option jvm-like" tabindex="0">
+                            <label class="checkbox">
+                                <input type="checkbox" class="checkbox--input" id="jewel-markdown-core/main" data-filter="jewel-markdown-core/main">
+                                <span class="checkbox--icon"></span>
+                                markdown-core
+                            </label>
+                        </li>
+                </ul>
+                <div class="dropdown--overlay"></div>
+            </div>
+        </div>
+            <button class="navigation-controls--btn navigation-controls--btn_theme" id="theme-toggle-button" type="button">Switch theme
+            </button>
+            <div class="navigation-controls--btn navigation-controls--btn_search" id="searchBar" role="button">Search in
+                API
+            </div>
+        </div>
+    </nav>
+        <div id="container">
+            <div class="sidebar" id="leftColumn">
+                <div class="dropdown theme-dark_mobile" data-role="dropdown" id="toc-dropdown">
+                    <ul role="listbox" id="toc-listbox" class="dropdown--list dropdown--list_toc-list" data-role="dropdown-listbox">
+                        <div class="dropdown--header">
+                            <span>
+                                    Jewel
+                            </span>
+                            <button class="button" data-role="dropdown-toggle" aria-label="Close table of contents">
+                                <i class="ui-kit-icon ui-kit-icon_cross"></i>
+                            </button>
+                        </div>
+                        <div class="sidebar--inner" id="sideMenu"></div>
+                    </ul>
+                    <div class="dropdown--overlay"></div>
+                </div>
+            </div>
+            <div id="main">
+<div class="main-content" data-page-type="classlike" id="content" pageids="jewel-markdown-core::org.jetbrains.jewel.markdown.scrolling/ContinuousScrollingSynchronizer///PointingToDeclaration//1498598045">
+  <div class="breadcrumbs"><a href="../../index.html">jewel-markdown-core</a><span class="delimiter">/</span><a href="../index.html">org.jetbrains.jewel.markdown.scrolling</a><span class="delimiter">/</span><span class="current">ContinuousScrollingSynchronizer</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span>Continuous</span><wbr><span>Scrolling</span><wbr><span><span>Synchronizer</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-markdown-core/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">abstract </span><span class="token keyword">class </span><a href="index.html">ContinuousScrollingSynchronizer</a> : <a href="../-scrolling-synchronizer/index.html">ScrollingSynchronizer</a></div><p class="paragraph">A <a href="../-scrolling-synchronizer/index.html">ScrollingSynchronizer</a> that can also follow the editor continuously, instead of jumping from block to block the way <a href="../-scrolling-synchronizer/scroll-to-line.html">scrollToLine</a> does.</p><p class="paragraph">The editor is a single <span data-unresolved-link="androidx.compose.foundation/ScrollState///PointingToDeclaration/">androidx.compose.foundation.ScrollState</span>, so it is described here by a scroll offset. The preview is not: it may be a scrolled column, or a lazy list that has no absolute scroll offset at all. That is why this class never hands out a preview offset, and instead scrolls the preview itself.</p><p class="paragraph">Use <a href="../sync-scrolling.html">syncScrolling</a> to keep an editor and a preview in step in both directions.</p><p class="paragraph">Both members below take the same two descriptions of the editor: <code class="lang-kotlin">editorMaxOffset</code>, its maximum scroll offset, paired with the preview's own so that both panes reach their ends together; and <code class="lang-kotlin">editorOffsetOfLine</code>, returning the editor scroll offset at which a source line starts, or <code class="lang-kotlin">null</code> if the editor doesn't know that line.</p><h4 class="">See also</h4><div class="table"><div class="table-row" data-filterable-current="jewel-markdown-core/main" data-filterable-set="jewel-markdown-core/main"><div class="main-subrow keyValue "><div class=""><span class="inline-flex"><div><a href="../-scrolling-synchronizer/-companion/create-continuous.html"><span>Scrolling</span><wbr><span>Synchronizer.</span><wbr><span>Companion.</span><wbr><span>create</span><wbr><span><span>Continuous</span></span></a></div></span></div><div></div></div></div></div></div></div>
+  </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION">Members</button><button class="section-tab" data-togglable="CONSTRUCTOR,TYPE,PROPERTY,FUNCTION,EXTENSION_PROPERTY,EXTENSION_FUNCTION">Members &amp; Extensions</button></div>
+    <div class="tabs-section-body">
+      <div data-togglable="CONSTRUCTOR">
+        <h2 class="">Constructors</h2>
+        <div class="table"><a data-name="500070536%2FConstructors%2F1498598045" anchor-label="ContinuousScrollingSynchronizer" id="500070536%2FConstructors%2F1498598045" data-filterable-set="jewel-markdown-core/main"></a>
+          <div class="table-row" data-togglable="CONSTRUCTOR" data-filterable-current="jewel-markdown-core/main" data-filterable-set="jewel-markdown-core/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="-continuous-scrolling-synchronizer.html"><span>Continuous</span><wbr><span>Scrolling</span><wbr><span><span>Synchronizer</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="500070536%2FConstructors%2F1498598045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-markdown-core/main"><div class="symbol monospace"><span class="token keyword">constructor</span><span class="token punctuation">(</span><span class="token punctuation">)</span></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div data-togglable="FUNCTION">
+        <h2 class="">Functions</h2>
+        <div class="table"><a data-name="-1991570563%2FFunctions%2F1498598045" anchor-label="acceptBlockSpans" id="-1991570563%2FFunctions%2F1498598045" data-filterable-set="jewel-markdown-core/main"></a>
+          <div class="table-row" data-filterable-current="jewel-markdown-core/main" data-filterable-set="jewel-markdown-core/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-scrolling-synchronizer/accept-block-spans.html"><span>accept</span><wbr><span>Block</span><wbr><span><span>Spans</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1991570563%2FFunctions%2F1498598045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-markdown-core/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="../-scrolling-synchronizer/accept-block-spans.html"><span class="token function">acceptBlockSpans</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="../../org.jetbrains.jewel.markdown/-markdown-block/index.html">MarkdownBlock</a><span class="token punctuation">, </span></span><span class="parameter ">sourceRange<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.ranges/-int-range/index.html">IntRange</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../../org.jetbrains.jewel.markdown/-markdown-block/index.html">MarkdownBlock</a></div><div class="brief "><p class="paragraph">Accept mapping between the markdown <a href="../-scrolling-synchronizer/accept-block-spans.html">block</a> and the <a href="../-scrolling-synchronizer/accept-block-spans.html">sourceRange</a> of lines containing this block. Called on every block after it was (re)parsed.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="998811265%2FFunctions%2F1498598045" anchor-label="acceptContentPosition" id="998811265%2FFunctions%2F1498598045" data-filterable-set="jewel-markdown-core/main"></a>
+          <div class="table-row" data-filterable-current="jewel-markdown-core/main" data-filterable-set="jewel-markdown-core/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-scrolling-synchronizer/accept-content-position.html"><span>accept</span><wbr><span>Content</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="998811265%2FFunctions%2F1498598045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-markdown-core/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-scrolling-synchronizer/accept-content-position.html"><span class="token function">acceptContentPosition</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">coordinates<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.layout/LayoutCoordinates///PointingToDeclaration/">LayoutCoordinates</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Accept the <a href="../-scrolling-synchronizer/accept-content-position.html">coordinates</a> of the scrolled content holding all the blocks. Block positions arrive relative to the composition root; this is what makes them relative to the preview when the preview doesn't start at the root. Called on first composition and whenever the content moves, including on every scroll.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1942885824%2FFunctions%2F1498598045" anchor-label="acceptGlobalPosition" id="-1942885824%2FFunctions%2F1498598045" data-filterable-set="jewel-markdown-core/main"></a>
+          <div class="table-row" data-filterable-current="jewel-markdown-core/main" data-filterable-set="jewel-markdown-core/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-scrolling-synchronizer/accept-global-position.html"><span>accept</span><wbr><span>Global</span><wbr><span><span>Position</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1942885824%2FFunctions%2F1498598045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-markdown-core/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="../-scrolling-synchronizer/accept-global-position.html"><span class="token function">acceptGlobalPosition</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="../../org.jetbrains.jewel.markdown/-markdown-block/index.html">MarkdownBlock</a><span class="token punctuation">, </span></span><span class="parameter ">coordinates<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.layout/LayoutCoordinates///PointingToDeclaration/">LayoutCoordinates</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Accept mapping between the markdown <a href="../-scrolling-synchronizer/accept-global-position.html">block</a> and the global <a href="../-scrolling-synchronizer/accept-global-position.html">coordinates</a> of lines containing this block. Called on all blocks that require (re)positioning: on first composition, on a changed block, on unchanged blocks that are positioned below the changed block.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="65876784%2FFunctions%2F1498598045" anchor-label="acceptItemBlocks" id="65876784%2FFunctions%2F1498598045" data-filterable-set="jewel-markdown-core/main"></a>
+          <div class="table-row" data-filterable-current="jewel-markdown-core/main" data-filterable-set="jewel-markdown-core/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-scrolling-synchronizer/accept-item-blocks.html"><span>accept</span><wbr><span>Item</span><wbr><span><span>Blocks</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="65876784%2FFunctions%2F1498598045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-markdown-core/main"><div class="symbol monospace"><span class="token keyword">open </span><span class="token keyword">fun </span><a href="../-scrolling-synchronizer/accept-item-blocks.html"><span class="token function">acceptItemBlocks</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">blocks<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin.collections/-list/index.html">List</a><span class="token operator">&lt;</span><a href="../../org.jetbrains.jewel.markdown/-markdown-block/index.html">MarkdownBlock</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Accept the blocks rendered as the items of a lazy preview, so that their positions in the list can be used as item indices. Called by <a href="../../org.jetbrains.jewel.markdown/-lazy-markdown.html">LazyMarkdown</a> whenever the list changes; a preview that is not a lazy list never calls this.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1816486197%2FFunctions%2F1498598045" anchor-label="acceptTextLayout" id="1816486197%2FFunctions%2F1498598045" data-filterable-set="jewel-markdown-core/main"></a>
+          <div class="table-row" data-filterable-current="jewel-markdown-core/main" data-filterable-set="jewel-markdown-core/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-scrolling-synchronizer/accept-text-layout.html"><span>accept</span><wbr><span>Text</span><wbr><span><span>Layout</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1816486197%2FFunctions%2F1498598045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-markdown-core/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="../-scrolling-synchronizer/accept-text-layout.html"><span class="token function">acceptTextLayout</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">block<span class="token operator">: </span><a href="../../org.jetbrains.jewel.markdown/-markdown-block/index.html">MarkdownBlock</a><span class="token punctuation">, </span></span><span class="parameter ">textLayout<span class="token operator">: </span><span data-unresolved-link="androidx.compose.ui.text/TextLayoutResult///PointingToDeclaration/">TextLayoutResult</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Accept mapping between the markdown <a href="../-scrolling-synchronizer/accept-text-layout.html">block</a> and the <a href="../-scrolling-synchronizer/accept-text-layout.html">textLayout</a> of the text this block comprises. Called on all blocks that require adjusting text layout: on first composition, on a block with the changed text, and may be called on unchanged blocks that are positioned below the changed block.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-547575669%2FFunctions%2F1498598045" anchor-label="editorOffsetAtPreview" id="-547575669%2FFunctions%2F1498598045" data-filterable-set="jewel-markdown-core/main"></a>
+          <div class="table-row" data-filterable-current="jewel-markdown-core/main" data-filterable-set="jewel-markdown-core/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="editor-offset-at-preview.html"><span>editor</span><wbr><span>Offset</span><wbr><span>At</span><wbr><span><span>Preview</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-547575669%2FFunctions%2F1498598045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-markdown-core/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">fun </span><a href="editor-offset-at-preview.html"><span class="token function">editorOffsetAtPreview</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">editorMaxOffset<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">editorOffsetOfLine<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a></div><div class="brief "><p class="paragraph">The editor scroll offset matching where the preview currently sits. The inverse of <a href="scroll-preview-to.html">scrollPreviewTo</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1193957895%2FFunctions%2F1498598045" anchor-label="process" id="1193957895%2FFunctions%2F1498598045" data-filterable-set="jewel-markdown-core/main"></a>
+          <div class="table-row" data-filterable-current="jewel-markdown-core/main" data-filterable-set="jewel-markdown-core/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-scrolling-synchronizer/process.html"><span><span>process</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1193957895%2FFunctions%2F1498598045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-markdown-core/main"><div class="symbol monospace"><span class="token keyword">fun </span><span class="token operator">&lt;</span><a href="../-scrolling-synchronizer/process.html">T</a><span class="token operator">&gt; </span><a href="../-scrolling-synchronizer/process.html"><span class="token function">process</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">action<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="../-scrolling-synchronizer/process.html">T</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../-scrolling-synchronizer/process.html">T</a></div><div class="brief "><p class="paragraph">Called when <a href="../../org.jetbrains.jewel.markdown.processing/-markdown-processor/index.html">MarkdownProcessor</a> processes the raw Markdown text. The processing itself is passed as an <a href="../-scrolling-synchronizer/process.html">action</a>.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="114825151%2FFunctions%2F1498598045" anchor-label="scrollPreviewTo" id="114825151%2FFunctions%2F1498598045" data-filterable-set="jewel-markdown-core/main"></a>
+          <div class="table-row" data-filterable-current="jewel-markdown-core/main" data-filterable-set="jewel-markdown-core/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="scroll-preview-to.html"><span>scroll</span><wbr><span>Preview</span><wbr><span><span>To</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="114825151%2FFunctions%2F1498598045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-markdown-core/main"><div class="symbol monospace"><span class="token keyword">abstract </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="scroll-preview-to.html"><span class="token function">scrollPreviewTo</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">editorOffset<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">editorMaxOffset<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">editorOffsetOfLine<span class="token operator">: </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Scroll the preview to the position matching the editor scroll offset <a href="scroll-preview-to.html">editorOffset</a>, interpolated between the tops of the two blocks around it, so that the preview keeps moving as long as the editor does.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="1647534288%2FFunctions%2F1498598045" anchor-label="scrollToLine" id="1647534288%2FFunctions%2F1498598045" data-filterable-set="jewel-markdown-core/main"></a>
+          <div class="table-row" data-filterable-current="jewel-markdown-core/main" data-filterable-set="jewel-markdown-core/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../-scrolling-synchronizer/scroll-to-line.html"><span>scroll</span><wbr><span>To</span><wbr><span><span>Line</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1647534288%2FFunctions%2F1498598045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-markdown-core/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.NonExtendable///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.NonExtendable</span></span></div></div><span class="token keyword">open </span><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="../-scrolling-synchronizer/scroll-to-line.html"><span class="token function">scrollToLine</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">sourceLine<span class="token operator">: </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">, </span></span><span class="parameter ">animationSpec<span class="token operator">: </span><span data-unresolved-link="androidx.compose.animation.core/AnimationSpec///PointingToDeclaration/">AnimationSpec</span><span class="token operator">&lt;</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-float/index.html">Float</a><span class="token operator">&gt;</span><span class="token operator"> = </span>SpringSpec()</span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Scroll the preview to the position that matches the given <a href="../-scrolling-synchronizer/scroll-to-line.html">sourceLine</a> the best.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+<a data-name="-1514004872%2FFunctions%2F1498598045" anchor-label="syncScrolling" id="-1514004872%2FFunctions%2F1498598045" data-filterable-set="jewel-markdown-core/main"></a>
+          <div class="table-row" data-togglable="EXTENSION_FUNCTION" data-filterable-current="jewel-markdown-core/main" data-filterable-set="jewel-markdown-core/main">
+            <div class="main-subrow keyValue ">
+              <div class=""><span class="inline-flex">
+                  <div><a href="../sync-scrolling.html"><span>sync</span><wbr><span><span>Scrolling</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1514004872%2FFunctions%2F1498598045"></span>
+                    <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                  </span></span></div>
+              <div>
+                <div class="title">
+                  <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable="jewel-markdown-core/main"><div class="symbol monospace"><div class="block"><div class="block"><span class="token annotation builtin">@</span><span data-unresolved-link="org.jetbrains.annotations/ApiStatus.Experimental///PointingToDeclaration/"><span class="token annotation builtin">ApiStatus.Experimental</span></span></div></div><span class="token keyword">suspend </span><span class="token keyword">fun </span><a href="index.html">ContinuousScrollingSynchronizer</a><span class="token punctuation">.</span><a href="../sync-scrolling.html"><span class="token function">syncScrolling</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">editorScrollState<span class="token operator">: </span><span data-unresolved-link="androidx.compose.foundation/ScrollState///PointingToDeclaration/">ScrollState</span><span class="token punctuation">, </span></span><span class="parameter ">editorOffsetOfLine<span class="token operator">: </span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><span class="token punctuation">(</span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token punctuation">)</span><span class="token operator"> -&gt; </span><a href="https://kotlinlang.org/api/core/kotlin-stdlib/kotlin/-int/index.html">Int</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span></div><div class="brief "><p class="paragraph">Keeps <a href="../sync-scrolling.html">editorScrollState</a> and this synchronizer's preview in step, in both directions, until the calling coroutine is canceled.</p></div></div></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    <div class="footer">
+        <a href="#content" id="go-to-top-link" class="footer--button footer--button_go-to-top"></a>
+        <span>© 2026 Copyright</span>
+        <span class="pull-right">
+            <span>Generated by </span>
+            <a class="footer--link footer--link_external" href="https://github.com/Kotlin/dokka">
+                <span>dokka</span>
+            </a>
+        </span>
+    </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

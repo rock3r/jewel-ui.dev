@@ -97,7 +97,6 @@ html.theme-dark #jewel-top #searchBar.jewel-search-host path {
 #jewel-top #searchBar.jewel-search-host:hover path {
   fill: var(--jewel-fg) !important;
 }
-
 @media (max-width: 760px) {
   #jewel-top {
     flex-wrap: wrap;
