@@ -45,6 +45,7 @@ const NAV = [
       'guides/typography.md',
       'guides/lists-and-trees.md',
       'guides/components.md',
+      'guides/menus-and-popups.md',
       'guides/markdown.md',
       'guides/decorated-windows.md',
       'guides/swing-interop.md',

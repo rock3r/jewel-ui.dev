@@ -1,0 +1,477 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Menus and popups — Jewel docs</title>
+<meta name="color-scheme" content="dark light">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root { color-scheme: dark light; }
+*, *::before, *::after { box-sizing: border-box; }
+body { margin: 0; }
+
+.page {
+  --bg: #1E1F22; --panel: #2B2D30; --line: #393B40; --line-strong: #4E5157;
+  --btn-border: #6F737A; --fg: #DFE1E5; --fg-2: #B4B8BF; --fg-3: #9DA0A8;
+  --accent: #3574F0; --accent-hover: #366ACE; --link: #6B9BFA; --on-accent: #FFFFFF;
+  --code-bg: #2B2D30; --sel: rgba(53, 116, 240, 0.16);
+  --kw: #CF8E6D; --str: #6AAB73; --fn: #56A8F5; --com: #9DA0A8; --num: #2AACB8;
+}
+.page[data-theme="light"] {
+  --bg: #FFFFFF; --panel: #F7F8FA; --line: #EBECF0; --line-strong: #C9CCD6;
+  --btn-border: #818594; --fg: #27282E; --fg-2: #494B57; --fg-3: #6C707E;
+  --accent: #3574F0; --accent-hover: #3369D6; --link: #315FBD; --on-accent: #FFFFFF;
+  --code-bg: #F7F8FA; --sel: rgba(53, 116, 240, 0.10);
+  --kw: #0033B3; --str: #067D17; --fn: #00627A; --com: #6C707E; --num: #1750EB;
+}
+
+.page {
+  font-family: Inter, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  background: var(--bg); color: var(--fg);
+  -webkit-font-smoothing: antialiased;
+  scrollbar-color: var(--line-strong) transparent; scrollbar-width: thin;
+  min-height: 100vh; font-size: 15px; line-height: 1.6;
+}
+
+/* header */
+.top {
+  position: sticky; top: 0; z-index: 20;
+  display: flex; align-items: center; gap: 14px;
+  height: 52px; padding: 0 20px;
+  background: var(--bg); border-bottom: 1px solid var(--line);
+}
+.brand { display: flex; align-items: center; gap: 9px; text-decoration: none; color: var(--fg); }
+.brand svg { display: block; width: 20px; height: 20px; }
+.brand b { font-family: Archivo, Helvetica, Arial, sans-serif; font-weight: 700; font-size: 15.5px; letter-spacing: -0.01em; }
+.brand-docs { color: var(--fg-3); font-size: 13.5px; text-decoration: none; margin-left: -5px; }
+.brand-docs:hover { color: var(--fg); }
+.top-sp { flex: 1; }
+.top a.tl { color: var(--fg-2); text-decoration: none; font-size: 13.5px; }
+.top a.tl:hover { color: var(--fg); }
+.tbtn {
+  font: inherit; font-size: 13px; cursor: pointer;
+  background: transparent; color: var(--fg-2);
+  border: 1px solid var(--line-strong); border-radius: 6px; padding: 4px 10px;
+}
+.tbtn:hover { color: var(--fg); border-color: var(--btn-border); }
+
+.nav-btn {
+  display: none; align-items: center; justify-content: center;
+  width: 34px; height: 34px; padding: 0; cursor: pointer;
+  background: transparent; color: var(--fg-2);
+  border: 1px solid var(--line-strong); border-radius: 6px;
+}
+.nav-btn:hover { color: var(--fg); border-color: var(--btn-border); }
+.nav-btn svg { display: block; }
+.nav-backdrop { display: none; }
+
+
+
+/* shell */
+.shell { display: grid; grid-template-columns: 264px minmax(0, 1fr) 200px; gap: 0; align-items: start; }
+@media (max-width: 1100px) { .shell { grid-template-columns: 240px minmax(0, 1fr); } .onthis { display: none; } }
+@media (max-width: 760px) {
+  .shell { grid-template-columns: minmax(0, 1fr); }
+  .top { padding: 0 12px; gap: 8px; }
+  .brand b { font-size: 14px; }
+  .top .tl { display: none; } /* free space for the menu button */
+  .nav-btn { display: inline-flex; }
+  .side {
+    display: block;
+    position: fixed; top: 52px; left: 0; bottom: 0;
+    width: min(300px, 86vw); z-index: 30;
+    background: var(--bg); border-right: 1px solid var(--line);
+    transform: translateX(-105%);
+    transition: transform 0.18s ease;
+    padding-bottom: 48px;
+  }
+  .page.nav-open .side { transform: translateX(0); box-shadow: 8px 0 24px rgba(0,0,0,0.28); }
+  .nav-backdrop {
+    display: none; position: fixed; inset: 52px 0 0 0; z-index: 25;
+    background: rgba(0,0,0,0.45);
+  }
+  .page.nav-open .nav-backdrop { display: block; }
+}
+
+/* left nav */
+.side {
+  position: sticky; top: 52px; align-self: start;
+  height: calc(100vh - 52px); overflow-y: auto;
+  border-right: 1px solid var(--line); padding: 20px 8px 40px 20px;
+}
+.side h4 {
+  margin: 20px 0 6px; padding: 0 10px;
+  font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--fg-3);
+}
+.side h4:first-child { margin-top: 0; }
+.side a {
+  display: block; padding: 5px 10px; margin: 1px 0;
+  border-radius: 4px; text-decoration: none;
+  color: var(--fg-2); font-size: 13.5px; line-height: 1.35;
+}
+.side a:hover { background: var(--panel); color: var(--fg); }
+.side a[aria-current="page"] { background: var(--sel); color: var(--fg); font-weight: 500; }
+
+/* content */
+.main { padding: 34px 40px 90px; min-width: 0; }
+.doc { max-width: 68ch; }
+.doc h1 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 30px; line-height: 1.15; font-weight: 700; letter-spacing: -0.02em;
+  margin: 0 0 18px;
+}
+.doc h2 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 20px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em;
+  margin: 34px 0 10px; padding-top: 14px; border-top: 1px solid var(--line);
+}
+.doc h3 {
+  font-family: Archivo, Helvetica, Arial, sans-serif;
+  font-size: 16px; font-weight: 600; margin: 24px 0 8px;
+}
+.doc h2 a.anchor, .doc h3 a.anchor { color: inherit; text-decoration: none; }
+.doc h2 a.anchor:hover::after, .doc h3 a.anchor:hover::after {
+  content: " #"; color: var(--fg-3); font-weight: 400;
+}
+.doc p { margin: 0 0 14px; }
+.doc ul { margin: 0 0 14px; padding-left: 20px; }
+.doc li { margin: 5px 0; }
+.doc a { color: var(--link); text-decoration: none; }
+.doc a:hover { text-decoration: underline; }
+.doc code {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.86em; background: var(--panel);
+  border: 1px solid var(--line); border-radius: 4px; padding: 1px 5px;
+}
+.doc .code {
+  background: var(--code-bg); border: 1px solid var(--line);
+  border-radius: 8px; margin: 0 0 16px; overflow-x: auto;
+}
+.doc .code pre { margin: 0; padding: 13px 16px; }
+.doc .code code {
+  font-family: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 12.9px; line-height: 1.62; background: none; border: 0; padding: 0;
+  white-space: pre;
+}
+.c-kw { color: var(--kw); } .c-str { color: var(--str); }
+.c-fn { color: var(--fn); } .c-com { color: var(--com); } .c-num { color: var(--num); }
+
+.adm {
+  border: 1px solid var(--line-strong); border-left-width: 3px;
+  border-radius: 6px; padding: 12px 15px; margin: 0 0 16px; background: var(--panel);
+}
+.adm-title { font-weight: 600; margin: 0 0 6px !important; font-size: 14px; }
+.adm-warning { border-left-color: #E0A200; }
+.adm-note { border-left-color: var(--accent); }
+.adm > :last-child { margin-bottom: 0 !important; }
+
+/* on this page */
+.onthis { position: sticky; top: 52px; align-self: start; padding: 34px 20px 40px 0; max-height: calc(100vh - 52px); overflow-y: auto; }
+.onthis h4 { margin: 0 0 8px; font-size: 11.5px; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--fg-3); }
+.onthis a { display: block; padding: 3px 0; color: var(--fg-3); text-decoration: none; font-size: 12.5px; line-height: 1.35; }
+.onthis a:hover { color: var(--fg); }
+.onthis a.lv3 { padding-left: 12px; }
+
+figure.shot { margin: 0 0 16px; padding: 0; max-width: 100%; }
+figure.shot img {
+  display: block; max-width: 100%; height: auto;
+  border: 1px solid var(--line); border-radius: 8px;
+}
+.table-wrap { margin: 0 0 16px; max-width: 100%; overflow-x: auto; }
+.doc table { border-collapse: collapse; width: max-content; min-width: 100%; font-size: 14px; line-height: 1.45; }
+.doc th, .doc td { border: 1px solid var(--line); padding: 8px 12px; vertical-align: top; text-align: left; }
+.doc th { background: var(--panel); font-weight: 600; }
+.doc ol { margin: 0 0 14px; padding-left: 20px; }
+
+.footer { margin-top: 46px; padding-top: 16px; border-top: 1px solid var(--line); color: var(--fg-3); font-size: 12.5px; }
+.footer a { color: var(--link); text-decoration: none; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 3px; }
+@media (prefers-reduced-motion: reduce) { * { animation: none !important; transition: none !important; } }
+</style>
+</head>
+<body>
+<div class="page" data-theme="dark">
+  <header class="top">
+    <button class="nav-btn" id="nav-btn" type="button" aria-label="Open documentation menu" aria-controls="docs-nav" aria-expanded="false">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <a class="brand" href="/" title="Jewel home"><svg viewBox="0 0 512 512" aria-hidden="true"><rect width="512" height="512" fill="#000"/><path d="M256 76L436 256L256 436L76 256L256 76Z" fill="#FFF"/><path d="M256 76L436 256H256V76Z" fill="#CCC"/><path d="M76 256L256 436V256H76Z" fill="#CCC"/><path d="M256 436L436 256H256V436Z" fill="#808080"/></svg><b>Jewel</b></a>
+    <a class="brand-docs" href="../index.html">docs</a>
+    <div class="top-sp"></div>
+    <a class="tl" href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Source</a>
+    <a class="tl" href="https://youtrack.jetbrains.com/issues/JEWEL" target="_blank" rel="noopener noreferrer">Issues</a>
+    <button class="tbtn" id="theme-btn" type="button">Light</button>
+  </header>
+  <div class="nav-backdrop" id="nav-backdrop" hidden></div>
+  <div class="shell">
+    <nav class="side" id="docs-nav" aria-label="Documentation">
+<a href="../index.html">Jewel</a>
+<h4>Get started</h4>
+<a href="../start/plugin.html">In an IntelliJ plugin</a>
+<a href="../start/standalone.html">Standalone app</a>
+<h4>Guides</h4>
+<a href="../guides/theming.html">Theming</a>
+<a href="../guides/swing-bridge.html">The Swing bridge</a>
+<a href="../guides/icons.html">Icons</a>
+<a href="../guides/typography.html">Typography and fonts</a>
+<a href="../guides/lists-and-trees.html">Lists, trees and speed search</a>
+<a href="../guides/components.html">Components</a>
+<a href="../guides/menus-and-popups.html" aria-current="page">Menus and popups</a>
+<a href="../guides/markdown.html">Rendering Markdown</a>
+<a href="../guides/decorated-windows.html">Decorated windows</a>
+<a href="../guides/swing-interop.html">Swing interop</a>
+<a href="../guides/code-highlighting.html">Code highlighting</a>
+<h4>Best practices</h4>
+<a href="../best-practices/portable-ui.html">Portable UI</a>
+<a href="../best-practices/testing.html">Testing your UI</a>
+<a href="../best-practices/proguard.html">ProGuard and minification</a>
+<h4>Reference</h4>
+<a href="../versioning.html">Versions and compatibility</a>
+<a href="/api/">API reference</a>
+<h4>Jewel Tooling</h4>
+<a href="../tooling/index.html">Jewel Tooling</a>
+<a href="../tooling/install.html">Install the plugin</a>
+<a href="../tooling/editor.html">Editor hints</a>
+<a href="../tooling/live-inspection.html">Live inspection</a>
+<a href="../tooling/recordings.html">Recordings</a>
+<a href="../tooling/customisation.html">Customisation</a>
+<a href="../tooling/agents/index.html">Coding agents</a>
+<a href="../tooling/agents/mcp.html">Use Compose analysis from a coding agent</a>
+<a href="../tooling/agents/skill.html">Agent skill</a>
+<a href="../tooling/agents/workflows.html">Agent workflows</a>
+    </nav>
+    <main class="main">
+      <article class="doc">
+<h1>Menus and popups</h1>
+<p>Use <code>MenuComboBox</code> to choose an option from a menu, and <code>PopupMenu</code> to open a menu from any control. For other floating content, use <code>Popup</code>.</p>
+<h2 id="choose-an-option-from-a-menu"><a class="anchor" href="#choose-an-option-from-a-menu">Choose an option from a menu</a></h2>
+<p><code>MenuComboBox</code> shows a label and opens a menu when the user clicks it. It replaces the deprecated <code>Dropdown</code>.</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.layout.width
+<span class="c-kw">import</span> androidx.compose.runtime.Composable
+<span class="c-kw">import</span> androidx.compose.runtime.getValue
+<span class="c-kw">import</span> androidx.compose.runtime.mutableStateOf
+<span class="c-kw">import</span> androidx.compose.runtime.remember
+<span class="c-kw">import</span> androidx.compose.runtime.setValue
+<span class="c-kw">import</span> androidx.compose.ui.Modifier
+<span class="c-kw">import</span> androidx.compose.ui.unit.dp
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.ExperimentalJewelApi
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.MenuComboBox
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.Text
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.separator
+
+<span class="c-kw">@OptIn</span>(ExperimentalJewelApi::<span class="c-kw">class</span>)
+<span class="c-kw">@Composable</span>
+<span class="c-kw">fun</span> <span class="c-fn">SortOrder</span>() {
+    <span class="c-kw">var</span> order <span class="c-kw">by</span> remember { <span class="c-fn">mutableStateOf</span>(<span class="c-str">&quot;Name&quot;</span>) }
+
+    <span class="c-fn">MenuComboBox</span>(
+        labelContent = { <span class="c-fn">Text</span>(order) },
+        modifier = Modifier.<span class="c-fn">width</span>(<span class="c-num">160.dp</span>),
+    ) {
+        <span class="c-fn">selectableItem</span>(selected = order == <span class="c-str">&quot;Name&quot;</span>, onClick = { order = <span class="c-str">&quot;Name&quot;</span> }) {
+            <span class="c-fn">Text</span>(<span class="c-str">&quot;Name&quot;</span>)
+        }
+        <span class="c-fn">selectableItem</span>(selected = order == <span class="c-str">&quot;Date&quot;</span>, onClick = { order = <span class="c-str">&quot;Date&quot;</span> }) {
+            <span class="c-fn">Text</span>(<span class="c-str">&quot;Date&quot;</span>)
+        }
+        <span class="c-fn">separator</span>()
+        passiveItem { <span class="c-fn">Text</span>(<span class="c-str">&quot;Sorting applies to this view only&quot;</span>) }
+    }
+}</code></pre></div>
+<p>Give the combo box a fixed width, for example with <code>width()</code> or <code>fillMaxWidth()</code>. Without one, the combo box sizes itself to its label content. The popup matches the combo box width unless you set <code>maxPopupWidth</code>.</p>
+<p><code>MenuComboBox</code> is annotated experimental. For a long list of options, use <code>ListComboBox</code>. For a field that also accepts typed text, use <code>EditableListComboBox</code>.</p>
+<h2 id="add-items-to-a-menu"><a class="anchor" href="#add-items-to-a-menu">Add items to a menu</a></h2>
+<p>The menu content block is a <code>MenuScope</code>. It supports these items:</p>
+<ul>
+<li><code>selectableItem()</code> draws a clickable item with an optional icon and keybinding. The item with <code>selected = true</code> draws in its selected state and takes focus when the menu opens.</li>
+<li><code>submenu()</code> adds an item that opens a nested menu. Build the nested menu in its <code>submenu</code> block.</li>
+<li><code>passiveItem()</code> draws content that the user cannot select.</li>
+<li><code>separator()</code> draws a divider.</li>
+<li><code>items()</code> adds one selectable item for each entry in a list, or for a count.</li>
+</ul>
+<p>Menus support keyboard navigation:</p>
+<ul>
+<li><strong>Up</strong> and <strong>Down</strong> move between items.</li>
+<li><strong>Right</strong> opens a submenu, and <strong>Left</strong> closes it.</li>
+<li><strong>Escape</strong> closes the menu and all its submenus.</li>
+</ul>
+<h2 id="open-a-menu-from-any-control"><a class="anchor" href="#open-a-menu-from-any-control">Open a menu from any control</a></h2>
+<p><code>PopupMenu</code> shows the same menu items next to the control that opens it. Show it while a state is <code>true</code>, and set the state to <code>false</code> in <code>onDismissRequest</code>:</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.layout.Box
+<span class="c-kw">import</span> androidx.compose.runtime.Composable
+<span class="c-kw">import</span> androidx.compose.runtime.getValue
+<span class="c-kw">import</span> androidx.compose.runtime.mutableStateOf
+<span class="c-kw">import</span> androidx.compose.runtime.remember
+<span class="c-kw">import</span> androidx.compose.runtime.setValue
+<span class="c-kw">import</span> androidx.compose.ui.Alignment
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.DefaultButton
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.PopupMenu
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.Text
+
+<span class="c-kw">@Composable</span>
+<span class="c-kw">fun</span> <span class="c-fn">MoreActions</span>(onRename: () -&gt; Unit, onDelete: () -&gt; Unit) {
+    <span class="c-kw">var</span> showMenu <span class="c-kw">by</span> remember { <span class="c-fn">mutableStateOf</span>(<span class="c-kw">false</span>) }
+
+    Box {
+        <span class="c-fn">DefaultButton</span>(onClick = { showMenu = <span class="c-kw">true</span> }) { <span class="c-fn">Text</span>(<span class="c-str">&quot;More&quot;</span>) }
+
+        <span class="c-fn">if</span> (showMenu) {
+            <span class="c-fn">PopupMenu</span>(
+                onDismissRequest = {
+                    showMenu = <span class="c-kw">false</span>
+                    <span class="c-kw">true</span>
+                },
+                horizontalAlignment = Alignment.Start,
+            ) {
+                <span class="c-fn">selectableItem</span>(selected = <span class="c-kw">false</span>, onClick = onRename) { <span class="c-fn">Text</span>(<span class="c-str">&quot;Rename&quot;</span>) }
+                <span class="c-fn">selectableItem</span>(selected = <span class="c-kw">false</span>, onClick = onDelete) { <span class="c-fn">Text</span>(<span class="c-str">&quot;Delete&quot;</span>) }
+            }
+        }
+    }
+}</code></pre></div>
+<p>Return <code>true</code> from <code>onDismissRequest</code> when the callback handled the dismissal.</p>
+<p>The menu closes after the user selects an item. To make a long menu scroll, set <code>maxHeight</code>. To place the menu yourself, use the <code>PopupMenu</code> overload that takes a <code>popupPositionProvider</code>.</p>
+<h2 id="show-your-own-content-in-a-popup"><a class="anchor" href="#show-your-own-content-in-a-popup">Show your own content in a popup</a></h2>
+<p><code>Popup</code> shows any content at the position its <code>PopupPositionProvider</code> returns. <code>PopupContainer</code> adds the themed popup background, border, rounded corners and shadow around the content.</p>
+<p><code>onDismissRequest</code> on <code>Popup</code> and <code>PopupContainer</code> receives an <code>InputMode</code> that tells you what caused the dismissal:</p>
+<ul>
+<li><code>InputMode.Keyboard</code> means a key press, such as <strong>Escape</strong>.</li>
+<li><code>InputMode.Touch</code> means a pointer press outside the popup, or the window losing focus. Compose uses this name for mouse input too.</li>
+</ul>
+<p>A submenu reads the <code>InputMode</code> and ignores a pointer dismissal while the pointer is over the item that opened it. To close your own popup for any cause, ignore the parameter, for example <code>onDismissRequest = { showPopup = false }</code>.</p>
+<h2 id="draw-popups-in-separate-windows"><a class="anchor" href="#draw-popups-in-separate-windows">Draw popups in separate windows</a></h2>
+<p>By default, Jewel popups, menus and tooltips use the Compose popup implementation. To draw them in separate windows instead, set <code>JewelFlags.useCustomPopupRenderer</code> to <code>true</code>. The flag is annotated experimental. You can also set the JVM system property <code>jewel.customPopupRender</code> to <code>true</code>.</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.foundation.ExperimentalJewelApi
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.JewelFlags
+
+<span class="c-kw">@OptIn</span>(ExperimentalJewelApi::<span class="c-kw">class</span>)
+<span class="c-kw">fun</span> <span class="c-fn">enableSeparatePopupWindows</span>() {
+    JewelFlags.useCustomPopupRenderer = <span class="c-kw">true</span>
+}</code></pre></div>
+<p>With the flag set, Jewel popups ignore the Compose <code>compose.layers.type</code> setting. In a plugin, Jewel popups then use the IntelliJ Platform popup implementation. A popup can then be larger than the Compose component that shows it. The flag does not change dialogs.</p>
+<h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
+<ul>
+<li><a href="components.html">Components</a> — search fields, filterable lists and group headers</li>
+<li><a href="decorated-windows.html">Decorated windows</a> — a menu combo box in the title bar</li>
+</ul>
+      <p class="footer">Jewel is a joint project by Google and JetBrains.
+        <a href="https://github.com/JetBrains/intellij-community/tree/master/platform/jewel" target="_blank" rel="noopener noreferrer">Jewel source</a> ·
+        <a href="https://github.com/rock3r/jewel-ui.dev/tree/master/docs" target="_blank" rel="noopener noreferrer">Docs source</a> ·
+        <a class="report" id="report-issue" href="https://github.com/rock3r/jewel-ui.dev/issues/new?template=bug_report.yml" target="_blank" rel="noopener noreferrer">Report an issue on this page</a></p>
+      </article>
+    </main>
+    <aside class="onthis"><h4>On this page</h4>
+<a class="lv2" href="#choose-an-option-from-a-menu">Choose an option from a menu</a>
+<a class="lv2" href="#add-items-to-a-menu">Add items to a menu</a>
+<a class="lv2" href="#open-a-menu-from-any-control">Open a menu from any control</a>
+<a class="lv2" href="#show-your-own-content-in-a-popup">Show your own content in a popup</a>
+<a class="lv2" href="#draw-popups-in-separate-windows">Draw popups in separate windows</a>
+<a class="lv2" href="#see-also">See also</a></aside>
+  </div>
+</div>
+<script>
+(function () {
+  var page = document.querySelector('.page');
+  function setTheme(t) {
+    page.setAttribute('data-theme', t);
+    var b = document.getElementById('theme-btn');
+    if (b) b.textContent = t === 'dark' ? 'Light' : 'Dark';
+    try { localStorage.setItem('jewel-theme', t); } catch (e) {}
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('jewel-theme'); } catch (e) {}
+  if (!saved) saved = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  setTheme(saved);
+  var btn = document.getElementById('theme-btn');
+  if (btn) btn.addEventListener('click', function () {
+    setTheme(page.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+  });
+
+  var navBtn = document.getElementById('nav-btn');
+  var backdrop = document.getElementById('nav-backdrop');
+  var side = document.getElementById('docs-nav');
+  function setNav(open) {
+    page.classList.toggle('nav-open', open);
+    if (navBtn) {
+      navBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+      navBtn.setAttribute('aria-label', open ? 'Close documentation menu' : 'Open documentation menu');
+    }
+    if (backdrop) {
+      if (open) backdrop.removeAttribute('hidden');
+      else backdrop.setAttribute('hidden', '');
+    }
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+    // Closed drawer must leave the tab order (translate alone is not enough).
+    if (side) {
+      if (open) side.removeAttribute('inert');
+      else if (window.matchMedia('(max-width: 760px)').matches) side.setAttribute('inert', '');
+      else side.removeAttribute('inert');
+    }
+  }
+  if (navBtn) navBtn.addEventListener('click', function () {
+    setNav(!page.classList.contains('nav-open'));
+  });
+  if (backdrop) backdrop.addEventListener('click', function () { setNav(false); });
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') setNav(false);
+  });
+  if (window.matchMedia) {
+    window.matchMedia('(max-width: 760px)').addEventListener('change', function (e) {
+      if (!e.matches) setNav(false);
+      else if (side && !page.classList.contains('nav-open')) side.setAttribute('inert', '');
+    });
+    if (window.matchMedia('(max-width: 760px)').matches && side) side.setAttribute('inert', '');
+  }
+  // Close the drawer after navigating (same-tab in-docs links).
+  if (side) side.addEventListener('click', function (e) {
+    var a = e.target.closest('a');
+    if (a) setNav(false);
+  });
+
+  // Prefill the site bug template with this page URL and any selected text / nearest heading.
+  var report = document.getElementById('report-issue');
+  if (report) report.addEventListener('click', function (e) {
+    e.preventDefault();
+    var sel = '';
+    try {
+      sel = String(window.getSelection() || '').trim();
+    } catch (err) {}
+    if (sel.length > 1500) sel = sel.slice(0, 1500) + '…';
+    var section = '';
+    try {
+      var node = null;
+      var s = window.getSelection();
+      if (s && s.rangeCount) node = s.getRangeAt(0).startContainer;
+      if (node && node.nodeType === 3) node = node.parentElement;
+      var el = node;
+      while (el && el !== document.body) {
+        if (el.id && /^H[1-4]$/.test(el.tagName)) { section = el.id; break; }
+        var prev = el.previousElementSibling;
+        while (prev) {
+          if (prev.id && /^H[1-4]$/.test(prev.tagName)) { section = prev.id; break; }
+          prev = prev.previousElementSibling;
+        }
+        if (section) break;
+        el = el.parentElement;
+      }
+      if (!section) {
+        var h = document.querySelector('.doc h1[id], .doc h2[id]');
+        if (h) section = h.id;
+      }
+    } catch (err2) {}
+    var page = location.href.split('#')[0] + (section ? '#' + section : location.hash || '');
+    var u = new URL('https://github.com/rock3r/jewel-ui.dev/issues/new');
+    u.searchParams.set('template', 'bug_report.yml');
+    u.searchParams.set('page', page);
+    if (sel) u.searchParams.set('selection', sel);
+    window.open(u.toString(), '_blank', 'noopener,noreferrer');
+  });
+})();
+</script>
+</body>
+</html>
