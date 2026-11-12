@@ -303,6 +303,22 @@ figure.shot img {
 }</code></pre></div>
 <p><code>SearchArea</code> does not open the field by itself. Forward key events from your content to <code>searchState.processKeyEvent()</code>. You can also set the text through <code>searchState.textFieldState</code>. <code>FilterableLazyColumn</code> forwards key events this way.</p>
 <p><code>SearchTextField</code>, <code>SearchArea</code> and their state functions are annotated experimental.</p>
+<h2 id="show-an-onoff-toggle"><a class="anchor" href="#show-an-onoff-toggle">Show an on/off toggle</a></h2>
+<p><code>OnOffButton</code> is the IntelliJ Platform toggle switch. It draws the platform's toggle images, so it follows the theme's toggle colours.</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
+<span class="c-kw">import</span> androidx.compose.runtime.getValue
+<span class="c-kw">import</span> androidx.compose.runtime.mutableStateOf
+<span class="c-kw">import</span> androidx.compose.runtime.remember
+<span class="c-kw">import</span> androidx.compose.runtime.setValue
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.OnOffButton
+
+<span class="c-kw">@Composable</span>
+<span class="c-kw">fun</span> <span class="c-fn">AutoSaveToggle</span>() {
+    <span class="c-kw">var</span> autoSave <span class="c-kw">by</span> remember { <span class="c-fn">mutableStateOf</span>(<span class="c-kw">true</span>) }
+
+    <span class="c-fn">OnOffButton</span>(checked = autoSave, onCheckedChange = { autoSave = it })
+}</code></pre></div>
+<p>The button has a fixed size that includes room for the focus ring, so gaining focus does not change the layout. A disabled button cannot take focus. Accessibility services see the button as a switch.</p>
 <h2 id="label-a-group-of-controls"><a class="anchor" href="#label-a-group-of-controls">Label a group of controls</a></h2>
 <p><code>GroupHeader</code> draws a title followed by a horizontal divider. IntelliJ Platform settings pages use it to separate groups of options. Its Swing equivalent is <code>TitledSeparator</code>.</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
@@ -328,6 +344,7 @@ figure.shot img {
     <aside class="onthis"><h4>On this page</h4>
 <a class="lv2" href="#filter-a-list-as-the-user-types">Filter a list as the user types</a>
 <a class="lv2" href="#add-a-search-field">Add a search field</a>
+<a class="lv2" href="#show-an-onoff-toggle">Show an on/off toggle</a>
 <a class="lv2" href="#label-a-group-of-controls">Label a group of controls</a>
 <a class="lv2" href="#see-also">See also</a></aside>
   </div>
