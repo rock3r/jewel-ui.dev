@@ -79,11 +79,10 @@ fun rememberImageExtension(): Coil3ImageRendererExtension =
 
 Add the result to the renderer extensions of your block renderer. Each call to
 `withIdeDefaultLoader(context)` creates a new image loader and HTTP client. Create one
-extension and share it. The composable overload
-remembers its loader for the current `LocalPlatformContext`. To reuse an existing Coil
-`ImageLoader`, pass it to the `Coil3ImageRendererExtension` constructor instead.
-`Coil3ImageRendererExtension`, `withDefaultLoader()` and `withIdeDefaultLoader()` are
-annotated experimental.
+extension and share it. The composable overload remembers its loader for the current
+`LocalPlatformContext`. To reuse an existing Coil `ImageLoader`, pass it to the
+`Coil3ImageRendererExtension` constructor instead. `Coil3ImageRendererExtension`,
+`withDefaultLoader()` and `withIdeDefaultLoader()` are annotated experimental.
 
 ## Raw HTML blocks are dropped by default
 

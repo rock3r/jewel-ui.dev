@@ -110,8 +110,9 @@ other state, or when the scrollable content differs from the container's own con
 a `ScrollbarAdapter` as `adapter`. The adapter controls the thumb size and position.
 
 To add a scrollbar to a layout without wrapping it in a container, use
-`Modifier.scrollIndicator()`. It draws the scrollbar over the layout it modifies, and
-handles thumb drags and track clicks. Pass the same state that scrolls the layout:
+`Modifier.scrollIndicator()`. The modifier draws the scrollbar over the layout it
+modifies, and handles thumb drags and track clicks. Pass the same state that scrolls the
+layout:
 
 ```kotlin
 import androidx.compose.foundation.lazy.LazyColumn
@@ -133,9 +134,9 @@ fun Results() {
 ```
 
 On macOS with always-visible scrollbars, the indicator takes its own space beside the
-content. In all other cases, it draws over the content. To keep text and controls clear of
-it, give them padding of `scrollbarContentSafePadding()` on that side. For a horizontal
-indicator, pass `orientation = Orientation.Horizontal`, from
+content. In all other cases, the indicator draws over the content. To keep text and
+controls clear of the indicator, give them padding of `scrollbarContentSafePadding()` on
+that side. For a horizontal indicator, pass `orientation = Orientation.Horizontal`, from
 `androidx.compose.foundation.gestures`. `Modifier.scrollIndicator()` is annotated
 experimental.
 
