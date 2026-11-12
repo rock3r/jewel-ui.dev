@@ -72,17 +72,46 @@ By default, dragging the title bar moves the window. Add `Modifier.clientRegion`
 interactive controls so hit-testing treats those regions as application content.
 
 ```kotlin
+import androidx.compose.foundation.layout.width
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import org.jetbrains.jewel.foundation.ExperimentalJewelApi
+import org.jetbrains.jewel.ui.component.MenuComboBox
+import org.jetbrains.jewel.ui.component.Text
+import org.jetbrains.jewel.ui.component.items
+import org.jetbrains.jewel.window.DecoratedWindowScope
+import org.jetbrains.jewel.window.TitleBar
 import org.jetbrains.jewel.window.utils.clientRegion
 
-TitleBar {
-    Dropdown(Modifier.clientRegion("view-switcher")) {
-        // …
+@OptIn(ExperimentalJewelApi::class)
+@Composable
+fun DecoratedWindowScope.AppTitleBar() {
+    var view by remember { mutableStateOf("Project") }
+
+    TitleBar {
+        MenuComboBox(
+            labelContent = { Text(view) },
+            modifier = Modifier.width(160.dp).clientRegion("view-switcher"),
+        ) {
+            items(
+                items = listOf("Project", "Packages"),
+                isSelected = { it == view },
+                onItemClick = { view = it },
+            ) { Text(it) }
+        }
     }
 }
 ```
 
 The key identifies the registered region. Apply the modifier to every interactive title
 bar element. Without it, controls display normally but cannot respond to interaction.
+
+`MenuComboBox` replaces the deprecated `Dropdown` and is annotated experimental.
 
 ## Styling
 
