@@ -248,7 +248,7 @@ figure.shot img {
     <main class="main">
       <article class="doc">
 <h1>Components</h1>
-<p>This page covers Jewel components that the other guides do not. The components use the current theme's styles. The same code works inside <code>SwingBridgeTheme</code> in a plugin and inside <code>IntUiTheme</code> in a standalone app.</p>
+<p>This page covers <code>FilterableLazyColumn</code>, <code>SearchTextField</code>, <code>SearchArea</code> and <code>GroupHeader</code>. These components use the current theme's styles. The same code works inside <code>SwingBridgeTheme</code> in a plugin and inside <code>IntUiTheme</code> in a standalone app.</p>
 <h2 id="filter-a-list-as-the-user-types"><a class="anchor" href="#filter-a-list-as-the-user-types">Filter a list as the user types</a></h2>
 <p><code>FilterableLazyColumn</code> combines a selectable list with a search field. Typing while the list has focus opens the search field. The list then shows only the items whose text contains the search text, ignoring case.</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
@@ -265,12 +265,12 @@ figure.shot img {
         <span class="c-fn">items</span>(languages, textContent = { it }) { language -&gt; <span class="c-fn">Text</span>(language) }
     }
 }</code></pre></div>
-<p>The <code>items()</code>, <code>item()</code> and <code>stickyHeader()</code> functions in the content take a <code>textContent</code> function that returns the text to match. An item with <code>null</code> text shows only when the search field is empty. Sticky headers are not selectable by default.</p>
+<p>The <code>items()</code>, <code>item()</code> and <code>stickyHeader()</code> functions in the content take a <code>textContent</code> function that returns the text to match. <code>item()</code> and <code>stickyHeader()</code> also take a required <code>key</code>. An item with <code>null</code> text shows only when the search field is empty. Sticky headers are not selectable by default.</p>
 <p><code>onSelectedIndexesChange</code> reports indexes in the full, unfiltered list. When the filter changes, the list keeps the selection on items that are still visible. When nothing matches, the search field shows its error state.</p>
-<p>The list is single-selection by default. Pass <code>selectionMode</code> to change it. To read or clear the search text, pass a <code>searchState</code> from <code>rememberSearchAreaState()</code>.</p>
-<p><code>FilterableLazyColumn</code> is annotated experimental. For type-to-find that highlights matches without hiding items, see <a href="lists-and-trees.html#speed-search">Speed search</a>.</p>
+<p>The list uses <code>SelectionMode.Single</code> by default. To change the selection mode, pass <code>selectionMode</code>. To read or clear the search text, pass a <code>searchState</code> from <code>rememberSearchAreaState()</code>. Read the text from <code>searchState.searchText</code>. To clear the text and hide the field, call <code>searchState.clearAndHide()</code>.</p>
+<p><code>FilterableLazyColumn</code> and <code>rememberSearchAreaState()</code> are annotated experimental. For type-to-find that highlights matches without hiding items, see <a href="lists-and-trees.html#speed-search">Speed search</a>.</p>
 <h2 id="add-a-search-field"><a class="anchor" href="#add-a-search-field">Add a search field</a></h2>
-<p><code>SearchTextField</code> is a text field with a search icon and a clear button. Create its state with <code>rememberSearchTextFieldState()</code> and read the current text from <code>searchText</code>.</p>
+<p><code>SearchTextField</code> is a text field with a search icon and a clear button. Create its state with <code>rememberSearchTextFieldState()</code>. Read the current text from <code>state.searchText</code>.</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
 <span class="c-kw">import</span> org.jetbrains.jewel.foundation.ExperimentalJewelApi
 <span class="c-kw">import</span> org.jetbrains.jewel.ui.component.SearchTextField
@@ -283,10 +283,13 @@ figure.shot img {
 
     <span class="c-fn">SearchTextField</span>(state = state, history = recentSearches)
 }</code></pre></div>
-<p>The placeholder text is &quot;Search&quot; unless you pass a <code>placeholder</code>. Set <code>allowClear</code> to <code>false</code> to hide the clear button.</p>
-<p>The <code>history</code> list holds earlier searches that your app keeps. When the list is not empty, the search icon changes to a history icon. Clicking it or pressing <strong>Alt+Down</strong> (<strong>Option+Down</strong> on macOS) opens the history popup. Selecting an entry puts its text in the field.</p>
+<p>The placeholder shows the text &quot;Search&quot;. To change the placeholder, pass a composable to <code>placeholder</code>. To hide the clear button, set <code>allowClear</code> to <code>false</code>.</p>
+<p>The <code>history</code> list holds earlier searches that your app keeps. When the list is not empty, the search icon changes to a history icon. Clicking the icon or pressing <strong>Alt+Down</strong> (<strong>Option+Down</strong> on macOS) opens the history popup. Selecting an entry puts its text in the field.</p>
 <p>To show a search field above existing content only while the user searches, wrap the content in <code>SearchArea</code>. The field appears when its text is not empty. <strong>Escape</strong> clears the text and hides the field.</p>
-<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.focusable
+<span class="c-kw">import</span> androidx.compose.runtime.Composable
+<span class="c-kw">import</span> androidx.compose.ui.Modifier
+<span class="c-kw">import</span> androidx.compose.ui.input.key.onPreviewKeyEvent
 <span class="c-kw">import</span> org.jetbrains.jewel.foundation.ExperimentalJewelApi
 <span class="c-kw">import</span> org.jetbrains.jewel.ui.component.SearchArea
 <span class="c-kw">import</span> org.jetbrains.jewel.ui.component.Text
@@ -298,11 +301,14 @@ figure.shot img {
     <span class="c-kw">val</span> searchState = <span class="c-fn">rememberSearchAreaState</span>()
 
     <span class="c-fn">SearchArea</span>(state = searchState) {
-        <span class="c-fn">Text</span>(<span class="c-str">&quot;Results for \&quot;${searchState.searchText}\&quot;&quot;</span>)
+        <span class="c-fn">Text</span>(
+            <span class="c-str">&quot;Results for \&quot;${searchState.searchText}\&quot;&quot;</span>,
+            Modifier.<span class="c-fn">onPreviewKeyEvent</span>(searchState::processKeyEvent).<span class="c-fn">focusable</span>(),
+        )
     }
 }</code></pre></div>
-<p><code>SearchArea</code> does not open the field by itself. Forward key events from your content to <code>searchState.processKeyEvent()</code>. You can also set the text through <code>searchState.textFieldState</code>. <code>FilterableLazyColumn</code> forwards key events this way.</p>
-<p><code>SearchTextField</code> and <code>SearchArea</code> are annotated experimental.</p>
+<p><code>SearchArea</code> does not open the field by itself. To open the field when the user types, forward key events from your focused content to <code>searchState.processKeyEvent()</code>, as the sample does. You can also set the text through <code>searchState.textFieldState</code>.</p>
+<p><code>SearchTextField</code>, <code>SearchArea</code>, <code>SearchAreaState</code> and <code>rememberSearchAreaState()</code> are annotated experimental.</p>
 <h2 id="label-a-group-of-controls"><a class="anchor" href="#label-a-group-of-controls">Label a group of controls</a></h2>
 <p><code>GroupHeader</code> draws a title followed by a horizontal divider. IntelliJ Platform settings pages use it to separate groups of options. Its Swing equivalent is <code>TitledSeparator</code>.</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
@@ -312,7 +318,7 @@ figure.shot img {
 <span class="c-kw">fun</span> <span class="c-fn">AppearanceHeader</span>() {
     <span class="c-fn">GroupHeader</span>(<span class="c-str">&quot;Appearance&quot;</span>)
 }</code></pre></div>
-<p>Pass <code>startComponent</code> or <code>endComponent</code> to add content before the title or after the divider. Set <code>enabled</code> to <code>false</code> to draw the divider in its disabled colour.</p>
+<p>To add content before the title or after the divider, pass <code>startComponent</code> or <code>endComponent</code>. To draw the divider in its disabled colour, set <code>enabled</code> to <code>false</code>.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
 <ul>
 <li><a href="lists-and-trees.html">Lists, trees and speed search</a> — selection and type-to-find</li>

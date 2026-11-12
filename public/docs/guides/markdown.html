@@ -285,20 +285,20 @@ ProvideMarkdownStyling {
 
 <span class="c-kw">@OptIn</span>(ExperimentalJewelApi::<span class="c-kw">class</span>)
 <span class="c-kw">val</span> processor = <span class="c-fn">MarkdownProcessor</span>(parseEmbeddedHtml = <span class="c-kw">true</span>)</code></pre></div>
-<p>The converter supports these tags:</p>
+<p>The processor converts these tags:</p>
 <ul>
 <li>Blocks: <code>p</code>, <code>ul</code>, <code>ol</code>, <code>li</code>, <code>h1</code> to <code>h6</code>, <code>pre</code>, <code>code</code> and <code>img</code></li>
 <li>Inline content: <code>a</code>, <code>b</code>, <code>strong</code>, <code>i</code>, <code>em</code>, <code>code</code>, <code>pre</code>, <code>br</code> and <code>img</code></li>
 </ul>
 <p>The processor drops blocks with other tags. When a converted block has HTML attributes, the processor wraps it in <code>MarkdownBlock.HtmlBlockWithAttributes</code>. The default renderer applies the <code>align</code> attribute with the values <code>left</code>, <code>center</code> and <code>right</code>. To support other attributes, override <code>RenderHtmlBlockWithAttributes()</code> in your block renderer.</p>
-<p>The <code>MarkdownProcessor</code> constructor with <code>parseEmbeddedHtml</code> is annotated experimental.</p>
+<p><code>MarkdownProcessor</code> and <code>MarkdownBlock.HtmlBlockWithAttributes</code> are annotated experimental.</p>
 <h2 id="live-previews-re-parse-only-what-changed"><a class="anchor" href="#live-previews-re-parse-only-what-changed">Live previews re-parse only what changed</a></h2>
 <p>For live previews, select the processor's editor preview mode. It re-parses changed blocks after each edit and reuses unchanged blocks.</p>
 <p>The processor compares common prefixes and suffixes in the old and new text. It re-parses changed top-level CommonMark blocks and the block immediately before each change. Including the preceding block handles block merges. The processor shifts source spans for reused blocks. It reprocesses all inline content within each changed block.</p>
 <p>Parsing operates at block level. Editing one large block still re-parses that whole block. Documents with many unchanged blocks avoid most parsing work.</p>
 <h3 id="keeping-the-editor-and-the-preview-scrolled-together"><a class="anchor" href="#keeping-the-editor-and-the-preview-scrolled-together">Keeping the editor and the preview scrolled together</a></h3>
 <p>In an editor with a live preview, a <code>ScrollingSynchronizer</code> links the scroll positions of the two panes. When the user scrolls either pane, the other pane scrolls to the same place in the document.</p>
-<p>Create the synchronizer from the preview's scroll state with <code>createContinuous()</code>. It accepts the <code>LazyListState</code> of a <code>LazyMarkdown</code>, or the <code>ScrollState</code> of a <code>Markdown</code>. For any other state, it returns <code>null</code>. Pass the synchronizer to <code>MarkdownMode.EditorPreview</code>. Render the preview with a <code>ScrollSyncMarkdownBlockRenderer</code>, which reports the position of each block to the synchronizer. Then call <code>syncScrolling()</code> with the editor's <code>ScrollState</code>, and the editor's line positions from <code>sourceLineOffsets()</code>.</p>
+<p>Create the synchronizer from the preview's scroll state with <code>ScrollingSynchronizer.createContinuous()</code>. <code>createContinuous()</code> accepts the <code>LazyListState</code> of a <code>LazyMarkdown</code>, or a <code>ScrollState</code> that scrolls a <code>Markdown</code>. For any other state, <code>createContinuous()</code> returns <code>null</code>. Pass the synchronizer to <code>MarkdownMode.EditorPreview</code>. Render the preview with a <code>ScrollSyncMarkdownBlockRenderer</code>, which reports the position of each block to the synchronizer. Then call <code>syncScrolling()</code> from a coroutine, such as a <code>LaunchedEffect</code>. Pass the editor's <code>ScrollState</code> and a function that returns the editor's line positions from <code>sourceLineOffsets()</code>.</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.layout.Row
 <span class="c-kw">import</span> androidx.compose.foundation.lazy.rememberLazyListState
 <span class="c-kw">import</span> androidx.compose.foundation.rememberScrollState
@@ -378,7 +378,7 @@ ProvideMarkdownStyling {
         }
     }
 }</code></pre></div>
-<p><code>WithMarkdownMode()</code> gives the preview access to the synchronizer. The synchronizer, <code>MarkdownMode.EditorPreview</code>, <code>ScrollSyncMarkdownBlockRenderer</code>, <code>syncScrolling()</code> and <code>sourceLineOffsets()</code> are annotated experimental.</p>
+<p><code>WithMarkdownMode()</code> gives the preview access to the synchronizer. Every Jewel Markdown API in this sample is annotated experimental, including <code>WithMarkdownMode()</code>, <code>LazyMarkdown()</code>, <code>ProvideMarkdownStyling()</code>, the synchronizer, <code>MarkdownMode.EditorPreview</code>, <code>ScrollSyncMarkdownBlockRenderer</code>, <code>syncScrolling()</code> and <code>sourceLineOffsets()</code>.</p>
 <h2 id="rendering-your-own-blocks"><a class="anchor" href="#rendering-your-own-blocks">Rendering your own blocks</a></h2>
 <p><code>MarkdownBlockRenderer</code> draws standard blocks through composable <code>Render*</code> entry points, including <code>RenderParagraph</code>, <code>RenderHeading</code>, and <code>RenderFencedCodeBlock</code>. Implement <code>MarkdownBlockRendererExtension</code> for custom blocks. Return whether the extension handles a block from <code>canRender(block)</code>. Draw supported blocks in <code>RenderCustomBlock</code>.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>

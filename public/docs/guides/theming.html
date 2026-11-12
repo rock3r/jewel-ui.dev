@@ -269,7 +269,7 @@ figure.shot img {
 ) {
     <span class="c-com">// your UI</span>
 }</code></pre></div>
-<p>Both overloads accept <code>swingCompatMode</code> to align Compose text with Swing text. Enable it when embedding Compose in a Swing application. In plugins, the bridge enables it automatically.</p>
+<p>Both overloads accept <code>swingCompatMode</code>, which turns off hover and press state changes. Enable it when embedding Compose in a Swing application. In plugins, the bridge enables it automatically.</p>
 <h2 id="building-a-theme-definition"><a class="anchor" href="#building-a-theme-definition">Building a theme definition</a></h2>
 <p>Theme definitions contain palettes, metrics, and base text styles. Start with Int UI defaults and override the required values:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.runtime.Composable
@@ -328,7 +328,7 @@ JewelTheme.isDark</code></pre></div>
 
 <span class="c-kw">val</span> palette = JewelTheme.colorPalette
 <span class="c-kw">val</span> blue = <span class="c-fn">if</span> (palette.isIslands) palette.<span class="c-fn">blueOrNull</span>(<span class="c-num">10</span>) <span class="c-kw">else</span> palette.<span class="c-fn">blueOrNull</span>(<span class="c-num">1</span>)</code></pre></div>
-<p>To check whether the IDE has Islands turned on, read <code>JewelTheme.isIslands</code>. In a plugin, it follows the IDE's Islands setting. In a standalone app, it is always <code>false</code>.</p>
+<p>To check whether the IDE has Islands turned on, read <code>JewelTheme.isIslands</code>. In a plugin, <code>isIslands</code> follows the IDE's Islands setting. In a standalone app, <code>isIslands</code> is always <code>false</code>.</p>
 <p>Islands palettes share values across light and dark themes. Classic palettes differ between those themes. Islands adds semantic tokens above its palette. Jewel cannot read those tokens directly. Read them from the Swing look and feel when needed.</p>
 <p>Official Islands themes also include classic palette entries. Avoid depending on those entries. Third-party themes and future official themes can omit them.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>

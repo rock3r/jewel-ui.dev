@@ -1,12 +1,12 @@
 # Menus and popups
 
-Use `MenuComboBox` to choose an option from a menu, and `PopupMenu` to open a menu from
-any control. For other floating content, use `Popup`.
+To choose an option from a menu, use `MenuComboBox`. To open a menu from any control,
+use `PopupMenu`. For other floating content, use `Popup`.
 
 ## Choose an option from a menu
 
-`MenuComboBox` shows a label and opens a menu when the user clicks it. It replaces the
-deprecated `Dropdown`.
+`MenuComboBox` shows a label and opens a menu when the user clicks the combo box.
+`MenuComboBox` replaces the deprecated `Dropdown`.
 
 ```kotlin
 import androidx.compose.foundation.layout.width
@@ -48,7 +48,9 @@ one, the combo box sizes itself to its label content. The popup matches the comb
 width unless you set `maxPopupWidth`.
 
 `MenuComboBox` is annotated experimental. For a long list of options, use `ListComboBox`.
-For a field that also accepts typed text, use `EditableListComboBox`.
+The `ListComboBox` overload for `String` items is stable. The generic overload for other
+item types is annotated experimental. For a field that also accepts typed text, use
+`EditableListComboBox`.
 
 ## Add items to a menu
 
@@ -57,11 +59,15 @@ The menu content block is a `MenuScope`. It supports these items:
 - `selectableItem()` draws a clickable item with an optional icon and keybinding. The
   item with `selected = true` draws in its selected state and takes focus when the menu
   opens.
-- `submenu()` adds an item that opens a nested menu. Build the nested menu in its
-  `submenu` block.
+- `submenu()` adds an item that opens a nested menu. Pass the nested menu as the
+  `submenu` argument. The trailing lambda draws the item itself, for example
+  `submenu(submenu = { … }) { Text("Sort by") }`.
 - `passiveItem()` draws content that the user cannot select.
 - `separator()` draws a divider.
 - `items()` adds one selectable item for each entry in a list, or for a count.
+
+`separator()` and `items()` are extension functions. Import them from
+`org.jetbrains.jewel.ui.component`.
 
 Menus support keyboard navigation:
 
@@ -71,8 +77,9 @@ Menus support keyboard navigation:
 
 ## Open a menu from any control
 
-`PopupMenu` shows the same menu items next to the control that opens it. Show it while a
-state is `true`, and set the state to `false` in `onDismissRequest`:
+`PopupMenu` shows the same menu items as `MenuComboBox`. The menu opens next to its
+parent layout, so put `PopupMenu` in a `Box` with the control that opens the menu. Show
+`PopupMenu` while a state is `true`. Set the state to `false` in `onDismissRequest`:
 
 ```kotlin
 import androidx.compose.foundation.layout.Box
@@ -118,8 +125,9 @@ The menu closes after the user selects an item. To make a long menu scroll, set
 ## Show your own content in a popup
 
 `Popup` shows any content at the position its `PopupPositionProvider` returns.
-`PopupContainer` adds the themed popup background, border, rounded corners and shadow
-around the content.
+`PopupContainer` is a `Popup` with the themed popup background, border, rounded corners
+and shadow. Use `PopupContainer` in place of `Popup`, not inside it. By default,
+`PopupContainer` opens next to its parent layout, aligned by `horizontalAlignment`.
 
 `onDismissRequest` on `Popup` and `PopupContainer` receives an `InputMode` that tells you
 what caused the dismissal:
@@ -150,8 +158,8 @@ fun enableSeparatePopupWindows() {
 ```
 
 With the flag set, Jewel popups ignore the Compose `compose.layers.type` setting. In a
-plugin, Jewel popups then use the IntelliJ Platform popup implementation. A popup can then
-be larger than the Compose component that shows it. The flag does not change dialogs.
+plugin, Jewel popups use the IntelliJ Platform popup implementation, so a popup can be
+larger than the Compose component that shows it. The flag does not change dialogs.
 
 ## See also
 
