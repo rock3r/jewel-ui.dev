@@ -97,7 +97,7 @@ fun SearchablePanel() {
 
 `SearchTextField`, `SearchArea` and their state functions are annotated experimental.
 
-## Show an on/off toggle
+## Show a toggle switch
 
 `OnOffButton` is the IntelliJ Platform toggle switch. It draws the platform's toggle
 images, so it follows the theme's toggle colours.
@@ -118,8 +118,8 @@ fun AutoSaveToggle() {
 }
 ```
 
-The button has a fixed size that includes room for the focus ring, so gaining focus does
-not change the layout. A disabled button cannot take focus. Accessibility services see the
+The button has a fixed size that includes room for the focus ring. Gaining focus does not
+change the layout. A disabled button cannot take focus. Accessibility services see the
 button as a switch.
 
 ## Label a group of controls

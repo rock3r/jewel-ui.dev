@@ -26,7 +26,7 @@ Import `SingleSelectionLazyColumn` or `MultiSelectionLazyColumn` from
 `org.jetbrains.jewel.foundation.lazy`. Create state with the matching
 `rememberSingleSelectionLazyListState()` or `rememberMultiSelectionLazyListState()`.
 
-A right-click ignores the **Shift**, **Ctrl** and **Cmd** modifier keys. Right-clicking a
+**Shift**, **Ctrl** and **Cmd** do not change what a right-click selects. Right-clicking a
 selected item keeps the current selection. Right-clicking an item that is not selected
 selects only that item.
 
@@ -131,9 +131,10 @@ fun Results() {
 
 On macOS with always-visible scrollbars, the indicator takes its own space beside the
 content. In all other cases, it draws over the content. To keep text and controls clear of
-it, pad them by `scrollbarContentSafePadding()`. For a horizontal indicator, pass
-`orientation = Orientation.Horizontal`, from `androidx.compose.foundation.gestures`.
-`Modifier.scrollIndicator()` is annotated experimental.
+it, give them padding of `scrollbarContentSafePadding()` on that side. For a horizontal
+indicator, pass `orientation = Orientation.Horizontal`, from
+`androidx.compose.foundation.gestures`. `Modifier.scrollIndicator()` is annotated
+experimental.
 
 `ScrollbarVisibility` supports `AlwaysVisible` and `WhenScrolling`. On macOS, Jewel
 follows **System Settings → Appearance → Show scroll bars**. Always-visible scrollbars

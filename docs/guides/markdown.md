@@ -59,8 +59,8 @@ alert blocks. The five alert kinds are **Note**, **Tip**, **Important**, **Warni
 
 ## Images in a plugin use the IDE's network settings
 
-The images extension draws images with Coil 3. Create its renderer extension with
-`Coil3ImageRendererExtension.withDefaultLoader()` in a standalone app. In a plugin, use
+The images extension draws images with Coil 3. In a standalone app, create its renderer
+extension with `Coil3ImageRendererExtension.withDefaultLoader()`. In a plugin, use
 `withIdeDefaultLoader()` from the bridge styling module instead. That loader fetches
 remote images with the IDE's proxy settings, proxy authentication and trusted
 certificates.
@@ -81,8 +81,9 @@ Add the result to the renderer extensions of your block renderer. Each call to
 `withIdeDefaultLoader(context)` creates a new image loader and HTTP client. Create one
 extension and share it. The composable overload
 remembers its loader for the current `LocalPlatformContext`. To reuse an existing Coil
-`ImageLoader`, pass it to the `Coil3ImageRendererExtension` constructor instead. Both
-loaders are annotated experimental.
+`ImageLoader`, pass it to the `Coil3ImageRendererExtension` constructor instead.
+`Coil3ImageRendererExtension`, `withDefaultLoader()` and `withIdeDefaultLoader()` are
+annotated experimental.
 
 ## Raw HTML blocks are dropped by default
 
