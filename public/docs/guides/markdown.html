@@ -276,10 +276,107 @@ ProvideMarkdownStyling {
 <p>Override the default styling, processor, block renderer, or code highlighter through the provider's arguments.</p>
 <h2 id="github-flavour"><a class="anchor" href="#github-flavour">GitHub flavour</a></h2>
 <p>The extensions support tables, strikethrough, autolinks, front matter, images, and GitHub alert blocks. The five alert kinds are <strong>Note</strong>, <strong>Tip</strong>, <strong>Important</strong>, <strong>Warning</strong>, and <strong>Caution</strong>. Each uses its icon and accent colour from the current theme.</p>
+<h2 id="raw-html-blocks-are-dropped-by-default"><a class="anchor" href="#raw-html-blocks-are-dropped-by-default">Raw HTML blocks are dropped by default</a></h2>
+<p>By default, the processor drops raw HTML blocks from the output. To keep common HTML markup, create the processor with <code>parseEmbeddedHtml = true</code>. The processor then converts supported tags into ordinary Markdown blocks and inlines.</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.foundation.ExperimentalJewelApi
+<span class="c-kw">import</span> org.jetbrains.jewel.markdown.processing.MarkdownProcessor
+
+<span class="c-kw">@OptIn</span>(ExperimentalJewelApi::<span class="c-kw">class</span>)
+<span class="c-kw">val</span> processor = <span class="c-fn">MarkdownProcessor</span>(parseEmbeddedHtml = <span class="c-kw">true</span>)</code></pre></div>
+<p>The converter supports these tags:</p>
+<ul>
+<li>Blocks: <code>p</code>, <code>ul</code>, <code>ol</code>, <code>li</code>, <code>h1</code> to <code>h6</code>, <code>pre</code>, <code>code</code> and <code>img</code></li>
+<li>Inline content: <code>a</code>, <code>b</code>, <code>strong</code>, <code>i</code>, <code>em</code>, <code>code</code>, <code>pre</code>, <code>br</code> and <code>img</code></li>
+</ul>
+<p>The processor drops blocks with other tags. When a converted block has HTML attributes, the processor wraps it in <code>MarkdownBlock.HtmlBlockWithAttributes</code>. The default renderer applies the <code>align</code> attribute with the values <code>left</code>, <code>center</code> and <code>right</code>. To support other attributes, override <code>RenderHtmlBlockWithAttributes()</code> in your block renderer.</p>
+<p>The <code>MarkdownProcessor</code> constructor with <code>parseEmbeddedHtml</code> is annotated experimental.</p>
 <h2 id="live-previews-re-parse-only-what-changed"><a class="anchor" href="#live-previews-re-parse-only-what-changed">Live previews re-parse only what changed</a></h2>
 <p>For live previews, select the processor's editor preview mode. It re-parses changed blocks after each edit and reuses unchanged blocks.</p>
 <p>The processor compares common prefixes and suffixes in the old and new text. It re-parses changed top-level CommonMark blocks and the block immediately before each change. Including the preceding block handles block merges. The processor shifts source spans for reused blocks. It reprocesses all inline content within each changed block.</p>
 <p>Parsing operates at block level. Editing one large block still re-parses that whole block. Documents with many unchanged blocks avoid most parsing work.</p>
+<h3 id="keeping-the-editor-and-the-preview-scrolled-together"><a class="anchor" href="#keeping-the-editor-and-the-preview-scrolled-together">Keeping the editor and the preview scrolled together</a></h3>
+<p>In an editor with a live preview, a <code>ScrollingSynchronizer</code> links the scroll positions of the two panes. When the user scrolls either pane, the other pane scrolls to the same place in the document.</p>
+<p>Create the synchronizer from the preview's scroll state with <code>createContinuous()</code>. It accepts the <code>LazyListState</code> of a <code>LazyMarkdown</code>, or the <code>ScrollState</code> of a <code>Markdown</code>. For any other state, it returns <code>null</code>. Pass the synchronizer to <code>MarkdownMode.EditorPreview</code>. Render the preview with a <code>ScrollSyncMarkdownBlockRenderer</code>, which reports the position of each block to the synchronizer. Then call <code>syncScrolling()</code> with the editor's <code>ScrollState</code>, and the editor's line positions from <code>sourceLineOffsets()</code>.</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.layout.Row
+<span class="c-kw">import</span> androidx.compose.foundation.lazy.rememberLazyListState
+<span class="c-kw">import</span> androidx.compose.foundation.rememberScrollState
+<span class="c-kw">import</span> androidx.compose.foundation.text.input.TextFieldState
+<span class="c-kw">import</span> androidx.compose.runtime.Composable
+<span class="c-kw">import</span> androidx.compose.runtime.LaunchedEffect
+<span class="c-kw">import</span> androidx.compose.runtime.derivedStateOf
+<span class="c-kw">import</span> androidx.compose.runtime.getValue
+<span class="c-kw">import</span> androidx.compose.runtime.mutableStateOf
+<span class="c-kw">import</span> androidx.compose.runtime.remember
+<span class="c-kw">import</span> androidx.compose.runtime.setValue
+<span class="c-kw">import</span> androidx.compose.ui.Modifier
+<span class="c-kw">import</span> androidx.compose.ui.text.TextLayoutResult
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.ExperimentalJewelApi
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.theme.JewelTheme
+<span class="c-kw">import</span> org.jetbrains.jewel.intui.markdown.standalone.ProvideMarkdownStyling
+<span class="c-kw">import</span> org.jetbrains.jewel.intui.markdown.standalone.styling.dark
+<span class="c-kw">import</span> org.jetbrains.jewel.intui.markdown.standalone.styling.light
+<span class="c-kw">import</span> org.jetbrains.jewel.markdown.LazyMarkdown
+<span class="c-kw">import</span> org.jetbrains.jewel.markdown.MarkdownMode
+<span class="c-kw">import</span> org.jetbrains.jewel.markdown.WithMarkdownMode
+<span class="c-kw">import</span> org.jetbrains.jewel.markdown.processing.MarkdownProcessor
+<span class="c-kw">import</span> org.jetbrains.jewel.markdown.rendering.InlineMarkdownRenderer
+<span class="c-kw">import</span> org.jetbrains.jewel.markdown.rendering.MarkdownStyling
+<span class="c-kw">import</span> org.jetbrains.jewel.markdown.rendering.create
+<span class="c-kw">import</span> org.jetbrains.jewel.markdown.scrolling.ScrollSyncMarkdownBlockRenderer
+<span class="c-kw">import</span> org.jetbrains.jewel.markdown.scrolling.ScrollingSynchronizer
+<span class="c-kw">import</span> org.jetbrains.jewel.markdown.scrolling.sourceLineOffsets
+<span class="c-kw">import</span> org.jetbrains.jewel.markdown.scrolling.syncScrolling
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.TextArea
+
+<span class="c-kw">@OptIn</span>(ExperimentalJewelApi::<span class="c-kw">class</span>)
+<span class="c-kw">@Composable</span>
+<span class="c-kw">fun</span> <span class="c-fn">EditorWithPreview</span>(editorState: TextFieldState) {
+    <span class="c-kw">val</span> editorScrollState = <span class="c-fn">rememberScrollState</span>()
+    <span class="c-kw">val</span> previewState = <span class="c-fn">rememberLazyListState</span>()
+    <span class="c-kw">val</span> synchronizer = <span class="c-fn">remember</span>(previewState) {
+        ScrollingSynchronizer.<span class="c-fn">createContinuous</span>(previewState)
+    }
+    <span class="c-kw">val</span> markdownMode = <span class="c-fn">remember</span>(synchronizer) { MarkdownMode.<span class="c-fn">EditorPreview</span>(synchronizer) }
+    <span class="c-kw">val</span> processor = <span class="c-fn">remember</span>(markdownMode) { <span class="c-fn">MarkdownProcessor</span>(markdownMode = markdownMode) }
+
+    <span class="c-kw">val</span> isDark = JewelTheme.isDark
+    <span class="c-kw">val</span> styling = <span class="c-fn">remember</span>(isDark) { <span class="c-fn">if</span> (isDark) MarkdownStyling.<span class="c-fn">dark</span>() <span class="c-kw">else</span> MarkdownStyling.<span class="c-fn">light</span>() }
+    <span class="c-kw">val</span> blockRenderer = <span class="c-fn">remember</span>(styling) {
+        <span class="c-fn">ScrollSyncMarkdownBlockRenderer</span>(styling, <span class="c-fn">emptyList</span>(), InlineMarkdownRenderer.<span class="c-fn">create</span>(<span class="c-fn">emptyList</span>()))
+    }
+
+    <span class="c-kw">var</span> editorLayout <span class="c-kw">by</span> remember { mutableStateOf&lt;TextLayoutResult?&gt;(<span class="c-kw">null</span>) }
+    <span class="c-kw">val</span> editorOffsetOfLine <span class="c-kw">by</span> remember {
+        derivedStateOf { editorLayout?.<span class="c-fn">sourceLineOffsets</span>() ?: { _: Int -&gt; <span class="c-kw">null</span> } }
+    }
+    <span class="c-fn">LaunchedEffect</span>(synchronizer) {
+        synchronizer?.<span class="c-fn">syncScrolling</span>(editorScrollState) { editorOffsetOfLine }
+    }
+
+    <span class="c-kw">val</span> blocks = <span class="c-fn">remember</span>(editorState.text) {
+        processor.<span class="c-fn">processMarkdownDocument</span>(editorState.text.<span class="c-fn">toString</span>())
+    }
+
+    <span class="c-fn">WithMarkdownMode</span>(markdownMode) {
+        Row {
+            <span class="c-fn">TextArea</span>(
+                state = editorState,
+                modifier = Modifier.<span class="c-fn">weight</span>(<span class="c-num">1f</span>),
+                scrollState = editorScrollState,
+                onTextLayout = { getResult -&gt; <span class="c-fn">getResult</span>()?.let { editorLayout = it } },
+            )
+            <span class="c-fn">ProvideMarkdownStyling</span>(
+                markdownStyling = styling,
+                markdownMode = markdownMode,
+                markdownProcessor = processor,
+                markdownBlockRenderer = blockRenderer,
+            ) {
+                <span class="c-fn">LazyMarkdown</span>(blocks = blocks, modifier = Modifier.<span class="c-fn">weight</span>(<span class="c-num">1f</span>), state = previewState)
+            }
+        }
+    }
+}</code></pre></div>
+<p><code>WithMarkdownMode()</code> gives the preview access to the synchronizer. The synchronizer, <code>MarkdownMode.EditorPreview</code>, <code>ScrollSyncMarkdownBlockRenderer</code>, <code>syncScrolling()</code> and <code>sourceLineOffsets()</code> are annotated experimental.</p>
 <h2 id="rendering-your-own-blocks"><a class="anchor" href="#rendering-your-own-blocks">Rendering your own blocks</a></h2>
 <p><code>MarkdownBlockRenderer</code> draws standard blocks through composable <code>Render*</code> entry points, including <code>RenderParagraph</code>, <code>RenderHeading</code>, and <code>RenderFencedCodeBlock</code>. Implement <code>MarkdownBlockRendererExtension</code> for custom blocks. Return whether the extension handles a block from <code>canRender(block)</code>. Draw supported blocks in <code>RenderCustomBlock</code>.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
@@ -297,7 +394,9 @@ ProvideMarkdownStyling {
 <a class="lv2" href="#modules">Modules</a>
 <a class="lv2" href="#providing-styling">Providing styling</a>
 <a class="lv2" href="#github-flavour">GitHub flavour</a>
+<a class="lv2" href="#raw-html-blocks-are-dropped-by-default">Raw HTML blocks are dropped by default</a>
 <a class="lv2" href="#live-previews-re-parse-only-what-changed">Live previews re-parse only what changed</a>
+<a class="lv3" href="#keeping-the-editor-and-the-preview-scrolled-together">Keeping the editor and the preview scrolled together</a>
 <a class="lv2" href="#rendering-your-own-blocks">Rendering your own blocks</a>
 <a class="lv2" href="#see-also">See also</a></aside>
   </div>

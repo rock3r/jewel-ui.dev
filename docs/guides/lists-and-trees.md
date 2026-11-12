@@ -67,9 +67,11 @@ This selection rule preserves position during filtering, matching IDE behaviour.
 
 ## Scrollbars
 
-Scrollable containers and scrollbars accept an optional `ScrollbarAdapter`.
-Use it to control thumb size and position when scrollable content differs from the
-scrollbar's attached container.
+`VerticallyScrollableContainer` and `HorizontallyScrollableContainer` add a themed
+scrollbar to content. Each container has two overloads.
+
+For content that does not scroll itself, use the overload that takes a `ScrollState`. The
+container scrolls the content. The state defaults to `rememberScrollState()`.
 
 ```kotlin
 import org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
@@ -79,8 +81,26 @@ VerticallyScrollableContainer {
 }
 ```
 
-Use current overloads with an `adapter` parameter. Older overloads without it are
-deprecated. The default `null` adapter preserves the previous behaviour.
+For content that scrolls itself, such as a `LazyColumn`, pass the content's state as the
+first argument. The container draws the scrollbar and leaves scrolling to the content.
+
+```kotlin
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
+
+val listState = rememberLazyListState()
+
+VerticallyScrollableContainer(listState) {
+    LazyColumn(state = listState) {
+        // items
+    }
+}
+```
+
+The default scrollbar supports `ScrollState`, `LazyListState` and `LazyGridState`. For any
+other state, or when the scrollable content differs from the container's own content, pass
+a `ScrollbarAdapter` as `adapter`. The adapter controls the thumb size and position.
 
 `ScrollbarVisibility` supports `AlwaysVisible` and `WhenScrolling`. On macOS, Jewel
 follows **System Settings → Appearance → Show scroll bars**. Always-visible scrollbars

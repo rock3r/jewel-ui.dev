@@ -285,14 +285,42 @@ figure.shot img {
 <p>On macOS, <code>Modifier.newFullscreenControls()</code> positions the window buttons for the newer fullscreen control layout. Other platforms do not use this modifier.</p>
 <h2 id="making-parts-of-the-bar-clickable"><a class="anchor" href="#making-parts-of-the-bar-clickable">Making parts of the bar clickable</a></h2>
 <p>By default, dragging the title bar moves the window. Add <code>Modifier.clientRegion</code> to interactive controls so hit-testing treats those regions as application content.</p>
-<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.window.utils.clientRegion
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.layout.width
+<span class="c-kw">import</span> androidx.compose.runtime.Composable
+<span class="c-kw">import</span> androidx.compose.runtime.getValue
+<span class="c-kw">import</span> androidx.compose.runtime.mutableStateOf
+<span class="c-kw">import</span> androidx.compose.runtime.remember
+<span class="c-kw">import</span> androidx.compose.runtime.setValue
+<span class="c-kw">import</span> androidx.compose.ui.Modifier
+<span class="c-kw">import</span> androidx.compose.ui.unit.dp
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.ExperimentalJewelApi
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.MenuComboBox
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.Text
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.items
+<span class="c-kw">import</span> org.jetbrains.jewel.window.DecoratedWindowScope
+<span class="c-kw">import</span> org.jetbrains.jewel.window.TitleBar
+<span class="c-kw">import</span> org.jetbrains.jewel.window.utils.clientRegion
 
-TitleBar {
-    <span class="c-fn">Dropdown</span>(Modifier.<span class="c-fn">clientRegion</span>(<span class="c-str">&quot;view-switcher&quot;</span>)) {
-        <span class="c-com">// …</span>
+<span class="c-kw">@OptIn</span>(ExperimentalJewelApi::<span class="c-kw">class</span>)
+<span class="c-kw">@Composable</span>
+<span class="c-kw">fun</span> DecoratedWindowScope.<span class="c-fn">AppTitleBar</span>() {
+    <span class="c-kw">var</span> view <span class="c-kw">by</span> remember { <span class="c-fn">mutableStateOf</span>(<span class="c-str">&quot;Project&quot;</span>) }
+
+    TitleBar {
+        <span class="c-fn">MenuComboBox</span>(
+            labelContent = { <span class="c-fn">Text</span>(view) },
+            modifier = Modifier.<span class="c-fn">width</span>(<span class="c-num">160.dp</span>).<span class="c-fn">clientRegion</span>(<span class="c-str">&quot;view-switcher&quot;</span>),
+        ) {
+            <span class="c-fn">items</span>(
+                items = <span class="c-fn">listOf</span>(<span class="c-str">&quot;Project&quot;</span>, <span class="c-str">&quot;Packages&quot;</span>),
+                isSelected = { it == view },
+                onItemClick = { view = it },
+            ) { <span class="c-fn">Text</span>(it) }
+        }
     }
 }</code></pre></div>
 <p>The key identifies the registered region. Apply the modifier to every interactive title bar element. Without it, controls display normally but cannot respond to interaction.</p>
+<p><code>MenuComboBox</code> replaces the deprecated <code>Dropdown</code> and is annotated experimental.</p>
 <h2 id="styling"><a class="anchor" href="#styling">Styling</a></h2>
 <p>Component styling supplies title bar styles. Jewel includes three variants:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.intui.window.decoratedWindow

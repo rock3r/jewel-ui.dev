@@ -278,13 +278,26 @@ SpeedSearchArea {
 <p>If filtering hides the selected item, an existing selection anchor selects its closest visible match. Without an anchor, selection scans forward. It chooses the topmost visible match, then the first match below the viewport. If neither exists, selection wraps to the first match from the top of the list.</p>
 <p>This selection rule preserves position during filtering, matching IDE behaviour.</p>
 <h2 id="scrollbars"><a class="anchor" href="#scrollbars">Scrollbars</a></h2>
-<p>Scrollable containers and scrollbars accept an optional <code>ScrollbarAdapter</code>. Use it to control thumb size and position when scrollable content differs from the scrollbar's attached container.</p>
+<p><code>VerticallyScrollableContainer</code> and <code>HorizontallyScrollableContainer</code> add a themed scrollbar to content. Each container has two overloads.</p>
+<p>For content that does not scroll itself, use the overload that takes a <code>ScrollState</code>. The container scrolls the content. The state defaults to <code>rememberScrollState()</code>.</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
 
 VerticallyScrollableContainer {
     <span class="c-com">// content</span>
 }</code></pre></div>
-<p>Use current overloads with an <code>adapter</code> parameter. Older overloads without it are deprecated. The default <code>null</code> adapter preserves the previous behaviour.</p>
+<p>For content that scrolls itself, such as a <code>LazyColumn</code>, pass the content's state as the first argument. The container draws the scrollbar and leaves scrolling to the content.</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.lazy.LazyColumn
+<span class="c-kw">import</span> androidx.compose.foundation.lazy.rememberLazyListState
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.VerticallyScrollableContainer
+
+<span class="c-kw">val</span> listState = <span class="c-fn">rememberLazyListState</span>()
+
+<span class="c-fn">VerticallyScrollableContainer</span>(listState) {
+    <span class="c-fn">LazyColumn</span>(state = listState) {
+        <span class="c-com">// items</span>
+    }
+}</code></pre></div>
+<p>The default scrollbar supports <code>ScrollState</code>, <code>LazyListState</code> and <code>LazyGridState</code>. For any other state, or when the scrollable content differs from the container's own content, pass a <code>ScrollbarAdapter</code> as <code>adapter</code>. The adapter controls the thumb size and position.</p>
 <p><code>ScrollbarVisibility</code> supports <code>AlwaysVisible</code> and <code>WhenScrolling</code>. On macOS, Jewel follows <strong>System Settings → Appearance → Show scroll bars</strong>. Always-visible scrollbars occupy space beside content. When-scrolling scrollbars overlay the content. Styles control track thickness, expansion animation, and linger duration.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
 <ul>
