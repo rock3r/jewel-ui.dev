@@ -118,4 +118,5 @@ divider. Set `enabled` to `false` to draw the divider in its disabled colour.
 ## See also
 
 - [Lists, trees and speed search](lists-and-trees.md) — selection and type-to-find
+- [Menus and popups](menus-and-popups.md) — menu combo boxes and popup menus
 - [Theming](theming.md) — the styles these components read

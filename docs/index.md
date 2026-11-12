@@ -67,6 +67,8 @@ Use these guides for specific tasks:
 - [Typography and fonts](guides/typography.md) — text styles, including the editor font
 - [Lists, trees and speed search](guides/lists-and-trees.md)
 - [Components](guides/components.md) — filterable lists, search fields and group headers
+- [Menus and popups](guides/menus-and-popups.md) — menu combo boxes, popup menus and
+  popups
 - [Rendering Markdown](guides/markdown.md)
 - [Decorated windows](guides/decorated-windows.md) — the IDE's title bar, in your app
 - [Swing interop](guides/swing-interop.md) — mixing Compose and Swing in one window

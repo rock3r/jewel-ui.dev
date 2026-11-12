@@ -111,7 +111,8 @@ fun DecoratedWindowScope.AppTitleBar() {
 The key identifies the registered region. Apply the modifier to every interactive title
 bar element. Without it, controls display normally but cannot respond to interaction.
 
-`MenuComboBox` replaces the deprecated `Dropdown` and is annotated experimental.
+`MenuComboBox` replaces the deprecated `Dropdown` and is annotated experimental. See
+[Menus and popups](menus-and-popups.md) for the items a menu accepts.
 
 ## Styling
 
