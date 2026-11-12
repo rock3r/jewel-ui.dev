@@ -25,7 +25,8 @@ Read the guide that matches what you are about to change. Both are binding.
 | `public/` | Build output, deployed to Cloudflare Workers |
 | `check-links.mjs` | Verifies internal doc links and anchors |
 | `update-version.mjs` | Reads the published Jewel version from Maven Central into the page |
-| `.github/workflows/` | The daily job that runs it and commits the result |
+| `jewel-version.mjs` | Picks the latest release from Maven Central; shared by the two scripts above |
+| `.github/workflows/` | Jobs that commit the version bump and the API reference, and deploy |
 | `.rumdl.toml` | Markdown formatting config for `docs/` |
 | `wrangler.jsonc` | Cloudflare Workers config |
 

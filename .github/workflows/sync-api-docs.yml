@@ -1,0 +1,124 @@
+# Keeps the API reference under /api/ in step with the Jewel release on Maven Central.
+# public/api/ is Dokka HTML built from the published -sources.jar files, never edited by
+# hand (see AGENTS.md). Before this workflow it was rebuilt manually and fell a release
+# behind the version chip.
+#
+# It commits straight to master and deploys, like the version bump. The diff is 5k+
+# generated files and nobody reads it, so the gates are mechanical instead: the build has
+# to produce every module at the target version, and nothing outside public/api/ may move.
+name: Sync API reference
+
+on:
+  # Right after the chip moves, so the chip and /api/ change on the same morning.
+  workflow_run:
+    workflows: [Update Jewel version]
+    types: [completed]
+  schedule:
+    # Every 3 hours, off the hour. A run with nothing to do is one metadata GET.
+    - cron: '41 */3 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+# Same group as update-jewel-version.yml: both push to master, and two pushes would race.
+concurrency:
+  group: update-jewel-version
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    # A full Dokka build takes a few minutes; this is the hang guard.
+    timeout-minutes: 60
+    env:
+      CF_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          # workflow_run otherwise checks out the commit that triggered the version run,
+          # which is behind the bump it just pushed.
+          ref: master
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+
+      - id: api
+        name: Compare Maven Central with public/api/
+        run: node sync-api-docs.mjs --check
+
+      # Dokka 2.0 breaks on Java 25. findJdk21() honours JAVA_HOME, which this sets.
+      - name: Set up JDK 21
+        if: steps.api.outputs.changed == 'true'
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '21'
+
+      - name: Build the API reference
+        if: steps.api.outputs.changed == 'true'
+        env:
+          VERSION: ${{ steps.api.outputs.latest }}
+        run: |
+          node sync-api-docs.mjs --version "$VERSION"
+          node check-links.mjs
+
+      - name: Prove the diff is only public/api/ at the new version
+        if: steps.api.outputs.changed == 'true'
+        env:
+          VERSION: ${{ steps.api.outputs.latest }}
+        run: |
+          git add -A
+          outside="$(git diff --cached --name-only | grep -v '^public/api/' || true)"
+          if [ -n "$outside" ]; then
+            echo "::error::files outside public/api/ changed, refusing to commit:"
+            echo "$outside"
+            exit 1
+          fi
+          built="$(node -p "require('./public/api/.sync-meta.json').version")"
+          if [ "$built" != "$VERSION" ]; then
+            echo "::error::built $built, expected $VERSION"
+            exit 1
+          fi
+          node sync-api-docs.mjs --check | tee "$RUNNER_TEMP/check"
+          grep -q 'is up to date' "$RUNNER_TEMP/check"
+          git diff --cached --shortstat
+
+      - name: Commit
+        if: steps.api.outputs.changed == 'true'
+        env:
+          VERSION: ${{ steps.api.outputs.latest }}
+          PREVIOUS: ${{ steps.api.outputs.current }}
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -q -m "Update the API reference to $VERSION" \
+                        -m "Dokka HTML rebuilt from the Maven Central sources jars, was $PREVIOUS."
+          # A person may have pushed during the build. The commit only touches public/api/,
+          # so rebasing onto their work is safe. The checkout is shallow, so deepen first.
+          git push || {
+            git fetch --deepen=50 origin master && git rebase origin/master && git push
+          }
+
+      # Pushes made with GITHUB_TOKEN do not start deploy.yml, so deploy here.
+      - name: Deploy
+        if: steps.api.outputs.changed == 'true' && env.CF_API_TOKEN != ''
+        env:
+          CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+        run: npx --yes wrangler@latest deploy
+
+      - name: Report
+        env:
+          CHANGED: ${{ steps.api.outputs.changed }}
+          VERSION: ${{ steps.api.outputs.latest }}
+          PREVIOUS: ${{ steps.api.outputs.current }}
+        run: |
+          if [ "$CHANGED" != 'true' ]; then
+            echo "API reference already on $VERSION. Nothing to do." >> "$GITHUB_STEP_SUMMARY"
+          elif [ -n "$CF_API_TOKEN" ]; then
+            echo "API reference updated from $PREVIOUS to $VERSION and deployed." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "API reference updated to $VERSION, committed but not deployed." >> "$GITHUB_STEP_SUMMARY"
+          fi

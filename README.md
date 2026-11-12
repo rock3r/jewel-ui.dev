@@ -18,6 +18,7 @@ sync-tooling-docs.mjs  copies jewel-tooling/user-guide into docs/tooling/
 sync-api-docs.mjs  builds Dokka HTML from Maven source jars into public/api/
 check-links.mjs    verifies internal doc links and anchors
 update-version.mjs updates the Jewel version from Maven Central
+jewel-version.mjs  picks the latest Jewel release on Maven Central (shared by both)
 .rumdl.toml        Markdown formatting config for docs/
 wrangler.jsonc     Worker + static asset config
 ```
@@ -51,6 +52,12 @@ The daily `.github/workflows/update-jewel-version.yml` workflow commits version 
 to `master` and deploys them. Before deployment, `verify-version-bump.mjs` substitutes the
 previous version back into the generated content. The result must match the committed
 file byte for byte. Any other difference stops deployment.
+
+`.github/workflows/sync-api-docs.yml` keeps `public/api/` on the same release. It runs
+after each version update and every 3 hours. When Maven Central has a newer release than
+`public/api/`, it rebuilds the reference with JDK 21, requires that only `public/api/`
+changed, commits to `master` and deploys. `node sync-api-docs.mjs --check` runs the same
+comparison locally without building.
 
 Commit changes to `src/Main.dc.html` together with rebuilt `public/index.html`.
 Otherwise, the next version update would include unreviewed generated changes.

@@ -5,6 +5,11 @@
 //
 //   node sync-api-docs.mjs              # version from public/index.html, else Maven latest
 //   node sync-api-docs.mjs --version V
+//   node sync-api-docs.mjs --check      # compare Maven latest with public/api/, build nothing
+//
+// --check writes `current`, `latest` and `changed` to $GITHUB_OUTPUT for the workflow.
+// A build that loses a module exits non-zero, so an unattended run never publishes a
+// partial reference.
 //
 // Needs network, JDK 21 (Dokka 2.0 breaks on 25), and tools/api-dokka/gradlew.
 import {
@@ -21,11 +26,11 @@ import { execFileSync, spawnSync } from 'node:child_process';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { homedir, tmpdir } from 'node:os';
+import { fetchLatestRelease } from './jewel-version.mjs';
 
 const HERE = dirname(fileURLToPath(import.meta.url));
 const OUT = join(HERE, 'public', 'api');
 const TOOLS = join(HERE, 'tools', 'api-dokka');
-const MAVEN = 'https://repo1.maven.org/maven2/org/jetbrains/jewel';
 
 const MODULES = [
   { id: 'jewel-foundation', title: 'Foundation', blurb: 'Theme, utilities, and the shared primitives.' },
@@ -55,14 +60,18 @@ function versionFromSite() {
   return m ? m[1] : null;
 }
 
+// Sorted, not <latest>: see jewel-version.mjs.
 async function mavenLatest() {
-  const xml = await fetch(`${MAVEN}/jewel-ui/maven-metadata.xml`).then((r) => {
-    if (!r.ok) throw new Error(`maven-metadata.xml HTTP ${r.status}`);
-    return r.text();
-  });
-  const m = xml.match(/<latest>([^<]+)<\/latest>/);
-  if (!m) throw new Error('no <latest> in maven-metadata.xml');
-  return m[1];
+  return (await fetchLatestRelease('jewel-ui')).artifact;
+}
+
+// The version Dokka stamped on the published reference.
+function versionFromApi() {
+  const index = join(OUT, 'index.html');
+  if (!existsSync(index)) return null;
+  const html = readFileSync(index, 'utf8');
+  const m = html.match(/id="library-version">\s*([^<\s]+)\s*</);
+  return m ? m[1] : null;
 }
 
 function jdkMajor(home) {
@@ -421,6 +430,21 @@ function injectChrome(root) {
 }
 
 
+if (process.argv.includes('--check')) {
+  const current = versionFromApi();
+  const latest = await mavenLatest();
+  const changed = current !== latest;
+  console.log(`public/api/: ${current ?? '(none)'}`);
+  console.log(`Maven Central: ${latest}`);
+  console.log(changed ? 'the API reference is out of date' : 'the API reference is up to date');
+  // latest matched RELEASE in jewel-version.mjs: digits, dots and one dash, shell-safe.
+  if (process.env.GITHUB_OUTPUT) {
+    const out = `current=${current ?? ''}\nlatest=${latest}\nchanged=${changed}\n`;
+    writeFileSync(process.env.GITHUB_OUTPUT, out, { flag: 'a' });
+  }
+  process.exit(0);
+}
+
 const version = argVersion() || versionFromSite() || (await mavenLatest());
 const jdkHome = findJdk21();
 console.log(`syncing modern Dokka API docs for Jewel ${version}`);
@@ -477,8 +501,9 @@ for (const mod of MODULES) {
   }
 }
 
-if (!present.length) {
-  console.error('no modules generated');
+if (present.length !== MODULES.length) {
+  const missing = MODULES.filter((m) => !present.some((p) => p.id === m.id)).map((m) => m.id);
+  console.error(`modules failed: ${missing.join(', ')}. Refusing to publish a partial reference.`);
   process.exit(1);
 }
 
