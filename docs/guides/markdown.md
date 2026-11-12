@@ -57,6 +57,33 @@ The extensions support tables, strikethrough, autolinks, front matter, images, a
 alert blocks. The five alert kinds are **Note**, **Tip**, **Important**, **Warning**, and
 **Caution**. Each uses its icon and accent colour from the current theme.
 
+## Images in a plugin use the IDE's network settings
+
+The images extension draws images with Coil 3. In a standalone app, create its renderer
+extension with `Coil3ImageRendererExtension.withDefaultLoader()`. In a plugin, use
+`withIdeDefaultLoader()` from the bridge styling module instead. That loader fetches
+remote images with the IDE's proxy settings, proxy authentication and trusted
+certificates.
+
+```kotlin
+import androidx.compose.runtime.Composable
+import org.jetbrains.jewel.foundation.ExperimentalJewelApi
+import org.jetbrains.jewel.intui.markdown.bridge.withIdeDefaultLoader
+import org.jetbrains.jewel.markdown.extensions.images.Coil3ImageRendererExtension
+
+@OptIn(ExperimentalJewelApi::class)
+@Composable
+fun rememberImageExtension(): Coil3ImageRendererExtension =
+    Coil3ImageRendererExtension.withIdeDefaultLoader()
+```
+
+Add the result to the renderer extensions of your block renderer. Each call to
+`withIdeDefaultLoader(context)` creates a new image loader and HTTP client. Create one
+extension and share it. The composable overload remembers its loader for the current
+`LocalPlatformContext`. To reuse an existing Coil `ImageLoader`, pass it to the
+`Coil3ImageRendererExtension` constructor instead. `Coil3ImageRendererExtension`,
+`withDefaultLoader()` and `withIdeDefaultLoader()` are annotated experimental.
+
 ## Raw HTML blocks are dropped by default
 
 By default, the processor drops raw HTML blocks from the output. To keep common HTML

@@ -263,6 +263,7 @@ figure.shot img {
     }
 }</code></pre></div>
 <p>Import <code>SingleSelectionLazyColumn</code> or <code>MultiSelectionLazyColumn</code> from <code>org.jetbrains.jewel.foundation.lazy</code>. Create state with the matching <code>rememberSingleSelectionLazyListState()</code> or <code>rememberMultiSelectionLazyListState()</code>.</p>
+<p><strong>Shift</strong>, <strong>Ctrl</strong> and <strong>Cmd</strong> do not change what a right-click selects. Right-clicking a selected item keeps the current selection. Right-clicking an item that is not selected selects only that item.</p>
 <p><code>SelectableLazyColumn</code> is deprecated. Replace it with the component matching the required single-selection or multi-selection model.</p>
 <h2 id="trees"><a class="anchor" href="#trees">Trees</a></h2>
 <p>For themed trees, use <code>LazyTree</code> from <code>org.jetbrains.jewel.ui.component</code>. The ambient theme supplies its colours and metrics.</p>
@@ -300,7 +301,25 @@ VerticallyScrollableContainer {
     }
 }</code></pre></div>
 <p>The default scrollbar supports <code>ScrollState</code>, <code>LazyListState</code>, <code>LazyGridState</code> and <code>TextFieldScrollState</code>. For any other state, or when the scrollable content differs from the container's own content, pass a <code>ScrollbarAdapter</code> as <code>adapter</code>. The adapter controls the thumb size and position.</p>
-<p><code>ScrollbarVisibility</code> supports <code>AlwaysVisible</code> and <code>WhenScrolling</code>. On macOS, Jewel follows <strong>System Settings → Appearance → Show scroll bars</strong>. Always-visible scrollbars occupy space beside content. When-scrolling scrollbars overlay the content. Styles control track thickness, expansion animation, and linger duration.</p>
+<p>To add a scrollbar to a layout without wrapping it in a container, use <code>Modifier.scrollIndicator()</code>. The modifier draws the scrollbar over the layout it modifies, and handles thumb drags and track clicks. Pass the same state that scrolls the layout:</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.lazy.LazyColumn
+<span class="c-kw">import</span> androidx.compose.foundation.lazy.rememberLazyListState
+<span class="c-kw">import</span> androidx.compose.runtime.Composable
+<span class="c-kw">import</span> androidx.compose.ui.Modifier
+<span class="c-kw">import</span> org.jetbrains.jewel.foundation.ExperimentalJewelApi
+<span class="c-kw">import</span> org.jetbrains.jewel.ui.component.scrollIndicator
+
+<span class="c-kw">@OptIn</span>(ExperimentalJewelApi::<span class="c-kw">class</span>)
+<span class="c-kw">@Composable</span>
+<span class="c-kw">fun</span> <span class="c-fn">Results</span>() {
+    <span class="c-kw">val</span> listState = <span class="c-fn">rememberLazyListState</span>()
+
+    <span class="c-fn">LazyColumn</span>(state = listState, modifier = Modifier.<span class="c-fn">scrollIndicator</span>(listState)) {
+        <span class="c-com">// items</span>
+    }
+}</code></pre></div>
+<p>On macOS with always-visible scrollbars, the indicator takes its own space beside the content. In all other cases, the indicator draws over the content. To keep text and controls clear of the indicator, give them padding of <code>scrollbarContentSafePadding()</code> on that side. For a horizontal indicator, pass <code>orientation = Orientation.Horizontal</code>, from <code>androidx.compose.foundation.gestures</code>. <code>Modifier.scrollIndicator()</code> is annotated experimental.</p>
+<p><code>ScrollbarVisibility</code> supports <code>AlwaysVisible</code> and <code>WhenScrolling</code>. On macOS, Jewel follows <strong>System Settings → Appearance → Show scroll bars</strong>. Always-visible scrollbars occupy space beside content. When-scrolling scrollbars overlay the content. Styles control track thickness, expansion animation, and linger duration. <code>expandDelay</code> and <code>collapseDelay</code> set how long the track waits before it expands on hover and collapses after the pointer leaves. Both default to no delay.</p>
 <h2 id="see-also"><a class="anchor" href="#see-also">See also</a></h2>
 <ul>
 <li><a href="theming.html">Theming</a> — styling the components above</li>

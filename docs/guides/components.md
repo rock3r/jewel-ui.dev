@@ -108,6 +108,31 @@ sample does. You can also set the text through `searchState.textFieldState`.
 `SearchTextField`, `SearchArea`, `SearchAreaState` and `rememberSearchAreaState()` are
 annotated experimental.
 
+## Show a toggle switch
+
+`OnOffButton` is the IntelliJ Platform toggle switch. It draws the platform's toggle
+images, so it follows the theme's toggle colours.
+
+```kotlin
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import org.jetbrains.jewel.ui.component.OnOffButton
+
+@Composable
+fun AutoSaveToggle() {
+    var autoSave by remember { mutableStateOf(true) }
+
+    OnOffButton(checked = autoSave, onCheckedChange = { autoSave = it })
+}
+```
+
+The button has a fixed size that includes room for the focus ring. Gaining focus does not
+change the layout. A disabled button cannot take focus. Accessibility services see the
+button as a switch.
+
 ## Label a group of controls
 
 `GroupHeader` draws a title followed by a horizontal divider. IntelliJ Platform settings
