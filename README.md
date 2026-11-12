@@ -19,6 +19,7 @@ sync-api-docs.mjs  builds Dokka HTML from Maven source jars into public/api/
 check-links.mjs    verifies internal doc links and anchors
 update-version.mjs updates the Jewel version from Maven Central
 jewel-version.mjs  picks the latest Jewel release on Maven Central (shared by both)
+tools/upstream-watch.mjs  opens docs issues for Jewel changes landing upstream
 .rumdl.toml        Markdown formatting config for docs/
 wrangler.jsonc     Worker + static asset config
 ```
@@ -58,6 +59,15 @@ after each version update and every 3 hours. When Maven Central has a newer rele
 `public/api/`, it rebuilds the reference with JDK 21, requires that only `public/api/`
 changed, commits to `master` and deploys. `node sync-api-docs.mjs --check` runs the same
 comparison locally without building.
+
+`.github/workflows/upstream-watch.yml` runs every other day. It reads the Jewel commits that
+landed on intellij-community `master` and opens one `docs-update` issue per JEWEL ticket
+whose change moved the public API or a user doc. Changes it cannot call are labelled
+`needs-triage`. Run it by hand with a `since` date to look further back, or locally:
+
+```bash
+GH_TOKEN=$(gh auth token) node tools/upstream-watch.mjs --since 2026-11-01T00:00:00Z --dry-run
+```
 
 Commit changes to `src/Main.dc.html` together with rebuilt `public/index.html`.
 Otherwise, the next version update would include unreviewed generated changes.

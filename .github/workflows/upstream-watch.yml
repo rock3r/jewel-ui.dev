@@ -1,0 +1,56 @@
+# Opens a docs issue for each Jewel change that lands in JetBrains/intellij-community and
+# moves what the guides describe. The guides are written by hand, so nothing else tells
+# us they drifted. tools/upstream-watch.mjs explains how commits are picked and classified.
+#
+# No state is kept between runs. Each issue carries hidden markers for its tickets and
+# commit SHAs, and the script reads existing issues first, so overlapping windows and
+# reruns do not open duplicates.
+name: Watch upstream Jewel changes
+
+on:
+  schedule:
+    # Every other day. The 3-day window overlaps the previous run on purpose.
+    - cron: '17 6 */2 * *'
+  workflow_dispatch:
+    inputs:
+      since:
+        description: 'Look back to this ISO 8601 time (default: 3 days ago)'
+        required: false
+        type: string
+      dry_run:
+        description: 'Classify and report only, open no issues'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+  issues: write
+
+concurrency:
+  group: upstream-watch
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: lts/*
+
+      # The token is the job's own GITHUB_TOKEN. It reads public intellij-community at the
+      # authenticated rate (1,000 requests an hour), and a run makes about one per commit.
+      - name: Scan intellij-community and file issues
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SINCE: ${{ inputs.since }}
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set --
+          if [ -n "$SINCE" ]; then set -- "$@" --since "$SINCE"; fi
+          if [ "$DRY_RUN" = 'true' ]; then set -- "$@" --dry-run; fi
+          node tools/upstream-watch.mjs "$@"

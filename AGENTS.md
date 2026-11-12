@@ -27,6 +27,7 @@ Read the guide that matches what you are about to change. Both are binding.
 | `update-version.mjs` | Reads the published Jewel version from Maven Central into the page |
 | `jewel-version.mjs` | Picks the latest release from Maven Central; shared by the two scripts above |
 | `.github/workflows/` | Jobs that commit the version bump and the API reference, and deploy |
+| `tools/upstream-watch.mjs` | Opens `docs-update` issues for Jewel changes that land upstream |
 | `.rumdl.toml` | Markdown formatting config for `docs/` |
 | `wrangler.jsonc` | Cloudflare Workers config |
 
