@@ -66,6 +66,7 @@ Use these guides for specific tasks:
 - [Icons](guides/icons.md) — icon keys, platform icons, and painter hints
 - [Typography and fonts](guides/typography.md) — text styles, including the editor font
 - [Lists, trees and speed search](guides/lists-and-trees.md)
+- [Components](guides/components.md) — filterable lists, search fields and group headers
 - [Rendering Markdown](guides/markdown.md)
 - [Decorated windows](guides/decorated-windows.md) — the IDE's title bar, in your app
 - [Swing interop](guides/swing-interop.md) — mixing Compose and Swing in one window
@@ -73,7 +74,6 @@ Use these guides for specific tasks:
 
 ## Reference
 
-- Components — gallery with real screenshots (coming soon)
 - [Versions and compatibility](versioning.md) — how versions are numbered, and which
   Jewel goes with which IntelliJ Platform
 - [Releases](https://github.com/JetBrains/intellij-community/blob/master/platform/jewel/RELEASE%20NOTES.md)

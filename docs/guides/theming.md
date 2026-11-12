@@ -24,7 +24,7 @@ The default `isDark = false` selects light styling. Pass `true` for dark styling
 For custom styling, use the overload accepting a theme definition and component styling:
 
 ```kotlin
-import org.jetbrains.jewel.foundation.theme.ComponentStyling
+import org.jetbrains.jewel.ui.ComponentStyling
 import org.jetbrains.jewel.intui.standalone.theme.IntUiTheme
 import org.jetbrains.jewel.intui.standalone.theme.default
 
@@ -85,7 +85,7 @@ Combine it with selective overrides to preserve unchanged defaults.
 Window decoration uses the same approach:
 
 ```kotlin
-import org.jetbrains.jewel.foundation.theme.ComponentStyling
+import org.jetbrains.jewel.ui.ComponentStyling
 import org.jetbrains.jewel.intui.standalone.theme.default
 import org.jetbrains.jewel.intui.window.decoratedWindow
 import org.jetbrains.jewel.intui.window.styling.dark
@@ -132,9 +132,16 @@ For Islands, replace `blueOrNull(1)` with `blueOrNull(10)` and `redOrNull(3)` wi
 `redOrNull(30)`. Check `ThemeColorPalette.isIslands` to select the correct scheme.
 
 ```kotlin
+import org.jetbrains.jewel.foundation.theme.JewelTheme
+import org.jetbrains.jewel.ui.theme.colorPalette
+
 val palette = JewelTheme.colorPalette
 val blue = if (palette.isIslands) palette.blueOrNull(10) else palette.blueOrNull(1)
 ```
+
+To check whether the IDE has Islands turned on, read `JewelTheme.isIslands`.
+In a plugin, it follows the IDE's Islands setting. In a standalone app, it is always
+`false`.
 
 Islands palettes share values across light and dark themes. Classic palettes differ
 between those themes. Islands adds semantic tokens above its palette. Jewel cannot read

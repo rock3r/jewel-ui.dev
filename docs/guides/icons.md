@@ -42,6 +42,24 @@ object MyIcons {
 Supply both paths and a resource-resolving class to `IntelliJIconKey`.
 For more than a few dozen icons, generate the holder. Jewel generates its own holders too.
 
+## Icons from the IntelliJ Platform icons API
+
+`Icon()` also draws an `IconDescriptor` from the IntelliJ Platform icons API, in
+`com.intellij.platform.icons`. A descriptor describes an icon as layers, such as images,
+other icons and badges. To build one in place, pass an `IconDesigner` block:
+
+```kotlin
+import org.jetbrains.jewel.ui.component.Icon
+
+Icon(contentDescription = "Refresh") {
+    image("icons/refresh.svg", MyIcons::class.java.classLoader)
+}
+```
+
+When you already have a descriptor, pass it as `iconDescriptor`. The optional `scale`
+parameter resizes the icon. The `jewel-ui` artifact depends on the IntelliJ Platform icons
+API artifacts, so `com.intellij.platform.icons` needs no separate dependency.
+
 ## Painter hints
 
 A `PainterHint` can change an icon path, patch or decorate the image, or leave it
