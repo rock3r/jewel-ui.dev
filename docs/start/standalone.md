@@ -92,6 +92,32 @@ Versions use the form `{{artifact}}`. The Jewel version precedes the IntelliJ Pl
 build used for compilation. See [Versions and compatibility](../versioning.md) to select
 a published combination.
 
+## Allow native access on macOS
+
+On macOS, Jewel calls system APIs through the Java Foreign Function and Memory (FFM) API.
+The JDK prints a warning when code calls a restricted FFM method without native access.
+To avoid the warning, pass `--enable-native-access=ALL-UNNAMED` to every JVM that runs
+Jewel:
+
+```kotlin
+// build.gradle.kts
+compose.desktop {
+    application {
+        mainClass = "MainKt"
+        jvmArgs += "--enable-native-access=ALL-UNNAMED"
+    }
+}
+
+tasks.withType<Test>().configureEach {
+    jvmArgs("--enable-native-access=ALL-UNNAMED")
+}
+```
+
+The `application` arguments apply to the `run` task and to the packaged app. Tests run in
+a separate JVM, so the `Test` tasks need the flag too.
+
+Jewel does not depend on JNA. If your app calls JNA, declare the JNA dependency yourself.
+
 ## Wrap your UI
 
 Place all Jewel components inside a theme wrapper:

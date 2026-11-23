@@ -302,6 +302,21 @@ plugins {
     }
 }</code></pre></div>
 <p>Versions use the form <code>0.42.0-263.7307.200</code>. The Jewel version precedes the IntelliJ Platform build used for compilation. See <a href="../versioning.html">Versions and compatibility</a> to select a published combination.</p>
+<h2 id="allow-native-access-on-macos"><a class="anchor" href="#allow-native-access-on-macos">Allow native access on macOS</a></h2>
+<p>On macOS, Jewel calls system APIs through the Java Foreign Function and Memory (FFM) API. The JDK prints a warning when code calls a restricted FFM method without native access. To avoid the warning, pass <code>--enable-native-access=ALL-UNNAMED</code> to every JVM that runs Jewel:</p>
+<div class="code"><pre><code class="lang-kotlin"><span class="c-com">// build.gradle.kts</span>
+compose.desktop {
+    application {
+        mainClass = <span class="c-str">&quot;MainKt&quot;</span>
+        jvmArgs += <span class="c-str">&quot;--enable-native-access=ALL-UNNAMED&quot;</span>
+    }
+}
+
+tasks.withType&lt;Test&gt;().configureEach {
+    <span class="c-fn">jvmArgs</span>(<span class="c-str">&quot;--enable-native-access=ALL-UNNAMED&quot;</span>)
+}</code></pre></div>
+<p>The <code>application</code> arguments apply to the <code>run</code> task and to the packaged app. Tests run in a separate JVM, so the <code>Test</code> tasks need the flag too.</p>
+<p>Jewel does not depend on JNA. If your app calls JNA, declare the JNA dependency yourself.</p>
 <h2 id="wrap-your-ui"><a class="anchor" href="#wrap-your-ui">Wrap your UI</a></h2>
 <p>Place all Jewel components inside a theme wrapper:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.layout.Column
@@ -352,6 +367,7 @@ dependencies {
 <a class="lv2" href="#repositories">Repositories</a>
 <a class="lv2" href="#plugins">Plugins</a>
 <a class="lv2" href="#dependencies">Dependencies</a>
+<a class="lv2" href="#allow-native-access-on-macos">Allow native access on macOS</a>
 <a class="lv2" href="#wrap-your-ui">Wrap your UI</a>
 <a class="lv2" href="#platform-icons">Platform icons</a>
 <a class="lv2" href="#next">Next</a></aside>
