@@ -254,7 +254,7 @@ figure.shot img {
 <p>Jewel requires the <strong>JetBrains Runtime (JBR)</strong> for font loading and window decoration patches. Other JDKs have no support. Set the toolchain vendor explicitly:</p>
 <div class="code"><pre><code class="lang-kotlin">kotlin {
     jvmToolchain {
-        languageVersion = JavaLanguageVersion.<span class="c-fn">of</span>(<span class="c-num">21</span>)
+        languageVersion = JavaLanguageVersion.<span class="c-fn">of</span>(<span class="c-num">25</span>)
         vendor = JvmVendorSpec.JETBRAINS
     }
 }</code></pre></div>
@@ -301,7 +301,7 @@ plugins {
         <span class="c-fn">exclude</span>(group = <span class="c-str">&quot;org.jetbrains.compose.material&quot;</span>)
     }
 }</code></pre></div>
-<p>Versions use the form <code>0.42.0-263.7307.200</code>. The Jewel version precedes the IntelliJ Platform build used for compilation. See <a href="../versioning.html">Versions and compatibility</a> to select a published combination.</p>
+<p>Versions use the form <code>0.42.0-263.7307.353</code>. The Jewel version precedes the IntelliJ Platform build used for compilation. See <a href="../versioning.html">Versions and compatibility</a> to select a published combination.</p>
 <h2 id="wrap-your-ui"><a class="anchor" href="#wrap-your-ui">Wrap your UI</a></h2>
 <p>Place all Jewel components inside a theme wrapper:</p>
 <div class="code"><pre><code class="lang-kotlin"><span class="c-kw">import</span> androidx.compose.foundation.layout.Column

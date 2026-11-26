@@ -13,7 +13,7 @@ patches. Other JDKs have no support. Set the toolchain vendor explicitly:
 ```kotlin
 kotlin {
     jvmToolchain {
-        languageVersion = JavaLanguageVersion.of(21)
+        languageVersion = JavaLanguageVersion.of(25)
         vendor = JvmVendorSpec.JETBRAINS
     }
 }
