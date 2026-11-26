@@ -26,6 +26,10 @@ Import `SingleSelectionLazyColumn` or `MultiSelectionLazyColumn` from
 `org.jetbrains.jewel.foundation.lazy`. Create state with the matching
 `rememberSingleSelectionLazyListState()` or `rememberMultiSelectionLazyListState()`.
 
+**Shift**, **Ctrl** and **Cmd** do not change what a right-click selects. Right-clicking a
+selected item keeps the current selection. Right-clicking an item that is not selected
+selects only that item.
+
 `SelectableLazyColumn` is deprecated. Replace it with the component matching the required
 single-selection or multi-selection model.
 
@@ -105,10 +109,43 @@ The default scrollbar supports `ScrollState`, `LazyListState`, `LazyGridState` a
 other state, or when the scrollable content differs from the container's own content, pass
 a `ScrollbarAdapter` as `adapter`. The adapter controls the thumb size and position.
 
+To add a scrollbar to a layout without wrapping it in a container, use
+`Modifier.scrollIndicator()`. The modifier draws the scrollbar over the layout it
+modifies, and handles thumb drags and track clicks. Pass the same state that scrolls the
+layout:
+
+```kotlin
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import org.jetbrains.jewel.foundation.ExperimentalJewelApi
+import org.jetbrains.jewel.ui.component.scrollIndicator
+
+@OptIn(ExperimentalJewelApi::class)
+@Composable
+fun Results() {
+    val listState = rememberLazyListState()
+
+    LazyColumn(state = listState, modifier = Modifier.scrollIndicator(listState)) {
+        // items
+    }
+}
+```
+
+On macOS with always-visible scrollbars, the indicator takes its own space beside the
+content. In all other cases, the indicator draws over the content. To keep text and
+controls clear of the indicator, give them padding of `scrollbarContentSafePadding()` on
+that side. For a horizontal indicator, pass `orientation = Orientation.Horizontal`, from
+`androidx.compose.foundation.gestures`. `Modifier.scrollIndicator()` is annotated
+experimental.
+
 `ScrollbarVisibility` supports `AlwaysVisible` and `WhenScrolling`. On macOS, Jewel
 follows **System Settings → Appearance → Show scroll bars**. Always-visible scrollbars
 occupy space beside content. When-scrolling scrollbars overlay the content. Styles control
-track thickness, expansion animation, and linger duration.
+track thickness, expansion animation, and linger duration. `expandDelay` and
+`collapseDelay` set how long the track waits before it expands on hover and collapses
+after the pointer leaves. Both default to no delay.
 
 ## See also
 
